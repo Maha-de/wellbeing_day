@@ -72,6 +72,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 Padding(
                   padding: EdgeInsets.only(bottom: screenHeight * 0.02),
                   child: SizedBox(
+                    
                     height: screenHeight * 0.17,
                     width: screenWidth * 0.35,
                     child: Image.asset('assets/images/img.png', fit: BoxFit.fill),
