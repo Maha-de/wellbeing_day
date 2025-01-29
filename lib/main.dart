@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:doctor/cubit/user_profile_cubit/user_profile_cubit.dart';
 import 'package:doctor/screens/client_profile_details.dart';
 import 'package:doctor/screens/client_profile_screen.dart';
-import 'package:doctor/screens/payment_screen.dart';
 import 'package:doctor/screens/psychological_disorders_screen.dart';
 import 'package:doctor/screens/settings_screen.dart';
 import 'package:doctor/screens/splashscreen.dart';
@@ -67,7 +66,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: PaymentScreen(),
+      home: SplashScreen(),
     );
   }
 }
