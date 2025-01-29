@@ -9,13 +9,13 @@ class PaymentScreen extends StatelessWidget {
     final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        leading:IconButton(onPressed: (){Navigator.pop(context);}, icon: Image(image: AssetImage("assets/images/back.png"),fit: BoxFit.fill,width: 20,height: 14,))
+        leading:IconButton(onPressed: (){Navigator.pop(context);}, icon: const Image(image: AssetImage("assets/images/back.png"),fit: BoxFit.fill,width: 20,height: 14,))
       ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               height: screenHeight*0.2,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -24,14 +24,14 @@ class PaymentScreen extends StatelessWidget {
                     child: Container(
                       width: 161,
                       height: 40,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Color(0xFF1F78BC),
                         borderRadius: BorderRadius.only(
                             bottomRight: Radius.circular(20),
                             topLeft: Radius.circular(20)),
                       ),
                       alignment: Alignment.center,
-                      child: Text(
+                      child: const Text(
                         "الدفع",
                         style: TextStyle(
                             fontSize: 20,
@@ -46,7 +46,7 @@ class PaymentScreen extends StatelessWidget {
                       height: 80,
                       decoration: BoxDecoration(
                           color: Colors.white,
-                          border: Border.all(color: Color(0xffAFDCFF), width: 2),
+                          border: Border.all(color: const Color(0xffAFDCFF), width: 2),
                           borderRadius: BorderRadius.circular(20)),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -59,8 +59,8 @@ class PaymentScreen extends StatelessWidget {
                               Row(
                                 children: [
                                   Image.asset("assets/images/session.png", width: 20, height: 20),
-                                  SizedBox(width: 5,),
-                                  Text(
+                                  const SizedBox(width: 5,),
+                                  const Text(
                                     "جلسه واحده",
                                     style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xff000000)),
                                   ),
@@ -71,8 +71,8 @@ class PaymentScreen extends StatelessWidget {
                               Row(
                                 children: [
                                   Image.asset("assets/images/solar_hand-heart-bold.png", width: 20, height: 20),
-                                  SizedBox(width: 5,),
-                                  Text(
+                                  const SizedBox(width: 5,),
+                                  const Text(
                                     "إستشاره",
                                     style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xff000000)),
                                   ),
@@ -82,7 +82,7 @@ class PaymentScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(height: 5,),
+                          const SizedBox(height: 5,),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,8 +90,8 @@ class PaymentScreen extends StatelessWidget {
                               Row(
                                 children: [
                                   Image.asset("assets/images/clock.png", width: 20, height: 20),
-                                  SizedBox(width: 5,),
-                                  Text(
+                                  const SizedBox(width: 5,),
+                                  const Text(
                                     "30 دقيقه",
                                     style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xff000000)),
                                   ),
@@ -102,8 +102,8 @@ class PaymentScreen extends StatelessWidget {
                               Row(
                                 children: [
                                   Image.asset("assets/images/doctorr.png", width: 20, height: 20),
-                                  SizedBox(width: 5,),
-                                  Text(
+                                  const SizedBox(width: 5,),
+                                  const Text(
                                     "معالج",
                                     style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xff000000)),
                                   ),
@@ -121,14 +121,14 @@ class PaymentScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Container(
+            SizedBox(
               height: screenHeight*0.15,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 15.0),
+                  const Padding(
+                    padding: EdgeInsets.only(right: 15.0),
                     child: Text(
                       "تفاصيل الفاتوره",
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal, color: Color(0xff1F78BC)),
@@ -141,7 +141,7 @@ class PaymentScreen extends StatelessWidget {
                       height: 44,
                       decoration: BoxDecoration(
                           color: Colors.white,
-                          border: Border.all(color: Color(0xffAFDCFF), width: 2),
+                          border: Border.all(color: const Color(0xffAFDCFF), width: 2),
                           borderRadius: BorderRadius.circular(20)),
                       child: Center(
                         child: SizedBox(
@@ -168,15 +168,15 @@ class PaymentScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Container(
+            SizedBox(
               height: screenHeight*0.25,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Container(
+                  SizedBox(
                     width: screenWidth*0.3,
-                    child: Center(
+                    child: const Center(
                       child: Text(
                         "طريقه الدفع",
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.w100, color: Color(0xff1F78BC)),
@@ -189,18 +189,18 @@ class PaymentScreen extends StatelessWidget {
                       height: 150,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Color(0xff1F78BC)
+                        color: const Color(0xff1F78BC)
                       ),
                       child: Column(
                         children: [
                           Container(
-                            padding: EdgeInsets.only(right: 10),
+                            padding: const EdgeInsets.only(right: 10),
                             width: 307,
                             child: Row(
                               mainAxisAlignment:MainAxisAlignment.spaceBetween,
                               children: [
-                                Image(image: AssetImage("assets/images/neo.png"),width: 70.29,height: 30,fit: BoxFit.fill,),
-                                IconButton(onPressed: (){}, icon: Image(image: AssetImage("assets/images/left_arrow.png"),width: 12,height: 22,))
+                                const Image(image: AssetImage("assets/images/neo.png"),width: 70.29,height: 30,fit: BoxFit.fill,),
+                                IconButton(onPressed: (){}, icon: const Image(image: AssetImage("assets/images/left_arrow.png"),width: 12,height: 22,))
                               ],
                             ),
                           ),
@@ -212,13 +212,13 @@ class PaymentScreen extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            padding: EdgeInsets.only(right: 10),
+                            padding: const EdgeInsets.only(right: 10),
                             width: 307,
                             child: Row(
                               mainAxisAlignment:MainAxisAlignment.spaceBetween,
                               children: [
-                                Image(image: AssetImage("assets/images/visa.png"),width: 70.29,height: 20,fit: BoxFit.fill,),
-                                IconButton(onPressed: (){}, icon: Image(image: AssetImage("assets/images/left_arrow.png"),width: 12,height: 22,))
+                                const Image(image: AssetImage("assets/images/visa.png"),width: 70.29,height: 20,fit: BoxFit.fill,),
+                                IconButton(onPressed: (){}, icon: const Image(image: AssetImage("assets/images/left_arrow.png"),width: 12,height: 22,))
                               ],
                             ),
                           ),
@@ -230,13 +230,13 @@ class PaymentScreen extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            padding: EdgeInsets.only(right: 10),
+                            padding: const EdgeInsets.only(right: 10),
                             width: 307,
                             child: Row(
                               mainAxisAlignment:MainAxisAlignment.spaceBetween,
                               children: [
-                                Image(image: AssetImage("assets/images/logos_mastercard.png"),width: 70.29,height: 30,fit: BoxFit.fill,),
-                                IconButton(onPressed: (){}, icon: Image(image: AssetImage("assets/images/left_arrow.png"),width: 12,height: 22,))
+                                const Image(image: AssetImage("assets/images/logos_mastercard.png"),width: 70.29,height: 30,fit: BoxFit.fill,),
+                                IconButton(onPressed: (){}, icon: const Image(image: AssetImage("assets/images/left_arrow.png"),width: 12,height: 22,))
                               ],
                             ),
                           ),
@@ -248,9 +248,9 @@ class PaymentScreen extends StatelessWidget {
               ),
             ),
             Center(
-              child: Container(
+              child: SizedBox(
                 height: screenHeight*0.13,
-                child: Center(
+                child: const Center(
                   child: Text("يمكن الدفع أيضا من خلال الاتي\n والتواصل مباشرة بإدارة التطبيق",textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Color(0xff1F78BC),
@@ -267,9 +267,9 @@ class PaymentScreen extends StatelessWidget {
                 height: 62,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Color(0xff1F78BC),width: 1.5)
+                  border: Border.all(color: const Color(0xff1F78BC),width: 1.5)
                 ),
-                child:Row(
+                child:const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Image(image: AssetImage("assets/images/omt.png"),fit: BoxFit.fill,height: 53,width: 82,),
