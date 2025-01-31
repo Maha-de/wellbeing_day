@@ -1,3 +1,5 @@
+
+import 'package:doctor/screens/specialist/applicationInfo.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,15 +17,16 @@ class CustomBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return BottomNavigationBar(
-      backgroundColor: const Color(0xff19649E), // Ensures the background is consistent
+      backgroundColor:
+          const Color(0xff19649E), // Ensures the background is consistent
       selectedItemColor: Colors.white, // Sets the color of the selected icons
       unselectedItemColor: Colors.black, // Sets the color of unselected icons
       showSelectedLabels: false, // Hides selected labels
       showUnselectedLabels: false, // Hides unselected labels
       currentIndex: currentIndex, // Default selected index
-      type: BottomNavigationBarType.fixed, // Prevents animation on shifting types
+      type:
+          BottomNavigationBarType.fixed, // Prevents animation on shifting types
       items: [
         BottomNavigationBarItem(
           icon: SizedBox(
@@ -68,8 +71,8 @@ class CustomBottomNavBar extends StatelessWidget {
             ),
           ),
           activeIcon: SizedBox(
-            height: 25,
-            width: 50,
+            height: 35,
+            // width: 50,
             child: Image.asset(
               "assets/images/material-symbols_help-clinic-outline-rounded_Active.png",
               fit: BoxFit.fill,
@@ -98,25 +101,25 @@ class CustomBottomNavBar extends StatelessWidget {
       onTap: (index) {
         switch (index) {
           case 3:
-
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
                 builder: (context) => MultiBlocProvider(
                   providers: [
-                    BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                    BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                    BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                    BlocProvider<UserProfileCubit>(
+                        create: (_) => UserProfileCubit()),
+                    BlocProvider<AddImageToProfileCubit>(
+                        create: (_) => AddImageToProfileCubit()),
+                    BlocProvider<UpdateUserCubit>(
+                        create: (_) => UpdateUserCubit()),
                   ],
                   child: const ClientProfileScreen(),
                 ),
-
               ),
-                  (route) => false,
+              (route) => false,
             );
             break;
           case 1:
-
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -128,7 +131,17 @@ class CustomBottomNavBar extends StatelessWidget {
             );
             break;
           case 2:
-          // Stay on the current screen, no action needed for 'الرئيسية'
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BlocProvider(
+                  create: (_) => UserProfileCubit(),
+                  child: const ApplicationInfo(),
+                ),
+              ),
+            );
+
+            // Stay on the current screen, no action needed for 'الرئيسية'
             break;
         }
       },
