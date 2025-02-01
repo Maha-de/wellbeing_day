@@ -41,7 +41,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   children: [
                     Container(
                       width: 66,
-                      height: 66,
+                      height: 50,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                       ),
@@ -72,9 +72,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 Padding(
                   padding: EdgeInsets.only(bottom: screenHeight * 0.02),
                   child: SizedBox(
-                    
-                    height: screenHeight * 0.17,
-                    width: screenWidth * 0.35,
+
+                    height: 100,
+                    width: 110,
+                    // height: screenHeight * 0.17,
+                    // width: screenWidth * 0.35,
                     child: Image.asset('assets/images/img.png', fit: BoxFit.fill),
                   ),
                 ),

@@ -1,3 +1,4 @@
+import 'package:doctor/screens/info_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +7,7 @@ import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../screens/client_profile_screen.dart';
+import '../screens/first_home_page.dart';
 import '../screens/home_second_screen.dart';
 import '../screens/homescreen.dart';
 
@@ -28,15 +30,19 @@ class CustomBottomNavBar extends StatelessWidget {
         BottomNavigationBarItem(
           icon: SizedBox(
             height: 27, // Adjust icon size
-            child: Image.asset(
+            child:
+            Image.asset(
               "assets/images/meteor-icons_home.png",
+              // color: currentIndex == 0 ? Colors.white : Colors.black,
               fit: BoxFit.fill,
             ),
           ),
           activeIcon: SizedBox(
             height: 27, // Active icon size adjustment
             child: Image.asset(
-              "assets/images/Frame 1000002834.png",
+              "assets/images/meteor-icons_home.png",
+              color: currentIndex == 0 ? Colors.white : Colors.black,
+
               fit: BoxFit.fill,
             ),
           ),
@@ -75,7 +81,7 @@ class CustomBottomNavBar extends StatelessWidget {
               fit: BoxFit.fill,
             ),
           ),
-          label: "help".tr(),
+          label: "info".tr(),
         ),
         BottomNavigationBarItem(
           icon: SizedBox(
@@ -128,7 +134,15 @@ class CustomBottomNavBar extends StatelessWidget {
             );
             break;
           case 2:
-          // Stay on the current screen, no action needed for 'الرئيسية'
+
+            Navigator.push(context, MaterialPageRoute(builder: (context) => InfoScreen()));
+
+            break;
+
+          case 0:
+
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstHomePage()));
+
             break;
         }
       },

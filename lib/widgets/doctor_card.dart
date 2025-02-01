@@ -1,3 +1,4 @@
+import 'package:doctor/screens/doctor_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -5,89 +6,98 @@ import 'package:get/get.dart';
 class DoctorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: Get.width * 0.9, // Setting the width of the card to 90% of screen width
-      height: 297, // Setting the height of the card
-      child: Card(
-        child: Column(
-          children: [
-            // Top section of the card, displaying the doctor's image and details
-            Container(
-              height: 220, // Height of the image container
-              color: Color(0xFF19649E), // Background color for the top section
-              child: Row(
+    return GestureDetector(
+      child: Container(
+        width: Get.width * 0.9, // Setting the width of the card to 90% of screen width
+        height: 297, // Setting the height of the card
+        child: Card(
+          child: Column(
+            children: [
+              // Top section of the card, displaying the doctor's image and details
+              Container(
+                height: 220, // Height of the image container
+                color: Color(0xFF19649E), // Background color for the top section
+                child: Row(
+                  children: [
+                    // Right side section displaying the doctor's information
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start, // Align the text to the right
+                        children: [
+                          const Text(
+                            'د. محمود محمد', // Doctor's name
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold, // Bold text
+                              fontSize: 20, // Font size
+                              color: Colors.white, // Text color is white
+                            ),
+                            textAlign: TextAlign.left, // Align the text to the left
+                          ),
+                          const SizedBox(height: 2),
+                          const Text(
+                            'طبيب نفسي مهتم بالوقاية النفسية', // Doctor's specialty
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16, // Font size
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
+                          const SizedBox(height: 10),
+                          buildInfoRow("assets/images/heart.png", 'النوع: وقاية نفسية'), // Call method to display type info
+                          const SizedBox(height: 4),
+                          buildInfoRow("assets/images/PhoneCall.png", 'متاح جلسات صوتية، فيديو'), // Call method to display availability info
+                          const SizedBox(height: 4),
+                          buildInfoRow("assets/images/experience.png", 'خبرة 7 سنوات'), // Call method to display experience info
+                          const SizedBox(height: 4),
+                          buildInfoRow("assets/images/translation.png", 'اللغة: العربية، الإنجليزية'), // Call method to display language info
+                        ],
+                      ),
+                    ),
+                    // Image Container with 3D effect and zoom
+                    Flexible(
+                      child: Container(
+                        height: 220, // Height for the image
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8), // Rounded corners for the image
+                        ),
+                        child: Transform.translate(
+                          offset: Offset(0, -14), // Move the image upwards by 14 units
+                          child: Transform.scale(
+                            scale: 1.25, // Scale the image to give a zoom effect
+                            child: Image.asset('assets/images/doctor.png', fit: BoxFit.contain), // Displaying the image
+                          ),
+                        ),
+                      ),
+                    ),
+
+
+
+                  ],
+                ),
+              ),
+              SizedBox(height: 10,),
+              // Bottom section displaying the doctor's availability and price
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  // Right side section displaying the doctor's information
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start, // Align the text to the right
-                      children: [
-                        const Text(
-                          'د. محمود محمد', // Doctor's name
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold, // Bold text
-                            fontSize: 20, // Font size
-                            color: Colors.white, // Text color is white
-                          ),
-                          textAlign: TextAlign.left, // Align the text to the left
-                        ),
-                        const SizedBox(height: 2),
-                        const Text(
-                          'طبيب مهتم بالوقاية النفسية', // Doctor's specialty
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16, // Font size
-                          ),
-                          textAlign: TextAlign.left,
-                        ),
-                        const SizedBox(height: 10),
-                        buildInfoRow("assets/images/heart.png", 'النوع: وقاية نفسية'), // Call method to display type info
-                        const SizedBox(height: 4),
-                        buildInfoRow("assets/images/PhoneCall.png", 'متاح جلسات صوتية، فيديو'), // Call method to display availability info
-                        const SizedBox(height: 4),
-                        buildInfoRow("assets/images/experience.png", 'خبرة 7 سنوات'), // Call method to display experience info
-                        const SizedBox(height: 4),
-                        buildInfoRow("assets/images/translation.png", 'اللغة: العربية، الإنجليزية'), // Call method to display language info
-                      ],
-                    ),
-                  ),
-                  // Image Container with 3D effect and zoom
-                  Flexible(
-                    child: Container(
-                      height: 220, // Height for the image
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8), // Rounded corners for the image
-                      ),
-                      child: Transform.translate(
-                        offset: Offset(0, -14), // Move the image upwards by 14 units
-                        child: Transform.scale(
-                          scale: 1.25, // Scale the image to give a zoom effect
-                          child: Image.asset('assets/images/doctor.png', fit: BoxFit.contain), // Displaying the image
-                        ),
-                      ),
-                    ),
-                  ),
-
-
-
+                  buildDetailColumn("assets/images/time.png", 'أقرب إتاحة', '04 يونيو - 7:00 مساءً'), // Call method to display availability time
+                  buildDetailColumn("assets/images/price.png", 'السعر', '300 ليرة / 30 دقيقة'), // Call method to display price
                 ],
               ),
-            ),
-            // Bottom section displaying the doctor's availability and price
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                buildDetailColumn("assets/images/time.png", 'أقرب إتاحة', '04 يونيو - 7:00 مساءً'), // Call method to display availability time
-                buildDetailColumn("assets/images/price.png", 'السعر', '300 ليرة / 30 دقيقة'), // Call method to display price
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       ),
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> const DoctorDetails()));
+      },
     );
   }
+
+
+
 
   // Method to build each info row (e.g., type, availability, etc.)
   Widget buildInfoRow(String icon, String text) {
@@ -129,6 +139,7 @@ class DoctorCard extends StatelessWidget {
             children: [
 
               Container(
+                color: Colors.white,
                 width: 19,
                 height: 19,
                 child: Image.asset(icon, fit: BoxFit.fill), // Displaying the icon
@@ -136,7 +147,7 @@ class DoctorCard extends StatelessWidget {
               const SizedBox(width: 8), // Space between the title and the icon
               Text(
                 title,
-                style: TextStyle(color: Colors.black, fontSize: 14), // Styling the title text
+                style: TextStyle(color: Color(0xff19649E), fontSize: 14), // Styling the title text
               ),
             ],
           ),
@@ -144,7 +155,7 @@ class DoctorCard extends StatelessWidget {
           const SizedBox(width: 4), // Space between the text and the icon
           Text(
             value,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black), // Styling the value text
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Color(0xff19649E)), // Styling the value text
           ),
         ],
       ),

@@ -72,7 +72,6 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: BackButton(onPressed:(){Navigator.pop(context);}),
         backgroundColor: const Color(0xff19649E),
         iconTheme: const IconThemeData(
           color: Colors.white,

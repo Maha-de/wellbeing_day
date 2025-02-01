@@ -12,6 +12,7 @@ import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
 import '../models/user_profile_model.dart';
 import '../widgets/custom_bottom_nav_bar.dart';
+import 'appointments_section.dart';
 
 class ClientProfileScreen extends StatefulWidget {
   const ClientProfileScreen({super.key});
@@ -27,7 +28,8 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
   void initState() {
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
-    addImageToProfileCubit = BlocProvider.of<AddImageToProfileCubit>(context);// Initialize the cubit
+    addImageToProfileCubit = BlocProvider.of<AddImageToProfileCubit>(
+        context); // Initialize the cubit
     _loadUserProfile();
     // Call the asynchronous method here
   }
@@ -46,6 +48,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
       "yourProfile".tr(),
       "settings".tr(),
       "appointments".tr(),
+      "وسائل الدفع",
       "signOut".tr()
     ];
 
@@ -79,9 +82,11 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                     backgroundColor: const Color(0xff19649E),
                     iconTheme: const IconThemeData(
                       color: Colors.white,
+                    ),
                   ),
+                  bottomNavigationBar: const CustomBottomNavBar(
+                    currentIndex: 3,
                   ),
-                  bottomNavigationBar: const CustomBottomNavBar(currentIndex: 3,),
                   body: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -89,7 +94,8 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                         clipBehavior: Clip.none,
                         children: [
                           Container(
-                            height: screenHeight * 0.22,  // Adjust height proportionally
+                            height: screenHeight *
+                                0.22, // Adjust height proportionally
                             decoration: BoxDecoration(
                               color: Color(0xff19649E),
                               borderRadius: BorderRadius.only(
@@ -122,12 +128,15 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                                   alignment: Alignment.bottomLeft,
                                   children: [
                                     InkWell(
-                                      onTap: (){
+                                      onTap: () {
                                         setState(() {
-                                          addImageToProfileCubit.pickImage(context,userProfile.id??"");
-                                          BlocProvider.of<UserProfileCubit>(context).getUserProfile(context, userProfile.id??"");
+                                          addImageToProfileCubit.pickImage(
+                                              context, userProfile.id ?? "");
+                                          BlocProvider.of<UserProfileCubit>(
+                                                  context)
+                                              .getUserProfile(context,
+                                                  userProfile.id ?? "");
                                         });
-
                                       },
                                       child: Container(
                                         height: screenWidth * 0.3,
@@ -136,32 +145,47 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius:
-                                          BorderRadius.circular(40),
+                                              BorderRadius.circular(40),
                                         ),
                                         child: Padding(
                                           padding: const EdgeInsets.all(10.0),
                                           child: Container(
                                             decoration: BoxDecoration(
                                               borderRadius:
-                                              BorderRadius.circular(30),
-
+                                                  BorderRadius.circular(30),
                                             ),
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(50), // زاوية الإطار
-                                              child: userProfile.imageUrl==""||userProfile.imageUrl==null?Image.asset("assets/images/profile.jpg",fit: BoxFit.fill,):Image.network(
-                                                userProfile.imageUrl ?? "", // رابط الصورة
-                                                fit: BoxFit.fill, // ملء الصورة
-                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      50), // زاوية الإطار
+                                              child: userProfile.imageUrl ==
+                                                          "" ||
+                                                      userProfile.imageUrl ==
+                                                          null
+                                                  ? Image.asset(
+                                                      "assets/images/profile.jpg",
+                                                      fit: BoxFit.fill,
+                                                    )
+                                                  : Image.network(
+                                                      userProfile.imageUrl ??
+                                                          "", // رابط الصورة
+                                                      fit: BoxFit
+                                                          .fill, // ملء الصورة
+                                                    ),
                                             ),
                                           ),
                                         ),
                                       ),
                                     ),
                                     IconButton(
-                                      onPressed: (){
+                                      onPressed: () {
                                         setState(() {
-                                          addImageToProfileCubit.pickImage(context,userProfile.id??"");
-                                          BlocProvider.of<UserProfileCubit>(context).getUserProfile(context, userProfile.id??"");
+                                          addImageToProfileCubit.pickImage(
+                                              context, userProfile.id ?? "");
+                                          BlocProvider.of<UserProfileCubit>(
+                                                  context)
+                                              .getUserProfile(context,
+                                                  userProfile.id ?? "");
                                         });
                                       },
                                       icon: Positioned(
@@ -170,7 +194,8 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                                         child: CircleAvatar(
                                           radius: 16,
                                           backgroundColor: Color(0xff19649E),
-                                          child: Icon(Icons.edit, size: 16, color: Colors.white),
+                                          child: Icon(Icons.edit,
+                                              size: 16, color: Colors.white),
                                         ),
                                       ),
                                     ),
@@ -198,58 +223,74 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                       Center(
                         child: Container(
                           margin: const EdgeInsets.only(
-                            top: 15,
-                              left: 15, right: 15, bottom: 15),
-                          height:
-                              screenHeight * 0.4, // Adjust height proportionally
+                              top: 15, left: 15, right: 15, bottom: 15),
+                          height: screenHeight *
+                              0.5, // Adjust height proportionally
                           child: ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
+                            // physics: NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
                               return GestureDetector(
-                                onTap: ()async{
-                                  if(index==0)
-                                  {
+                                onTap: () async {
+                                  if (index == 0) {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => MultiBlocProvider(
-                                            providers: [
-                                              BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                              BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                              BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                            ],
-                                            child:ClientProfileDetails()
-                                        ),
+                                        builder: (context) =>
+                                            MultiBlocProvider(providers: [
+                                          BlocProvider<UserProfileCubit>(
+                                              create: (_) =>
+                                                  UserProfileCubit()),
+                                          BlocProvider<AddImageToProfileCubit>(
+                                              create: (_) =>
+                                                  AddImageToProfileCubit()),
+                                          BlocProvider<UpdateUserCubit>(
+                                              create: (_) => UpdateUserCubit()),
+                                        ], child: ClientProfileDetails()),
                                       ),
                                     );
-
-                                  }else if(index==1){
+                                  } else if (index == 1) {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => MultiBlocProvider(
-                                            providers: [
-                                              BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                              BlocProvider<DeleteAccountCubit>(create: (_) => DeleteAccountCubit()),
-                                              BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                              BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                            ],
-                                            child:SettingsScreen()
-                                        ),
+                                        builder: (context) =>
+                                            MultiBlocProvider(providers: [
+                                          BlocProvider<UserProfileCubit>(
+                                              create: (_) =>
+                                                  UserProfileCubit()),
+                                          BlocProvider<DeleteAccountCubit>(
+                                              create: (_) =>
+                                                  DeleteAccountCubit()),
+                                          BlocProvider<UpdateUserCubit>(
+                                              create: (_) => UpdateUserCubit()),
+                                          BlocProvider<AddImageToProfileCubit>(
+                                              create: (_) =>
+                                                  AddImageToProfileCubit()),
+                                        ], child: SettingsScreen()),
                                       ),
                                     );
-
-                                  }else if(index==3){
+                                  } else if (index == 2) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const AppointmentsSection()));
+                                  } else if (index == 3) {
+                                    // Navigator.push(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //         builder: (context) =>
+                                    //             SettingsScreen()));
+                                  } else if (index == 4) {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => BlocProvider(
                                             create: (_) => UserProfileCubit(),
-                                            child:SplashScreen()
-                                        ),
+                                            child: SplashScreen()),
                                       ),
                                     );
-                                    final prefs = await SharedPreferences.getInstance();
+                                    final prefs =
+                                        await SharedPreferences.getInstance();
                                     prefs.remove("userId");
                                   }
                                 },
@@ -262,7 +303,6 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-
                                           Padding(
                                             padding: EdgeInsets.only(top: 15.0),
                                             child: Text(
@@ -295,7 +335,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                                 ),
                               );
                             },
-                            itemCount: 4,
+                            itemCount: 5,
                           ),
                         ),
                       ),

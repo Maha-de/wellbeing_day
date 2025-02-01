@@ -60,7 +60,7 @@ class SelectionPage extends StatelessWidget {
                   child: Text(
                     "continueAsUser".tr(),
                     style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.w700), // حجم النص
+                        fontSize: 18, fontWeight: FontWeight.w700,color: Colors.white), // حجم النص
                   ),
                 ),
               ),
@@ -87,7 +87,7 @@ class SelectionPage extends StatelessWidget {
                   child: Text(
                     "continueAsDoctor".tr(),
                     style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.w700), // حجم النص
+                        fontSize: 18, fontWeight: FontWeight.w700,color: Colors.white), // حجم النص
                   ),
                 ),
               ),
