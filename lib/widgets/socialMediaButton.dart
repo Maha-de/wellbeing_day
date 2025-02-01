@@ -27,11 +27,15 @@ class SocialMediaButton extends StatelessWidget {
           ),
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         ),
-        onPressed: onPressed, // Call the function when clicked
+        onPressed: onPressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            FaIcon(icon, color: color),
+            FaIcon(
+              icon,
+              color: color,
+              size: 35,
+            ),
             const SizedBox(width: 10),
             Text(
               label,
