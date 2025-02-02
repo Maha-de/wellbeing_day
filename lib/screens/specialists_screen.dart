@@ -40,79 +40,76 @@ class _SpecialistsScreenState extends State<SpecialistsScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    return WillPopScope(
-      onWillPop: () async {
-        // Return false to disable the back button
-        return false;
-      },
-      child: BlocProvider(
-        create: (_) => userProfileCubit,
-        child: BlocBuilder<UserProfileCubit, UserProfileState>(
-          builder: (context, state) {
-            if (state is UserProfileLoading) {
-              return const Scaffold(
-                body: Center(child: CircularProgressIndicator()),
-              );
-            } else if (state is UserProfileFailure) {
-              return Center(child: Text("Error loading profile: ${state.error}"));
-            } else if (state is UserProfileSuccess) {
-              UserProfileModel userProfile = state.userProfile;
-              return Scaffold(
-                bottomNavigationBar: CustomBottomNavBar(currentIndex: 1),
-                appBar: AppBar(
+    return BlocProvider(
+      create: (_) => userProfileCubit,
+      child: BlocBuilder<UserProfileCubit, UserProfileState>(
+        builder: (context, state) {
+          if (state is UserProfileLoading) {
+            return const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            );
+          } else if (state is UserProfileFailure) {
+            return Center(child: Text("Error loading profile: ${state.error}"));
+          } else if (state is UserProfileSuccess) {
+            UserProfileModel userProfile = state.userProfile;
+            return Scaffold(
+              bottomNavigationBar: CustomBottomNavBar(currentIndex: 1),
+              appBar: AppBar(
 
-                  elevation: 0,
-                  leading: IconButton(onPressed:(){Navigator.pop(context);},icon:Icon(Icons.keyboard_backspace_rounded,size: 30,),color: Color(0xff19649E),),
+                elevation: 0,
+                backgroundColor: Colors.transparent,
+                iconTheme: const IconThemeData(
+                  color: Color(0xff19649E),
                 ),
-                body: Padding(
-                  padding: const EdgeInsets.only(top: 15.0),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
+              ),
+              body: Padding(
+                padding: const EdgeInsets.only(top: 15.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
 
-                        Center(
-                          child: Container(
-                            margin: EdgeInsets.only(bottom: 25),
-                            width: 161,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              color: Color(0xFF1F78BC),
-                              borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(20),
-                                  topLeft: Radius.circular(20)),
-                            ),
-                            alignment: Alignment.center,
-                            child: Text(
-                              "المختصين",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
+                      Center(
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 25),
+                          width: 161,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF1F78BC),
+                            borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(20),
+                                topLeft: Radius.circular(20)),
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            "المختصين",
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
                           ),
                         ),
-                        // List of doctors
-                        ListView.separated(
-                          padding: EdgeInsets.only(left: 10,right: 10),
-                          itemBuilder: (context, index) {
-                            return DoctorCard();
-                          },
-                          separatorBuilder: (context, index) {
-                            return SizedBox(height: screenHeight * 0.05);
-                          },
-                          itemCount: 2,
-                          shrinkWrap: true, // Makes ListView behave like a normal widget inside a Column
-                          physics: NeverScrollableScrollPhysics(), // Prevents the ListView from having its own scroll
-                        )
-                      ],
-                    ),
+                      ),
+                      // List of doctors
+                      ListView.separated(
+                        padding: EdgeInsets.only(left: 10,right: 10),
+                        itemBuilder: (context, index) {
+                          return DoctorCard();
+                        },
+                        separatorBuilder: (context, index) {
+                          return SizedBox(height: screenHeight * 0.05);
+                        },
+                        itemCount: 2,
+                        shrinkWrap: true, // Makes ListView behave like a normal widget inside a Column
+                        physics: NeverScrollableScrollPhysics(), // Prevents the ListView from having its own scroll
+                      )
+                    ],
                   ),
                 ),
-              );
-            }
-            return Container(); // Default return in case no state matches
-          },
-        ),
+              ),
+            );
+          }
+          return Container(); // Default return in case no state matches
+        },
       ),
     );
   }

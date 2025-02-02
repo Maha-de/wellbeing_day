@@ -1,4 +1,7 @@
+import 'package:doctor/screens/payment_methods_profile.dart';
 import 'package:flutter/material.dart';
+
+import 'add_credit_card_screen.dart';
 
 class PaymentScreen extends StatelessWidget {
   const PaymentScreen({super.key});
@@ -218,7 +221,13 @@ class PaymentScreen extends StatelessWidget {
                               mainAxisAlignment:MainAxisAlignment.spaceBetween,
                               children: [
                                 const Image(image: AssetImage("assets/images/visa.png"),width: 70.29,height: 20,fit: BoxFit.fill,),
-                                IconButton(onPressed: (){}, icon: const Image(image: AssetImage("assets/images/left_arrow.png"),width: 12,height: 22,))
+                                IconButton(
+                                    onPressed: (){
+
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> const AddCreditCardScreen()));
+
+                                    },
+                                    icon: const Image(image: AssetImage("assets/images/left_arrow.png"),width: 12,height: 22,))
                               ],
                             ),
                           ),

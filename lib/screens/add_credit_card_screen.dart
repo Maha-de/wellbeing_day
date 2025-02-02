@@ -1,3 +1,4 @@
+import 'package:doctor/screens/success_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -5,7 +6,7 @@ class AddCreditCardScreen extends StatefulWidget {
   const AddCreditCardScreen({super.key});
 
   @override
-  _AddCreditCardScreenState createState() => _AddCreditCardScreenState();
+  State<AddCreditCardScreen> createState() => _AddCreditCardScreenState();
 }
 
 class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
@@ -33,11 +34,11 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
     );
   }
 
-  void addCard() {
-    setState(() {
-      cards.insert(0, buildCard()); // Insert new card at the beginning (right side)
-    });
-  }
+  // void addCard() {
+  //   setState(() {
+  //     cards.insert(0, buildCard()); // Insert new card at the beginning (right side)
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +108,9 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                         child: Center(
                           child: IconButton(
                             icon: const Icon(Icons.add, color: Colors.black),
-                            onPressed: addCard, // استدعاء دالة الإضافة
+                            onPressed: () {  },
+
+                            // onPressed: addCard, // استدعاء دالة الإضافة
                           ),
                         ),
                       ),
@@ -122,7 +125,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
               children: [
                 Container(
                   width: Get.width * 0.9,
-                  child: Align(
+                  child: const Align(
                     alignment: Alignment.centerRight,
                     child:  Text(
                       "رقم البطاقة",
@@ -130,20 +133,20 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 4,),
+                const SizedBox(height: 4,),
                 Container(
                   width: 343.0,
                   height: 48.0,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
                     border: Border.all(
-                      color: Color(0xFF1B659F), // اللون الأزرق للحدود
+                      color: const Color(0xFF1B659F), // اللون الأزرق للحدود
                       width: 1.0, // سمك الحد
                     ),
                   ),
                   child: TextFormField(
                     textDirection: TextDirection.rtl, // الكتابة من اليمين لليسار
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: InputBorder.none, // إزالة الحدود الافتراضية للـ TextFormField
                       hintText: 'أدخل النص', // النص المؤقت
                       contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0), // تعديل المسافة داخل الـ TextFormField
@@ -152,12 +155,12 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 15,),
+            const SizedBox(height: 15,),
             Column(
               children: [
                 Container(
                   width: Get.width * 0.9,
-                  child: Align(
+                  child: const Align(
                     alignment: Alignment.centerRight,
                     child:  Text(
                       "اسم حامل البطاقة",
@@ -165,20 +168,20 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 4,),
+                const SizedBox(height: 4,),
                 Container(
                   width: 343.0,
                   height: 48.0,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
                     border: Border.all(
-                      color: Color(0xFF1B659F), // اللون الأزرق للحدود
+                      color: const Color(0xFF1B659F), // اللون الأزرق للحدود
                       width: 1.0, // سمك الحد
                     ),
                   ),
                   child: TextFormField(
                     textDirection: TextDirection.rtl, // الكتابة من اليمين لليسار
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: InputBorder.none, // إزالة الحدود الافتراضية للـ TextFormField
                       hintText: 'أدخل النص', // النص المؤقت
                       contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0), // تعديل المسافة داخل الـ TextFormField
@@ -187,7 +190,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -195,7 +198,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                   children: [
                     Container(
         
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.centerRight,
                         child:  Text(
                           "تاريخ الأنتهاء",
@@ -203,20 +206,20 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 4,),
+                    const SizedBox(height: 4,),
                     Container(
                       width: Get.width * 0.45,
                       height: 48.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
                         border: Border.all(
-                          color: Color(0xFF1B659F), // اللون الأزرق للحدود
+                          color: const Color(0xFF1B659F), // اللون الأزرق للحدود
                           width: 1.0, // سمك الحد
                         ),
                       ),
                       child: TextFormField(
                         textDirection: TextDirection.rtl, // الكتابة من اليمين لليسار
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none, // إزالة الحدود الافتراضية للـ TextFormField
                           hintText: 'أدخل النص', // النص المؤقت
                           contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0), // تعديل المسافة داخل الـ TextFormField
@@ -229,7 +232,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                   children: [
                     Container(
         
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.centerRight,
                         child:  Text(
                           "رمز أمان البطاقة",
@@ -237,20 +240,20 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 4,),
+                    const SizedBox(height: 4,),
                     Container(
                       width: Get.width * 0.45,
                       height: 48.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
                         border: Border.all(
-                          color: Color(0xFF1B659F), // اللون الأزرق للحدود
+                          color: const Color(0xFF1B659F), // اللون الأزرق للحدود
                           width: 1.0, // سمك الحد
                         ),
                       ),
                       child: TextFormField(
                         textDirection: TextDirection.rtl, // الكتابة من اليمين لليسار
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none, // إزالة الحدود الافتراضية للـ TextFormField
                           hintText: 'أدخل النص', // النص المؤقت
                           contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0), // تعديل المسافة داخل الـ TextFormField
@@ -272,39 +275,43 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
       bottomNavigationBar:     Container(
         width: Get.width, // Full screen width
         height: 104,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Color(0xFF1B659F), // Background color
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30),
             topRight: Radius.circular(30),
           ),
         ),
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.only(right: 15.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  width: 142,
-                  height: 38,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(25), // Optional rounded corners
-                  ),
-                  child: Center(
-                    child: Text(
-                      "ادفع الاّن",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500, // Medium weight
-                        color: Color(0xFF1B659F),
-                      ),
-                    ),
-                  ),
+        child: Padding(
+          padding: const EdgeInsets.only(right: 15.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                width: 142,
+                height: 38,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(25), // Optional rounded corners
                 ),
-              ],
-            ),
+                child:
+                  ElevatedButton(
+                      onPressed: (){
+
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> const SuccessScreen()));
+
+                      },
+                      child: const Text(
+                            "ادفع الاّن",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500, // Medium weight
+                              color: Color(0xFF1B659F),
+                            ),
+                          ),
+                  )
+              ),
+            ],
           ),
         ),
       ), // **إلغاء أي شريط سفلي هنا**

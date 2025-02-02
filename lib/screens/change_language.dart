@@ -53,12 +53,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
 
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    return WillPopScope(
-        onWillPop: () async {
-      // Return false to disable the back button
-      return false;
-    },
-    child: BlocProvider(
+    return BlocProvider(
     create: (_) => userProfileCubit,  // Use the same cubit instance
     child: BlocBuilder<UserProfileCubit, UserProfileState>(
     builder: (context, state) {
@@ -273,8 +268,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
     }
     return Container(); // Default return in case no state matches
     },
-    )),
-    );
+    ));
   }
 
 }

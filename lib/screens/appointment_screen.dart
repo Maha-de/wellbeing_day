@@ -1,3 +1,4 @@
+import 'package:doctor/screens/payment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 // import 'package:intl/intl.dart';
@@ -86,12 +87,13 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                       style: TextStyle(fontSize: 20, color: Color(0xff19649E), fontWeight: FontWeight.bold,))),
 
 
-
               const SizedBox(height: 50),
 
               Center(
                 child: ElevatedButton(
                   onPressed: () {
+
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> const PaymentScreen()));
 
                     // if (_selectedTime != null) {
                     //   // Here you can implement the logic to save the appointment

@@ -23,17 +23,17 @@ class SuccessScreen extends StatelessWidget {
                     height: screenHeight*0.25,),
                   ),
                   Container(
-                    padding: EdgeInsets.only(top: 15),
+                    padding: const EdgeInsets.only(top: 15),
                     height: screenHeight*0.15,
-                    child: Column(
+                    child: const Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        const Text("تهانينا",style: TextStyle(
+                        Text("تهانينا",style: TextStyle(
                           color: Color(0xff19649E),
                           fontWeight: FontWeight.bold,
                           fontSize: 32
                         ),),
-                        const Text("تم الحجز بنجاح",style: TextStyle(
+                        Text("تم الحجز بنجاح",style: TextStyle(
                             color: Color(0xff19649E),
                             fontWeight: FontWeight.w800,
                             fontSize: 24
@@ -51,10 +51,10 @@ class SuccessScreen extends StatelessWidget {
               width: screenWidth * 0.9,
               height: screenHeight * 0.06,
               decoration: BoxDecoration(
-                color: Color(0xff19649E),
+                color: const Color(0xff19649E),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Center(
+              child: const Center(
                 child: Text(
                   "عوده",
                   style: TextStyle(

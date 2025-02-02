@@ -120,343 +120,336 @@ class _SettingsScreenState extends State<SettingsScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    return WillPopScope(
-      onWillPop: () async {
-        // Return false to disable the back button
-        return false;
-      },
-      child: BlocProvider(
-          create: (_) => userProfileCubit,  // Use the same cubit instance
-          child: BlocBuilder<UserProfileCubit, UserProfileState>(
-            builder: (context, state) {
-              if (state is UserProfileLoading) {
-                return Scaffold(body: Center(child: CircularProgressIndicator(),));
-              } else if (state is UserProfileFailure) {
-                return Center(child: Text("Error loading profile: ${state.error}"));
-              } else if (state is UserProfileSuccess) {
-                // Once the profile is loaded, show the actual UI
-                UserProfileModel userProfile = state.userProfile;
-                return Scaffold(
-        backgroundColor: Colors.white,
-                  appBar: AppBar(
-                    leading: BackButton(onPressed: (){Navigator.pop(context);},),
-                    backgroundColor: const Color(0xff19649E),
-                    iconTheme: const IconThemeData(
+    return BlocProvider(
+        create: (_) => userProfileCubit,  // Use the same cubit instance
+        child: BlocBuilder<UserProfileCubit, UserProfileState>(
+          builder: (context, state) {
+            if (state is UserProfileLoading) {
+              return Scaffold(body: Center(child: CircularProgressIndicator(),));
+            } else if (state is UserProfileFailure) {
+              return Center(child: Text("Error loading profile: ${state.error}"));
+            } else if (state is UserProfileSuccess) {
+              // Once the profile is loaded, show the actual UI
+              UserProfileModel userProfile = state.userProfile;
+              return Scaffold(
+      backgroundColor: Colors.white,
+                appBar: AppBar(
+                  backgroundColor: const Color(0xff19649E),
+                  iconTheme: const IconThemeData(
+                    color: Colors.white,
+                  ),
+                  centerTitle: true,
+                  title: Text(
+                    "settings".tr(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: screenWidth * 0.06,
                       color: Colors.white,
-                    ),
-                    centerTitle: true,
-                    title: Text(
-                      "settings".tr(),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: screenWidth * 0.06,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Column(
-              children: [
-                Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    Container(
-                      height: screenHeight * 0.22,  // Adjust height proportionally
-                      decoration: BoxDecoration(
-                        color: Color(0xff19649E),
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(30),
-                          bottomRight: Radius.circular(30),
-                        ),
+                ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Column(
+            children: [
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Container(
+                    height: screenHeight * 0.22,  // Adjust height proportionally
+                    decoration: BoxDecoration(
+                      color: Color(0xff19649E),
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(30),
                       ),
-                      // child: Row(
-                      //   crossAxisAlignment: CrossAxisAlignment.start,
-                      //   mainAxisAlignment: MainAxisAlignment.end,
-                      //   children: [
-                      //     Padding(
-                      //       padding: const EdgeInsets.only(right: 16.0, top: 30),
-                      //       child: GestureDetector(
-                      //           onTap: (){
-                      //             Navigator.pop(context);
-                      //           },
-                      //           child: Icon(Icons.arrow_forward, color: Colors.white)),
-                      //     ),
-                      //   ],
-                      // ), // child: Row(
-                      //   crossAxisAlignment: CrossAxisAlignment.start,
-                      //   mainAxisAlignment: MainAxisAlignment.end,
-                      //   children: [
-                      //     Padding(
-                      //       padding: const EdgeInsets.only(right: 16.0, top: 30),
-                      //       child: GestureDetector(
-                      //           onTap: (){
-                      //             Navigator.pop(context);
-                      //           },
-                      //           child: Icon(Icons.arrow_forward, color: Colors.white)),
-                      //     ),
-                      //   ],
-                      // ),
                     ),
-                    Positioned(
-                      bottom: -50,
-                      left: 0,
-                      right: 0,
-                      child: Column(
-                        children: [
-                          Stack(
-                            alignment: Alignment.bottomLeft,
-                            children: [
-                              InkWell(
-                                onTap: (){
-                                  setState(() {
-                                    addImageToProfileCubit.pickImage(context,userProfile.id??"");
-                                    BlocProvider.of<UserProfileCubit>(context).getUserProfile(context, userProfile.id??"");
-                                  });
+                    // child: Row(
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   mainAxisAlignment: MainAxisAlignment.end,
+                    //   children: [
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(right: 16.0, top: 30),
+                    //       child: GestureDetector(
+                    //           onTap: (){
+                    //             Navigator.pop(context);
+                    //           },
+                    //           child: Icon(Icons.arrow_forward, color: Colors.white)),
+                    //     ),
+                    //   ],
+                    // ), // child: Row(
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   mainAxisAlignment: MainAxisAlignment.end,
+                    //   children: [
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(right: 16.0, top: 30),
+                    //       child: GestureDetector(
+                    //           onTap: (){
+                    //             Navigator.pop(context);
+                    //           },
+                    //           child: Icon(Icons.arrow_forward, color: Colors.white)),
+                    //     ),
+                    //   ],
+                    // ),
+                  ),
+                  Positioned(
+                    bottom: -50,
+                    left: 0,
+                    right: 0,
+                    child: Column(
+                      children: [
+                        Stack(
+                          alignment: Alignment.bottomLeft,
+                          children: [
+                            InkWell(
+                              onTap: (){
+                                setState(() {
+                                  addImageToProfileCubit.pickImage(context,userProfile.id??"");
+                                  BlocProvider.of<UserProfileCubit>(context).getUserProfile(context, userProfile.id??"");
+                                });
 
-                                },
-                                child: Container(
-                                  height: screenWidth * 0.3,
-                                  // Adjust size proportionally
-                                  width: screenWidth * 0.3,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius:
-                                    BorderRadius.circular(40),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(30),
+                              },
+                              child: Container(
+                                height: screenWidth * 0.3,
+                                // Adjust size proportionally
+                                width: screenWidth * 0.3,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                  BorderRadius.circular(40),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                      BorderRadius.circular(30),
 
-                                      ),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(50), // زاوية الإطار
-                                        child: userProfile.imageUrl==""||userProfile.imageUrl==null?Image.asset("assets/images/profile.jpg",fit: BoxFit.fill,):Image.network(
-                                          userProfile.imageUrl ?? "", // رابط الصورة
-                                          fit: BoxFit.fill, // ملء الصورة
-                                        ),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(50), // زاوية الإطار
+                                      child: userProfile.imageUrl==""||userProfile.imageUrl==null?Image.asset("assets/images/profile.jpg",fit: BoxFit.fill,):Image.network(
+                                        userProfile.imageUrl ?? "", // رابط الصورة
+                                        fit: BoxFit.fill, // ملء الصورة
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                              IconButton(
-                                onPressed: (){
-                                  setState(() {
-                                    addImageToProfileCubit.pickImage(context,userProfile.id??"");
-                                    BlocProvider.of<UserProfileCubit>(context).getUserProfile(context, userProfile.id??"");
-                                  });
-                                },
-                                icon: Positioned(
-                                  bottom: 10,
-                                  left: 10,
-                                  child: CircleAvatar(
-                                    radius: 16,
-                                    backgroundColor: Color(0xff19649E),
-                                    child: Icon(Icons.edit, size: 16, color: Colors.white),
-                                  ),
+                            ),
+                            IconButton(
+                              onPressed: (){
+                                setState(() {
+                                  addImageToProfileCubit.pickImage(context,userProfile.id??"");
+                                  BlocProvider.of<UserProfileCubit>(context).getUserProfile(context, userProfile.id??"");
+                                });
+                              },
+                              icon: Positioned(
+                                bottom: 10,
+                                left: 10,
+                                child: CircleAvatar(
+                                  radius: 16,
+                                  backgroundColor: Color(0xff19649E),
+                                  child: Icon(Icons.edit, size: 16, color: Colors.white),
                                 ),
                               ),
-                            ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 35),
+              Positioned(
+                left: screenWidth * 0.35, // Adjust for better centering
+                top: -100,
+                child: Text(
+                  "${userProfileCubit.userData?.firstName}",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: screenWidth * 0.06,
+                    // Adjust size based on screen width
+                    color: Color(0xff19649E),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              GestureDetector(
+                onTap: (){
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MultiBlocProvider(
+                        providers: [
+                          BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                          BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                          BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                        ],
+                        child: const ChangeLanguage(),
+                      ),
+                    ),
+                  );
+
+                },
+                child: Container(
+                  margin:
+                  EdgeInsets.only(bottom: 15, top: 25, left: 22, right: 20),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+
+                          Padding(
+                            padding: EdgeInsets.only(top: 10.0),
+                            child: Text(
+                              "changeLanguage".tr(),
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: screenWidth * 0.05,
+                                // Adjust text size
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          Icon(
+                            Icons.arrow_forward,
+                            color: Color(0xff19649E),
+                            size: screenWidth *
+                                0.08, // Adjust icon size proportionally
                           ),
                         ],
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 35),
-                Positioned(
-                  left: screenWidth * 0.35, // Adjust for better centering
-                  top: -100,
-                  child: Text(
-                    "${userProfileCubit.userData?.firstName}",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w800,
-                      fontSize: screenWidth * 0.06,
-                      // Adjust size based on screen width
-                      color: Color(0xff19649E),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                GestureDetector(
-                  onTap: (){
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MultiBlocProvider(
-                          providers: [
-                            BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                            BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                            BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                          ],
-                          child: const ChangeLanguage(),
-                        ),
+                      Container(
+                        margin: EdgeInsets.only(top: 15, left: 12),
+                        width: screenWidth * 0.85,
+                        height: 2,
+                        color: Color(0xff19649E),
                       ),
-                    );
-
-                  },
-                  child: Container(
-                    margin:
-                    EdgeInsets.only(bottom: 15, top: 25, left: 22, right: 20),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-
-                            Padding(
-                              padding: EdgeInsets.only(top: 10.0),
-                              child: Text(
-                                "changeLanguage".tr(),
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: screenWidth * 0.05,
-                                  // Adjust text size
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                            Icon(
-                              Icons.arrow_forward,
-                              color: Color(0xff19649E),
-                              size: screenWidth *
-                                  0.08, // Adjust icon size proportionally
-                            ),
-                          ],
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 15, left: 12),
-                          width: screenWidth * 0.85,
-                          height: 2,
-                          color: Color(0xff19649E),
-                        ),
-                      ],
-                    ),
+                    ],
                   ),
                 ),
-                GestureDetector(
-                  onTap: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MultiBlocProvider(
-                          providers: [
-                            BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                            BlocProvider<ResetPasswordCubit>(create: (_) => ResetPasswordCubit()),
-                          ],
-                          child:ClientChangePassword(),
-                        ),
+              ),
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MultiBlocProvider(
+                        providers: [
+                          BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                          BlocProvider<ResetPasswordCubit>(create: (_) => ResetPasswordCubit()),
+                        ],
+                        child:ClientChangePassword(),
                       ),
-                    );
+                    ),
+                  );
 
-                  },
-                  child: Container(
-                    margin:
-                    EdgeInsets.only(bottom: 15, top: 10, left: 20, right: 20),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
+                },
+                child: Container(
+                  margin:
+                  EdgeInsets.only(bottom: 15, top: 10, left: 20, right: 20),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
 
-                            Padding(
-                              padding: EdgeInsets.only(top: 15.0),
-                              child: Text(
-                                "changePassword".tr(),
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: screenWidth * 0.05,
-                                  // Adjust text size
-                                  fontWeight: FontWeight.w600,
-                                ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 15.0),
+                            child: Text(
+                              "changePassword".tr(),
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: screenWidth * 0.05,
+                                // Adjust text size
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
-                            Icon(
-                              Icons.arrow_forward,
-                              color: Color(0xff19649E),
-                              size: screenWidth *
-                                  0.08, // Adjust icon size proportionally
-                            ),
-                          ],
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 15, left: 12),
-                          width: screenWidth * 0.85,
-                          height: 2,
-                          color: Color(0xff19649E),
-                        ),
-                      ],
-                    ),
+                          ),
+                          Icon(
+                            Icons.arrow_forward,
+                            color: Color(0xff19649E),
+                            size: screenWidth *
+                                0.08, // Adjust icon size proportionally
+                          ),
+                        ],
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 15, left: 12),
+                        width: screenWidth * 0.85,
+                        height: 2,
+                        color: Color(0xff19649E),
+                      ),
+                    ],
                   ),
                 ),
-                GestureDetector(
-                  onTap: (){
-                    showDeleteAccountBottomSheet( context, ()async{
-                      final prefs = await SharedPreferences.getInstance();
-                      String id = prefs.getString('userId') ?? "";
-                      BlocProvider.of<DeleteAccountCubit>(context).deleteAccount(context, id);
-                    });
-                  },
-                  child: Container(
-                    margin:
-                        EdgeInsets.only(bottom: 15, top: 10, left: 20, right: 20),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
+              ),
+              GestureDetector(
+                onTap: (){
+                  showDeleteAccountBottomSheet( context, ()async{
+                    final prefs = await SharedPreferences.getInstance();
+                    String id = prefs.getString('userId') ?? "";
+                    BlocProvider.of<DeleteAccountCubit>(context).deleteAccount(context, id);
+                  });
+                },
+                child: Container(
+                  margin:
+                      EdgeInsets.only(bottom: 15, top: 10, left: 20, right: 20),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
 
-                            Padding(
-                              padding: EdgeInsets.only(top: 15.0),
-                              child: Text(
-                                "deleteAccount".tr(),
-                                style: TextStyle(
-                                  color: Colors.redAccent,
-                                  fontSize: screenWidth * 0.05,
-                                  // Adjust text size
-                                  fontWeight: FontWeight.w600,
-                                ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 15.0),
+                            child: Text(
+                              "deleteAccount".tr(),
+                              style: TextStyle(
+                                color: Colors.redAccent,
+                                fontSize: screenWidth * 0.05,
+                                // Adjust text size
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
-                            Icon(
-                              Icons.arrow_forward,
-                              color: Colors.redAccent,
-                              size: screenWidth *
-                                  0.08, // Adjust icon size proportionally
-                            ),
-                          ],
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 15, left: 12),
-                          width: screenWidth * 0.85,
-                          height: 2,
-                          color: Colors.redAccent,
-                        ),
-                      ],
-                    ),
+                          ),
+                          Icon(
+                            Icons.arrow_forward,
+                            color: Colors.redAccent,
+                            size: screenWidth *
+                                0.08, // Adjust icon size proportionally
+                          ),
+                        ],
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 15, left: 12),
+                        width: screenWidth * 0.85,
+                        height: 2,
+                        color: Colors.redAccent,
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ],
-        ),
-      );
-        }
-        return Container();
-      },
-      )),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
+      }
+      return Container();
+    },
+    ));
 }
 
 }
