@@ -164,38 +164,33 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                 const SizedBox(height: 10),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
+
                   child: Row(
-                    children: [
-
-                      Wrap(
-                        spacing: 10,
-                        children:
-                        daySlots.map((day) {
-                          return TextButton(
-                            onPressed: () {
-                              setState(() {
-                                _selectedDay = day; // Update the selected time
-                              });
-                            },
-                            style: TextButton.styleFrom(
-                              minimumSize: Size(110, 50), // Set minimum size for the button
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20), // Change this value for more or less rounding
-                              ),
-                              foregroundColor: Colors.grey.shade300,
-                              backgroundColor: _selectedDay == day ? const Color(0xFF19649E) : Colors.grey.shade300, // Text color
-                            ),
-                            child: Text(day,
-                              // textDirection: TextDirection.ltr,
-                              style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold,
-                                color: _selectedDay == day ? Colors.white : Colors.black,
-                              ),),
-                          );
-                        }).toList(),
-                      ),
-
-                    ],
+                    spacing: 10,
+                    children:
+                    daySlots.map((day) {
+                      return TextButton(
+                        onPressed: () {
+                          setState(() {
+                            _selectedDay = day; // Update the selected time
+                          });
+                        },
+                        style: TextButton.styleFrom(
+                          minimumSize: Size(110, 50), // Set minimum size for the button
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20), // Change this value for more or less rounding
+                          ),
+                          foregroundColor: Colors.grey.shade300,
+                          backgroundColor: _selectedDay == day ? const Color(0xFF19649E) : Colors.grey.shade300, // Text color
+                        ),
+                        child: Text(day,
+                          // textDirection: TextDirection.ltr,
+                          style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold,
+                            color: _selectedDay == day ? Colors.white : Colors.black,
+                          ),),
+                      );
+                    }).toList(),
                   ),
                 ),
                 const SizedBox(height: 50,),

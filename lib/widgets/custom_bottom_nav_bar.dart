@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
+import '../screens/applicationInfo.dart';
 import '../screens/client_profile_screen.dart';
 import '../screens/first_home_page.dart';
 import '../screens/home_second_screen.dart';
@@ -74,8 +75,8 @@ class CustomBottomNavBar extends StatelessWidget {
             ),
           ),
           activeIcon: SizedBox(
-            height: 25,
-            width: 50,
+            height: 33,
+            // width: 50,
             child: Image.asset(
               "assets/images/material-symbols_help-clinic-outline-rounded_Active.png",
               fit: BoxFit.fill,
@@ -135,7 +136,7 @@ class CustomBottomNavBar extends StatelessWidget {
             break;
           case 2:
 
-            Navigator.push(context, MaterialPageRoute(builder: (context) => InfoScreen()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const ApplicationInfo()));
 
             break;
 

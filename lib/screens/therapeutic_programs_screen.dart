@@ -1,3 +1,4 @@
+
 import 'package:doctor/screens/personality_disorder_screen.dart';
 import 'package:doctor/widgets/custom_app_bar.dart';
 import 'package:doctor/widgets/custom_bottom_nav_bar.dart';
@@ -119,13 +120,15 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => MultiBlocProvider(
+                                  builder: (context) =>
+                                      MultiBlocProvider(
                                     providers: [
                                       BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
                                       BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
                                       BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                                     ],
-                                    child: const AnxietyScreen(),
+                                    child:
+                                    const AnxietyScreen(),
                                   ),
 
                                 ),

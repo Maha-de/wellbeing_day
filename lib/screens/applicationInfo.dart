@@ -33,6 +33,7 @@ class SocialMediaPage extends StatefulWidget {
 
 class _SocialMediaPageState extends State<SocialMediaPage> {
   int _selectedIndex = 3;
+
   final List<String> tabs = [
     "التعليمات",
     "تعريف التطبيق",
@@ -71,6 +72,7 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       bottomNavigationBar: const CustomBottomNavBar(
         currentIndex: 2,
       ),
@@ -102,7 +104,7 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
                   scrollDirection: Axis.horizontal,
                   reverse: true,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: List.generate(tabs.length, (index) {
                       return GestureDetector(
                         onTap: () {
@@ -116,8 +118,8 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
                           margin: const EdgeInsets.symmetric(horizontal: 4),
                           decoration: BoxDecoration(
                             color: _selectedIndex == index
-                                ? Color(0xff69B7F3)
-                                : Color(0xffA2A2A2),
+                                ? const Color(0xff69B7F3)
+                                : const Color(0xffA2A2A2),
                             borderRadius: const BorderRadius.only(
                               bottomRight: Radius.circular(20),
                               topLeft: Radius.circular(20),
@@ -148,7 +150,7 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
           ),
           Expanded(
             child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.fromLTRB(30, 50, 30, 50),
                 child: AppearedItemFromTabls(_selectedIndex)),
           ),
         ],
@@ -159,13 +161,13 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
   Widget AppearedItemFromTabls(int index) {
     switch (index) {
       case 0:
-        return InstructionTab();
+        return const InstructionTab();
 
       case 1:
-        return AppDef();
+        return const AppDef();
 
       case 2:
-        return FqaTab();
+        return const FqaTab();
 
       case 3:
         return contactTab();

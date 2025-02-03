@@ -21,7 +21,7 @@ class SocialMediaButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.lightBlueAccent,
+          backgroundColor: Color(0xFFAFDCFF),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
