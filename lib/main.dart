@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:dio/dio.dart';
 import 'package:doctor/cubit/user_profile_cubit/user_profile_cubit.dart';
 import 'package:doctor/screens/client_profile_details.dart';
@@ -37,11 +39,9 @@ Future<void> main() async {
               create: (context) => UserProfileCubit(),
             ),
           ],
-          child: const GetMaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: MyApp(),
+          child: const MyApp(),
           ),
-        )),
+        ),
   );
 }
 
@@ -57,13 +57,16 @@ class MyApp extends StatelessWidget {
     ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
+        scrollBehavior: ScrollConfiguration.of(context).copyWith(
+            dragDevices: { PointerDeviceKind.touch, PointerDeviceKind.mouse, PointerDeviceKind.trackpad,}),
+      
       locale: context.locale, // Default locale
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
 
       title: 'doctorapp',
       theme: ThemeData(
+        fontFamily: "Tajawal",
         primarySwatch: Colors.blue,
       ),
       home: SplashScreen(),
