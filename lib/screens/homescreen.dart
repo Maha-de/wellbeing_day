@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:doctor/cubit/get_specialist/get_sepcialist_cubit.dart';
 import 'package:doctor/screens/home_second_screen.dart';
 import 'package:doctor/screens/problem_solving_screen.dart';
 import 'package:doctor/screens/psychological_disorders_screen.dart';
@@ -92,7 +93,8 @@ class _HomeScreenState extends State<HomeScreen> {
         // Return false to disable the back button
         return false;
       },
-      child: BlocProvider(
+
+    child: BlocProvider(
         create: (_) => userProfileCubit,
         child: BlocBuilder<UserProfileCubit, UserProfileState>(
           builder: (context, state) {
@@ -313,6 +315,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
                                           BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
                                           BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                          // BlocProvider<GetSpecialistCubit>(create: (_) => GetSpecialistCubit()),
+
                                         ],
                                         child: const PsychologicalDisordersScreen(),
                                       ),

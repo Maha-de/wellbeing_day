@@ -20,7 +20,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.doctorapp"
-        minSdk = 23 // Minimum SDK version should be 23 or above for runtime permissions
+        minSdk = 26 // Minimum SDK version should be 23 or above for runtime permissions
         targetSdk = 33 // or higher, ensure it's compatible with your target Android version
         versionCode = flutter.versionCode
         versionName = flutter.versionName

@@ -1,6 +1,5 @@
 
-import '../errors/exceptions.dart';
-import '../models/sign_up_model.dart';
+import '../models/specialist_model.dart';
 import 'api_consumer.dart';
 import 'either.dart';
 import 'end_points.dart';
@@ -14,50 +13,35 @@ class UserRepository {
   UserRepository({required this.api});
 
 
-  Future<Either<String, SignUpModel>> signUp({
-    required String firstname,
-    required String lastname,
-    required String email,
-    required String password,
-    // required String confirmPassword,
-    required String phone,
-    required String nationality,
-    required String homeAddress,
-    required String workAddress,
-    required String filePath,
+  Future<Either<String, List<SpecialistModel>>> getSpecialists(
 
 
-
-
-
-  }) async {
+      ) async {
     try {
-      final response = await api.post(
-        EndPoint.signUp,
+      // Make your API call here to fetch the list of specialists
+      final response = await await api.get(
+        EndPoint.getAllSpecialist,
         data: {
 
-          ApiKey.firstName: firstname,
-          ApiKey.lastName: lastname,
-          ApiKey.email: email,
-          ApiKey.password: password,
-          ApiKey.phone: phone,
-          ApiKey.nationality: nationality,
-          ApiKey.homeAddress: homeAddress,
-          ApiKey.workAddress: workAddress,
-          ApiKey.files: filePath
-
         },
-
       );
 
+      if (response['message'] == "specialists gitting successfully") {
+        // Parse the response and return a list of specialists
+        final List<dynamic> jsonData = response['specialists'];
 
-      final signUpModel = SignUpModel.fromJson(response);
-      return Right(signUpModel);
-    } on ServerException catch (e) {
-      return Left(e.errModel.data);
+
+        List<SpecialistModel> specialists = jsonData.map((json) =>
+            SpecialistModel.fromJson(json)).toList();
+
+
+        return Right(
+            specialists); // Assuming you're using Either for error handling
+      } else {
+        return Left('Failed to load specialists');
+      }
+    } catch (e) {
+      return Left('An error occurred: $e');
     }
   }
-
-
-
 }

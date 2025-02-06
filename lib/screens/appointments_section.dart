@@ -37,6 +37,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
     _loadUserProfile();
+
   }
 
   Future<void> _loadUserProfile() async {
@@ -268,7 +269,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
 
                 Column(
                   children: [
-                    DoctorCard(),
+                    // DoctorCard(),
                     const SizedBox(height: 30,),
 
                     Padding(
@@ -312,8 +313,8 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                   ],
                 ),
 
-                DoctorCard(),
-                DoctorCard(),
+                // DoctorCard(),
+                // DoctorCard(),
 
               ]
               [_currentPage],

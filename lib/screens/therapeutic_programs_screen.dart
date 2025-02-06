@@ -7,6 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
+import '../cubit/get_specialist/get_sepcialist_cubit.dart';
+import '../cubit/get_specialist/get_specialist_state.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
@@ -30,6 +32,9 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
     _loadUserProfile();
+    final specialistCubit = BlocProvider.of<GetSpecialistCubit>(context);
+    specialistCubit.fetchSpecialists();
+
   }
 
   Future<void> _loadUserProfile() async {
@@ -60,6 +65,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
               return Center(child: Text("Error loading profile: ${state.error}"));
             } else if (state is UserProfileSuccess) {
               UserProfileModel userProfile = state.userProfile;
+
               return Scaffold(
                 bottomNavigationBar: CustomBottomNavBar(currentIndex: 1),
                 appBar: CustomAppBar(
@@ -200,18 +206,57 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                           ),
                         ),
                         // List of doctors
-                        ListView.separated(
-                          padding: EdgeInsets.only(left: 10,right: 10),
-                          itemBuilder: (context, index) {
-                            return DoctorCard();
-                          },
-                          separatorBuilder: (context, index) {
-                            return SizedBox(height: screenHeight * 0.05);
-                          },
-                          itemCount: 2,
-                          shrinkWrap: true, // Makes ListView behave like a normal widget inside a Column
-                          physics: NeverScrollableScrollPhysics(), // Prevents the ListView from having its own scroll
-                        )
+    Container(
+      height: 900,
+      child: SingleChildScrollView(
+        child: BlocConsumer<GetSpecialistCubit, GetSpecialistState>(listener: (context, state) {
+        },
+        builder: (context, state) {
+          print("Current State: $state"); // Debugging line
+
+          if (state is SpecialistLoading) {
+            return Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ));
+          } else if (state is SpecialistFailure) {
+            return Center(
+                child: Text("Error loading Doctors: ${state.errMessage}"));
+          } else if (state is SpecialistSuccess) {
+            final specialists = state.specialists; // Get the list of specialists
+
+
+
+            return Column(
+              children: List.generate(specialists.length, (index) {
+                return DoctorCard(
+                  specialistModel: specialists[index],
+                );
+              }),
+            );
+        // return ListView.separated(
+        //       padding: EdgeInsets.only(left: 10, right: 10),
+        //       itemBuilder: (context, index) {
+        //         return DoctorCard(
+        //           specialistModel: specialists[index],
+        //         );
+        //       },
+        //       separatorBuilder: (context, index) {
+        //         return SizedBox(height: screenHeight * 0.05);
+        //       },
+        // // itemCount: 2,
+        //       itemCount: specialists.length,
+        //       shrinkWrap: true,
+        //       // Makes ListView behave like a normal widget inside a Column
+        //       // physics: NeverScrollableScrollPhysics(), // Prevents the ListView from having its own scroll
+        //     )
+        // ;
+          }
+        return Container(); // Default return in case no state matches
+        },
+        ),
+      ),
+    )
                       ],
                     ),
                   ),

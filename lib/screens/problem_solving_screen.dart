@@ -132,7 +132,7 @@ class _ProblemSolvingScreenState extends State<ProblemSolvingScreen> {
                     ListView.separated(
                       padding: EdgeInsets.only(left: 10,right: 10),
                       itemBuilder: (context, index) {
-                        return DoctorCard();
+                        // return DoctorCard();
                       },
                       separatorBuilder: (context, index) {
                         return SizedBox(height: screenHeight * 0.05);

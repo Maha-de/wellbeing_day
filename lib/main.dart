@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:dio/dio.dart';
+import 'package:doctor/cubit/get_specialist/get_sepcialist_cubit.dart';
 import 'package:doctor/cubit/user_profile_cubit/user_profile_cubit.dart';
 import 'package:doctor/screens/client_profile_details.dart';
 import 'package:doctor/screens/client_profile_screen.dart';
@@ -37,6 +38,9 @@ Future<void> main() async {
             ),
             BlocProvider(
               create: (context) => UserProfileCubit(),
+            ),
+            BlocProvider(
+              create: (context) => GetSpecialistCubit(UserRepository(api: DioConsumer(dio: Dio()))),
             ),
           ],
           child: const MyApp(),

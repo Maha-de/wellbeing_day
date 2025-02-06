@@ -18,3 +18,5 @@ abstract class SignUpSpecialistState {}
   final String errMessage;
   SignUpSpecialistFailure({required this.errMessage});
 }
+
+

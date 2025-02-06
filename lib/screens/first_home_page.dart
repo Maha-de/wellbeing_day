@@ -110,8 +110,8 @@ class _FirstHomePageState extends State<FirstHomePage> {
                                         height: 10,
                                       ),
                                       Text(
-                                        "greeting".tr() + " ${userProfile.firstName}",
-                                        textAlign: TextAlign.start,
+                                        "greeting".tr() + "\n ${userProfile.firstName}",
+                                        textAlign: TextAlign.center,
                                         style: const TextStyle(
                                           fontSize: 16,
                                           color: Color(0xff19649E),
@@ -283,7 +283,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
                             padding:
                             const EdgeInsets.only(left: 10, right: 10, top: 30),
                             itemBuilder: (context, index) {
-                              return DoctorCard();
+                              // return DoctorCard();
                             },
                             separatorBuilder: (context, index) {
                               return const SizedBox(height: 20);

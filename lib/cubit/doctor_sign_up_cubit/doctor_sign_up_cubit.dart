@@ -146,6 +146,7 @@ class SignUpSpecialistCubit extends Cubit<SignUpSpecialistState> {
       emit(SignUpSpecialistFailure(errMessage: e.errModel.message!));
     }
   }
+
 }
 
 String handleFailureResponse(Map<String, dynamic> errorResponse) {
@@ -156,3 +157,5 @@ String handleFailureResponse(Map<String, dynamic> errorResponse) {
   }
   return "";
 }
+
+
