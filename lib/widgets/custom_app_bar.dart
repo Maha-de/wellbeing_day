@@ -40,13 +40,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
-                      width: 66,
-                      height: 50,
+                      width: 69,
+                      height: 66,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                       ),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
+                        borderRadius: BorderRadius.circular(60),
                         child: userProfile.imageUrl == "" || userProfile.imageUrl == null
                             ? Image.asset("assets/images/profile.jpg", fit: BoxFit.fill)
                             : Image.network(userProfile.imageUrl ?? "", fit: BoxFit.fill),
@@ -69,15 +69,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
 
                 // Right side (image and action icons)
-                Padding(
-                  padding: EdgeInsets.only(bottom: screenHeight * 0.02),
-                  child: SizedBox(
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: screenHeight * 0.02,left: 15),
+                    child: SizedBox(
 
-                    height: 100,
-                    width: 110,
-                    // height: screenHeight * 0.17,
-                    // width: screenWidth * 0.35,
-                    child: Image.asset('assets/images/img.png', fit: BoxFit.fill),
+                      height: 100,
+                      width: 110,
+                      // height: screenHeight * 0.17,
+                      // width: screenWidth * 0.35,
+                      child: Image.asset('assets/images/img.png', fit: BoxFit.fill),
+                    ),
                   ),
                 ),
 

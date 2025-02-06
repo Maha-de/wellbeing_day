@@ -62,9 +62,9 @@ class DoctorCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8), // Rounded corners for the image
                         ),
                         child: Transform.translate(
-                          offset: Offset(0, -14), // Move the image upwards by 14 units
+                          offset: Offset(-17, -12), // Move the image upwards by 14 units
                           child: Transform.scale(
-                            scale: 1.25, // Scale the image to give a zoom effect
+                            scale: 1.1, // Scale the image to give a zoom effect
                             child: Image.asset('assets/images/doctor.png', fit: BoxFit.contain), // Displaying the image
                           ),
                         ),
