@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../widgets/doctor_details_info.dart';
 import 'appointment_screen.dart';
 import '../models/specialist_model.dart';
@@ -48,7 +49,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(35.0), // Set the height here
+        preferredSize:  Size.fromHeight(35.0.h), // Set the height here
           child: AppBar(
             backgroundColor: const Color(0xff19649E),
             iconTheme: const IconThemeData(
@@ -61,8 +62,8 @@ class _DoctorDetailsState extends State<DoctorDetails> {
           Stack(
             children: [
               Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.21, // Adjust height proportionally
+                width: MediaQuery.of(context).size.width.w,
+                height: MediaQuery.of(context).size.height * 0.21.h, // Adjust height proportionally
                 decoration: const BoxDecoration(
                   color: Color(0xff19649E),
                   borderRadius: BorderRadius.only(
@@ -82,8 +83,8 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                 ),
               ),
               SizedBox(
-                height: 220,
-                width: 180,
+                height: 220.h,
+                width: 180.w,
                 child: Transform.translate(
                   offset: const Offset(-210, 50),
                   child: Container(
@@ -107,27 +108,27 @@ class _DoctorDetailsState extends State<DoctorDetails> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const DoctorInfo(text: 'السعر: 300 ليرة / 30 دقيقة',),
-                const SizedBox(height: 6),
-                const Align(
+                 SizedBox(height: 6.h),
+                 Align(
                   alignment: Alignment.centerRight,
-                    child: Text("نبذة عن الأخصائي", style: TextStyle(fontSize: 18, color: Color(0xff19649E), fontWeight: FontWeight.bold,),)),
-                const SizedBox(height: 6),
-                const Align(
+                    child: Text("نبذة عن الأخصائي", style: TextStyle(fontSize: 18.sp, color: Color(0xff19649E), fontWeight: FontWeight.bold,),)),
+                 SizedBox(height: 6.h),
+                 Align(
                     alignment: Alignment.centerRight,
-                    child: Text("طبيب نفسي مهتم بالوقاية النفسية", style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),)),
-                const SizedBox(height: 6),
+                    child: Text("طبيب نفسي مهتم بالوقاية النفسية", style: TextStyle(fontSize: 18.sp, color: Colors.black, fontWeight: FontWeight.bold),)),
+                 SizedBox(height: 6.h),
                 const DoctorInfo(text: 'النوع: وقاية نفسية',),
-                const SizedBox(height: 6),
+                 SizedBox(height: 6.h),
                 const DoctorInfo(text: 'متاح جلسات صوتية، فيديو',),
-                const SizedBox(height: 6),
+                 SizedBox(height: 6.h),
                 const DoctorInfo(text: 'خبرة 7 سنوات',),
-                const SizedBox(height: 6),
+                 SizedBox(height: 6.h),
                 const DoctorInfo(text: 'اللغة: العربية، الإنجليزية',),
-                const SizedBox(height: 10),
-                const Align(
+                 SizedBox(height: 10.h),
+                 Align(
                     alignment: Alignment.centerRight,
-                    child: Text("ساعات العمل", style: TextStyle(fontSize: 20, color: Color(0xff19649E), fontWeight: FontWeight.bold,),)),
-                const SizedBox(height: 10),
+                    child: Text("ساعات العمل", style: TextStyle(fontSize: 20.sp, color: Color(0xff19649E), fontWeight: FontWeight.bold,),)),
+                 SizedBox(height: 10.h),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
@@ -152,7 +153,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                             ),
                             child: Text(time, textDirection: TextDirection.ltr,
                               style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold,
+                                fontSize: 18.sp, fontWeight: FontWeight.bold,
                                 color: _selectedTime == time ? Colors.white : Colors.black,
                               ),),
                           );
@@ -162,11 +163,11 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                     ],
                   ),
                 ),
-                SizedBox(height: 10,),
-                const Align(
+                SizedBox(height: 10.h,),
+                 Align(
                     alignment: Alignment.centerRight,
-                    child: Text("اليوم", style: TextStyle(fontSize: 20, color: Color(0xff19649E), fontWeight: FontWeight.bold,),)),
-                const SizedBox(height: 10),
+                    child: Text("اليوم", style: TextStyle(fontSize: 20.sp, color: Color(0xff19649E), fontWeight: FontWeight.bold,),)),
+                 SizedBox(height: 10.h),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
 
@@ -191,14 +192,14 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                         child: Text(day,
                           // textDirection: TextDirection.ltr,
                           style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold,
+                            fontSize: 18.sp, fontWeight: FontWeight.bold,
                             color: _selectedDay == day ? Colors.white : Colors.black,
                           ),),
                       );
                     }).toList(),
                   ),
                 ),
-                const SizedBox(height: 50,),
+                 SizedBox(height: 50.h,),
                 Center(
                   child: ElevatedButton(
                     onPressed: () {
@@ -209,10 +210,10 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                         backgroundColor: const Color(0xFF19649E),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
-                    child: const Text(
+                    child:  Text(
                       "حجز موعد",
                       style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
                     ),

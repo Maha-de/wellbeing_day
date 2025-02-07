@@ -3,6 +3,7 @@ import 'package:doctor/screens/homescreen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../cubit/get_specialist/get_sepcialist_cubit.dart';
 import '../cubit/get_specialist/get_specialist_state.dart';
@@ -48,8 +49,8 @@ class _FirstHomePageState extends State<FirstHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width.w;
+    double screenHeight = MediaQuery.of(context).size.height.h;
     return BlocProvider(
         create: (context) => userProfileCubit,
         child: BlocBuilder<UserProfileCubit, UserProfileState>(
@@ -92,8 +93,8 @@ class _FirstHomePageState extends State<FirstHomePage> {
                                     child: Column(
                                       children: [
                                         Container(
-                                          width: 66,
-                                          height: 66,
+                                          width: 66.w,
+                                          height: 66.h,
                                           decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                           ),
@@ -112,14 +113,14 @@ class _FirstHomePageState extends State<FirstHomePage> {
 
                                           ),
                                         ),
-                                        const SizedBox(
-                                          height: 10,
+                                         SizedBox(
+                                          height: 10.h,
                                         ),
                                         Text(
                                           "greeting".tr() + "\n ${userProfile.firstName}",
                                           textAlign: TextAlign.center,
-                                          style: const TextStyle(
-                                            fontSize: 16,
+                                          style:  TextStyle(
+                                            fontSize: 16.sp,
                                             color: Color(0xff19649E),
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -131,8 +132,8 @@ class _FirstHomePageState extends State<FirstHomePage> {
                                     padding: const EdgeInsets.only(
                                         top: 20, right: 40),
                                     child: SizedBox(
-                                      height: 100,
-                                      width: 110,
+                                      height: 100.h,
+                                      width: 110.w,
                                       child: Image.asset('assets/images/img.png',
                                           fit: BoxFit.fill),
                                     ),
@@ -161,24 +162,24 @@ class _FirstHomePageState extends State<FirstHomePage> {
                                                 )),
                                           ],
                                         ),
-                                        const SizedBox(
-                                          height: 20,
+                                         SizedBox(
+                                          height: 20.h,
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.only(
                                               left: 30),
                                           child: Column(
                                             children: [
-                                              const Text(
+                                               Text(
                                                 "تواصل معنا",
                                                 style: TextStyle(
                                                   color: Color(0xff19649E),
-                                                  fontSize: 17,
+                                                  fontSize: 17.sp,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                              const SizedBox(
-                                                height: 10,
+                                               SizedBox(
+                                                height: 10.h,
                                               ),
                                               Row(
                                                 mainAxisAlignment:
@@ -187,19 +188,19 @@ class _FirstHomePageState extends State<FirstHomePage> {
                                                   GestureDetector(
                                                     onTap: () {},
                                                     child: SizedBox(
-                                                      width: 27.66,
-                                                      height: 25.33,
+                                                      width: 27.66.w,
+                                                      height: 25.33.h,
                                                       child: Image.asset(
                                                           "assets/images/fa-brands_twitter-square.png",
                                                           fit: BoxFit.fill),
                                                     ),
                                                   ),
-                                                  const SizedBox(width: 5),
+                                                   SizedBox(width: 5.w),
                                                   GestureDetector(
                                                     onTap: () {},
                                                     child: SizedBox(
-                                                      width: 27.66,
-                                                      height: 25.33,
+                                                      width: 27.66.w,
+                                                      height: 25.33.h,
                                                       child: Image.asset(
                                                           "assets/images/uil_facebook.png",
                                                           fit: BoxFit.fill),
@@ -209,8 +210,8 @@ class _FirstHomePageState extends State<FirstHomePage> {
                                                   GestureDetector(
                                                     onTap: () {},
                                                     child: SizedBox(
-                                                      width: 27.66,
-                                                      height: 25.33,
+                                                      width: 27.66.w,
+                                                      height: 25.33.h,
                                                       child: Image.asset(
                                                           "assets/images/ri_instagram-fill.png",
                                                           fit: BoxFit.fill),
@@ -229,18 +230,18 @@ class _FirstHomePageState extends State<FirstHomePage> {
                             ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
+                         SizedBox(
+                          height: 20.h,
                         ),
                         SizedBox(
                           width: MediaQuery
                               .of(context)
                               .size
-                              .width,
+                              .width.w,
                           child: CarouselSlider(
                             carouselController: carouselControllerEx,
                             options: CarouselOptions(
-                                height: 180,
+                                height: 180.h,
                                 autoPlay: true,
                                 onPageChanged: (index, _) {
                                   sliderIndex = index;
@@ -260,16 +261,16 @@ class _FirstHomePageState extends State<FirstHomePage> {
                             }).toList(),
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
+                         SizedBox(
+                          height: 20.h,
                         ),
                         Center(
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: const Color(0xFFAFDCFF)),
-                            height: 50,
-                            width: 380,
+                            height: 50.h,
+                            width: 380.w,
                             child: TextFormField(
                               decoration: const InputDecoration(
                                 prefixIcon: Icon(Icons.search),
@@ -280,8 +281,8 @@ class _FirstHomePageState extends State<FirstHomePage> {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 10,
+                         SizedBox(
+                          height: 10.h,
                         ),
 
                         // List of doctors
@@ -293,7 +294,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
                               return Text(state.errMessage); // Display error message
                             } else if (state is SpecialistSuccess) {
                               return Container(
-                                height: screenHeight*0.57,
+                                height: screenHeight*0.57.h,
                                 child: ListView.builder(
                                   itemCount: state.specialists.length,
                                   itemBuilder: (context, index) {
@@ -307,26 +308,6 @@ class _FirstHomePageState extends State<FirstHomePage> {
                           },
                         )
 
-                        // Expanded(
-                        //   child: SingleChildScrollView(
-                        //     child: ListView.separated(
-                        //       padding:
-                        //       const EdgeInsets.only(left: 10, right: 10, top: 30),
-                        //       itemBuilder: (context, index) {
-                        //         return DoctorCard();
-                        //       },
-                        //       separatorBuilder: (context, index) {
-                        //         return const SizedBox(height: 20);
-                        //       },
-                        //       itemCount: 2,
-                        //       shrinkWrap:
-                        //       true,
-                        //       // Makes ListView behave like a normal widget inside a Column
-                        //       physics:
-                        //       const NeverScrollableScrollPhysics(), // Prevents the ListView from having its own scroll
-                        //     ),
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),

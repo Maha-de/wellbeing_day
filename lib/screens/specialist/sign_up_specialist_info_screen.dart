@@ -8,6 +8,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../api/dio_consumer.dart';
 import '../../api/user_repository.dart';
@@ -74,7 +75,7 @@ class _SignUpAsDoctorFirstScreenState extends State<SignUpAsDoctorFirstScreen> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          toolbarHeight: 35,
+          toolbarHeight: 35.h,
           backgroundColor: Colors.white,
         ),
         body: Form(
@@ -91,15 +92,15 @@ class _SignUpAsDoctorFirstScreenState extends State<SignUpAsDoctorFirstScreen> {
                     child: Text(
                       "headerAsSpecialist".tr(),
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 20,
+                      style:  TextStyle(
+                        fontSize: 20.sp,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
-                        height: 1.5,
+                        height: 1.5.h,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 32),
+                   SizedBox(height: 32.h),
                   CustomTextField(
                     label: "firstName".tr(),
                     controller: context.read<GetSpecialistCubit>().firstNameController,
@@ -325,8 +326,8 @@ class _SignUpAsDoctorFirstScreenState extends State<SignUpAsDoctorFirstScreen> {
                       }
                     },
                     child: Container(
-                      width: 140,
-                      height: 50,
+                      width: 140.w,
+                      height: 50.h,
                       decoration: BoxDecoration(
                         color: const Color(0xff19649E),
                         borderRadius: BorderRadius.circular(30),
@@ -334,8 +335,8 @@ class _SignUpAsDoctorFirstScreenState extends State<SignUpAsDoctorFirstScreen> {
                       child: Center(
                         child: Text(
                           "next".tr(),
-                          style: const TextStyle(
-                            fontSize: 18,
+                          style:  TextStyle(
+                            fontSize: 18.sp,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
@@ -64,7 +65,7 @@ class _PaymentMethodsProfileState extends State<PaymentMethodsProfile> {
           "وسائل الدفع",
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: screenWidth * 0.06,
+            fontSize: screenWidth * 0.06.sp,
             color: Colors.white,
             fontWeight: FontWeight.w700,
           ),
@@ -75,7 +76,7 @@ class _PaymentMethodsProfileState extends State<PaymentMethodsProfile> {
                     clipBehavior: Clip.none,
                     children: [
                       Container(
-                        height: screenHeight * 0.21,  // Adjust height proportionally
+                        height: screenHeight * 0.21.h,  // Adjust height proportionally
                         decoration: BoxDecoration(
                           color: Color(0xff19649E),
                           borderRadius: BorderRadius.only(
@@ -129,9 +130,9 @@ class _PaymentMethodsProfileState extends State<PaymentMethodsProfile> {
 
                                   },
                                   child: Container(
-                                    height: screenWidth * 0.3,
+                                    height: screenWidth * 0.3.h,
                                     // Adjust size proportionally
-                                    width: screenWidth * 0.3,
+                                    width: screenWidth * 0.3.w,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius:
@@ -180,7 +181,7 @@ class _PaymentMethodsProfileState extends State<PaymentMethodsProfile> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 50),
+                  SizedBox(height: 50.h),
                   Positioned(
                     left: screenWidth * 0.35, // Adjust for better centering
                     top: -100,
@@ -196,11 +197,11 @@ class _PaymentMethodsProfileState extends State<PaymentMethodsProfile> {
                   ),
                   Center(
                     child:SizedBox(
-                      height: screenHeight*0.39,
+                      height: screenHeight*0.39.h,
                       child: Center(
                         child: Container(
-                          width: 343,
-                          height: 150,
+                          width: 343.w,
+                          height: 150.h,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: const Color(0xff1F78BC)
@@ -213,17 +214,17 @@ class _PaymentMethodsProfileState extends State<PaymentMethodsProfile> {
                                 child: Row(
                                   mainAxisAlignment:MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Image(image: AssetImage("assets/images/neo.png"),width: 70.29,height: 30,fit: BoxFit.fill,),
+                                     Image(image: AssetImage("assets/images/neo.png"),width: 70.29.w,height: 30.h,fit: BoxFit.fill,),
                                     IconButton(
                                         onPressed: (){},
-                                        icon: const Image(image: AssetImage("assets/images/left_arrow.png"),width: 12,height: 22,))
+                                        icon:  Image(image: AssetImage("assets/images/left_arrow.png"),width: 12.w,height: 22.h,))
                                   ],
                                 ),
                               ),
                               Center(
                                 child: Container(
-                                  width: 295,
-                                  height: 1,
+                                  width: 295.w,
+                                  height: 1.h,
                                   color: Colors.white,
                                 ),
                               ),
@@ -233,32 +234,32 @@ class _PaymentMethodsProfileState extends State<PaymentMethodsProfile> {
                                 child: Row(
                                   mainAxisAlignment:MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Image(image: AssetImage("assets/images/visa.png"),width: 70.29,height: 20,fit: BoxFit.fill,),
+                                     Image(image: AssetImage("assets/images/visa.png"),width: 70.29.w,height: 20.h,fit: BoxFit.fill,),
                                     IconButton(
                                         onPressed: (){
 
                                           Navigator.push(context, MaterialPageRoute(builder: (context)=> const AddCreditCardScreen()));
 
                                         },
-                                        icon: const Image(image: AssetImage("assets/images/left_arrow.png"),width: 12,height: 22,))
+                                        icon:  Image(image: AssetImage("assets/images/left_arrow.png"),width: 12.w,height: 22.h,))
                                   ],
                                 ),
                               ),
                               Center(
                                 child: Container(
-                                  width: 295,
-                                  height: 1,
+                                  width: 295.w,
+                                  height: 1.h,
                                   color: Colors.white,
                                 ),
                               ),
                               Container(
                                 padding: const EdgeInsets.only(right: 10),
-                                width: 307,
+                                width: 307.w,
                                 child: Row(
                                   mainAxisAlignment:MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Image(image: AssetImage("assets/images/logos_mastercard.png"),width: 70.29,height: 30,fit: BoxFit.fill,),
-                                    IconButton(onPressed: (){}, icon: const Image(image: AssetImage("assets/images/left_arrow.png"),width: 12,height: 22,))
+                                     Image(image: AssetImage("assets/images/logos_mastercard.png"),width: 70.29.w,height: 30.h,fit: BoxFit.fill,),
+                                    IconButton(onPressed: (){}, icon:  Image(image: AssetImage("assets/images/left_arrow.png"),width: 12.w,height: 22.h,))
                                   ],
                                 ),
                               ),

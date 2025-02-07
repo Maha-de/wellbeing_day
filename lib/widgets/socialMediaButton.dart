@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SocialMediaButton extends StatelessWidget {
@@ -36,11 +37,11 @@ class SocialMediaButton extends StatelessWidget {
               color: color,
               size: 35,
             ),
-            const SizedBox(width: 10),
+             SizedBox(width: 10.w),
             Text(
               label,
-              style: const TextStyle(
-                fontSize: 18,
+              style:  TextStyle(
+                fontSize: 18.sp,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),

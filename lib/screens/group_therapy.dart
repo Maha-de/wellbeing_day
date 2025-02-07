@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../widgets/custom_bottom_nav_bar.dart';
 import 'homescreen.dart';
 
@@ -40,15 +41,15 @@ class _GroupTherapyState extends State<GroupTherapy> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height.h;
+    double screenWidth = MediaQuery.of(context).size.width.w;
     return Scaffold(
       backgroundColor: Colors.white,
       bottomNavigationBar: const CustomBottomNavBar(
         currentIndex: 1,
       ),
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(35.0), // Set the height here
+        preferredSize:  Size.fromHeight(35.0.h), // Set the height here
         child: AppBar(
           backgroundColor: Colors.white,
           iconTheme: const IconThemeData(
@@ -63,8 +64,8 @@ class _GroupTherapyState extends State<GroupTherapy> {
           Align(
           alignment: Alignment.topCenter,
           child: Container(
-            height: 50,
-            width: 250,
+            height: 50.h,
+            width: 250.w,
             decoration: const BoxDecoration(
               shape: BoxShape.rectangle,
               color: Color(0xFF19649E),
@@ -73,15 +74,15 @@ class _GroupTherapyState extends State<GroupTherapy> {
                 bottomRight: Radius.circular(30),
               ),
             ),
-            child: const Center(
+            child:  Center(
                 child: Text(
                   "العلاج الجماعي",
-                  style: TextStyle(fontSize: 20, color: Colors.white),
+                  style: TextStyle(fontSize: 20.sp, color: Colors.white),
                 )),
           ),
         ),
-        const SizedBox(
-          height: 20,
+         SizedBox(
+          height: 20.h,
         ),
 
             Padding(
@@ -89,13 +90,13 @@ class _GroupTherapyState extends State<GroupTherapy> {
               child: Text(
                 "ما هو العلاج الجماعي؟",
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.blue[900],
                 ),
               ),
             ),
-            SizedBox(height: screenHeight * 0.01),
+            SizedBox(height: screenHeight * 0.01.h),
             Container(
               padding: const EdgeInsets.symmetric(vertical: 10),
               decoration: BoxDecoration(
@@ -112,27 +113,27 @@ class _GroupTherapyState extends State<GroupTherapy> {
               ),
               child: TextFormField(
                 maxLines: null, // Allows the field to expand for multiline input
-                style: const TextStyle(fontSize: 14, height: 1.6),
+                style:  TextStyle(fontSize: 14.sp, height: 1.6.h),
                 decoration: const InputDecoration(
                   border: InputBorder.none, // Removes the underline
                   contentPadding: EdgeInsets.zero, // Matches the original padding
                 ),
               ),
             ),
-            SizedBox(height: screenHeight * 0.01),
+            SizedBox(height: screenHeight * 0.01.h),
 
             Padding(
               padding: const EdgeInsets.only(right: 20),
               child: Text(
                 "إيجابياته",
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.blue[900],
                 ),
               ),
             ),
-            SizedBox(height: screenHeight * 0.01),
+            SizedBox(height: screenHeight * 0.01.h),
             Container(
               padding: const EdgeInsets.symmetric(vertical: 10),
               decoration: BoxDecoration(
@@ -149,21 +150,21 @@ class _GroupTherapyState extends State<GroupTherapy> {
               ),
               child: TextFormField(
                 maxLines: null, // Allows the field to expand for multiline input
-                style: const TextStyle(fontSize: 14, height: 1.6),
+                style:  TextStyle(fontSize: 14.sp, height: 1.6.h),
                 decoration: const InputDecoration(
                   border: InputBorder.none, // Removes the underline
                   contentPadding: EdgeInsets.zero, // Matches the original padding
                 ),
               ),
             ),
-            SizedBox(height: screenHeight * 0.01),
+            SizedBox(height: screenHeight * 0.01.h),
 
             Padding(
-              padding: const EdgeInsets.only(right: 20),
+              padding:  EdgeInsets.only(right: 20),
               child: Text(
                 "المشكلات التي تعاني منها",
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.blue[900],
                 ),
@@ -179,7 +180,7 @@ class _GroupTherapyState extends State<GroupTherapy> {
                     // runSpacing: 5, // Vertical spacing
                     children: _problems.keys.map((problem) {
                       return SizedBox(
-                        width: MediaQuery.of(context).size.width / 2 , // Two columns
+                        width: MediaQuery.of(context).size.width / 2.w , // Two columns
                         child: CheckboxListTile(
                           checkColor: Colors.white,
                           activeColor: Color(0xff19649E),
@@ -198,14 +199,14 @@ class _GroupTherapyState extends State<GroupTherapy> {
                   ),
               ],
             ),
-            SizedBox(height: screenHeight * 0.01),
+            SizedBox(height: screenHeight * 0.01.h),
 
             Padding(
-              padding: const EdgeInsets.only(right: 20),
+              padding:  EdgeInsets.only(right: 20),
               child: Text(
                 "الأهداف",
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.blue[900],
                 ),
@@ -221,7 +222,7 @@ class _GroupTherapyState extends State<GroupTherapy> {
                   // runSpacing: 5, // Vertical spacing
                   children: _goals.keys.map((goal) {
                     return SizedBox(
-                      width: MediaQuery.of(context).size.width / 2 , // Two columns
+                      width: MediaQuery.of(context).size.width / 2 .w, // Two columns
                       child: CheckboxListTile(
                         title: Text(goal, textAlign: TextAlign.start), // RTL support
                         value: _goals[goal],
@@ -272,16 +273,16 @@ class _GroupTherapyState extends State<GroupTherapy> {
                     backgroundColor: const Color(0xFF19649E),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10))),
-                child: const Text(
+                child:  Text(
                   "تسجيل",
                   style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 20.sp,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
               ),
             ),
-            SizedBox(height: screenHeight * 0.05),
+            SizedBox(height: screenHeight * 0.05.h),
 
           ]
         ),

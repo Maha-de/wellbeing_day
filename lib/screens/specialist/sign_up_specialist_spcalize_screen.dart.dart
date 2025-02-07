@@ -3,6 +3,7 @@ import 'package:doctor/screens/homescreen.dart';
 import 'package:doctor/screens/specialist/choose_specialty.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../cubit/doctor_sign_up_cubit/doctor_sign_up_cubit.dart';
 import '../../cubit/doctor_sign_up_cubit/doctor_sign_up_state.dart';
 import '../../models/Specialist.dart';
@@ -72,7 +73,7 @@ class _SignUpAsDoctorThirdScreenState extends State<SignUpAsDoctorThirdScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset('assets/images/loading.gif'),
-          const SizedBox(height: 20),
+           SizedBox(height: 20.h),
           Text(state.message),
         ],
       ),

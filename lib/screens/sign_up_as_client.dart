@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:doctor/widgets/custom_text_field_for_sign_up.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -77,14 +78,14 @@ class SignUpAsClient extends StatelessWidget {
                         child: Text(
                           "discoverSpecialist".tr(),
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 20,
+                          style:  TextStyle(
+                            fontSize: 20.sp,
                             color: Colors.black,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
-                      const SizedBox(height: 16),
+                       SizedBox(height: 16.h),
                       CustomTextField(
                         label: "firstName".tr(),
                         suffixIcon: Icons.person,
@@ -142,12 +143,12 @@ class SignUpAsClient extends StatelessWidget {
                               : null;
                         },
                       ),
-                      Text("gender".tr(), style: const TextStyle(
-                        fontSize: 16,
+                      Text("gender".tr(), style:  TextStyle(
+                        fontSize: 16.sp,
                         color: Color(0xff19649E),
                         fontWeight: FontWeight.w500,
                       )),
-                      const SizedBox(height: 5),
+                       SizedBox(height: 5.h),
                       DropdownButtonFormField<String>(
                         decoration: InputDecoration(
                           labelText: "gender".tr(),
@@ -166,7 +167,7 @@ class SignUpAsClient extends StatelessWidget {
                         validator: (value) =>
                         value == null ? "genderValidator".tr() : null,
                       ),
-                      const SizedBox(height: 10),
+                       SizedBox(height: 10.h),
                       CustomTextField(
                         label: "nationality".tr(),
                         suffixIcon: Icons.flag,
@@ -195,7 +196,7 @@ class SignUpAsClient extends StatelessWidget {
                         validator: (value) =>
                         value!.isEmpty ? "professionValidator".tr() : null,
                       ),
-                      const SizedBox(height: 24),
+                       SizedBox(height: 24.h),
                       ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
@@ -225,21 +226,21 @@ class SignUpAsClient extends StatelessWidget {
                             color: Colors.white)
                             : Text(
                           "createAccount".tr(),
-                          style: const TextStyle(
-                            fontSize: 24,
+                          style:  TextStyle(
+                            fontSize: 24.sp,
                             color: Colors.white,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10),
+                       SizedBox(height: 10.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             "alreadyHaveAnAccount".tr(),
-                            style: const TextStyle(
-                              fontSize: 16,
+                            style:  TextStyle(
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.w700,
                             ),
                           ),

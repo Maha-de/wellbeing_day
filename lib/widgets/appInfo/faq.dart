@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FqaTab extends StatelessWidget {
   const FqaTab({
@@ -7,18 +8,18 @@ class FqaTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
+    return  SingleChildScrollView(
         child: Center(
       child: Padding(
         padding: EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: SelectableText.rich(
             TextSpan(
-              style: TextStyle(fontSize: 18, color: Colors.black, height: 1.5),
+              style: TextStyle(fontSize: 18.sp, color: Colors.black, height: 1.5.h),
               children: [
                 TextSpan(
                   text: 'ماهي طريقة حجز جلسة ؟\n',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
                 ),
                 TextSpan(
                   text:
@@ -27,7 +28,7 @@ class FqaTab extends StatelessWidget {
                 TextSpan(
                   text:
                       'لماذا تحتاج إلى التحدث مع أخصائي عبر الإنترنت (أونلاين) ؟\n',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
                 ),
                 TextSpan(
                   text:
@@ -35,7 +36,7 @@ class FqaTab extends StatelessWidget {
                 ),
                 TextSpan(
                   text: 'كم جلسه ستحتاج للعلاج؟\n',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
                 ),
                 TextSpan(
                   text:
@@ -43,7 +44,7 @@ class FqaTab extends StatelessWidget {
                 ),
                 TextSpan(
                   text: ' كيف يتم التعامل معلوماتك؟\n',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
                 ),
                 TextSpan(
                   text:
@@ -55,14 +56,14 @@ class FqaTab extends StatelessWidget {
                 ),
                 TextSpan(
                   text: '\nما الذي يمكن ان اتوقعه من الاستشارة؟\n',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
                 ),
                 TextSpan(
                     text:
                         ' •  علاقة مهنية و فعالة بين الأخصائي النفسي و بينك. قد نجد صعوبة في النظر خارج نطاق أنفسنا و حدودنا الخاصة في الحياة إلا أن الاستشارة توفر لنا سبلا لتحسين حياتنا اليومية من وجهة نظر غير متحيزة و مهنية و من غير اطلاق أي أحكام علينا أثناء ذلك.\n'),
                 TextSpan(
                   text: '\nما العمل اذا تأخر احد الطرفين عن موعد الجلسة؟\n',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
                 ),
                 TextSpan(
                     text:

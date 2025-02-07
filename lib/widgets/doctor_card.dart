@@ -1,6 +1,7 @@
 import 'package:doctor/screens/doctor_details.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../models/specialist_model.dart';
 
@@ -11,8 +12,8 @@ class DoctorCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
-    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width.w;
+    final double screenHeight = MediaQuery.of(context).size.height.h;
 
     print("specialistModel: ${specialistModel.toString()}");
     if (specialistModel != null) {
@@ -42,13 +43,13 @@ class DoctorCard extends StatelessWidget {
         }
       },
       child: Container(
-        width: screenWidth * 0.9,
-        height: screenHeight * 0.38,
+        width: screenWidth * 0.9.w,
+        height: screenHeight * 0.38.h,
         child: Card(
           child: Column(
             children: [
               Container(
-                height: screenHeight * 0.3,
+                height: screenHeight * 0.3.h,
                 color: Color(0xFF19649E),
                 child: Row(
                   children: [
@@ -61,31 +62,31 @@ class DoctorCard extends StatelessWidget {
                             '${specialistModel?.firstName ?? "notFound".tr()} ${specialistModel?.lastName ?? ''}',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                              fontSize: 20.sp,
                               color: Colors.white,
                             ),
                             textAlign: TextAlign.left,
                           ),
-                          const SizedBox(height: 2),
+                           SizedBox(height: 2.h),
                           Text(
                             specialistModel?.work ?? "notAvailable".tr(),
-                            style: const TextStyle(
+                            style:  TextStyle(
                               color: Colors.white,
-                              fontSize: 16,
+                              fontSize: 16.sp,
                             ),
                             textAlign: TextAlign.left,
                           ),
-                          const SizedBox(height: 10),
+                           SizedBox(height: 10.h),
                           buildInfoRow("assets/images/heart.png",
                               "speciality".tr() + "${(specialistModel?.specialties?.mentalHealth?.isNotEmpty ?? false)
                                   ? specialistModel.specialties?.mentalHealth?.join(", ") : "notAvailable".tr()}"),
-                          const SizedBox(height: 4),
+                           SizedBox(height: 4.h),
                           buildInfoRow("assets/images/PhoneCall.png",
                               'availableVideo'.tr()),
-                          const SizedBox(height: 4),
+                           SizedBox(height: 4.h),
                           buildInfoRow("assets/images/experience.png",
                               "experienceYears".tr() + ' ${specialistModel?.yearsExperience ?? 0} ' + "years".tr()),
-                          const SizedBox(height: 4),
+                           SizedBox(height: 4.h),
                           buildInfoRow("assets/images/translation.png",
                               "language".tr() + "arabic".tr() + "، " + "english".tr()),
                         ],
@@ -93,7 +94,7 @@ class DoctorCard extends StatelessWidget {
                     ),
                     Flexible(
                       child: Container(
-                        height: screenHeight * 0.28,
+                        height: screenHeight * 0.28.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -104,7 +105,7 @@ class DoctorCard extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 10.h),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -133,14 +134,14 @@ class DoctorCard extends StatelessWidget {
         Image.asset(
           icon,
           fit: BoxFit.fill,
-          width: 21,
-          height: 19,
+          width: 21.w,
+          height: 19.h,
           color: Colors.white,
         ),
-        const SizedBox(width: 8),
+         SizedBox(width: 8.w),
         Text(
           text,
-          style: TextStyle(fontSize: 16, color: Colors.white),
+          style: TextStyle(fontSize: 16.sp, color: Colors.white),
           textAlign: TextAlign.right,
         ),
       ],
@@ -156,11 +157,11 @@ class DoctorCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Image.asset(icon, width: 19, height: 19),
+              Image.asset(icon, width: 19.w, height: 19.h),
               const SizedBox(width: 8),
               Text(
                 title,
-                style: TextStyle(color: Color(0xff19649E), fontSize: 14),
+                style: TextStyle(color: Color(0xff19649E), fontSize: 14.sp),
               ),
             ],
           ),
@@ -168,7 +169,7 @@ class DoctorCard extends StatelessWidget {
             value,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 16,
+                fontSize: 16.sp,
                 color: Color(0xff19649E)),
           ),
         ],

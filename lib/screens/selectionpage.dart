@@ -3,6 +3,7 @@ import 'package:doctor/screens/specialist/sign_up_specialist_info_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../make_email/login.dart';
@@ -25,22 +26,22 @@ class SelectionPage extends StatelessWidget {
               // إضافة اللوجو بحجم 180x142.89
               Image.asset(
                 'assets/images/img.png',
-                width: 180, // تحديد العرض
-                height: 142.89, // تحديد الارتفاع
+                width: 180.w, // تحديد العرض
+                height: 142.89.h, // تحديد الارتفاع
               ),
-              const SizedBox(height: 20),
+               SizedBox(height: 20.h),
               Text(
                 "chooseYourAccount".tr(),
-                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style:  TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 8),
+               SizedBox(height: 8.h),
               Text(
                 "makeYourExperienceEasier".tr(),
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: 16.sp),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 40),
+               SizedBox(height: 40.h),
               // تعديل الأزرار لتكون متطابقة مع التصميم
               ElevatedButton(
                 onPressed: () {
@@ -57,17 +58,17 @@ class SelectionPage extends StatelessWidget {
                   ),
                 ),
                 child: Container(
-                  width: double.infinity, // ملء العرض
-                  height: 52, // ارتفاع الزر
+                  width: double.infinity.w, // ملء العرض
+                  height: 52.h, // ارتفاع الزر
                   alignment: Alignment.center, // مركز النص
                   child: Text(
                     "continueAsUser".tr(),
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.w700,color: Colors.white), // حجم النص
+                    style:  TextStyle(
+                        fontSize: 18.sp, fontWeight: FontWeight.w700,color: Colors.white), // حجم النص
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
+               SizedBox(height: 16.h),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -84,17 +85,17 @@ class SelectionPage extends StatelessWidget {
                   ),
                 ),
                 child: Container(
-                  width: double.infinity, // ملء العرض
-                  height: 52, // ارتفاع الزر
+                  width: double.infinity.w, // ملء العرض
+                  height: 52.h, // ارتفاع الزر
                   alignment: Alignment.center, // مركز النص
                   child: Text(
                     "continueAsDoctor".tr(),
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.w700,color: Colors.white), // حجم النص
+                    style:  TextStyle(
+                        fontSize: 18.sp, fontWeight: FontWeight.w700,color: Colors.white), // حجم النص
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
+               SizedBox(height: 16.h),
               ElevatedButton(
                 onPressed: () {
                   Navigator.pushReplacement(
@@ -115,24 +116,24 @@ class SelectionPage extends StatelessWidget {
                   ),
                 ),
                 child: Container(
-                  width: double.infinity, // ملء العرض
-                  height: 52, // ارتفاع الزر
+                  width: double.infinity.w, // ملء العرض
+                  height: 52.h, // ارتفاع الزر
                   alignment: Alignment.center, // مركز النص
                   child: Text(
                     "متابعه كضيف",
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.w700,color: Colors.white), // حجم النص
+                    style:  TextStyle(
+                        fontSize: 18.sp, fontWeight: FontWeight.w700,color: Colors.white), // حجم النص
                   ),
                 ),
               ),
-              const SizedBox(height: 40),
+               SizedBox(height: 40.h),
               // الجزء السفلي مع ترتيب النص وزر تسجيل الدخول
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                    Text(
                     "alreadyHaveAnAccount".tr(),
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                    style:  TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w700),
                   ),
                   TextButton(
                     onPressed: () {
@@ -143,9 +144,9 @@ class SelectionPage extends StatelessWidget {
                     },
                     child: Text(
                       "signIn".tr(),
-                      style: const TextStyle(
+                      style:  TextStyle(
                           color: Color(0xff19649E),
-                          fontSize: 16,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w700),
                     ),
                   ),

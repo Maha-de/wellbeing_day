@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppDef extends StatelessWidget {
   const AppDef({
@@ -20,29 +21,29 @@ class AppDef extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 16),
-          const Text(
+           SizedBox(height: 16.h),
+           Text(
             '''تعتبر هذه المنصة وهذا التطبيق انجاز حقيقي حيث استفدنا بأقصى. حد من التكنولوجيا لخدمة الانسان فنقلنا عمل العيادة كما هو الى التطبيق بمكوناته وشروطه. من الايجابيات التي يتميز بها التطبيق: 
       امكانية الحصول على الاستشارة بسرعة او البدء بالأعراض التي يعاني منها الفرد وصولا للاستشارة او الدخول الى لائحة الاخصائيين لاختيار المناسب منهم''',
-            style: TextStyle(fontSize: 16, height: 1.5, color: Colors.black),
+            style: TextStyle(fontSize: 16.sp, height: 1.5.h, color: Colors.black),
           ),
-          const SizedBox(height: 16),
+           SizedBox(height: 16.h),
           const Text(
             'الخدمات المميزة:',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
-          const SizedBox(height: 8),
-          const Text(
+           SizedBox(height: 8.h),
+           Text(
             ' • علاج فردي او اسري',
-            style: TextStyle(fontSize: 16, height: 1.5, color: Colors.black),
+            style: TextStyle(fontSize: 16.sp, height: 1.5.h, color: Colors.black),
           ),
-          const Text(
+           Text(
             ' • اشتراك ببرامج علاجية',
-            style: TextStyle(fontSize: 16, height: 1.5, color: Colors.black),
+            style: TextStyle(fontSize: 16.sp, height: 1.5.h, color: Colors.black),
           ),
-          const Text(
+           Text(
             ' • تدرب على الاسترخاء والمهارات',
-            style: TextStyle(fontSize: 16, height: 1.5, color: Colors.black),
+            style: TextStyle(fontSize: 16.sp, height: 1.5.h, color: Colors.black),
           ),
         ],
       ),

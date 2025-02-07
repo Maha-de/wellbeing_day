@@ -4,6 +4,7 @@ import 'package:doctor/widgets/custom_bottom_nav_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../cubit/get_specialist/get_sepcialist_cubit.dart';
@@ -42,8 +43,8 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width.w;
+    double screenHeight = MediaQuery.of(context).size.height.h;
 
     return BlocProvider(
       create: (_) => userProfileCubit,
@@ -66,7 +67,7 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                 items: [
                   BottomNavigationBarItem(
                     icon: SizedBox(
-                      height: 27, // Adjust icon size
+                      height: 27.h, // Adjust icon size
                       child:
                       Image.asset(
                         "assets/images/meteor-icons_home.png",
@@ -75,7 +76,7 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                       ),
                     ),
                     activeIcon: SizedBox(
-                      height: 27, // Active icon size adjustment
+                      height: 27.h, // Active icon size adjustment
                       child: Image.asset(
                         "assets/images/meteor-icons_home.png",
                         color: currentIndex == 0 ? Colors.white : Colors.black,
@@ -87,14 +88,14 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                   ),
                   BottomNavigationBarItem(
                     icon: SizedBox(
-                      height: 27,
+                      height: 27.h,
                       child: Image.asset(
                         "assets/images/nrk_category1.png",
                         fit: BoxFit.fill,
                       ),
                     ),
                     activeIcon: SizedBox(
-                      height: 27,
+                      height: 27.h,
                       child: Image.asset(
                         "assets/images/nrk_category.png",
                         fit: BoxFit.fill,
@@ -104,14 +105,14 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                   ),
                   BottomNavigationBarItem(
                     icon: SizedBox(
-                      height: 25, // Adjust icon size
+                      height: 25.h, // Adjust icon size
                       child: Image.asset(
                         "assets/images/material-symbols_help-clinic-outline-rounded.png",
                         fit: BoxFit.fill,
                       ),
                     ),
                     activeIcon: SizedBox(
-                      height: 33,
+                      height: 33.h,
                       // width: 50,
                       child: Image.asset(
                         "assets/images/material-symbols_help-clinic-outline-rounded_Active.png",
@@ -122,14 +123,14 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                   ),
                   BottomNavigationBarItem(
                     icon: SizedBox(
-                      height: 27,
+                      height: 27.h,
                       child: Image.asset(
                         "assets/images/gg_profile.png",
                         fit: BoxFit.fill,
                       ),
                     ),
                     activeIcon: SizedBox(
-                      height: 27,
+                      height: 27.h,
                       child: Image.asset(
                         "assets/images/gg_profile1.png",
                         fit: BoxFit.fill,
@@ -217,8 +218,8 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                   children: [
                     Center(
                       child: Container(
-                        width: 161,
-                        height: 40,
+                        width: 161.w,
+                        height: 40.h,
                         decoration: BoxDecoration(
                           color: Color(0xFF1F78BC),
                           borderRadius: BorderRadius.only(
@@ -229,14 +230,14 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                         child: Text(
                           "إضطراب شخصي",
                           style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 20.sp,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: 40,
+                      height: 40.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -247,7 +248,7 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                       ],
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 20.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -259,13 +260,13 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                     ),
 
                     SizedBox(
-                      height: 30,
+                      height: 30.h,
                     ),
                     Center(
                       child: Container(
                         margin: EdgeInsets.only(bottom: 25),
-                        width: 161,
-                        height: 40,
+                        width: 161.w,
+                        height: 40.h,
                         decoration: BoxDecoration(
                           color: Color(0xFF1F78BC),
                           borderRadius: BorderRadius.only(
@@ -276,7 +277,7 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                         child: Text(
                           "المختصين",
                           style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 20.sp,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
@@ -291,7 +292,7 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                           return Text(state.errMessage); // Display error message
                         } else if (state is SpecialistSuccess) {
                           return Container(
-                            height: screenHeight*0.57,
+                            height: screenHeight*0.57.h,
                             child: ListView.builder(
                               itemCount: state.specialists.length,
                               itemBuilder: (context, index) {
@@ -325,8 +326,8 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                   children: [
                     Center(
                       child: Container(
-                        width: 161,
-                        height: 40,
+                        width: 161.w,
+                        height: 40.h,
                         decoration: BoxDecoration(
                           color: Color(0xFF1F78BC),
                           borderRadius: BorderRadius.only(
@@ -337,14 +338,14 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                         child: Text(
                           "إضطراب شخصي",
                           style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 20.sp,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: 40,
+                      height: 40.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -355,7 +356,7 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                       ],
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 20.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -367,13 +368,13 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                     ),
 
                     SizedBox(
-                      height: 30,
+                      height: 30.h,
                     ),
                     Center(
                       child: Container(
                         margin: EdgeInsets.only(bottom: 25),
-                        width: 161,
-                        height: 40,
+                        width: 161.w,
+                        height: 40.h,
                         decoration: BoxDecoration(
                           color: Color(0xFF1F78BC),
                           borderRadius: BorderRadius.only(
@@ -384,7 +385,7 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                         child: Text(
                           "المختصين",
                           style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 20.sp,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
@@ -399,7 +400,7 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                           return Text(state.errMessage); // Display error message
                         } else if (state is SpecialistSuccess) {
                           return Container(
-                            height: screenHeight*0.57,
+                            height: screenHeight*0.57.h,
                             child: ListView.builder(
                               itemCount: state.specialists.length,
                               itemBuilder: (context, index) {
@@ -426,8 +427,8 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
   // Helper method to build disorder buttons
   Widget _buildDisorderButton(String title) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.3,
-      height: 68,
+      width: MediaQuery.of(context).size.width * 0.3.w,
+      height: 68.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Color(0xff69B7F3),
@@ -444,7 +445,7 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
         child: Text(
           title,
           style: TextStyle(
-            fontSize: 16,
+            fontSize: 16.sp,
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),

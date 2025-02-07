@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:doctor/screens/thirdpage.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SecondPage extends StatelessWidget {
   const SecondPage({super.key});
@@ -20,21 +21,21 @@ class SecondPage extends StatelessWidget {
                   // الصورة
                   Image.asset(
                     'assets/images/welcome.png', // أضف مسار الصورة هنا
-                    height: 200,
+                    height: 200.h,
                   ),
 
-                  const SizedBox(height: 24.0),
+                   SizedBox(height: 24.0.h),
 
                   // النص الرئيسي
                   Text(
                     'makeItEasy'.tr(),
-                    style: const TextStyle(
-                      fontSize: 24.0,
+                    style:  TextStyle(
+                      fontSize: 24.0.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
 
-                  const SizedBox(height: 16.0),
+                   SizedBox(height: 16.0.h),
 
                   // النص الوصفي
                   Padding(
@@ -42,15 +43,15 @@ class SecondPage extends StatelessWidget {
                     child: Text(
                       'secondWelcomeScreen'.tr(),
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 16.0,
+                      style:  TextStyle(
+                        fontSize: 16.0.sp,
                         color: Colors.black87,
-                        height: 1.5,
+                        height: 1.5.h,
                       ),
                     ),
                   ),
 
-                  const SizedBox(height: 24.0),
+                   SizedBox(height: 24.0.h),
 
                   // زر الانتقال للصفحة التالية
                   GestureDetector(
@@ -61,12 +62,12 @@ class SecondPage extends StatelessWidget {
                       );
                     },
                     child: Container(
-                      width: 50,
-                      height: 50,
+                      width: 50.w,
+                      height: 50.h,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         shape: BoxShape.circle,
-                        border: Border.all(color: const Color(0xff19649E), width: 2),
+                        border: Border.all(color: const Color(0xff19649E), width: 2.w),
                       ),
                       child: const Icon(
                         Icons.arrow_forward,
@@ -91,9 +92,9 @@ class SecondPage extends StatelessWidget {
                 },
                 child: Text(
                   'skip'.tr(),
-                  style: const TextStyle(
+                  style:  TextStyle(
                     color: Color(0xFF007BFF),
-                    fontSize: 16.0,
+                    fontSize: 16.0.sp,
                   ),
                 ),
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomRadioButtonWidget extends StatefulWidget {
   final String title;
@@ -32,7 +33,7 @@ class _CustomRadioButtonWidgetState extends State<CustomRadioButtonWidget> {
         children: [
           Text(
             widget.title,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

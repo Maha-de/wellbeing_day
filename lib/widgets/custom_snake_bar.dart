@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 SnackBar customSnackBar({
   required BuildContext context,
@@ -13,7 +14,7 @@ SnackBar customSnackBar({
           icon,
           color: Colors.white,
         ),
-        SizedBox(width: 8),
+        SizedBox(width: 8.w),
         Expanded(
           child: Directionality(
             textDirection: TextDirection.rtl,

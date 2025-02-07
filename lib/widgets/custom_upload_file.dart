@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomUploadFile extends StatelessWidget {
   final String label;
@@ -38,13 +39,13 @@ class CustomUploadFile extends StatelessWidget {
       children: [
         Text(
           label,
-          style: const TextStyle(
-            fontSize: 16,
+          style:  TextStyle(
+            fontSize: 16.sp,
             color: Color(0xff19649E),
             fontWeight: FontWeight.w500,
           ),
         ),
-        const SizedBox(height: 8),
+         SizedBox(height: 8.h),
         Container(
           decoration: BoxDecoration(
             boxShadow: [
@@ -77,7 +78,7 @@ class CustomUploadFile extends StatelessWidget {
             validator: validator, // Apply the validator
           ),
         ),
-        const SizedBox(height: 16),
+         SizedBox(height: 16.h),
       ],
     );
   }
