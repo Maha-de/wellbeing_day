@@ -46,7 +46,6 @@
   "regionValidator": "يرجى إدخال المنطقة",
   "profession": "المهنة",
   "professionAddress": "عنوان العمل",
-
   "professionValidator": "يرجى إدخال المهنة",
   "createAccount": "إنشاء حساب",
   "bio": "عن الأخصائي",
@@ -73,6 +72,8 @@
   "welcomeBack": "مرحباً بعودتك",
   "forgetPassword": "هل نسيت كلمة المرور؟",
   "role": "الدور",
+  "beneficiary": "مستفيد",
+  "specialized": "متخصص",
   "notHaveAccount": "ليس لديك حساب؟",
   "appointments": "مواعيدي",
   "signOut": "تسجيل الخروج",
@@ -87,7 +88,6 @@
   "generalValidatorFor": "يرجى إدخال قيمة صحيحة لـ",
   "moreThanTwo": "يجب أن يكون أكثر من حرفين",
   "phoneValidator": "يرجى إدخال رقم هاتف صالح (10-15 أرقام)",
-
   "greeting": "مرحبا",
   "consultation": "استشارة مجانية",
   "instantSession": "جلسة فورية",
@@ -103,7 +103,6 @@
   "skillDevelopment": "تطوير مهارات",
   "physicalHealth": "صحه جسديه",
   "mentalHealth": "صحه نفسيه",
-
   "improvingTrust": "تحسين الثقة",
   "achievingGoals": "تحقيق الأهداف",
   "achievingSuccess": "تحقيق النجاح",

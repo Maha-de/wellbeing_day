@@ -46,7 +46,6 @@
   "regionValidator": "please enter your region",
   "profession": "Profession",
   "professionAddress": "Work Address",
-
   "professionValidator": "please enter your profession",
   "createAccount": "Create Account",
   "bio": "Bio",
@@ -73,6 +72,8 @@
   "welcomeBack": "Welcome Back",
   "forgetPassword": "Forget password?",
   "role": "Role",
+  "beneficiary": "Beneficiary",
+  "specialized": "Specialized",
   "notHaveAccount": "Don't Have Account",
   "appointments": "Appointments",
   "signOut": "Sign Out",
@@ -87,7 +88,6 @@
   "generalValidatorFor": "please enter a valid",
   "moreThanTwo": "must be more than two characters",
   "phoneValidator": "please enter a valid phone number (10-15 numbers)",
-
   "greeting": "Hello",
   "consultation": "Free Consultation",
   "instantSession": "Instant Session",
@@ -103,7 +103,6 @@
   "skillDevelopment": "Skill Development",
   "physicalHealth": "Physical Health",
   "mentalHealth": "Mental Health",
-
   "improvingTrust": "Improving Trust",
   "achievingGoals": "Achieving Goals",
   "achievingSuccess": "Achieving Success",

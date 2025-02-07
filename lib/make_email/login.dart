@@ -103,8 +103,8 @@ class LoginPage extends StatelessWidget {
                     const SizedBox(height: 8),
                     CustomRadioButtonWidget(
                       title: "role".tr(),
-                      fRad: "Beneficiary",
-                      sRad: "Specialized",
+                      fRad: "beneficiary".tr(),
+                      sRad: "specialized".tr(),
                       onRoleSelected: (role) {
                         roleController.text = role;
                       },
