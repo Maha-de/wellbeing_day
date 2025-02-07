@@ -1,4 +1,5 @@
 import 'package:doctor/screens/doctor_details.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../models/specialist_model.dart';
@@ -27,14 +28,14 @@ class DoctorCard extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => DoctorDetails(
-                 specialistModel: specialistModel,
+                specialistModel: specialistModel,
               ),
             ),
           );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text("بيانات الطبيب غير متاحة!"),
+              content: Text("doctorInfoNotAvailable".tr()),
               backgroundColor: Colors.red,
             ),
           );
@@ -52,12 +53,12 @@ class DoctorCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(right: 10, top: 10),
+                      padding: const EdgeInsets.only(right: 10, top: 10, left: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '${specialistModel?.firstName ?? 'غير معروف'} ${specialistModel?.lastName ?? ''}',
+                            '${specialistModel?.firstName ?? "notFound".tr()} ${specialistModel?.lastName ?? ''}',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
@@ -67,7 +68,7 @@ class DoctorCard extends StatelessWidget {
                           ),
                           const SizedBox(height: 2),
                           Text(
-                            specialistModel?.work ?? 'غير متاح',
+                            specialistModel?.work ?? "notAvailable".tr(),
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16,
@@ -76,18 +77,17 @@ class DoctorCard extends StatelessWidget {
                           ),
                           const SizedBox(height: 10),
                           buildInfoRow("assets/images/heart.png",
-                              'النوع: ${(specialistModel?.specialties?.mentalHealth?.isNotEmpty ?? false)
-                                  ? specialistModel.specialties?.mentalHealth?.join(", ")
-                                  : 'غير متاح'}'),
+                              "speciality".tr() + "${(specialistModel?.specialties?.mentalHealth?.isNotEmpty ?? false)
+                                  ? specialistModel.specialties?.mentalHealth?.join(", ") : "notAvailable".tr()}"),
                           const SizedBox(height: 4),
                           buildInfoRow("assets/images/PhoneCall.png",
-                              'متاح جلسات صوتية، فيديو'),
+                              'availableVideo'.tr()),
                           const SizedBox(height: 4),
                           buildInfoRow("assets/images/experience.png",
-                              'خبرة ${specialistModel?.yearsExperience ?? 0} سنوات'),
+                              "experienceYears".tr() + ' ${specialistModel?.yearsExperience ?? 0} ' + "years".tr()),
                           const SizedBox(height: 4),
                           buildInfoRow("assets/images/translation.png",
-                              'اللغة: العربية، الإنجليزية'),
+                              "language".tr() + "arabic".tr() + "، " + "english".tr()),
                         ],
                       ),
                     ),
@@ -109,10 +109,13 @@ class DoctorCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  buildDetailColumn("assets/images/time.png", 'أقرب إتاحة',
-                      '04 يونيو - 7:00 مساءً'),
-                  buildDetailColumn("assets/images/price.png", 'السعر',
-                      '${specialistModel?.sessionPrice ?? 'غير متاح'} ليرة / ${specialistModel?.sessionDuration ?? 'غير متاح'} دقيقة'),
+                  buildDetailColumn("assets/images/time.png", 'availability'.tr(),
+                      "dateExample".tr()),
+                  buildDetailColumn("assets/images/price.png", 'price'.tr(),
+                      '${specialistModel?.sessionPrice ?? 'notAvailable'.tr()} ' + "currency".tr()
+                          + ' / ' +
+                          '${specialistModel?.sessionDuration ?? 'notAvailable'.tr()} ' + "timeSession".tr()
+                  ),
                 ],
               ),
             ],
