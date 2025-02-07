@@ -106,6 +106,11 @@ class LoginPage extends StatelessWidget {
                       fRad: "beneficiary".tr(),
                       sRad: "specialized".tr(),
                       onRoleSelected: (role) {
+                        if (role == "مستفيد") {
+                          role = "beneficiary";
+                        } else {
+                          role = "specialized";
+                        }
                         roleController.text = role;
                       },
                     ),
