@@ -316,7 +316,41 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: (){},
+                          onTap: (){   showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text("تنبيه"),
+                              content: Text("يجب عليك تسجيل الدخول أو إنشاء حساب للوصول إلى هذه الصفحة."),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context); // إغلاق الـ Alert
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
+                                    );
+                                  },
+                                  child: Text("تسجيل الدخول"),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context); // إغلاق الـ Alert
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
+                                    );
+                                  },
+                                  child: Text("إنشاء حساب"),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
+                                  },
+                                  child: Text("إلغاء"),
+                                ),
+                              ],
+                            ),
+                          );},
                           child: Container(
                             width: screenWidth* 0.9,
                             height: 48,
