@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:doctor/widgets/customRadioButton.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -100,6 +101,15 @@ class LoginPage extends StatelessWidget {
                       controller: passwordController,
                     ),
                     const SizedBox(height: 8),
+                    CustomRadioButtonWidget(
+                      title: "role".tr(),
+                      fRad: "Beneficiary",
+                      sRad: "Specialized",
+                      onRoleSelected: (role) {
+                        roleController.text = role;
+                      },
+                    ),
+                    const SizedBox(height: 8),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: TextButton(
@@ -120,12 +130,12 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    buildTextField(
-                      context,
-                      label: "role".tr(),
-                      icon: Icons.person,
-                      controller: roleController,
-                    ),
+                    // buildTextField(
+                    //   context,
+                    //   label: "role".tr(),
+                    //   icon: Icons.person,
+                    //   controller: roleController,
+                    // ),
                     const SizedBox(height: 30),
                     ElevatedButton(
                       onPressed: () {
@@ -135,7 +145,7 @@ class LoginPage extends StatelessWidget {
                         context.read<LoginCubit>().login(email, password, role);
                       },
                       style: ElevatedButton.styleFrom(
-                       backgroundColor: const Color(0xff19649E),
+                        backgroundColor: const Color(0xff19649E),
                         minimumSize: const Size(double.infinity, 50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -144,14 +154,15 @@ class LoginPage extends StatelessWidget {
                       child: Text(
                         "signIn".tr(),
                         style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w700, color: Colors.white),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white),
                       ),
                     ),
                     const SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-
                         TextButton(
                           onPressed: () {
                             // Handle create account
@@ -165,7 +176,6 @@ class LoginPage extends StatelessWidget {
                             ),
                           ),
                         ),
-
                         Text(
                           "createAccount".tr(),
                           style: const TextStyle(
