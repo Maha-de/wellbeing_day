@@ -55,6 +55,7 @@ class _ProblemSolvingScreenState extends State<ProblemSolvingScreen> {
             );
           } else if (state is UserProfileFailure) {
             return  Scaffold(
+              backgroundColor: Colors.white,
               bottomNavigationBar:BottomNavigationBar(
                 backgroundColor: const Color(0xff19649E), // Ensures the background is consistent
                 selectedItemColor: Colors.white, // Sets the color of the selected icons
@@ -226,7 +227,7 @@ class _ProblemSolvingScreenState extends State<ProblemSolvingScreen> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          "حل مشاكل",
+                          "تشخيص وتحفيز",
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -237,29 +238,88 @@ class _ProblemSolvingScreenState extends State<ProblemSolvingScreen> {
                     SizedBox(
                       height: 40,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _buildDisorderButton("مشاكل اسريه"),
-                        _buildDisorderButton("مشاكل علاقات"),
-                        _buildDisorderButton("مشاكل ثنائيه"),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _buildDisorderButton("غضب"),
-                        _buildDisorderButton("مشاكل عمل"),
-                        _buildDisorderButton("عنف"),
-                      ],
-                    ),
 
-                    SizedBox(
-                      height: 30,
+
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        maxLines: null, // Allows the field to expand for multiline input
+                        style: const TextStyle(fontSize: 14, height: 1.6),
+                        decoration: const InputDecoration(
+
+                          border: InputBorder.none, // Removes the underline
+                          contentPadding: EdgeInsets.zero, // Matches the original padding
+                        ),
+                      ),
                     ),
+                    SizedBox(height: screenHeight * 0.03),
+
+
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        maxLines: null, // Allows the field to expand for multiline input
+                        style: const TextStyle(fontSize: 14, height: 1.6),
+                        decoration: const InputDecoration(
+
+                          border: InputBorder.none, // Removes the underline
+                          contentPadding: EdgeInsets.zero, // Matches the original padding
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.03),
+
+
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        maxLines: null, // Allows the field to expand for multiline input
+                        style: const TextStyle(fontSize: 14, height: 1.6),
+                        decoration: const InputDecoration(
+
+                          border: InputBorder.none, // Removes the underline
+                          contentPadding: EdgeInsets.zero, // Matches the original padding
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.03),
+
                     Center(
                       child: Container(
                         margin: EdgeInsets.only(bottom: 25),
@@ -311,6 +371,8 @@ class _ProblemSolvingScreenState extends State<ProblemSolvingScreen> {
           } else if (state is UserProfileSuccess) {
             UserProfileModel userProfile = state.userProfile;
             return Scaffold(
+              backgroundColor: Colors.white,
+
               bottomNavigationBar: CustomBottomNavBar(currentIndex: 1),
               appBar: AppBar(
                 elevation: 0,
@@ -334,7 +396,7 @@ class _ProblemSolvingScreenState extends State<ProblemSolvingScreen> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          "حل مشاكل",
+                          "تشخيص وتحفيز",
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -345,25 +407,87 @@ class _ProblemSolvingScreenState extends State<ProblemSolvingScreen> {
                     SizedBox(
                       height: 40,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _buildDisorderButton("مشاكل اسريه"),
-                        _buildDisorderButton("مشاكل علاقات"),
-                        _buildDisorderButton("مشاكل ثنائيه"),
-                      ],
+
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        maxLines: null, // Allows the field to expand for multiline input
+                        style: const TextStyle(fontSize: 14, height: 1.6),
+                        decoration: const InputDecoration(
+
+                          border: InputBorder.none, // Removes the underline
+                          contentPadding: EdgeInsets.zero, // Matches the original padding
+                        ),
+                      ),
                     ),
-                    SizedBox(
-                      height: 20,
+                    SizedBox(height: screenHeight * 0.03),
+
+
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        maxLines: null, // Allows the field to expand for multiline input
+                        style: const TextStyle(fontSize: 14, height: 1.6),
+                        decoration: const InputDecoration(
+
+                          border: InputBorder.none, // Removes the underline
+                          contentPadding: EdgeInsets.zero, // Matches the original padding
+                        ),
+                      ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _buildDisorderButton("غضب"),
-                        _buildDisorderButton("مشاكل عمل"),
-                        _buildDisorderButton("عنف"),
-                      ],
+                    SizedBox(height: screenHeight * 0.03),
+
+
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        maxLines: null, // Allows the field to expand for multiline input
+                        style: const TextStyle(fontSize: 14, height: 1.6),
+                        decoration: const InputDecoration(
+
+                          border: InputBorder.none, // Removes the underline
+                          contentPadding: EdgeInsets.zero, // Matches the original padding
+                        ),
+                      ),
                     ),
+                    SizedBox(height: screenHeight * 0.03),
+
 
                     SizedBox(
                       height: 30,

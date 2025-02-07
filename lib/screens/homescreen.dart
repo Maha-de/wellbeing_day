@@ -550,12 +550,12 @@ int currentIndex=1;
                           children: [
                             for (var label in [
                               "guidanceAndInstructions",
-                              "solveProblems",
+                              "تشخيص وتحفيز",
                               "childrenDisorder"
                             ])
                               GestureDetector(
                                 onTap: (){
-                                  if(label== "solveProblems"){  Navigator.push(
+                                  if(label== "تشخيص وتحفيز"){  Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => MultiBlocProvider(
@@ -591,6 +591,10 @@ int currentIndex=1;
                                   width: MediaQuery.of(context).size.width * 0.3.w,
                                   height: 68.h,
                                   decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: label=="تشخيص وتحفيز" ?
+                                        Color(0xff19649E) : Colors.transparent , width: 4),
+
                                     borderRadius: BorderRadius.circular(20),
                                     color: const Color(0xff69B7F3),
                                     boxShadow: [
@@ -987,12 +991,12 @@ int currentIndex=1;
                           children: [
                             for (var label in [
                               "guidanceAndInstructions",
-                              "solveProblems",
+                              "تشخيص وتحفيز",
                               "childrenDisorder"
                             ])
                               GestureDetector(
                                 onTap: (){
-                                  if(label== "solveProblems"){  Navigator.push(
+                                  if(label== "تشخيص وتحفيز"){  Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => MultiBlocProvider(
@@ -1028,6 +1032,10 @@ int currentIndex=1;
                                   width: MediaQuery.of(context).size.width * 0.3.w,
                                   height: 68.h,
                                   decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: label=="تشخيص وتحفيز" ?
+                                        Color(0xff19649E) : Colors.transparent , width: 4),
+
                                     borderRadius: BorderRadius.circular(20),
                                     color: const Color(0xff69B7F3),
                                     boxShadow: [

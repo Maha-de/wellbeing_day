@@ -136,5 +136,18 @@
   "addiction": "Addiction",
   "traumaDisorder": "Trauma Disorder",
   "contactUs": "Contact Us",
-  "info": "Info"
+  "info": "Info",
+  "doctorInfoNotAvailable": "Doctor Info Not Available",
+  "notFound": "Not Found",
+  "notAvailable": "Not Available",
+  "speciality": "Speciality:",
+  "availableVideo": "Available Video and Voice Sessions",
+  "experienceYears": "Experience",
+  "years": "Years",
+  "language": "Language:",
+  "availability": "Availability",
+  "dateExample": "04 June - 7:00 AM",
+  "price": "Price",
+  "currency": "Lira",
+  "timeSession": "Minutes"
 }

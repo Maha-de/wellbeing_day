@@ -136,5 +136,18 @@
   "addiction": "الإدمان",
   "traumaDisorder": "اضطراب الصدمة",
   "contactUs": "تواصل معنا",
-  "info": "تعليمات"
+  "info": "تعليمات",
+  "doctorInfoNotAvailable": "بيانات الطبيب غير متاحة!",
+  "notFound": "غير معروف",
+  "notAvailable": "غير متاح",
+  "speciality": "النوع:",
+  "availableVideo": "متاح جلسات صوتية، فيديو",
+  "experienceYears": "خبرة",
+  "years": "سنوات",
+  "language": "اللغة:",
+  "availability": "أقرب إتاحة",
+  "dateExample": "04 يونيو - 7:00 مساءً",
+  "price": "السعر",
+  "currency": "ليرة",
+  "timeSession": "دقيقة"
 }
