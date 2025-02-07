@@ -62,7 +62,171 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                 body: Center(child: CircularProgressIndicator()),
               );
             } else if (state is UserProfileFailure) {
-              return Center(child: Text("Error loading profile: ${state.error}"));
+              return Scaffold(
+                bottomNavigationBar: CustomBottomNavBar(currentIndex: 1),
+                appBar: CustomAppBar(
+                  screenWidth: screenWidth,
+                  screenHeight: screenHeight,
+                ),
+                body: Padding(
+                  padding: const EdgeInsets.only(top: 15.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Center(
+                          child: Container(
+                            width: 161,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF1F78BC),
+                              borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(20),
+                                  topLeft: Radius.circular(20)),
+                            ),
+                            alignment: Alignment.center,
+                            child: Text(
+                              "برامج علاجية",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            _buildDisorderButton("الرهاب"),
+                            GestureDetector(onTap: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MultiBlocProvider(
+                                    providers: [
+                                      BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                      BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                      BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                    ],
+                                    child: const DepressionScreen(),
+                                  ),
+
+                                ),
+
+                              );
+                            },child: _buildDisorderButton("الاكتئاب")),
+                            GestureDetector(onTap: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      MultiBlocProvider(
+                                        providers: [
+                                          BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                          BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                          BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                        ],
+                                        child:
+                                        const AnxietyScreen(),
+                                      ),
+
+                                ),
+
+                              );
+                            },child: _buildDisorderButton("القلق")),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            _buildDisorderButton("اضطراب الاكل"),
+                            _buildDisorderButton("اضطراب جنسي"),
+                            _buildDisorderButton("الوسواس"),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            _buildDisorderButton("اضطراب الصدمة"),
+                            _buildDisorderButton("الادمان"),
+                            GestureDetector(onTap: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MultiBlocProvider(
+                                    providers: [
+                                      BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                      BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                      BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                    ],
+                                    child: const PersonalityDisorderScreen(),
+                                  ),
+
+                                ),
+
+                              );
+                            },child: _buildDisorderButton("اضطراب شخصي")),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Center(
+                          child: Container(
+                            margin: EdgeInsets.only(bottom: 25),
+                            width: 161,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF1F78BC),
+                              borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(20),
+                                  topLeft: Radius.circular(20)),
+                            ),
+                            alignment: Alignment.center,
+                            child: Text(
+                              "المختصين",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ),
+                        ),
+                        // List of doctors
+                        BlocBuilder<GetSpecialistCubit, GetSpecialistState>(
+                          builder: (context, state) {
+                            if (state is SpecialistLoading) {
+                              return CircularProgressIndicator(); // Show loading indicator
+                            } else if (state is SpecialistFailure) {
+                              return Text(state.errMessage); // Display error message
+                            } else if (state is SpecialistSuccess) {
+                              return Container(
+                                height: screenHeight*0.57,
+                                child: ListView.builder(
+                                  itemCount: state.specialists.length,
+                                  itemBuilder: (context, index) {
+                                    return DoctorCard(specialistModel: state.specialists[index]);
+                                  },
+                                ),
+                              );
+                            } else {
+                              return Center(child: Text('No specialists found.'));
+                            }
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              );
             } else if (state is UserProfileSuccess) {
               UserProfileModel userProfile = state.userProfile;
 
@@ -206,57 +370,27 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                           ),
                         ),
                         // List of doctors
-    Container(
-      height: 900,
-      child: SingleChildScrollView(
-        child: BlocConsumer<GetSpecialistCubit, GetSpecialistState>(listener: (context, state) {
-        },
-        builder: (context, state) {
-          print("Current State: $state"); // Debugging line
-
-          if (state is SpecialistLoading) {
-            return Scaffold(
-                body: Center(
-                  child: CircularProgressIndicator(),
-                ));
-          } else if (state is SpecialistFailure) {
-            return Center(
-                child: Text("Error loading Doctors: ${state.errMessage}"));
-          } else if (state is SpecialistSuccess) {
-            final specialists = state.specialists; // Get the list of specialists
-
-
-
-            return Column(
-              children: List.generate(specialists.length, (index) {
-                return DoctorCard(
-                  specialistModel: specialists[index],
-                );
-              }),
-            );
-        // return ListView.separated(
-        //       padding: EdgeInsets.only(left: 10, right: 10),
-        //       itemBuilder: (context, index) {
-        //         return DoctorCard(
-        //           specialistModel: specialists[index],
-        //         );
-        //       },
-        //       separatorBuilder: (context, index) {
-        //         return SizedBox(height: screenHeight * 0.05);
-        //       },
-        // // itemCount: 2,
-        //       itemCount: specialists.length,
-        //       shrinkWrap: true,
-        //       // Makes ListView behave like a normal widget inside a Column
-        //       // physics: NeverScrollableScrollPhysics(), // Prevents the ListView from having its own scroll
-        //     )
-        // ;
-          }
-        return Container(); // Default return in case no state matches
-        },
-        ),
-      ),
-    )
+                        BlocBuilder<GetSpecialistCubit, GetSpecialistState>(
+                          builder: (context, state) {
+                            if (state is SpecialistLoading) {
+                              return CircularProgressIndicator(); // Show loading indicator
+                            } else if (state is SpecialistFailure) {
+                              return Text(state.errMessage); // Display error message
+                            } else if (state is SpecialistSuccess) {
+                              return Container(
+                                height: screenHeight*0.57,
+                                child: ListView.builder(
+                                  itemCount: state.specialists.length,
+                                  itemBuilder: (context, index) {
+                                    return DoctorCard(specialistModel: state.specialists[index]);
+                                  },
+                                ),
+                              );
+                            } else {
+                              return Center(child: Text('No specialists found.'));
+                            }
+                          },
+                        )
                       ],
                     ),
                   ),
@@ -289,6 +423,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
       ),
       child: Center(
         child: Text(
+          textAlign: TextAlign.center,
           title,
           style: TextStyle(
             fontSize: 16,

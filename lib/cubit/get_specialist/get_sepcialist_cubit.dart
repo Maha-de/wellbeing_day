@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../api/end_points.dart';
 import '../../api/user_repository.dart';
 import '../../models/specialist_model.dart';
 import 'get_specialist_state.dart';
@@ -13,7 +15,7 @@ class GetSpecialistCubit extends Cubit<GetSpecialistState> {
 
   final UserRepository userRepository;
 
-  List<SpecialistModel> specialists = [];
+  List<Specialist> specialists = [];
 
 
 
@@ -35,31 +37,30 @@ class GetSpecialistCubit extends Cubit<GetSpecialistState> {
     
 
   Future<void> fetchSpecialists() async {
-    try {
+
       emit(SpecialistLoading());
+      try {
+        final dio = Dio(
+          BaseOptions(
+            baseUrl: EndPoint.baseUrl,
+            validateStatus: (status) => status != null && status < 500,
+          ),
+        );
+
+        final response = await dio.get("/specialist/getSpecialists");
+
+        if (response.statusCode == 201) {
+          final specialistModel = SpecialistModel.fromJson(response.data);
+          specialists = specialistModel.specialists??[];
 
 
-      final response = await userRepository.getSpecialists(
-
-      ); // Fetch all specialists
-      response.fold(
-            (errMessage) {
-              emit(SpecialistFailure(errMessage: errMessage));
-              print("Error fetching specialists: $errMessage");
-
-            },
-            (specialistList) {
-
-          emit(SpecialistSuccess( "Success", specialists));
-          print("Fetched specialists: $specialists");
-        },
-      );
-    } catch (e) {
-      emit(SpecialistFailure(errMessage: 'An error occurred: $e'));
-      print("Exception: $e");
-
-
-    }
+          emit(SpecialistSuccess("Profile loaded successfully", specialists));
+        } else {
+          emit(SpecialistFailure("Error Fetching Data: ${response.data['message']}", errMessage: "Error Fetching Data: ${response.data['message']}"));
+        }
+      } catch (e) {
+        emit(SpecialistFailure("Error occurred while connecting to the API: $e", errMessage: "Error occurred while connecting to the API: $e"));
+      }
   }
 }
 

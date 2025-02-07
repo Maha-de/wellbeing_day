@@ -1,26 +1,35 @@
+import 'package:equatable/equatable.dart';
 import '../../models/specialist_model.dart';
 
-abstract class GetSpecialistState {}
+// Base state class
+abstract class GetSpecialistState extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
 
-final class GetSpecialistInitial extends GetSpecialistState {}
+// Initial state
+class GetSpecialistInitial extends GetSpecialistState {}
 
+// Loading state
+class SpecialistLoading extends GetSpecialistState {}
 
-final class GetSpecialist extends GetSpecialistState {}
+// Success state
+class SpecialistSuccess extends GetSpecialistState {
+  final String message;
+  final List<Specialist> specialists;
 
+  SpecialistSuccess(this.message, this.specialists);
 
+  @override
+  List<Object?> get props => [message, specialists];
+}
 
-final class SpecialistLoading extends GetSpecialistState {}
-
-final class SpecialistFailure extends GetSpecialistState {
+// Failure state
+class SpecialistFailure extends GetSpecialistState {
   final String errMessage;
 
+  SpecialistFailure(String s, {required this.errMessage});
 
-  SpecialistFailure({required this.errMessage});
-}
-final class SpecialistSuccess extends GetSpecialistState {
-
-  final String message;
-  final List<SpecialistModel> specialists;
-
-  SpecialistSuccess(this.message,  this.specialists,);
+  @override
+  List<Object?> get props => [errMessage];
 }

@@ -4,9 +4,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../cubit/get_specialist/get_sepcialist_cubit.dart';
+import '../cubit/get_specialist/get_specialist_state.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
 import '../models/user_profile_model.dart';
+import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_bottom_nav_bar.dart';
 import '../widgets/doctor_card.dart';
 import 'client_profile_screen.dart';
@@ -45,6 +48,8 @@ class _FirstHomePageState extends State<FirstHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return BlocProvider(
         create: (context) => userProfileCubit,
         child: BlocBuilder<UserProfileCubit, UserProfileState>(
@@ -54,8 +59,98 @@ class _FirstHomePageState extends State<FirstHomePage> {
                   body: Center(child: CircularProgressIndicator()),
                 );
               } else if (state is UserProfileFailure) {
-                return Center(
-                    child: Text("Error loading profile: ${state.error}"));
+                return Scaffold(
+                  appBar: CustomAppBar(
+                    screenWidth: screenWidth,
+                    screenHeight: screenHeight,
+                  ),
+                  backgroundColor: Colors.white,
+                  bottomNavigationBar: const CustomBottomNavBar(
+                    currentIndex: 0,
+                  ),
+                  body: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                    
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        SizedBox(
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
+                          child: CarouselSlider(
+                            carouselController: carouselControllerEx,
+                            options: CarouselOptions(
+                                height: 180,
+                                autoPlay: true,
+                                onPageChanged: (index, _) {
+                                  sliderIndex = index;
+                                  setState(() {});
+                                }),
+                            items: images.map((i) {
+                              return ClipRRect(
+                                borderRadius: BorderRadius.circular(30),
+                                child: Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 5.0),
+                                    child: Image.asset(
+                                      i,
+                                      fit: BoxFit.cover,
+                                    )),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20
+                        ),
+                        Center(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: const Color(0xFFAFDCFF)),
+                            height: 50,
+                            width: 380,
+                            child: TextFormField(
+                              decoration: const InputDecoration(
+                                prefixIcon: Icon(Icons.search),
+                                labelText: "البحث",
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide.none),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        BlocBuilder<GetSpecialistCubit, GetSpecialistState>(
+                          builder: (context, state) {
+                            if (state is SpecialistLoading) {
+                              return CircularProgressIndicator(); // Show loading indicator
+                            } else if (state is SpecialistFailure) {
+                              return Text(state.errMessage); // Display error message
+                            } else if (state is SpecialistSuccess) {
+                              return Container(
+                                height: screenHeight*0.58,
+                                child: ListView.builder(
+                                  itemCount: state.specialists.length,
+                                  itemBuilder: (context, index) {
+                                    return DoctorCard(specialistModel: state.specialists[index]);
+                                  },
+                                ),
+                              );
+                            } else {
+                              return Center(child: Text('No specialists found.'));
+                            }
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+                );
               } else if (state is UserProfileSuccess) {
                 UserProfileModel userProfile = state.userProfile;
                 return Scaffold(

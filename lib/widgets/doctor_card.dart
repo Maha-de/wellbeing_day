@@ -1,32 +1,53 @@
-
 import 'package:doctor/screens/doctor_details.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 import '../models/specialist_model.dart';
 
-
 class DoctorCard extends StatelessWidget {
-  final SpecialistModel specialistModel;
+  final Specialist specialistModel;
 
   const DoctorCard({super.key, required this.specialistModel});
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
+
+    print("specialistModel: ${specialistModel.toString()}");
+    if (specialistModel != null) {
+      print("Doctor Name: ${specialistModel?.firstName} ${specialistModel?.lastName}");
+    } else {
+      print("No specialist data found!");
+    }
+
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const DoctorDetails()),
-        );
+        if (specialistModel != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DoctorDetails(
+                specialist: specialistModel,
+              ),
+            ),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("بيانات الطبيب غير متاحة!"),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
       },
       child: Container(
-        width: Get.width * 0.9,
-        height: 297,
+        width: screenWidth * 0.9,
+        height: 300,
         child: Card(
           child: Column(
             children: [
               Container(
-                height: 220,
+                height: screenHeight * 0.3,
                 color: Color(0xFF19649E),
                 child: Row(
                   children: [
@@ -36,7 +57,7 @@ class DoctorCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '${specialistModel.specialist.firstName} ${specialistModel.specialist.lastName}', // Doctor's name
+                            '${specialistModel?.firstName ?? 'غير معروف'} ${specialistModel?.lastName ?? ''}',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
@@ -46,7 +67,7 @@ class DoctorCard extends StatelessWidget {
                           ),
                           const SizedBox(height: 2),
                           Text(
-                            specialistModel.specialist.work, // Work type
+                            specialistModel?.work ?? 'غير متاح',
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16,
@@ -55,34 +76,29 @@ class DoctorCard extends StatelessWidget {
                           ),
                           const SizedBox(height: 10),
                           buildInfoRow("assets/images/heart.png",
-                              'النوع: ${specialistModel.specialist.specialties.mentalHealth.join(", ")}'), // Example for specialties
+                              'النوع: ${(specialistModel?.specialties?.mentalHealth?.isNotEmpty ?? false)
+                                  ? specialistModel.specialties?.mentalHealth?.join(", ")
+                                  : 'غير متاح'}'),
                           const SizedBox(height: 4),
                           buildInfoRow("assets/images/PhoneCall.png",
                               'متاح جلسات صوتية، فيديو'),
                           const SizedBox(height: 4),
-                          buildInfoRow(
-                              "assets/images/experience.png",
-                              'خبرة ${specialistModel.specialist.yearsExperience} سنوات'), // Years of experience
+                          buildInfoRow("assets/images/experience.png",
+                              'خبرة ${specialistModel?.yearsExperience ?? 0} سنوات'),
                           const SizedBox(height: 4),
                           buildInfoRow("assets/images/translation.png",
-                              'اللغة: العربية، الإنجليزية'), // Example for languages
+                              'اللغة: العربية، الإنجليزية'),
                         ],
                       ),
                     ),
                     Flexible(
                       child: Container(
-                        height: 220,
+                        height: screenHeight * 0.3,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Transform.translate(
-                          offset: Offset(0, -14),
-                          child: Transform.scale(
-                            scale: 1.25,
-                            child: Image.asset('assets/images/doctor.png',
-                                fit: BoxFit.contain),
-                          ),
-                        ),
+                        child: Image.asset('assets/images/doctor.png',
+                            fit: BoxFit.cover),
                       ),
                     ),
                   ],
@@ -94,9 +110,9 @@ class DoctorCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   buildDetailColumn("assets/images/time.png", 'أقرب إتاحة',
-                      '04 يونيو - 7:00 مساءً'), // Example for availability
+                      '04 يونيو - 7:00 مساءً'),
                   buildDetailColumn("assets/images/price.png", 'السعر',
-                      '${specialistModel.specialist.sessionPrice} ليرة / ${specialistModel.specialist.sessionDuration} دقيقة'), // Price and session duration
+                      '${specialistModel?.sessionPrice ?? 'غير متاح'} ليرة / ${specialistModel?.sessionDuration ?? 'غير متاح'} دقيقة'),
                 ],
               ),
             ],
@@ -111,16 +127,12 @@ class DoctorCard extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        Container(
-          width: 21.19,
+        Image.asset(
+          icon,
+          fit: BoxFit.fill,
+          width: 21,
           height: 19,
-          child: Image.asset(
-            icon,
-            fit: BoxFit.fill,
-            width: 21.19,
-            height: 19,
-            color: Colors.white,
-          ),
+          color: Colors.white,
         ),
         const SizedBox(width: 8),
         Text(
@@ -133,20 +145,15 @@ class DoctorCard extends StatelessWidget {
   }
 
   Widget buildDetailColumn(String icon, String title, String value) {
-    return Container(
-      width: Get.width * 0.8,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
-              Container(
-                color: Colors.white,
-                width: 19,
-                height: 19,
-                child: Image.asset(icon, fit: BoxFit.fill),
-              ),
+              Image.asset(icon, width: 19, height: 19),
               const SizedBox(width: 8),
               Text(
                 title,
@@ -154,7 +161,6 @@ class DoctorCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(width: 4),
           Text(
             value,
             style: TextStyle(

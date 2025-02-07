@@ -51,7 +51,138 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                   body: Center(child: CircularProgressIndicator()),
                 );
               } else if (state is UserProfileFailure) {
-                return Center(child: Text("Error loading profile: ${state.error}"));
+                return Scaffold(
+                  bottomNavigationBar: CustomBottomNavBar(currentIndex: 1),
+                  appBar: CustomAppBar(
+
+                    screenWidth: screenWidth,
+                    screenHeight: screenHeight,
+                  ),
+                  body: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 20.0,top: 15),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 20.0),
+
+                                child: Center(
+                                  child: Container(
+                                    width: 161,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF1F78BC),
+                                      borderRadius: BorderRadius.only(bottomRight: Radius.circular(20), topLeft: Radius.circular(20)),
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "إستشاره مجانيه",
+                                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: screenWidth * 0.9,
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    "عبر عن حالتك بشكل مختصر",
+                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xff19649E)),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 5),
+                              Container(
+                                width:screenWidth* 0.9,
+                                height: 180,
+                                child: TextFormField(
+
+                                  decoration: InputDecoration(
+                                    hintText: "ما هو شعورك؟ أكتب وصفاً قصيراً لحالتك لعرضها على المختص",
+                                    hintStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.grey),
+                                    filled: true,
+                                    fillColor: Color(0xFFD5D5D5),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                    contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                                  ),
+                                  maxLines: 10,
+                                ),
+                              ),
+                              SizedBox(height: 15),
+                              Container(
+                                width: screenWidth * 0.9,
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    "شروط الجلسه",
+                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xff1F78BC)),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 7),
+                              Column(
+                                children: [
+                                  Row(
+
+                                    children: [
+                                      Icon(Icons.circle, size: 10, color: Colors.black),
+                                      SizedBox(width: 5),
+                                      Text("ستكون مده الإستشاره 15 دقيقه"),
+                                    ],
+                                  ),
+                                  SizedBox(height: 5),
+                                  Row(
+
+                                    children: [
+                                      Icon(Icons.circle, size: 10, color: Colors.black),
+                                      SizedBox(width: 5),
+                                      Text("عند الحاجه للتوجيه للعلاج او الأخصائي المناسب"),
+                                    ],
+                                  ),
+                                  SizedBox(height: 5),
+                                  Row(
+
+                                    children: [
+                                      Icon(Icons.circle, size: 10, color: Colors.black),
+                                      SizedBox(width: 5),
+                                      Text("عند عدم وضوح الحاله النفسيه او الجسديه"),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 15),
+                            ],
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: (){},
+                          child: Container(
+                            width: screenWidth* 0.9,
+                            height: 48,
+                            decoration: BoxDecoration(
+                              color: Color(0xff19649E),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'إستمرار',
+                                style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
               } else if (state is UserProfileSuccess) {
                 UserProfileModel userProfile = state.userProfile;
                 return Scaffold(

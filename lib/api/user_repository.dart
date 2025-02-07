@@ -9,34 +9,22 @@ import 'end_points.dart';
 class UserRepository {
   final ApiConsumer api;
 
-
   UserRepository({required this.api});
 
-
-  Future<Either<String, List<SpecialistModel>>> getSpecialists(
-
-
-      ) async {
+  Future<Either<String, List<Specialist>>> getSpecialists() async {
     try {
       // Make your API call here to fetch the list of specialists
-      final response = await await api.get(
+      final response = await api.get(
         EndPoint.getAllSpecialist,
-        data: {
-
-        },
+        data: {},
       );
 
       if (response['message'] == "specialists gitting successfully") {
-        // Parse the response and return a list of specialists
-        final List<dynamic> jsonData = response['specialists'];
+        // Parse the entire response to get the list of specialists
+        SpecialistModel specialistModel = SpecialistModel.fromJson(response);
 
-
-        List<SpecialistModel> specialists = jsonData.map((json) =>
-            SpecialistModel.fromJson(json)).toList();
-
-
-        return Right(
-            specialists); // Assuming you're using Either for error handling
+        // Return the list of specialists from the parsed response
+        return Right(specialistModel.specialists ?? []);
       } else {
         return Left('Failed to load specialists');
       }
@@ -45,3 +33,4 @@ class UserRepository {
     }
   }
 }
+

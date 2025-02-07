@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../cubit/get_specialist/get_sepcialist_cubit.dart';
+import '../cubit/get_specialist/get_specialist_state.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
 import '../models/user_profile_model.dart';
@@ -46,7 +48,132 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
               body: Center(child: CircularProgressIndicator()),
             );
           } else if (state is UserProfileFailure) {
-            return Center(child: Text("Error loading profile: ${state.error}"));
+            return Scaffold(
+              bottomNavigationBar: CustomBottomNavBar(currentIndex: 1),
+              appBar: AppBar(
+
+                elevation: 0,
+                backgroundColor: Colors.transparent,
+                iconTheme: const IconThemeData(
+                  color: Color(0xff19649E),
+                ),
+              ),
+              body: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Center(
+                      child: Container(
+                        width: 161,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF1F78BC),
+                          borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(20),
+                              topLeft: Radius.circular(20)),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          "اضطراب الاطفال",
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildDisorderButton("صعوبات  التعلم"),
+                        _buildDisorderButton("صعوبات النطق"),
+                        _buildDisorderButton("فرط الحركة"),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildDisorderButton("التوحد"),
+                        _buildDisorderButton("الكذب"),
+                        _buildDisorderButton("السرقه"),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildDisorderButton("العناد"),
+                        _buildDisorderButton("الادمان"),
+                        _buildDisorderButton("التعلثم"),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildDisorderButton("التعلق"),
+
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Center(
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 25),
+                        width: 161,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF1F78BC),
+                          borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(20),
+                              topLeft: Radius.circular(20)),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          "المختصين",
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    // List of doctors
+                    BlocBuilder<GetSpecialistCubit, GetSpecialistState>(
+                      builder: (context, state) {
+                        if (state is SpecialistLoading) {
+                          return CircularProgressIndicator(); // Show loading indicator
+                        } else if (state is SpecialistFailure) {
+                          return Text(state.errMessage); // Display error message
+                        } else if (state is SpecialistSuccess) {
+                          return Container(
+                            height: screenHeight*0.57,
+                            child: ListView.builder(
+                              itemCount: state.specialists.length,
+                              itemBuilder: (context, index) {
+                                return DoctorCard(specialistModel: state.specialists[index]);
+                              },
+                            ),
+                          );
+                        } else {
+                          return Center(child: Text('No specialists found.'));
+                        }
+                      },
+                    )
+                  ],
+                ),
+              ),
+            );
           } else if (state is UserProfileSuccess) {
             UserProfileModel userProfile = state.userProfile;
             return Scaffold(
@@ -150,17 +277,26 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
                       ),
                     ),
                     // List of doctors
-                    ListView.separated(
-                      padding: EdgeInsets.only(left: 10,right: 10),
-                      itemBuilder: (context, index) {
-                        // return DoctorCard();
+                    BlocBuilder<GetSpecialistCubit, GetSpecialistState>(
+                      builder: (context, state) {
+                        if (state is SpecialistLoading) {
+                          return CircularProgressIndicator(); // Show loading indicator
+                        } else if (state is SpecialistFailure) {
+                          return Text(state.errMessage); // Display error message
+                        } else if (state is SpecialistSuccess) {
+                          return Container(
+                            height: screenHeight*0.57,
+                            child: ListView.builder(
+                              itemCount: state.specialists.length,
+                              itemBuilder: (context, index) {
+                                return DoctorCard(specialistModel: state.specialists[index]);
+                              },
+                            ),
+                          );
+                        } else {
+                          return Center(child: Text('No specialists found.'));
+                        }
                       },
-                      separatorBuilder: (context, index) {
-                        return SizedBox(height: screenHeight * 0.05);
-                      },
-                      itemCount: 2,
-                      shrinkWrap: true, // Makes ListView behave like a normal widget inside a Column
-                      physics: NeverScrollableScrollPhysics(), // Prevents the ListView from having its own scroll
                     )
                   ],
                 ),
@@ -192,6 +328,7 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
       ),
       child: Center(
         child: Text(
+          textAlign: TextAlign.center,
           title,
           style: TextStyle(
             fontSize: 16,

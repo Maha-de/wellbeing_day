@@ -2,8 +2,11 @@ import 'package:doctor/screens/sign_up_as_client.dart';
 import 'package:doctor/screens/specialist/sign_up_specialist_info_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../make_email/login.dart';
+import 'homescreen.dart';
 
 class SelectionPage extends StatelessWidget {
   const SelectionPage({super.key});
@@ -92,7 +95,36 @@ class SelectionPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BlocProvider(
+                        create: (_) => UserProfileCubit(),
+                        child: const HomeScreen(),
+                      ),
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
 
+                  backgroundColor: const Color(0xff19649E),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+                child: Container(
+                  width: double.infinity, // ملء العرض
+                  height: 52, // ارتفاع الزر
+                  alignment: Alignment.center, // مركز النص
+                  child: Text(
+                    "متابعه كضيف",
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.w700,color: Colors.white), // حجم النص
+                  ),
+                ),
+              ),
               const SizedBox(height: 40),
               // الجزء السفلي مع ترتيب النص وزر تسجيل الدخول
               Row(

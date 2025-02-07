@@ -1,3 +1,4 @@
+import 'package:doctor/models/specialist_model.dart';
 import 'package:flutter/material.dart';
 import '../widgets/doctor_details_info.dart';
 import 'appointment_screen.dart';
@@ -5,7 +6,7 @@ import 'appointment_screen.dart';
 
 
 class DoctorDetails extends StatefulWidget {
-  const DoctorDetails({super.key});
+  const DoctorDetails({super.key, required Specialist specialist});
 
   @override
   State<DoctorDetails> createState() => _DoctorDetailsState();
@@ -41,6 +42,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(

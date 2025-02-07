@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import '../models/user_profile_model.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final UserProfileModel userProfile;
+  final UserProfileModel? userProfile;
   final double screenWidth;
   final double screenHeight;
 
   const CustomAppBar({
     Key? key,
-    required this.userProfile,
+   this.userProfile,
     required this.screenWidth,
     required this.screenHeight,
   }) : super(key: key);
@@ -41,22 +41,22 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   children: [
                     Container(
                       width: 66,
-                      height: 50,
+                      height: 66,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(50),
-                        child: userProfile.imageUrl == "" || userProfile.imageUrl == null
+                        child: userProfile?.imageUrl == "" || userProfile?.imageUrl == null
                             ? Image.asset("assets/images/profile.jpg", fit: BoxFit.fill)
-                            : Image.network(userProfile.imageUrl ?? "", fit: BoxFit.fill),
+                            : Image.network(userProfile?.imageUrl ?? "", fit: BoxFit.fill),
                       ),
                     ),
                     const SizedBox(width: 28),
                     Padding(
                       padding: const EdgeInsets.only(top: 5.0),
                       child: Text(
-                        "greeting".tr() + " " + "${userProfile.firstName}",
+                        "greeting".tr() + " " + "${userProfile?.firstName??"guest"}",
                         textAlign: TextAlign.start,
                         style: const TextStyle(
                           fontSize: 16,
@@ -113,54 +113,51 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(top: screenHeight * 0.005),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: screenWidth * 0.04, bottom: screenHeight * 0.005),
-                              child: const Text(
-                                "تواصل معنا",
-                                style: TextStyle(
-                                  color: Color(0xff19649E),
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only( bottom: screenHeight * 0.005),
+                            child: const Text(
+                              "تواصل معنا",
+                              style: TextStyle(
+                                color: Color(0xff19649E),
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Row(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {},
-                                  child: SizedBox(
-                                    width: 27.66,
-                                    height: 25.33,
-                                    child: Image.asset("assets/images/fa-brands_twitter-square.png", fit: BoxFit.fill),
-                                  ),
+                          ),
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {},
+                                child: SizedBox(
+                                  width: 27.66,
+                                  height: 25.33,
+                                  child: Image.asset("assets/images/fa-brands_twitter-square.png", fit: BoxFit.fill),
                                 ),
-                                const SizedBox(width: 5),
-                                GestureDetector(
-                                  onTap: () {},
-                                  child: SizedBox(
-                                    width: 27.66,
-                                    height: 25.33,
-                                    child: Image.asset("assets/images/uil_facebook.png", fit: BoxFit.fill),
-                                  ),
+                              ),
+                              const SizedBox(width: 5),
+                              GestureDetector(
+                                onTap: () {},
+                                child: SizedBox(
+                                  width: 27.66,
+                                  height: 25.33,
+                                  child: Image.asset("assets/images/uil_facebook.png", fit: BoxFit.fill),
                                 ),
-                                const SizedBox(width: 5),
-                                GestureDetector(
-                                  onTap: () {},
-                                  child: SizedBox(
-                                    width: 27.66,
-                                    height: 25.33,
-                                    child: Image.asset("assets/images/ri_instagram-fill.png", fit: BoxFit.fill),
-                                  ),
+                              ),
+                              const SizedBox(width: 5),
+                              GestureDetector(
+                                onTap: () {},
+                                child: SizedBox(
+                                  width: 27.66,
+                                  height: 25.33,
+                                  child: Image.asset("assets/images/ri_instagram-fill.png", fit: BoxFit.fill),
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ],
                   ),
