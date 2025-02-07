@@ -11,7 +11,6 @@ import '../widgets/doctor_details_info.dart';
 import 'appointment_screen.dart';
 // import 'package:intl/intl.dart';
 
-
 class DoctorDetails extends StatefulWidget {
   const DoctorDetails({super.key, required Specialist specialist});
 
@@ -20,11 +19,9 @@ class DoctorDetails extends StatefulWidget {
 }
 
 class _DoctorDetailsState extends State<DoctorDetails> {
-
   String? _selectedTime; // Variable to store selected time
   String? _selectedDay; // Variable to store selected time
   // String? _formattedDate; // Variable to store formatted date
-
 
   final List<String> timeSlots = [
     '09:00 AM',
@@ -53,7 +50,6 @@ class _DoctorDetailsState extends State<DoctorDetails> {
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
     _loadUserProfile();
-
   }
 
   Future<void> _loadUserProfile() async {
@@ -61,20 +57,24 @@ class _DoctorDetailsState extends State<DoctorDetails> {
     String id = prefs.getString('userId') ?? "";
     userProfileCubit.getUserProfile(context, id);
   }
+
   @override
   Widget build(BuildContext context) {
-
     return BlocProvider(
-        create: (_) => userProfileCubit,  // Use the same cubit instance
+        create: (_) => userProfileCubit, // Use the same cubit instance
         child: BlocBuilder<UserProfileCubit, UserProfileState>(
           builder: (context, state) {
             if (state is UserProfileLoading) {
-              return Scaffold(body: Center(child: CircularProgressIndicator(),));
+              return Scaffold(
+                  body: Center(
+                child: CircularProgressIndicator(),
+              ));
             } else if (state is UserProfileFailure) {
               return Scaffold(
                 backgroundColor: Colors.white,
                 appBar: PreferredSize(
-                  preferredSize: const Size.fromHeight(35.0), // Set the height here
+                  preferredSize:
+                      const Size.fromHeight(35.0), // Set the height here
                   child: AppBar(
                     backgroundColor: const Color(0xff19649E),
                     iconTheme: const IconThemeData(
@@ -88,7 +88,8 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                       children: [
                         Container(
                           width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.21, // Adjust height proportionally
+                          height: MediaQuery.of(context).size.height *
+                              0.21, // Adjust height proportionally
                           decoration: const BoxDecoration(
                             color: Color(0xff19649E),
                             borderRadius: BorderRadius.only(
@@ -97,13 +98,15 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                             ),
                           ),
                           child: const Padding(
-                            padding: EdgeInsets.fromLTRB(0,120,50,10),
-                            child: Text("د. محمود محمد",
+                            padding: EdgeInsets.fromLTRB(0, 120, 50, 10),
+                            child: Text(
+                              "د. محمود محمد",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold, // Bold text
                                 fontSize: 20, // Font size
                                 color: Colors.white, // Text color is white
-                              ),),
+                              ),
+                            ),
                           ),
                         ),
                         SizedBox(
@@ -118,9 +121,9 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(60.0),
                                     topRight: Radius.circular(60.0),
-                                  )
-                              ),
-                              child: Image.asset('assets/images/doctor.png', fit: BoxFit.contain),
+                                  )),
+                              child: Image.asset('assets/images/doctor.png',
+                                  fit: BoxFit.contain),
                             ),
                           ),
                         ),
@@ -131,99 +134,157 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          const DoctorInfo(text: 'السعر: 300 ليرة / 30 دقيقة',),
+                          const DoctorInfo(
+                            text: 'السعر: 300 ليرة / 30 دقيقة',
+                          ),
                           const SizedBox(height: 6),
                           const Align(
                               alignment: Alignment.centerRight,
-                              child: Text("نبذة عن الأخصائي", style: TextStyle(fontSize: 18, color: Color(0xff19649E), fontWeight: FontWeight.bold,),)),
+                              child: Text(
+                                "نبذة عن الأخصائي",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Color(0xff19649E),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )),
                           const SizedBox(height: 6),
                           const Align(
                               alignment: Alignment.centerRight,
-                              child: Text("طبيب نفسي مهتم بالوقاية النفسية", style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),)),
+                              child: Text(
+                                "طبيب نفسي مهتم بالوقاية النفسية",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              )),
                           const SizedBox(height: 6),
-                          const DoctorInfo(text: 'النوع: وقاية نفسية',),
+                          const DoctorInfo(
+                            text: 'النوع: وقاية نفسية',
+                          ),
                           const SizedBox(height: 6),
-                          const DoctorInfo(text: 'متاح جلسات صوتية، فيديو',),
+                          const DoctorInfo(
+                            text: 'متاح جلسات صوتية، فيديو',
+                          ),
                           const SizedBox(height: 6),
-                          const DoctorInfo(text: 'خبرة 7 سنوات',),
+                          const DoctorInfo(
+                            text: 'خبرة 7 سنوات',
+                          ),
                           const SizedBox(height: 6),
-                          const DoctorInfo(text: 'اللغة: العربية، الإنجليزية',),
+                          const DoctorInfo(
+                            text: 'اللغة: العربية، الإنجليزية',
+                          ),
                           const SizedBox(height: 10),
                           const Align(
                               alignment: Alignment.centerRight,
-                              child: Text("ساعات العمل", style: TextStyle(fontSize: 20, color: Color(0xff19649E), fontWeight: FontWeight.bold,),)),
+                              child: Text(
+                                "ساعات العمل",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Color(0xff19649E),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )),
                           const SizedBox(height: 10),
                           SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Row(
                               children: [
-
                                 Wrap(
                                   spacing: 10,
                                   children: timeSlots.map((time) {
                                     return TextButton(
                                       onPressed: () {
                                         setState(() {
-                                          _selectedTime = time; // Update the selected time
+                                          _selectedTime =
+                                              time; // Update the selected time
                                         });
                                       },
                                       style: TextButton.styleFrom(
-                                        minimumSize: Size(110, 50), // Set minimum size for the button
+                                        minimumSize: Size(110,
+                                            50), // Set minimum size for the button
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(20), // Change this value for more or less rounding
+                                          borderRadius: BorderRadius.circular(
+                                              20), // Change this value for more or less rounding
                                         ),
                                         foregroundColor: Colors.grey.shade300,
-                                        backgroundColor: _selectedTime == time ? const Color(0xFF19649E) : Colors.grey.shade300, // Text color
+                                        backgroundColor: _selectedTime == time
+                                            ? const Color(0xFF19649E)
+                                            : Colors
+                                                .grey.shade300, // Text color
                                       ),
-                                      child: Text(time, textDirection: TextDirection.ltr,
+                                      child: Text(
+                                        time,
+                                        textDirection: TextDirection.ltr,
                                         style: TextStyle(
-                                          fontSize: 18, fontWeight: FontWeight.bold,
-                                          color: _selectedTime == time ? Colors.white : Colors.black,
-                                        ),),
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: _selectedTime == time
+                                              ? Colors.white
+                                              : Colors.black,
+                                        ),
+                                      ),
                                     );
                                   }).toList(),
                                 ),
-
                               ],
                             ),
                           ),
-                          SizedBox(height: 10,),
+                          SizedBox(
+                            height: 10,
+                          ),
                           const Align(
                               alignment: Alignment.centerRight,
-                              child: Text("اليوم", style: TextStyle(fontSize: 20, color: Color(0xff19649E), fontWeight: FontWeight.bold,),)),
+                              child: Text(
+                                "اليوم",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Color(0xff19649E),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )),
                           const SizedBox(height: 10),
                           SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
-
                             child: Row(
-                              spacing: 10,
-                              children:
-                              daySlots.map((day) {
+                              children: daySlots.map((day) {
                                 return TextButton(
                                   onPressed: () {
                                     setState(() {
-                                      _selectedDay = day; // Update the selected time
+                                      _selectedDay =
+                                          day; // Update the selected time
                                     });
                                   },
                                   style: TextButton.styleFrom(
-                                    minimumSize: Size(110, 50), // Set minimum size for the button
+                                    minimumSize: Size(110,
+                                        50), // Set minimum size for the button
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20), // Change this value for more or less rounding
+                                      borderRadius: BorderRadius.circular(
+                                          20), // Change this value for more or less rounding
                                     ),
                                     foregroundColor: Colors.grey.shade300,
-                                    backgroundColor: _selectedDay == day ? const Color(0xFF19649E) : Colors.grey.shade300, // Text color
+                                    backgroundColor: _selectedDay == day
+                                        ? const Color(0xFF19649E)
+                                        : Colors.grey.shade300, // Text color
                                   ),
-                                  child: Text(day,
+                                  child: Text(
+                                    day,
                                     // textDirection: TextDirection.ltr,
                                     style: TextStyle(
-                                      fontSize: 18, fontWeight: FontWeight.bold,
-                                      color: _selectedDay == day ? Colors.white : Colors.black,
-                                    ),),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: _selectedDay == day
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                  ),
                                 );
                               }).toList(),
                             ),
                           ),
-                          const SizedBox(height: 50,),
+                          const SizedBox(
+                            height: 50,
+                          ),
                           Center(
                             child: ElevatedButton(
                               onPressed: () {
@@ -231,31 +292,39 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                                   context: context,
                                   builder: (context) => AlertDialog(
                                     title: Text("تنبيه"),
-                                    content: Text("يجب عليك تسجيل الدخول أو إنشاء حساب للوصول إلى هذه الصفحة."),
+                                    content: Text(
+                                        "يجب عليك تسجيل الدخول أو إنشاء حساب للوصول إلى هذه الصفحة."),
                                     actions: [
                                       TextButton(
                                         onPressed: () {
-                                          Navigator.pop(context); // إغلاق الـ Alert
+                                          Navigator.pop(
+                                              context); // إغلاق الـ Alert
                                           Navigator.push(
                                             context,
-                                            MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    LoginPage()), // استبدليها بصفحة تسجيل الدخول
                                           );
                                         },
                                         child: Text("تسجيل الدخول"),
                                       ),
                                       TextButton(
                                         onPressed: () {
-                                          Navigator.pop(context); // إغلاق الـ Alert
+                                          Navigator.pop(
+                                              context); // إغلاق الـ Alert
                                           Navigator.push(
                                             context,
-                                            MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SignUpAsClient()), // استبدليها بصفحة التسجيل
                                           );
                                         },
                                         child: Text("إنشاء حساب"),
                                       ),
                                       TextButton(
                                         onPressed: () {
-                                          Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
+                                          Navigator.pop(
+                                              context); // إغلاق الـ Alert بدون أي انتقال
                                         },
                                         child: Text("إلغاء"),
                                       ),
@@ -277,7 +346,6 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                               ),
                             ),
                           ),
-
                         ],
                       ),
                     )
@@ -287,7 +355,6 @@ class _DoctorDetailsState extends State<DoctorDetails> {
             } else if (state is UserProfileSuccess) {
               // Once the profile is loaded, show the actual UI
               UserProfileModel userProfile = state.userProfile;
-
 
               // return BlocBuilder<UserProfileCubit, UserProfileState>(
               //   builder: (context, state) {
@@ -301,7 +368,8 @@ class _DoctorDetailsState extends State<DoctorDetails> {
               return Scaffold(
                 backgroundColor: Colors.white,
                 appBar: PreferredSize(
-                  preferredSize: const Size.fromHeight(35.0), // Set the height here
+                  preferredSize:
+                      const Size.fromHeight(35.0), // Set the height here
                   child: AppBar(
                     backgroundColor: const Color(0xff19649E),
                     iconTheme: const IconThemeData(
@@ -315,7 +383,8 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                       children: [
                         Container(
                           width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.21, // Adjust height proportionally
+                          height: MediaQuery.of(context).size.height *
+                              0.21, // Adjust height proportionally
                           decoration: const BoxDecoration(
                             color: Color(0xff19649E),
                             borderRadius: BorderRadius.only(
@@ -324,13 +393,15 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                             ),
                           ),
                           child: const Padding(
-                            padding: EdgeInsets.fromLTRB(0,120,50,10),
-                            child: Text("د. محمود محمد",
+                            padding: EdgeInsets.fromLTRB(0, 120, 50, 10),
+                            child: Text(
+                              "د. محمود محمد",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold, // Bold text
                                 fontSize: 20, // Font size
                                 color: Colors.white, // Text color is white
-                              ),),
+                              ),
+                            ),
                           ),
                         ),
                         SizedBox(
@@ -345,9 +416,9 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(60.0),
                                     topRight: Radius.circular(60.0),
-                                  )
-                              ),
-                              child: Image.asset('assets/images/doctor.png', fit: BoxFit.contain),
+                                  )),
+                              child: Image.asset('assets/images/doctor.png',
+                                  fit: BoxFit.contain),
                             ),
                           ),
                         ),
@@ -358,103 +429,165 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          const DoctorInfo(text: 'السعر: 300 ليرة / 30 دقيقة',),
+                          const DoctorInfo(
+                            text: 'السعر: 300 ليرة / 30 دقيقة',
+                          ),
                           const SizedBox(height: 6),
                           const Align(
                               alignment: Alignment.centerRight,
-                              child: Text("نبذة عن الأخصائي", style: TextStyle(fontSize: 18, color: Color(0xff19649E), fontWeight: FontWeight.bold,),)),
+                              child: Text(
+                                "نبذة عن الأخصائي",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Color(0xff19649E),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )),
                           const SizedBox(height: 6),
                           const Align(
                               alignment: Alignment.centerRight,
-                              child: Text("طبيب نفسي مهتم بالوقاية النفسية", style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),)),
+                              child: Text(
+                                "طبيب نفسي مهتم بالوقاية النفسية",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              )),
                           const SizedBox(height: 6),
-                          const DoctorInfo(text: 'النوع: وقاية نفسية',),
+                          const DoctorInfo(
+                            text: 'النوع: وقاية نفسية',
+                          ),
                           const SizedBox(height: 6),
-                          const DoctorInfo(text: 'متاح جلسات صوتية، فيديو',),
+                          const DoctorInfo(
+                            text: 'متاح جلسات صوتية، فيديو',
+                          ),
                           const SizedBox(height: 6),
-                          const DoctorInfo(text: 'خبرة 7 سنوات',),
+                          const DoctorInfo(
+                            text: 'خبرة 7 سنوات',
+                          ),
                           const SizedBox(height: 6),
-                          const DoctorInfo(text: 'اللغة: العربية، الإنجليزية',),
+                          const DoctorInfo(
+                            text: 'اللغة: العربية، الإنجليزية',
+                          ),
                           const SizedBox(height: 10),
                           const Align(
                               alignment: Alignment.centerRight,
-                              child: Text("ساعات العمل", style: TextStyle(fontSize: 20, color: Color(0xff19649E), fontWeight: FontWeight.bold,),)),
+                              child: Text(
+                                "ساعات العمل",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Color(0xff19649E),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )),
                           const SizedBox(height: 10),
                           SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Row(
                               children: [
-
                                 Wrap(
                                   spacing: 10,
                                   children: timeSlots.map((time) {
                                     return TextButton(
                                       onPressed: () {
                                         setState(() {
-                                          _selectedTime = time; // Update the selected time
+                                          _selectedTime =
+                                              time; // Update the selected time
                                         });
                                       },
                                       style: TextButton.styleFrom(
-                                        minimumSize: Size(110, 50), // Set minimum size for the button
+                                        minimumSize: Size(110,
+                                            50), // Set minimum size for the button
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(20), // Change this value for more or less rounding
+                                          borderRadius: BorderRadius.circular(
+                                              20), // Change this value for more or less rounding
                                         ),
                                         foregroundColor: Colors.grey.shade300,
-                                        backgroundColor: _selectedTime == time ? const Color(0xFF19649E) : Colors.grey.shade300, // Text color
+                                        backgroundColor: _selectedTime == time
+                                            ? const Color(0xFF19649E)
+                                            : Colors
+                                                .grey.shade300, // Text color
                                       ),
-                                      child: Text(time, textDirection: TextDirection.ltr,
+                                      child: Text(
+                                        time,
+                                        textDirection: TextDirection.ltr,
                                         style: TextStyle(
-                                          fontSize: 18, fontWeight: FontWeight.bold,
-                                          color: _selectedTime == time ? Colors.white : Colors.black,
-                                        ),),
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: _selectedTime == time
+                                              ? Colors.white
+                                              : Colors.black,
+                                        ),
+                                      ),
                                     );
                                   }).toList(),
                                 ),
-
                               ],
                             ),
                           ),
-                          SizedBox(height: 10,),
+                          SizedBox(
+                            height: 10,
+                          ),
                           const Align(
                               alignment: Alignment.centerRight,
-                              child: Text("اليوم", style: TextStyle(fontSize: 20, color: Color(0xff19649E), fontWeight: FontWeight.bold,),)),
+                              child: Text(
+                                "اليوم",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Color(0xff19649E),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )),
                           const SizedBox(height: 10),
                           SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
-
                             child: Row(
-                              spacing: 10,
-                              children:
-                              daySlots.map((day) {
+                              children: daySlots.map((day) {
                                 return TextButton(
                                   onPressed: () {
                                     setState(() {
-                                      _selectedDay = day; // Update the selected time
+                                      _selectedDay =
+                                          day; // Update the selected time
                                     });
                                   },
                                   style: TextButton.styleFrom(
-                                    minimumSize: Size(110, 50), // Set minimum size for the button
+                                    minimumSize: Size(110,
+                                        50), // Set minimum size for the button
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20), // Change this value for more or less rounding
+                                      borderRadius: BorderRadius.circular(
+                                          20), // Change this value for more or less rounding
                                     ),
                                     foregroundColor: Colors.grey.shade300,
-                                    backgroundColor: _selectedDay == day ? const Color(0xFF19649E) : Colors.grey.shade300, // Text color
+                                    backgroundColor: _selectedDay == day
+                                        ? const Color(0xFF19649E)
+                                        : Colors.grey.shade300, // Text color
                                   ),
-                                  child: Text(day,
+                                  child: Text(
+                                    day,
                                     // textDirection: TextDirection.ltr,
                                     style: TextStyle(
-                                      fontSize: 18, fontWeight: FontWeight.bold,
-                                      color: _selectedDay == day ? Colors.white : Colors.black,
-                                    ),),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: _selectedDay == day
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                  ),
                                 );
                               }).toList(),
                             ),
                           ),
-                          const SizedBox(height: 50,),
+                          const SizedBox(
+                            height: 50,
+                          ),
                           Center(
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=> const AppointmentScreen()));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const AppointmentScreen()));
                               },
                               style: ElevatedButton.styleFrom(
                                   minimumSize: const Size(350, 50),
@@ -470,7 +603,6 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                               ),
                             ),
                           ),
-
                         ],
                       ),
                     )
@@ -480,7 +612,6 @@ class _DoctorDetailsState extends State<DoctorDetails> {
             }
             return Container(); // Default return in case no state matches
           },
-        )
-    );
+        ));
   }
 }
