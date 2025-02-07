@@ -283,7 +283,7 @@ class _SignUpAsDoctorFirstScreenState extends State<SignUpAsDoctorFirstScreen> {
                       });
 
                       if (signUpFormKey.currentState?.validate() ?? false) {
-                        Specialist doctor = Specialist.withoutSpeciality(
+                        Doctor doctor = Doctor.withoutSpeciality(
                           phone: context.read<GetSpecialistCubit>().phoneController.text,
                           firstName: context.read<GetSpecialistCubit>().firstNameController.text,
                           lastName: context.read<GetSpecialistCubit>().lastNameController.text,

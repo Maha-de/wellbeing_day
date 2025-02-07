@@ -125,7 +125,7 @@ class SignUpSpecialistCubit extends Cubit<SignUpSpecialistState> {
 
   SignUpSpecialistCubit() : super(SignUpSpecialistInitial());
 
-  Future<void> signUp(Specialist doctor) async {
+  Future<void> signUp(Doctor doctor) async {
     emit(SignUpSpecialistLoading(message: SpSignUpLoadingMsg));
     log("Sign-up is loading...");
 

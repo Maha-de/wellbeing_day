@@ -27,7 +27,7 @@ class DoctorCard extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => DoctorDetails(
-                specialist: specialistModel,
+                 specialistModel: specialistModel,
               ),
             ),
           );
@@ -42,7 +42,7 @@ class DoctorCard extends StatelessWidget {
       },
       child: Container(
         width: screenWidth * 0.9,
-        height: 300,
+        height: screenHeight * 0.38,
         child: Card(
           child: Column(
             children: [
@@ -52,7 +52,7 @@ class DoctorCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
+                      padding: const EdgeInsets.only(right: 10, top: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -93,7 +93,7 @@ class DoctorCard extends StatelessWidget {
                     ),
                     Flexible(
                       child: Container(
-                        height: screenHeight * 0.3,
+                        height: screenHeight * 0.28,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                         ),

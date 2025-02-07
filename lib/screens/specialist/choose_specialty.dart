@@ -8,7 +8,7 @@ import '../../models/Specialist.dart';
 import '../../widgets/custom_snake_bar.dart';
 
 class ChooseSpecialty extends StatefulWidget {
-  final Specialist doctor;
+  final Doctor doctor;
 
   const ChooseSpecialty({super.key, required this.doctor});
 

@@ -11,6 +11,7 @@ class PaymentScreen extends StatelessWidget {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         leading:IconButton(onPressed: (){Navigator.pop(context);}, icon: const Image(image: AssetImage("assets/images/back.png"),fit: BoxFit.fill,width: 20,height: 14,))
       ),

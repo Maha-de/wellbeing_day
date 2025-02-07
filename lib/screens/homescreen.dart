@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:doctor/cubit/get_specialist/get_sepcialist_cubit.dart';
 import 'package:doctor/make_email/login.dart';
+import 'package:doctor/screens/group_therapy.dart';
 import 'package:doctor/screens/home_second_screen.dart';
 import 'package:doctor/screens/problem_solving_screen.dart';
 import 'package:doctor/screens/psychological_disorders_screen.dart';
@@ -456,6 +457,7 @@ int currentIndex=1;
                             ])
                               GestureDetector(
                                 onTap: (){
+
                                   if(label=="psychologicalDisorders"){  Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -473,6 +475,25 @@ int currentIndex=1;
                                     ),
 
                                   );}
+
+                                  else if(label=="groupTherapy"){
+
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => MultiBlocProvider(
+                                          providers: [
+                                            BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                            BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                            BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                          ],
+                                          child: const GroupTherapy(),
+                                        ),
+
+                                      ),
+
+                                    );
+                                  }
                                   else if(label=="therapeuticPrograms"){
                                     Navigator.push(
                                       context,
@@ -490,6 +511,7 @@ int currentIndex=1;
 
                                     );
                                   }
+
                                 },
                                 child: Container(
                                   width: MediaQuery.of(context).size.width * 0.3,
@@ -892,6 +914,24 @@ int currentIndex=1;
                                     ),
 
                                   );}
+                                  else if(label=="groupTherapy"){
+
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => MultiBlocProvider(
+                                          providers: [
+                                            BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                            BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                            BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                          ],
+                                          child: const GroupTherapy(),
+                                        ),
+
+                                      ),
+
+                                    );
+                                  }
                                   else if(label=="therapeuticPrograms"){
                                     Navigator.push(
                                       context,

@@ -11,7 +11,7 @@ class SpecialistRepository {
 
   SpecialistRepository({required this.dio});
 
-  Future<Response> signUpSpecialist(Specialist doctor) async {
+  Future<Response> signUpSpecialist(Doctor doctor) async {
     try {
       // Prepare form data
       FormData formData = FormData.fromMap({

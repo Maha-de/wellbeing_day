@@ -34,14 +34,16 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
     );
   }
 
-  // void addCard() {
-  //   setState(() {
-  //     cards.insert(0, buildCard()); // Insert new card at the beginning (right side)
-  //   });
-  // }
+  void addCard() {
+    setState(() {
+      cards.insert(0, buildCard()); // Insert new card at the beginning (right side)
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -62,7 +64,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                   left: 0,
                   right: 0,
                   child: Container(
-                    width: Get.width,
+                    width: screenWidth,
                     height: 100,
                     decoration: const BoxDecoration(
                       color: Colors.white,
@@ -124,7 +126,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
             Column(
               children: [
                 Container(
-                  width: Get.width * 0.9,
+                  width: screenWidth * 0.9,
                   child: const Align(
                     alignment: Alignment.centerRight,
                     child:  Text(
@@ -159,7 +161,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
             Column(
               children: [
                 Container(
-                  width: Get.width * 0.9,
+                  width: screenWidth * 0.9,
                   child: const Align(
                     alignment: Alignment.centerRight,
                     child:  Text(
@@ -208,7 +210,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                     ),
                     const SizedBox(height: 4,),
                     Container(
-                      width: Get.width * 0.45,
+                      width: screenWidth * 0.45,
                       height: 48.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
@@ -242,7 +244,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                     ),
                     const SizedBox(height: 4,),
                     Container(
-                      width: Get.width * 0.45,
+                      width: screenWidth * 0.45,
                       height: 48.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
@@ -273,7 +275,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
       ),
       // تأكد من عدم وجود bottomNavigationBar في الـ Scaffold:
       bottomNavigationBar:     Container(
-        width: Get.width, // Full screen width
+        width: screenWidth, // Full screen width
         height: 104,
         decoration: const BoxDecoration(
           color: Color(0xFF1B659F), // Background color

@@ -16,6 +16,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return ClipRRect(
       borderRadius: const BorderRadius.only(
         bottomLeft: Radius.circular(40),
@@ -23,7 +24,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.lightBlue[100], // Background color of the app bar
+          color: Color(0xFFAFDCFF), // Background color of the app bar
         ),
         child: AppBar(
           backgroundColor: Colors.transparent, // Set to transparent to allow the custom color to show
@@ -168,6 +169,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
     );
+
   }
 
   @override
