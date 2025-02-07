@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../cubit/verify_code_cubit/verify_code_cubit.dart';
 
@@ -44,17 +45,22 @@ class _VerifyScreenState extends State<VerifyScreenEmail> {
               ),
               const SizedBox(height: 50,),
 
-              OtpTextField(
-                enabledBorderColor: const Color(0xFF19649E),
-                numberOfFields: 6,
-                showFieldAsBox: false,
-                onCodeChanged: (String code) {
-
-                },
-                onSubmit: (String code){
-                  codeController.text= code;
+              PinCodeTextField(
+                appContext: context,
+                length: 6,
+                obscureText: false,
+                keyboardType: TextInputType.number,
+                animationType: AnimationType.fade,
+                pinTheme: PinTheme(
+                  shape: PinCodeFieldShape.underline,
+                  activeFillColor: Colors.white,
+                ),
+                onChanged: (value) {},
+                onCompleted: (value) {
+                  codeController.text = value;
                 },
               ),
+
 
 
               const SizedBox(

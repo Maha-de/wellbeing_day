@@ -1,6 +1,7 @@
 import 'package:doctor/screens/secondpage.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -19,9 +20,9 @@ class WelcomeScreen extends StatelessWidget {
                 alignment: Alignment.topRight,
                 child: Text(
                   'skip'.tr(),
-                  style: const TextStyle(
+                  style:  TextStyle(
                     color: Color(0xff19649E),
-                    fontSize: 16.0,
+                    fontSize: 16.0.sp,
                   ),
                 ),
               ),
@@ -32,28 +33,28 @@ class WelcomeScreen extends StatelessWidget {
 
             // الصورة والنصوص في النصف السفلي
             Expanded(
-              flex: 8,
+              flex: 15,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // صورة الطبيب
                   Image.asset(
                     'assets/images/doctor.png', // أضف مسار الصورة الصحيح
-                    height: 200,
+                    height: 200.h,
                   ),
 
-                  const SizedBox(height: 24.0),
+               SizedBox(height: 24.0.h),
 
                   // نص الترحيب
                    Text(
                     'welcome'.tr(),
-                    style: const TextStyle(
-                      fontSize: 24.0,
+                    style:  TextStyle(
+                      fontSize: 24.0.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
 
-                  const SizedBox(height: 16.0),
+                   SizedBox(height: 16.0.h),
 
                   // النص الوصفي
                   Padding(
@@ -61,15 +62,15 @@ class WelcomeScreen extends StatelessWidget {
                     child: Text(
                       'firstWelcomeScreen'.tr(),
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 16.0,
+                      style:  TextStyle(
+                        fontSize: 16.0.sp,
                         color: Colors.black87,
-                        height: 1.5,
+                        height: 1.5.h,
                       ),
                     ),
                   ),
 
-                  const SizedBox(height: 24.0),
+                   SizedBox(height: 24.0.h),
 
                   // زر الانتقال للصفحة التالية
                   GestureDetector(
@@ -80,8 +81,8 @@ class WelcomeScreen extends StatelessWidget {
                       );
                     },
                     child: Container(
-                      width: 50,
-                      height: 50,
+                      width: 50.w,
+                      height: 50.h,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         shape: BoxShape.circle,

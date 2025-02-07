@@ -12,7 +12,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'api/dio_consumer.dart';
 import 'api/user_repository.dart';
@@ -23,57 +24,60 @@ Future<void> main() async {
   await EasyLocalization.ensureInitialized();
   runApp(
     EasyLocalization(
-        supportedLocales: const [
-          Locale('en'), // English
-          Locale('ar'), // Arabic
-        ],
-        path:
-            'assets/translations', // <-- change the path of the translation files
-        // fallbackLocale: Locale('en', 'ar'),
-        child: MultiBlocProvider(
-
-          providers: [
-            BlocProvider(
-              create: (context) => SignUpSpecialistCubit(),
-            ),
-            BlocProvider(
-              create: (context) => UserProfileCubit(),
-            ),
-            BlocProvider(
-              create: (context) => GetSpecialistCubit(UserRepository(api: DioConsumer(dio: Dio()))),
-            ),
-          ],
-          child: const MyApp(),
+      supportedLocales: const [
+        Locale('en'), // English
+        Locale('ar'), // Arabic
+      ],
+      path: 'assets/translations', // مسار ملفات الترجمة
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => SignUpSpecialistCubit(),
           ),
-        ),
+          BlocProvider(
+            create: (context) => UserProfileCubit(),
+          ),
+          BlocProvider(
+            create: (context) => GetSpecialistCubit(UserRepository(api: DioConsumer(dio: Dio()))),
+          ),
+        ],
+        child: const MyApp(),
+      ),
+    ),
   );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-        scrollBehavior: ScrollConfiguration.of(context).copyWith(
-            dragDevices: { PointerDeviceKind.touch, PointerDeviceKind.mouse, PointerDeviceKind.trackpad,}),
-      
-      locale: context.locale, // Default locale
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
 
-      title: 'doctorapp',
-      theme: ThemeData(
-        fontFamily: "Tajawal",
-        primarySwatch: Colors.blue,
-      ),
-      home: SplashScreen(),
+    return ScreenUtilInit(
+      designSize: const Size(375 , 812), // حجم التصميم الأساسي، عدّله حسب UI
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          scrollBehavior: ScrollConfiguration.of(context).copyWith(
+            dragDevices: {PointerDeviceKind.touch, PointerDeviceKind.mouse, PointerDeviceKind.trackpad},
+          ),
+          locale: context.locale,
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          title: 'doctorapp',
+          theme: ThemeData(
+            fontFamily: "Tajawal",
+            primarySwatch: Colors.blue,
+          ),
+          home: SplashScreen(),
+        );
+      },
     );
   }
 }

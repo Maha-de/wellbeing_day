@@ -5,6 +5,7 @@ import 'package:doctor/screens/sign_up_as_client.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
@@ -111,7 +112,8 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
         //     } else if (state is UserProfileSuccess) {
         //       UserProfileModel userProfile = state.userProfile;
 
-        return Scaffold(appBar: CustomAppBar(
+        return Scaffold(
+          appBar: CustomAppBar(
           screenWidth: screenWidth,
           screenHeight: screenHeight,
         ),
@@ -126,7 +128,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
             items: [
               BottomNavigationBarItem(
                 icon: SizedBox(
-                  height: 27, // Adjust icon size
+                  height: 27.h, // Adjust icon size
                   child:
                   Image.asset(
                     "assets/images/meteor-icons_home.png",
@@ -135,7 +137,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                   ),
                 ),
                 activeIcon: SizedBox(
-                  height: 27, // Active icon size adjustment
+                  height: 27.h, // Active icon size adjustment
                   child: Image.asset(
                     "assets/images/meteor-icons_home.png",
                     color: currentIndex == 0 ? Colors.white : Colors.black,
@@ -147,14 +149,14 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
               ),
               BottomNavigationBarItem(
                 icon: SizedBox(
-                  height: 27,
+                  height: 27.h,
                   child: Image.asset(
                     "assets/images/nrk_category1.png",
                     fit: BoxFit.fill,
                   ),
                 ),
                 activeIcon: SizedBox(
-                  height: 27,
+                  height: 27.h,
                   child: Image.asset(
                     "assets/images/nrk_category.png",
                     fit: BoxFit.fill,
@@ -164,14 +166,14 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
               ),
               BottomNavigationBarItem(
                 icon: SizedBox(
-                  height: 25, // Adjust icon size
+                  height: 25.h, // Adjust icon size
                   child: Image.asset(
                     "assets/images/material-symbols_help-clinic-outline-rounded.png",
                     fit: BoxFit.fill,
                   ),
                 ),
                 activeIcon: SizedBox(
-                  height: 33,
+                  height: 33.h,
                   // width: 50,
                   child: Image.asset(
                     "assets/images/material-symbols_help-clinic-outline-rounded_Active.png",
@@ -182,14 +184,14 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
               ),
               BottomNavigationBarItem(
                 icon: SizedBox(
-                  height: 27,
+                  height: 27.h,
                   child: Image.asset(
                     "assets/images/gg_profile.png",
                     fit: BoxFit.fill,
                   ),
                 ),
                 activeIcon: SizedBox(
-                  height: 27,
+                  height: 27.h,
                   child: Image.asset(
                     "assets/images/gg_profile1.png",
                     fit: BoxFit.fill,
@@ -268,11 +270,11 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
             children: [
 
 
-              SizedBox(height: screenHeight * 0.01),
+              SizedBox(height: screenHeight * 0.01.h),
 
               // Category List
               SizedBox(
-                height: 32,
+                height: 32.h,
                 child: ListView.separated(
                   padding: EdgeInsets.only(left: 5,right: 5),
                   itemCount: categories.length,
@@ -321,7 +323,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                       },
                       child: Container(
                         width: screenWidth * 0.35,
-                        height: 32,
+                        height: 32.h,
                         decoration: BoxDecoration(
                           color: index == categories.length - 1
                               ? const Color(0xffAFDCFF) // Always blue for the last item
@@ -334,7 +336,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                           child: Text(
                             categories[index],
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 14.sp,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
@@ -345,9 +347,9 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                   },
                 ),
               ),
-              SizedBox(height: screenHeight * 0.02),
+              SizedBox(height: screenHeight * 0.01.h),
               Container(
-                height: screenHeight * 0.18,
+                height: screenHeight * 0.18.h,
                 child: PageView.builder(
                   controller: _pageController,
                   itemCount: images.length,
@@ -357,7 +359,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                 ),
               ),
 
-              SizedBox(height: screenHeight * 0.02),
+              SizedBox(height: screenHeight * 0.01.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -381,7 +383,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                     },
                     child: Container(
                       width: screenWidth * 0.46,
-                      height: 40,
+                      height: 40.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: const Color(0xff1F78BC),
@@ -389,8 +391,8 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                       child: Center(
                         child: Text(
                           "consultation".tr(),
-                          style: const TextStyle(
-                            fontSize: 18,
+                          style:  TextStyle(
+                            fontSize: 18.sp,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
@@ -418,7 +420,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                     },
                     child: Container(
                       width: screenWidth * 0.45,
-                      height: 40,
+                      height: 40.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: const Color(0xff1F78BC),
@@ -426,8 +428,8 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                       child: Center(
                         child: Text(
                           "instantSession".tr(),
-                          style: const TextStyle(
-                            fontSize: 18,
+                          style:  TextStyle(
+                            fontSize: 18.sp,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
@@ -437,7 +439,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: screenHeight * 0.03),
+              SizedBox(height: screenHeight * 0.01.h),
               Column(
                 children: [
                   Row(
@@ -445,7 +447,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width * 0.3,
-                        height: 68,
+                        height: 68.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Color(0xff69B7F3),
@@ -462,7 +464,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                           child: Text( textAlign: TextAlign.center,
                             "emotionalControl".tr(),
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
@@ -471,7 +473,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.3,
-                        height: 68,
+                        height: 68.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Color(0xff69B7F3),
@@ -490,7 +492,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                             "stressManagement".tr(),
                             style: TextStyle(
 
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
@@ -499,7 +501,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.3,
-                        height: 68,
+                        height: 68.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Color(0xff69B7F3),
@@ -516,7 +518,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                           child: Text(
                             "relax".tr(),
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
@@ -525,13 +527,13 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: screenHeight * 0.025),
+                  SizedBox(height: screenHeight * 0.025.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width * 0.3,
-                        height: 68,
+                        height: 68.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Color(0xff69B7F3),
@@ -549,7 +551,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                             textAlign: TextAlign.center,
                             "achievingBalance".tr(),
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
@@ -558,7 +560,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.3,
-                        height: 68,
+                        height: 68.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Color(0xff69B7F3),
@@ -576,7 +578,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                             textAlign: TextAlign.center,
                             "effectiveRelationships".tr(),
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
@@ -585,7 +587,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.3,
-                        height: 68,
+                        height: 68.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Color(0xff69B7F3),
@@ -604,7 +606,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                             "dialecticalStrategies".tr(),
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
@@ -613,13 +615,13 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: screenHeight * 0.025),
+                  SizedBox(height: screenHeight * 0.025.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width * 0.3,
-                        height: 68,
+                        height: 68.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Color(0xff69B7F3),
@@ -638,7 +640,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
 
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
@@ -647,7 +649,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.3,
-                        height: 68,
+                        height: 68.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Color(0xff69B7F3),
@@ -665,7 +667,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                             textAlign: TextAlign.center,
                             "achievingGoals".tr(),
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
@@ -674,7 +676,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.3,
-                        height: 68,
+                        height: 68.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Color(0xff69B7F3),
@@ -692,7 +694,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                             textAlign: TextAlign.center,
                             "improvingTrust".tr(),
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
@@ -711,17 +713,6 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
       } else if (state is UserProfileSuccess) {
       // Once the profile is loaded, show the actual UI
       UserProfileModel userProfile = state.userProfile;
-
-      
-      // return BlocBuilder<UserProfileCubit, UserProfileState>(
-      //   builder: (context, state) {
-      //     if (state is UserProfileLoading) {
-      //       return Scaffold(body: Center(child: CircularProgressIndicator()));
-      //     } else if (state is UserProfileFailure) {
-      //       return Center(child: Text("Error loading profile: ${state.error}"));
-      //     } else if (state is UserProfileSuccess) {
-      //       UserProfileModel userProfile = state.userProfile;
-      
             return Scaffold(appBar: CustomAppBar(
               userProfile: userProfile,
               screenWidth: screenWidth,
@@ -732,11 +723,11 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                 children: [
 
 
-                  SizedBox(height: screenHeight * 0.01),
+                  SizedBox(height: screenHeight * 0.01.h),
 
                   // Category List
                   SizedBox(
-                    height: 32,
+                    height: 32.h,
                     child: ListView.separated(
                       padding: EdgeInsets.only(left: 5,right: 5),
                       itemCount: categories.length,
@@ -785,7 +776,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                           },
                           child: Container(
                             width: screenWidth * 0.35,
-                            height: 32,
+                            height: 32.h,
                             decoration: BoxDecoration(
                               color: index == categories.length - 1
                                   ? const Color(0xffAFDCFF) // Always blue for the last item
@@ -798,7 +789,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                               child: Text(
                                 categories[index],
                                 style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 14.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -809,9 +800,9 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                       },
                     ),
                   ),
-                  SizedBox(height: screenHeight * 0.02),
+                  SizedBox(height: screenHeight * 0.01.h),
                   Container(
-                    height: screenHeight * 0.18,
+                    height: screenHeight * 0.18.h,
                     child: PageView.builder(
                       controller: _pageController,
                       itemCount: images.length,
@@ -821,7 +812,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                     ),
                   ),
       
-                  SizedBox(height: screenHeight * 0.02),
+                  SizedBox(height: screenHeight * 0.01.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -845,7 +836,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                         },
                         child: Container(
                           width: screenWidth * 0.46,
-                          height: 40,
+                          height: 40.h,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                             color: const Color(0xff1F78BC),
@@ -853,8 +844,8 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                           child: Center(
                             child: Text(
                               "consultation".tr(),
-                              style: const TextStyle(
-                                fontSize: 18,
+                              style:  TextStyle(
+                                fontSize: 18.sp,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -882,7 +873,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                         },
                         child: Container(
                           width: screenWidth * 0.45,
-                          height: 40,
+                          height: 40.h,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                             color: const Color(0xff1F78BC),
@@ -890,8 +881,8 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                           child: Center(
                             child: Text(
                               "instantSession".tr(),
-                              style: const TextStyle(
-                                fontSize: 18,
+                              style:  TextStyle(
+                                fontSize: 18.sp,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -901,7 +892,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: screenHeight * 0.03),
+                  SizedBox(height: screenHeight * 0.01.h),
                   Column(
                     children: [
                       Row(
@@ -909,7 +900,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                         children: [
                           Container(
                             width: MediaQuery.of(context).size.width * 0.3,
-                            height: 68,
+                            height: 68.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Color(0xff69B7F3),
@@ -926,7 +917,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                               child: Text( textAlign: TextAlign.center,
                                 "emotionalControl".tr(),
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -935,7 +926,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                           ),
                           Container(
                             width: MediaQuery.of(context).size.width * 0.3,
-                            height: 68,
+                            height: 68.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Color(0xff69B7F3),
@@ -954,7 +945,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                                 "stressManagement".tr(),
                                 style: TextStyle(
 
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -963,7 +954,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                           ),
                           Container(
                             width: MediaQuery.of(context).size.width * 0.3,
-                            height: 68,
+                            height: 68.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Color(0xff69B7F3),
@@ -980,7 +971,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                               child: Text(
                                 "relax".tr(),
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -989,13 +980,13 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: screenHeight * 0.025),
+                      SizedBox(height: screenHeight * 0.025.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Container(
                             width: MediaQuery.of(context).size.width * 0.3,
-                            height: 68,
+                            height: 68.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Color(0xff69B7F3),
@@ -1013,7 +1004,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                                 textAlign: TextAlign.center,
                                 "achievingBalance".tr(),
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -1022,7 +1013,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                           ),
                           Container(
                             width: MediaQuery.of(context).size.width * 0.3,
-                            height: 68,
+                            height: 68.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Color(0xff69B7F3),
@@ -1040,7 +1031,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                                 textAlign: TextAlign.center,
                                 "effectiveRelationships".tr(),
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -1049,7 +1040,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                           ),
                           Container(
                             width: MediaQuery.of(context).size.width * 0.3,
-                            height: 68,
+                            height: 68.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Color(0xff69B7F3),
@@ -1068,7 +1059,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                                 "dialecticalStrategies".tr(),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -1077,13 +1068,13 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: screenHeight * 0.025),
+                      SizedBox(height: screenHeight * 0.025.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Container(
                             width: MediaQuery.of(context).size.width * 0.3,
-                            height: 68,
+                            height: 68.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Color(0xff69B7F3),
@@ -1102,7 +1093,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
 
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -1111,7 +1102,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                           ),
                           Container(
                             width: MediaQuery.of(context).size.width * 0.3,
-                            height: 68,
+                            height: 68.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Color(0xff69B7F3),
@@ -1129,7 +1120,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                                 textAlign: TextAlign.center,
                                 "achievingGoals".tr(),
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -1138,7 +1129,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                           ),
                           Container(
                             width: MediaQuery.of(context).size.width * 0.3,
-                            height: 68,
+                            height: 68.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Color(0xff69B7F3),
@@ -1156,7 +1147,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                                 textAlign: TextAlign.center,
                                 "improvingTrust".tr(),
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),

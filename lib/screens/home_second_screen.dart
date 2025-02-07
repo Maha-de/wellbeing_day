@@ -3,6 +3,7 @@ import 'package:doctor/screens/sign_up_as_client.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
@@ -135,7 +136,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                     items: [
                       BottomNavigationBarItem(
                         icon: SizedBox(
-                          height: 27, // Adjust icon size
+                          height: 27.h, // Adjust icon size
                           child:
                           Image.asset(
                             "assets/images/meteor-icons_home.png",
@@ -144,7 +145,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                           ),
                         ),
                         activeIcon: SizedBox(
-                          height: 27, // Active icon size adjustment
+                          height: 27.h, // Active icon size adjustment
                           child: Image.asset(
                             "assets/images/meteor-icons_home.png",
                             color: currentIndex == 0 ? Colors.white : Colors.black,
@@ -156,14 +157,14 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                       ),
                       BottomNavigationBarItem(
                         icon: SizedBox(
-                          height: 27,
+                          height: 27.h,
                           child: Image.asset(
                             "assets/images/nrk_category1.png",
                             fit: BoxFit.fill,
                           ),
                         ),
                         activeIcon: SizedBox(
-                          height: 27,
+                          height: 27.h,
                           child: Image.asset(
                             "assets/images/nrk_category.png",
                             fit: BoxFit.fill,
@@ -173,14 +174,14 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                       ),
                       BottomNavigationBarItem(
                         icon: SizedBox(
-                          height: 25, // Adjust icon size
+                          height: 25.h, // Adjust icon size
                           child: Image.asset(
                             "assets/images/material-symbols_help-clinic-outline-rounded.png",
                             fit: BoxFit.fill,
                           ),
                         ),
                         activeIcon: SizedBox(
-                          height: 33,
+                          height: 33.h,
                           // width: 50,
                           child: Image.asset(
                             "assets/images/material-symbols_help-clinic-outline-rounded_Active.png",
@@ -191,14 +192,14 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                       ),
                       BottomNavigationBarItem(
                         icon: SizedBox(
-                          height: 27,
+                          height: 27.h,
                           child: Image.asset(
                             "assets/images/gg_profile.png",
                             fit: BoxFit.fill,
                           ),
                         ),
                         activeIcon: SizedBox(
-                          height: 27,
+                          height: 27.h,
                           child: Image.asset(
                             "assets/images/gg_profile1.png",
                             fit: BoxFit.fill,
@@ -277,17 +278,17 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                     children: [
                       // Top Container
 
-                      SizedBox(height: screenHeight * 0.01),
+                      SizedBox(height: screenHeight * 0.01.h),
 
                       // Category List
                       SizedBox(
-                        height: 32,
+                        height: 32.h,
                         child: ListView.separated(
                           padding: EdgeInsets.only(left: 5,right: 5),
                           itemCount: categories.length,
                           scrollDirection: Axis.horizontal,
                           separatorBuilder: (context, index) {
-                            return SizedBox(width: screenWidth * 0.02);
+                            return SizedBox(width: screenWidth * 0.02.w);
                           },
                           itemBuilder: (context, index) {
                             return GestureDetector(
@@ -329,8 +330,8 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                 }
                               },
                               child: Container(
-                                width: screenWidth * 0.35,
-                                height: 32,
+                                width: screenWidth * 0.35.w,
+                                height: 32.h,
                                 decoration: BoxDecoration(
                                   color: index == categories.length - 1
                                       ? const Color(0xffAFDCFF) // Always blue for the last item
@@ -343,7 +344,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                   child: Text(
                                     categories[index],
                                     style: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: 14.sp,
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -354,10 +355,10 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                           },
                         ),
                       ),
-                      SizedBox(height: screenHeight * 0.02),
+                      SizedBox(height: screenHeight * 0.02.h),
                       // Image Carousel
                       Container(
-                        height: screenHeight * 0.18,
+                        height: screenHeight * 0.18.h,
                         child: PageView.builder(
                           controller: _pageController,
                           itemCount: images.length,
@@ -369,7 +370,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                           },
                         ),
                       ),
-                      SizedBox(height: screenHeight * 0.05),
+                      SizedBox(height: screenHeight * 0.05.h),
                       // Buttons
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -393,8 +394,8 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                               );
                             },
                             child: Container(
-                              width: screenWidth * 0.46,
-                              height: 40,
+                              width: screenWidth * 0.46.w,
+                              height: 40.h,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: const Color(0xff1F78BC),
@@ -402,8 +403,8 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                               child: Center(
                                 child: Text(
                                   "consultation".tr(),
-                                  style: const TextStyle(
-                                    fontSize: 18,
+                                  style:  TextStyle(
+                                    fontSize: 18.sp,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -430,8 +431,8 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                               );
                             },
                             child: Container(
-                              width: screenWidth * 0.45,
-                              height: 40,
+                              width: screenWidth * 0.45.w,
+                              height: 40.h,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: const Color(0xff1F78BC),
@@ -439,8 +440,8 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                               child: Center(
                                 child: Text(
                                   "instantSession".tr(),
-                                  style: const TextStyle(
-                                    fontSize: 18,
+                                  style:  TextStyle(
+                                    fontSize: 18.sp,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -450,7 +451,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                           ),
                         ],
                       ),
-                      SizedBox(height: screenHeight * 0.1),
+                      SizedBox(height: screenHeight * 0.1.h),
                       // Health Services
                       Column(
                         children: [
@@ -458,8 +459,8 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.3,
-                                height: 68,
+                                width: MediaQuery.of(context).size.width * 0.3.w,
+                                height: 68.h,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
                                   color: Color(0xff69B7F3),
@@ -477,7 +478,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                     textAlign: TextAlign.center,
                                     "HealthCare".tr(),
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 16.sp,
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -485,8 +486,8 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                 ),
                               ),
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.3,
-                                height: 68,
+                                width: MediaQuery.of(context).size.width * 0.3.w,
+                                height: 68.h,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
                                   color: Color(0xff69B7F3),
@@ -504,7 +505,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                     textAlign: TextAlign.center,
                                     "SportsSystem".tr(),
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 16.sp,
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -512,8 +513,8 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                 ),
                               ),
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.3,
-                                height: 68,
+                                width: MediaQuery.of(context).size.width * 0.3.w,
+                                height: 68.h,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
                                   color: Color(0xff69B7F3),
@@ -531,7 +532,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                     textAlign: TextAlign.center,
                                     "diet".tr(),
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 16.sp,
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -540,10 +541,10 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                               ),
                             ],
                           ),
-                          SizedBox(height: screenHeight * 0.03),
+                          SizedBox(height: screenHeight * 0.03.h),
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.3,
-                            height: 68,
+                            width: MediaQuery.of(context).size.width * 0.3.w,
+                            height: 68.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Color(0xff69B7F3),
@@ -561,7 +562,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                 textAlign: TextAlign.center,
                                 "examinations".tr(),
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -590,17 +591,17 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                     children: [
                       // Top Container
 
-                      SizedBox(height: screenHeight * 0.01),
+                      SizedBox(height: screenHeight * 0.01.h),
 
                       // Category List
                       SizedBox(
-                        height: 32,
+                        height: 32.h,
                         child: ListView.separated(
                           padding: EdgeInsets.only(left: 5,right: 5),
                           itemCount: categories.length,
                           scrollDirection: Axis.horizontal,
                           separatorBuilder: (context, index) {
-                            return SizedBox(width: screenWidth * 0.02);
+                            return SizedBox(width: screenWidth * 0.02.w);
                           },
                           itemBuilder: (context, index) {
                             return GestureDetector(
@@ -642,8 +643,8 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                 }
                               },
                               child: Container(
-                                width: screenWidth * 0.35,
-                                height: 32,
+                                width: screenWidth * 0.35.w,
+                                height: 32.h,
                                 decoration: BoxDecoration(
                                   color: index == categories.length - 1
                                       ? const Color(0xffAFDCFF) // Always blue for the last item
@@ -656,7 +657,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                   child: Text(
                                     categories[index],
                                     style: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: 14.sp,
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -667,10 +668,10 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                           },
                         ),
                       ),
-                      SizedBox(height: screenHeight * 0.02),
+                      SizedBox(height: screenHeight * 0.02.h),
                       // Image Carousel
                       Container(
-                        height: screenHeight * 0.18,
+                        height: screenHeight * 0.18.h,
                         child: PageView.builder(
                           controller: _pageController,
                           itemCount: images.length,
@@ -682,7 +683,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                           },
                         ),
                       ),
-                      SizedBox(height: screenHeight * 0.05),
+                      SizedBox(height: screenHeight * 0.05.h),
                       // Buttons
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -706,8 +707,8 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                               );
                             },
                             child: Container(
-                              width: screenWidth * 0.46,
-                              height: 40,
+                              width: screenWidth * 0.46.w,
+                              height: 40.h,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: const Color(0xff1F78BC),
@@ -715,8 +716,8 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                               child: Center(
                                 child: Text(
                                   "consultation".tr(),
-                                  style: const TextStyle(
-                                    fontSize: 18,
+                                  style:  TextStyle(
+                                    fontSize: 18.sp,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -743,8 +744,8 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                               );
                             },
                             child: Container(
-                              width: screenWidth * 0.45,
-                              height: 40,
+                              width: screenWidth * 0.45.w,
+                              height: 40.h,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: const Color(0xff1F78BC),
@@ -752,8 +753,8 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                               child: Center(
                                 child: Text(
                                   "instantSession".tr(),
-                                  style: const TextStyle(
-                                    fontSize: 18,
+                                  style:  TextStyle(
+                                    fontSize: 18.sp,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -763,7 +764,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                           ),
                         ],
                       ),
-                      SizedBox(height: screenHeight * 0.1),
+                      SizedBox(height: screenHeight * 0.1.h),
                       // Health Services
                       Column(
                         children: [
@@ -771,8 +772,8 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Container(
-                      width: MediaQuery.of(context).size.width * 0.3,
-                    height: 68,
+                      width: MediaQuery.of(context).size.width * 0.3.w,
+                    height: 68.h,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
                                   color: Color(0xff69B7F3),
@@ -790,7 +791,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                 textAlign: TextAlign.center,
                                     "HealthCare".tr(),
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 16.sp,
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -798,8 +799,8 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                 ),
                               ),
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.3,
-                                height: 68,
+                                width: MediaQuery.of(context).size.width * 0.3.w,
+                                height: 68.h,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
                                   color: Color(0xff69B7F3),
@@ -817,7 +818,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                     textAlign: TextAlign.center,
                                     "SportsSystem".tr(),
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 16.sp,
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -825,8 +826,8 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                 ),
                               ),
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.3,
-                                height: 68,
+                                width: MediaQuery.of(context).size.width * 0.3.w,
+                                height: 68.h,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
                                   color: Color(0xff69B7F3),
@@ -844,7 +845,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                     textAlign: TextAlign.center,
                                     "diet".tr(),
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 16.sp,
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -853,10 +854,10 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                               ),
                             ],
                           ),
-                          SizedBox(height: screenHeight * 0.03),
+                          SizedBox(height: screenHeight * 0.03.h),
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.3,
-                            height: 68,
+                            width: MediaQuery.of(context).size.width * 0.3.w,
+                            height: 68.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Color(0xff69B7F3),
@@ -874,7 +875,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                 textAlign: TextAlign.center,
                                 "examinations".tr(),
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),

@@ -3,12 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/reset_password_cubit/reset_password_cubit.dart';
 
-class NewPasswordPage extends StatelessWidget {
+class NewPasswordPage extends StatefulWidget {
   final String email;
   const NewPasswordPage({super.key, required this.email});
 
   @override
+  State<NewPasswordPage> createState() => _NewPasswordPageState();
+}
+
+class _NewPasswordPageState extends State<NewPasswordPage> {
+  @override
   Widget build(BuildContext context) {
+    bool _isObscure1 = true;
+    bool _isObscure2 = true;
     final formKey = GlobalKey<FormState>();
     final TextEditingController passwordController = TextEditingController();
     final TextEditingController confirmPasswordController =
@@ -53,8 +60,20 @@ class NewPasswordPage extends StatelessWidget {
                       },
                       controller: passwordController,
                       label: "newPassword".tr(),
-                      icon: Icons.visibility_off,
-                      isPassword: true,
+                      icon: IconButton(
+                    icon: Icon(
+                    _isObscure1
+                    ? Icons.visibility_off_rounded
+                      : Icons.visibility_rounded,
+                      color: Colors.grey,
+                    ),
+                onPressed: () {
+                  setState(() {
+                    _isObscure1 = !_isObscure1;
+                  });
+                },
+              ),
+                      isPassword: _isObscure1,
                     ),
                     const SizedBox(height: 20),
                     buildTextField(
@@ -66,8 +85,20 @@ class NewPasswordPage extends StatelessWidget {
                         return null;
                       },
                       label: "confirmPassword".tr(),
-                      icon: Icons.visibility_off,
-                      isPassword: true,
+                      icon: IconButton(
+                    icon: Icon(
+                    _isObscure2
+                    ? Icons.visibility_off_rounded
+                      : Icons.visibility_rounded,
+                      color: Colors.grey,
+                    ),
+                onPressed: () {
+                  setState(() {
+                    _isObscure2 = !_isObscure2;
+                  });
+                },
+              ),
+                      isPassword: _isObscure2,
                       controller: confirmPasswordController,
                     ),
                     const SizedBox(height: 30),
@@ -75,7 +106,7 @@ class NewPasswordPage extends StatelessWidget {
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
                           BlocProvider.of<ResetPasswordCubit>(context)
-                              .resetPasswordByEmail(context, email,
+                              .resetPasswordByEmail(context, widget.email,
                               passwordController.text,"home");
                           passwordController.clear();
                           confirmPasswordController.clear();
@@ -110,9 +141,9 @@ class NewPasswordPage extends StatelessWidget {
 
   Widget buildTextField({
     required String label,
-    required IconData icon,
+    required Widget icon,
     required TextEditingController controller,
-    bool isPassword = false,
+    required bool isPassword,
     required FormFieldValidator<String> validation,
   }) {
     return TextFormField(
@@ -121,7 +152,7 @@ class NewPasswordPage extends StatelessWidget {
       obscureText: isPassword,
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: Icon(icon),
+        prefixIcon: icon,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
         ),

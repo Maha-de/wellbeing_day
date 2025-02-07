@@ -12,6 +12,7 @@ import 'package:doctor/screens/therapeutic_programs_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
@@ -125,7 +126,7 @@ int currentIndex=1;
                   items: [
                     BottomNavigationBarItem(
                       icon: SizedBox(
-                        height: 27, // Adjust icon size
+                        height: 27.h, // Adjust icon size
                         child:
                         Image.asset(
                           "assets/images/meteor-icons_home.png",
@@ -134,7 +135,7 @@ int currentIndex=1;
                         ),
                       ),
                       activeIcon: SizedBox(
-                        height: 27, // Active icon size adjustment
+                        height: 27.h, // Active icon size adjustment
                         child: Image.asset(
                           "assets/images/meteor-icons_home.png",
                           color: currentIndex == 0 ? Colors.white : Colors.black,
@@ -146,14 +147,14 @@ int currentIndex=1;
                     ),
                     BottomNavigationBarItem(
                       icon: SizedBox(
-                        height: 27,
+                        height: 27.h,
                         child: Image.asset(
                           "assets/images/nrk_category1.png",
                           fit: BoxFit.fill,
                         ),
                       ),
                       activeIcon: SizedBox(
-                        height: 27,
+                        height: 27.h,
                         child: Image.asset(
                           "assets/images/nrk_category.png",
                           fit: BoxFit.fill,
@@ -163,14 +164,14 @@ int currentIndex=1;
                     ),
                     BottomNavigationBarItem(
                       icon: SizedBox(
-                        height: 25, // Adjust icon size
+                        height: 25.h, // Adjust icon size
                         child: Image.asset(
                           "assets/images/material-symbols_help-clinic-outline-rounded.png",
                           fit: BoxFit.fill,
                         ),
                       ),
                       activeIcon: SizedBox(
-                        height: 33,
+                        height: 33.h,
                         // width: 50,
                         child: Image.asset(
                           "assets/images/material-symbols_help-clinic-outline-rounded_Active.png",
@@ -181,14 +182,14 @@ int currentIndex=1;
                     ),
                     BottomNavigationBarItem(
                       icon: SizedBox(
-                        height: 27,
+                        height: 27.h,
                         child: Image.asset(
                           "assets/images/gg_profile.png",
                           fit: BoxFit.fill,
                         ),
                       ),
                       activeIcon: SizedBox(
-                        height: 27,
+                        height: 27.h,
                         child: Image.asset(
                           "assets/images/gg_profile1.png",
                           fit: BoxFit.fill,
@@ -267,17 +268,17 @@ int currentIndex=1;
                   children: [
                     // Header
 
-                    SizedBox(height: screenHeight * 0.01),
+
 
                     // Category List
                     SizedBox(
-                      height: 32,
+                      height: 32.h,
                       child: ListView.separated(
                         padding: EdgeInsets.only(left: 5,right: 5),
                         itemCount: categories.length,
                         scrollDirection: Axis.horizontal,
                         separatorBuilder: (context, index) {
-                          return SizedBox(width: screenWidth * 0.02);
+                          return SizedBox(width: screenWidth * 0.02.w);
                         },
                         itemBuilder: (context, index) {
                           return GestureDetector(
@@ -319,8 +320,8 @@ int currentIndex=1;
                               }
                             },
                             child: Container(
-                              width: screenWidth * 0.35,
-                              height: 32,
+                              width: screenWidth * 0.35.w,
+                              height: 32.h,
                               decoration: BoxDecoration(
                                 color: index == categories.length - 1
                                     ? const Color(0xffAFDCFF) // Always blue for the last item
@@ -333,7 +334,7 @@ int currentIndex=1;
                                 child: Text(
                                   categories[index],
                                   style: TextStyle(
-                                    fontSize: 14,
+                                    fontSize: 14.sp,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -345,11 +346,11 @@ int currentIndex=1;
                       ),
                     ),
 
-                    SizedBox(height: screenHeight * 0.02),
+
 
                     // Image Slider
                     SizedBox(
-                      height: screenHeight * 0.18,
+                      height:145.h,
                       child: PageView.builder(
                         controller: _pageController,
                         itemCount: images.length,
@@ -361,7 +362,7 @@ int currentIndex=1;
                         },
                       ),
                     ),
-                    SizedBox(height: screenHeight * 0.02),
+
 
                     // Buttons
                     Row(
@@ -387,8 +388,8 @@ int currentIndex=1;
                             );
                           },
                           child: Container(
-                            width: screenWidth * 0.46,
-                            height: 40,
+                            width: screenWidth * 0.46.w,
+                            height: 40.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: const Color(0xff1F78BC),
@@ -396,8 +397,8 @@ int currentIndex=1;
                             child: Center(
                               child: Text(
                                 "consultation".tr(),
-                                style: const TextStyle(
-                                  fontSize: 18,
+                                style:  TextStyle(
+                                  fontSize: 18.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -424,8 +425,8 @@ int currentIndex=1;
                             );
                           },
                           child: Container(
-                            width: screenWidth * 0.45,
-                            height: 40,
+                            width: screenWidth * 0.45.w,
+                            height: 40.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: const Color(0xff1F78BC),
@@ -433,8 +434,8 @@ int currentIndex=1;
                             child: Center(
                               child: Text(
                                 "instantSession".tr(),
-                                style: const TextStyle(
-                                  fontSize: 18,
+                                style:  TextStyle(
+                                  fontSize: 18.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -444,7 +445,7 @@ int currentIndex=1;
                         ),
                       ],
                     ),
-                    SizedBox(height: screenHeight * 0.03),
+                    SizedBox(height: screenHeight * 0.03.h),
                     Column(
                       children: [
                         Row(
@@ -514,8 +515,8 @@ int currentIndex=1;
 
                                 },
                                 child: Container(
-                                  width: MediaQuery.of(context).size.width * 0.3,
-                                  height: 68,
+                                  width: MediaQuery.of(context).size.width * 0.3.w,
+                                  height: 68.h,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     color: const Color(0xff69B7F3),
@@ -532,8 +533,8 @@ int currentIndex=1;
                                     child: Text(
                                       label.tr(),
                                       textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                        fontSize: 16,
+                                      style:  TextStyle(
+                                        fontSize: 16.sp,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -543,7 +544,7 @@ int currentIndex=1;
                               ),
                           ],
                         ),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.02.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -587,8 +588,8 @@ int currentIndex=1;
 
                                 },
                                 child: Container(
-                                  width: MediaQuery.of(context).size.width * 0.3,
-                                  height: 68,
+                                  width: MediaQuery.of(context).size.width * 0.3.w,
+                                  height: 68.h,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     color: const Color(0xff69B7F3),
@@ -605,8 +606,8 @@ int currentIndex=1;
                                     child: Text(
                                       label.tr(),
                                       textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                        fontSize: 16,
+                                      style: TextStyle(
+                                        fontSize: 16.sp,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -616,7 +617,7 @@ int currentIndex=1;
                               ),
                           ],
                         ),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.02.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -659,8 +660,8 @@ int currentIndex=1;
 
                                 },
                                 child: Container(
-                                  width: MediaQuery.of(context).size.width * 0.35,
-                                  height: 72,
+                                  width: MediaQuery.of(context).size.width * 0.35.w,
+                                  height: 72.h,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     color: const Color(0xff69B7F3),
@@ -677,8 +678,8 @@ int currentIndex=1;
                                     child: Text(
                                       label.tr(),
                                       textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                        fontSize: 16,
+                                      style:  TextStyle(
+                                        fontSize: 16.sp,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -707,17 +708,17 @@ int currentIndex=1;
                   children: [
                     // Header
 
-                    SizedBox(height: screenHeight * 0.01),
+                    SizedBox(height: screenHeight * 0.01.h),
 
                     // Category List
                     SizedBox(
-                      height: 32,
+                      height: 32.h,
                       child: ListView.separated(
                         padding: EdgeInsets.only(left: 5,right: 5),
                         itemCount: categories.length,
                         scrollDirection: Axis.horizontal,
                         separatorBuilder: (context, index) {
-                          return SizedBox(width: screenWidth * 0.02);
+                          return SizedBox(width: screenWidth * 0.02.w);
                         },
                         itemBuilder: (context, index) {
                           return GestureDetector(
@@ -759,8 +760,8 @@ int currentIndex=1;
                               }
                             },
                             child: Container(
-                              width: screenWidth * 0.35,
-                              height: 32,
+                              width: screenWidth * 0.35.w,
+                              height: 32.h,
                               decoration: BoxDecoration(
                                 color: index == categories.length - 1
                                     ? const Color(0xffAFDCFF) // Always blue for the last item
@@ -773,7 +774,7 @@ int currentIndex=1;
                                 child: Text(
                                   categories[index],
                                   style: TextStyle(
-                                    fontSize: 14,
+                                    fontSize: 14.sp,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -785,11 +786,11 @@ int currentIndex=1;
                       ),
                     ),
 
-                    SizedBox(height: screenHeight * 0.02),
+                    SizedBox(height: screenHeight * 0.02.h),
 
                     // Image Slider
                     SizedBox(
-                      height: screenHeight * 0.18,
+                      height: screenHeight * 0.18.h,
                       child: PageView.builder(
                         controller: _pageController,
                         itemCount: images.length,
@@ -801,7 +802,7 @@ int currentIndex=1;
                         },
                       ),
                     ),
-                    SizedBox(height: screenHeight * 0.02),
+                    SizedBox(height: screenHeight * 0.02.h),
 
                     // Buttons
                     Row(
@@ -827,8 +828,8 @@ int currentIndex=1;
                             );
                           },
                           child: Container(
-                            width: screenWidth * 0.46,
-                            height: 40,
+                            width: screenWidth * 0.46.w,
+                            height: 40.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: const Color(0xff1F78BC),
@@ -836,8 +837,8 @@ int currentIndex=1;
                             child: Center(
                               child: Text(
                                 "consultation".tr(),
-                                style: const TextStyle(
-                                  fontSize: 18,
+                                style:  TextStyle(
+                                  fontSize: 18.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -864,8 +865,8 @@ int currentIndex=1;
                             );
                           },
                           child: Container(
-                            width: screenWidth * 0.45,
-                            height: 40,
+                            width: screenWidth * 0.45.w,
+                            height: 40.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: const Color(0xff1F78BC),
@@ -873,8 +874,8 @@ int currentIndex=1;
                             child: Center(
                               child: Text(
                                 "instantSession".tr(),
-                                style: const TextStyle(
-                                  fontSize: 18,
+                                style:  TextStyle(
+                                  fontSize: 18.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -884,7 +885,7 @@ int currentIndex=1;
                         ),
                       ],
                     ),
-                    SizedBox(height: screenHeight * 0.03),
+                    SizedBox(height: screenHeight * 0.02.h),
                     Column(
                       children: [
                         Row(
@@ -951,8 +952,8 @@ int currentIndex=1;
                                   }
                                 },
                                 child: Container(
-                                  width: MediaQuery.of(context).size.width * 0.3,
-                                  height: 68,
+                                  width: MediaQuery.of(context).size.width * 0.3.w,
+                                  height: 68.h,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     color: const Color(0xff69B7F3),
@@ -969,8 +970,8 @@ int currentIndex=1;
                                     child: Text(
                                       label.tr(),
                                       textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                        fontSize: 16,
+                                      style:  TextStyle(
+                                        fontSize: 16.sp,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -980,7 +981,7 @@ int currentIndex=1;
                               ),
                           ],
                         ),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.01.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -1024,8 +1025,8 @@ int currentIndex=1;
 
                                 },
                                 child: Container(
-                                  width: MediaQuery.of(context).size.width * 0.3,
-                                  height: 68,
+                                  width: MediaQuery.of(context).size.width * 0.3.w,
+                                  height: 68.h,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     color: const Color(0xff69B7F3),
@@ -1042,8 +1043,8 @@ int currentIndex=1;
                                     child: Text(
                                       label.tr(),
                                       textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                        fontSize: 16,
+                                      style:  TextStyle(
+                                        fontSize: 16.sp,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -1053,7 +1054,7 @@ int currentIndex=1;
                               ),
                           ],
                         ),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.01.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -1096,8 +1097,8 @@ int currentIndex=1;
 
                                 },
                                 child: Container(
-                                  width: MediaQuery.of(context).size.width * 0.35,
-                                  height: 72,
+                                  width: MediaQuery.of(context).size.width * 0.35.w,
+                                  height: 72.h,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     color: const Color(0xff69B7F3),
@@ -1114,8 +1115,8 @@ int currentIndex=1;
                                     child: Text(
                                       label.tr(),
                                       textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                        fontSize: 16,
+                                      style:  TextStyle(
+                                        fontSize: 16.sp,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -1139,104 +1140,3 @@ int currentIndex=1;
   }
 }
 
-//                       _buildButton(screenWidth, "consultation".tr()),
-//                       _buildButton(screenWidth, "instantSession".tr()),
-//                     ],
-//                   ),
-//                   SizedBox(height: screenHeight * 0.03),
-//
-//                   // Treatment Programs
-//                   _buildTreatmentPrograms(screenHeight),
-//                 ],
-//               ),
-//             );
-//           }
-//           return Container();
-//         },
-//       ),
-//     );
-//   }
-//
-//   Widget _buildButton(double screenWidth, String text) {
-//     return Container(
-//       width: screenWidth * 0.4,
-//       height: 40,
-//       decoration: BoxDecoration(
-//         borderRadius: BorderRadius.circular(20),
-//         color: Color(0xff1F78BC),
-//       ),
-//       child: Center(
-//         child: Text(
-//           text,
-//           style: TextStyle(
-//             fontSize: 20,
-//             color: Colors.white,
-//             fontWeight: FontWeight.bold,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-//
-//   Widget _buildTreatmentPrograms(double screenHeight) {
-//     return Column(
-//       children: [
-//         Row(
-//           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//           children: [
-//             _buildProgramButton("therapeuticPrograms".tr(),),
-//             _buildProgramButton("groupTherapy".tr()),
-//             _buildProgramButton("psychologicalDisorders".tr()),
-//           ],
-//         ),
-//         SizedBox(height: screenHeight * 0.025),
-//         Row(
-//           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//           children: [
-//             _buildProgramButton("guidanceAndInstructions".tr()),
-//             _buildProgramButton("solveProblems".tr()),
-//             _buildProgramButton("childrenDisorder".tr()),
-//           ],
-//         ),
-//         SizedBox(height: screenHeight * 0.025),
-//         Row(
-//           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//           children: [
-//             _buildProgramButton("PsychologicalPreventionAndFollowUp".tr()),
-//             _buildProgramButton("rehabilitation".tr()),
-//           ],
-//         ),
-//       ],
-//     );
-//   }
-//
-//   Widget _buildProgramButton(String text) {
-//     return Container(
-//       width: 100,
-//       height: 68,
-//       decoration: BoxDecoration(
-//         borderRadius: BorderRadius.circular(20),
-//         color: Color(0xff69B7F3),
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.black.withOpacity(0.2),
-//             spreadRadius: 2,
-//             blurRadius: 4,
-//             offset: Offset(0, 2),
-//           ),
-//         ],
-//       ),
-//       child: Center(
-//         child: Text(
-//           text,
-//           textAlign: TextAlign.center,
-//           style: TextStyle(
-//             fontSize: 16,
-//             color: Colors.white,
-//             fontWeight: FontWeight.bold,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
