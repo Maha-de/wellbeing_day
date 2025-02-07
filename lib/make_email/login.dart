@@ -8,6 +8,8 @@ import 'package:doctor/make_email/reset_password.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../cubit/forget_password_cubit/forget_password_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
+import '../screens/selectionpage.dart';
+import '../widgets/custom_radio_button.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -120,12 +122,27 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    buildTextField(
-                      context,
-                      label: "role".tr(),
-                      icon: Icons.person,
-                      controller: roleController,
+                    const SizedBox(height: 8),
+                    CustomRadioButtonWidget(
+                      title: "role".tr(),
+                      fRad: "beneficiary".tr(),
+                      sRad: "specialized".tr(),
+                      onRoleSelected: (role) {
+                        if (role == "مستفيد") {
+                          role = "beneficiary";
+                        } else {
+                          role = "specialized";
+                        }
+                        roleController.text = role;
+                      },
                     ),
+
+                    // buildTextField(
+                    //   context,
+                    //   label: "role".tr(),
+                    //   icon: Icons.person,
+                    //   controller: roleController,
+                    // ),
                     const SizedBox(height: 30),
                     ElevatedButton(
                       onPressed: () {
@@ -135,7 +152,7 @@ class LoginPage extends StatelessWidget {
                         context.read<LoginCubit>().login(email, password, role);
                       },
                       style: ElevatedButton.styleFrom(
-                       backgroundColor: const Color(0xff19649E),
+                        backgroundColor: const Color(0xff19649E),
                         minimumSize: const Size(double.infinity, 50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -144,7 +161,9 @@ class LoginPage extends StatelessWidget {
                       child: Text(
                         "signIn".tr(),
                         style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w700, color: Colors.white),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white),
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -152,26 +171,27 @@ class LoginPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
 
-                        TextButton(
-                          onPressed: () {
-                            // Handle create account
-                          },
-                          child: Text(
-                            "notHaveAccount".tr(),
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w700,
-                            ),
+                        Text(
+                          "notHaveAccount".tr(),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
 
-                        Text(
-                          "createAccount".tr(),
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Color(0xff19649E),
-                            fontWeight: FontWeight.w700,
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> const SelectionPage()));
+                          },
+                          child:
+                          Text(
+                            "createAccount".tr(),
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Color(0xff19649E),
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                       ],
@@ -188,9 +208,9 @@ class LoginPage extends StatelessWidget {
 
   Widget buildTextField(BuildContext context,
       {required String label,
-      required IconData icon,
-      bool isPassword = false,
-      required TextEditingController controller}) {
+        required IconData icon,
+        bool isPassword = false,
+        required TextEditingController controller}) {
     return TextField(
       controller: controller,
       obscureText: isPassword,

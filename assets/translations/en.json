@@ -73,6 +73,8 @@
   "welcomeBack": "Welcome Back",
   "forgetPassword": "Forget password?",
   "role": "Role",
+  "beneficiary": "Beneficiary",
+  "specialized": "Specialized",
   "notHaveAccount": "Don't Have Account",
   "appointments": "Appointments",
   "signOut": "Sign Out",
