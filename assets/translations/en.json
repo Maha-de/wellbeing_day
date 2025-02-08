@@ -46,7 +46,6 @@
   "regionValidator": "please enter your region",
   "profession": "Profession",
   "professionAddress": "Work Address",
-
   "professionValidator": "please enter your profession",
   "createAccount": "Create Account",
   "bio": "Bio",
@@ -89,7 +88,6 @@
   "generalValidatorFor": "please enter a valid",
   "moreThanTwo": "must be more than two characters",
   "phoneValidator": "please enter a valid phone number (10-15 numbers)",
-
   "greeting": "Hello",
   "consultation": "Free Consultation",
   "instantSession": "Instant Session",
@@ -105,7 +103,6 @@
   "skillDevelopment": "Skill Development",
   "physicalHealth": "Physical Health",
   "mentalHealth": "Mental Health",
-
   "improvingTrust": "Improving Trust",
   "achievingGoals": "Achieving Goals",
   "achievingSuccess": "Achieving Success",
@@ -149,5 +146,18 @@
   "dateExample": "04 June - 7:00 AM",
   "price": "Price",
   "currency": "Lira",
-  "timeSession": "Minutes"
+  "timeSession": "Minutes",
+  "importanceOfPrograms": "The Importance of Programs",
+  "depPlanDesc": "It is a comprehensive and integrated plan for treating the individual in all its cognitive, behavioral, and emotional aspects. It sets goals and uses all the necessary techniques to achieve them. It uses time in the best way and uses all the necessary therapeutic interventions, achieving the best therapeutic results in depth in the soul and impact on life and more stability for its positive results.",
+  "planSection": "The Plan /Treatment",
+  "goals": "The Goals",
+  "stages": "The Stages",
+  "techniques": "The Techniques",
+  "sessions": "Sessions",
+  "trainSkill": "Training on Skills",
+  "continue": "Continue",
+  "alert": "Alert",
+  "guestAccessibilityAlert": "You must log in or create an account to access this page",
+  "login": "Login",
+  "cancel": "Cancel"
 }

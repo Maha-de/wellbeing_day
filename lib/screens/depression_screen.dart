@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
@@ -32,9 +32,7 @@ class _DepressionScreenState extends State<DepressionScreen> {
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
     _loadUserProfile();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {});
   }
 
   Future<void> _loadUserProfile() async {
@@ -42,46 +40,63 @@ class _DepressionScreenState extends State<DepressionScreen> {
     String id = prefs.getString('userId') ?? "";
     userProfileCubit.getUserProfile(context, id);
   }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    int currentIndex=1;
+    int currentIndex = 1;
     return BlocProvider(
-        create: (_) => userProfileCubit,  // Use the same cubit instance
+        create: (_) => userProfileCubit, // Use the same cubit instance
         child: BlocBuilder<UserProfileCubit, UserProfileState>(
           builder: (context, state) {
             if (state is UserProfileLoading) {
-              return Scaffold(body: Center(child: CircularProgressIndicator(),));
+              return Scaffold(
+                  body: Center(
+                child: CircularProgressIndicator(),
+              ));
             } else if (state is UserProfileFailure) {
-             return Scaffold(
+              return Scaffold(
                 backgroundColor: Colors.white,
                 appBar: AppBar(
                   backgroundColor: Colors.white,
                   elevation: 0,
-                  leading: IconButton(onPressed:(){Navigator.pop(context);},icon:Icon(Icons.keyboard_backspace_rounded,size: 30,),color: Color(0xff19649E),),
+                  leading: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      Icons.keyboard_backspace_rounded,
+                      size: 30,
+                    ),
+                    color: Color(0xff19649E),
+                  ),
                 ),
                 body: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 10,right: 10),
+                    padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(bottom: 10.0),
-
                           child: Center(
                             child: Container(
                               width: 161.w,
                               height: 40.h,
                               decoration: BoxDecoration(
                                 color: Color(0xFF1F78BC),
-                                borderRadius: BorderRadius.only(bottomRight: Radius.circular(20), topLeft: Radius.circular(20)),
+                                borderRadius: BorderRadius.only(
+                                    bottomRight: Radius.circular(20),
+                                    topLeft: Radius.circular(20)),
                               ),
                               alignment: Alignment.center,
                               child: Text(
-                                "الاكتئاب",
-                                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Colors.white),
+                                "depression".tr(),
+                                style: TextStyle(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
                               ),
                             ),
                           ),
@@ -89,7 +104,7 @@ class _DepressionScreenState extends State<DepressionScreen> {
                         SizedBox(height: screenHeight.h * 0.02.h),
                         // "أهمية البرامج" Section
                         Text(
-                          "أهمية البرامج",
+                          "importanceOfPrograms".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -112,16 +127,16 @@ class _DepressionScreenState extends State<DepressionScreen> {
                             ],
                           ),
                           child: TextFormField(
-
-                            initialValue:
-                            "هو خطة مدروسة متكاملة لعلاج الفرد بكل نواحيه المعرفية والسلوكية والانفعالية، وهو يحدد الاهداف ويستعمل كل التقنيات الضرورة لتحقيقها.فهو يستعمل الوقت بافضل طريقة ويستخدم كل التدخلات العلاجية الضرورية، ويحقق أفضل النتائج العلاجية عمقا في النفس وتأثيرا على الحياة وأكثر ثباتا لنتائجه الإيجابية",
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            initialValue: "depPlanDesc".tr(),
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
 
                             decoration: const InputDecoration(
                               alignLabelWithHint: true,
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
@@ -129,7 +144,7 @@ class _DepressionScreenState extends State<DepressionScreen> {
                         SizedBox(height: screenHeight.h * 0.03.h),
                         // "الخطة / العلاج" Section
                         Text(
-                          "الخطة / العلاج",
+                          "planSection".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -152,19 +167,20 @@ class _DepressionScreenState extends State<DepressionScreen> {
                             ],
                           ),
                           child: TextFormField(
-
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
                             decoration: const InputDecoration(
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
                         SizedBox(height: screenHeight.h * 0.03.h),
                         // "الأهداف" Section
                         Text(
-                          "الأهداف",
+                          "goals".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -187,19 +203,20 @@ class _DepressionScreenState extends State<DepressionScreen> {
                             ],
                           ),
                           child: TextFormField(
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
                             decoration: const InputDecoration(
-
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
                         SizedBox(height: screenHeight.h * 0.045.h),
-                        // "الأهداف" Section
+                        // ""المراحل"" Section
                         Text(
-                          "المراحل",
+                          "stages".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -222,19 +239,20 @@ class _DepressionScreenState extends State<DepressionScreen> {
                             ],
                           ),
                           child: TextFormField(
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
                             decoration: const InputDecoration(
-
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
                         SizedBox(height: screenHeight.h * 0.03.h),
-                        // "الأهداف" Section
+                        // ""التقنيات"" Section
                         Text(
-                          "التقنيات",
+                          "techniques".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -257,19 +275,20 @@ class _DepressionScreenState extends State<DepressionScreen> {
                             ],
                           ),
                           child: TextFormField(
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
                             decoration: const InputDecoration(
-
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
                         SizedBox(height: screenHeight.h * 0.03.h),
                         // "الأهداف" Section
                         Text(
-                          "الجلسات",
+                          "sessions".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -292,19 +311,20 @@ class _DepressionScreenState extends State<DepressionScreen> {
                             ],
                           ),
                           child: TextFormField(
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
                             decoration: const InputDecoration(
-
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
                         SizedBox(height: screenHeight.h * 0.03.h),
                         // "الأهداف" Section
                         Text(
-                          "تدريب على مهارات",
+                          "trainSkill".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -327,36 +347,39 @@ class _DepressionScreenState extends State<DepressionScreen> {
                             ],
                           ),
                           child: TextFormField(
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
                             decoration: const InputDecoration(
-
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
                         SizedBox(height: screenHeight.h * 0.05.h),
                         GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => MultiBlocProvider(
                                   providers: [
-                                    BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                    BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                    BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                    BlocProvider<UserProfileCubit>(
+                                        create: (_) => UserProfileCubit()),
+                                    BlocProvider<AddImageToProfileCubit>(
+                                        create: (_) =>
+                                            AddImageToProfileCubit()),
+                                    BlocProvider<UpdateUserCubit>(
+                                        create: (_) => UpdateUserCubit()),
                                   ],
                                   child: const SpecialistsScreen(),
                                 ),
-
                               ),
-
                             );
                           },
                           child: Container(
-                            width: screenWidth.w* 0.9.w,
+                            width: screenWidth.w * 0.9.w,
                             height: 48.h,
                             decoration: BoxDecoration(
                               color: Color(0xff19649E),
@@ -364,8 +387,11 @@ class _DepressionScreenState extends State<DepressionScreen> {
                             ),
                             child: Center(
                               child: Text(
-                                'إستمرار',
-                                style: TextStyle(fontSize: 20.sp, color: Colors.white, fontWeight: FontWeight.bold),
+                                "continue".tr(),
+                                style: TextStyle(
+                                    fontSize: 20.sp,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
@@ -375,161 +401,171 @@ class _DepressionScreenState extends State<DepressionScreen> {
                     ),
                   ),
                 ),
-               bottomNavigationBar:BottomNavigationBar(
-                 backgroundColor: const Color(0xff19649E), // Ensures the background is consistent
-                 selectedItemColor: Colors.white, // Sets the color of the selected icons
-                 unselectedItemColor: Colors.black, // Sets the color of unselected icons
-                 showSelectedLabels: false, // Hides selected labels
-                 showUnselectedLabels: false, // Hides unselected labels
-                 currentIndex: currentIndex, // Default selected index
-                 type: BottomNavigationBarType.fixed, // Prevents animation on shifting types
-                 items: [
-                   BottomNavigationBarItem(
-                     icon: SizedBox(
-                       height: 27.h, // Adjust icon size
-                       child:
-                       Image.asset(
-                         "assets/images/meteor-icons_home.png",
-                         // color: currentIndex == 0 ? Colors.white : Colors.black,
-                         fit: BoxFit.fill,
-                       ),
-                     ),
-                     activeIcon: SizedBox(
-                       height: 27.h, // Active icon size adjustment
-                       child: Image.asset(
-                         "assets/images/meteor-icons_home.png",
-                         color: currentIndex == 0 ? Colors.white : Colors.black,
+                bottomNavigationBar: BottomNavigationBar(
+                  backgroundColor: const Color(
+                      0xff19649E), // Ensures the background is consistent
+                  selectedItemColor:
+                      Colors.white, // Sets the color of the selected icons
+                  unselectedItemColor:
+                      Colors.black, // Sets the color of unselected icons
+                  showSelectedLabels: false, // Hides selected labels
+                  showUnselectedLabels: false, // Hides unselected labels
+                  currentIndex: currentIndex, // Default selected index
+                  type: BottomNavigationBarType
+                      .fixed, // Prevents animation on shifting types
+                  items: [
+                    BottomNavigationBarItem(
+                      icon: SizedBox(
+                        height: 27.h, // Adjust icon size
+                        child: Image.asset(
+                          "assets/images/meteor-icons_home.png",
+                          // color: currentIndex == 0 ? Colors.white : Colors.black,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      activeIcon: SizedBox(
+                        height: 27.h, // Active icon size adjustment
+                        child: Image.asset(
+                          "assets/images/meteor-icons_home.png",
+                          color:
+                              currentIndex == 0 ? Colors.white : Colors.black,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      label: "home".tr(),
+                    ),
+                    BottomNavigationBarItem(
+                      icon: SizedBox(
+                        height: 27.h,
+                        child: Image.asset(
+                          "assets/images/nrk_category1.png",
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      activeIcon: SizedBox(
+                        height: 27.h,
+                        child: Image.asset(
+                          "assets/images/nrk_category.png",
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      label: "menu".tr(),
+                    ),
+                    BottomNavigationBarItem(
+                      icon: SizedBox(
+                        height: 25.h, // Adjust icon size
+                        child: Image.asset(
+                          "assets/images/material-symbols_help-clinic-outline-rounded.png",
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      activeIcon: SizedBox(
+                        height: 33.h,
+                        // width: 50,
+                        child: Image.asset(
+                          "assets/images/material-symbols_help-clinic-outline-rounded_Active.png",
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      label: "info".tr(),
+                    ),
+                    BottomNavigationBarItem(
+                      icon: SizedBox(
+                        height: 27.h,
+                        child: Image.asset(
+                          "assets/images/gg_profile.png",
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      activeIcon: SizedBox(
+                        height: 27.h,
+                        child: Image.asset(
+                          "assets/images/gg_profile1.png",
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      label: "profile".tr(),
+                    ),
+                  ],
+                  onTap: (index) {
+                    switch (index) {
+                      case 3:
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text("alert".tr()),
+                            content: Text(
+                              "guestAccessibilityAlert".tr(),
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context); // إغلاق الـ Alert
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            LoginPage()), // استبدليها بصفحة تسجيل الدخول
+                                  );
+                                },
+                                child: Text("login".tr()),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context); // إغلاق الـ Alert
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SignUpAsClient()), // استبدليها بصفحة التسجيل
+                                  );
+                                },
+                                child: Text("createAccount".tr()),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(
+                                      context); // إغلاق الـ Alert بدون أي انتقال
+                                },
+                                child: Text("cancel".tr()),
+                              ),
+                            ],
+                          ),
+                        );
+                        break;
+                      case 1:
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BlocProvider(
+                              create: (_) => UserProfileCubit(),
+                              child: const HomeScreen(),
+                            ),
+                          ),
+                        );
+                        break;
+                      case 2:
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ApplicationInfo()));
 
-                         fit: BoxFit.fill,
-                       ),
-                     ),
-                     label: "home".tr(),
-                   ),
-                   BottomNavigationBarItem(
-                     icon: SizedBox(
-                       height: 27.h,
-                       child: Image.asset(
-                         "assets/images/nrk_category1.png",
-                         fit: BoxFit.fill,
-                       ),
-                     ),
-                     activeIcon: SizedBox(
-                       height: 27.h,
-                       child: Image.asset(
-                         "assets/images/nrk_category.png",
-                         fit: BoxFit.fill,
-                       ),
-                     ),
-                     label: "menu".tr(),
-                   ),
-                   BottomNavigationBarItem(
-                     icon: SizedBox(
-                       height: 25.h, // Adjust icon size
-                       child: Image.asset(
-                         "assets/images/material-symbols_help-clinic-outline-rounded.png",
-                         fit: BoxFit.fill,
-                       ),
-                     ),
-                     activeIcon: SizedBox(
-                       height: 33.h,
-                       // width: 50,
-                       child: Image.asset(
-                         "assets/images/material-symbols_help-clinic-outline-rounded_Active.png",
-                         fit: BoxFit.fill,
-                       ),
-                     ),
-                     label: "info".tr(),
-                   ),
-                   BottomNavigationBarItem(
-                     icon: SizedBox(
-                       height: 27.h,
-                       child: Image.asset(
-                         "assets/images/gg_profile.png",
-                         fit: BoxFit.fill,
-                       ),
-                     ),
-                     activeIcon: SizedBox(
-                       height: 27.h,
-                       child: Image.asset(
-                         "assets/images/gg_profile1.png",
-                         fit: BoxFit.fill,
-                       ),
-                     ),
-                     label: "profile".tr(),
-                   ),
-                 ],
-                 onTap: (index) {
-                   switch (index) {
-                     case 3:
+                        break;
 
-                       showDialog(
-                         context: context,
-                         builder: (context) => AlertDialog(
-                           title: Text("تنبيه"),
-                           content: Text("يجب عليك تسجيل الدخول أو إنشاء حساب للوصول إلى هذه الصفحة."),
-                           actions: [
-                             TextButton(
-                               onPressed: () {
-                                 Navigator.pop(context); // إغلاق الـ Alert
-                                 Navigator.push(
-                                   context,
-                                   MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
-                                 );
-                               },
-                               child: Text("تسجيل الدخول"),
-                             ),
-                             TextButton(
-                               onPressed: () {
-                                 Navigator.pop(context); // إغلاق الـ Alert
-                                 Navigator.push(
-                                   context,
-                                   MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
-                                 );
-                               },
-                               child: Text("إنشاء حساب"),
-                             ),
-                             TextButton(
-                               onPressed: () {
-                                 Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
-                               },
-                               child: Text("إلغاء"),
-                             ),
-                           ],
-                         ),
-                       );
-                       break;
-                     case 1:
+                      case 0:
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const FirstHomePage()));
 
-                       Navigator.pushReplacement(
-                         context,
-                         MaterialPageRoute(
-                           builder: (context) => BlocProvider(
-                             create: (_) => UserProfileCubit(),
-                             child: const HomeScreen(),
-                           ),
-                         ),
-                       );
-                       break;
-                     case 2:
-
-                       Navigator.push(context, MaterialPageRoute(builder: (context) => const ApplicationInfo()));
-
-                       break;
-
-                     case 0:
-
-                       Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstHomePage()));
-
-                       break;
-                   }
-                 },
-               ),
+                        break;
+                    }
+                  },
+                ),
               );
-
             } else if (state is UserProfileSuccess) {
               // Once the profile is loaded, show the actual UI
               UserProfileModel userProfile = state.userProfile;
-
 
               // return BlocBuilder<UserProfileCubit, UserProfileState>(
               //   builder: (context, state) {
@@ -545,29 +581,42 @@ class _DepressionScreenState extends State<DepressionScreen> {
                 appBar: AppBar(
                   backgroundColor: Colors.white,
                   elevation: 0,
-                  leading: IconButton(onPressed:(){Navigator.pop(context);},icon:Icon(Icons.keyboard_backspace_rounded,size: 30,),color: Color(0xff19649E),),
+                  leading: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      Icons.keyboard_backspace_rounded,
+                      size: 30,
+                    ),
+                    color: Color(0xff19649E),
+                  ),
                 ),
                 body: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 10,right: 10),
+                    padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(bottom: 10.0),
-
                           child: Center(
                             child: Container(
                               width: 161.w,
                               height: 40.h,
                               decoration: BoxDecoration(
                                 color: Color(0xFF1F78BC),
-                                borderRadius: BorderRadius.only(bottomRight: Radius.circular(20), topLeft: Radius.circular(20)),
+                                borderRadius: BorderRadius.only(
+                                    bottomRight: Radius.circular(20),
+                                    topLeft: Radius.circular(20)),
                               ),
                               alignment: Alignment.center,
                               child: Text(
-                                "الاكتئاب",
-                                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Colors.white),
+                                "depression".tr(),
+                                style: TextStyle(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
                               ),
                             ),
                           ),
@@ -575,7 +624,7 @@ class _DepressionScreenState extends State<DepressionScreen> {
                         SizedBox(height: screenHeight.h * 0.02.h),
                         // "أهمية البرامج" Section
                         Text(
-                          "أهمية البرامج",
+                          "importanceOfPrograms".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -598,16 +647,16 @@ class _DepressionScreenState extends State<DepressionScreen> {
                             ],
                           ),
                           child: TextFormField(
-
-                            initialValue:
-                            "هو خطة مدروسة متكاملة لعلاج الفرد بكل نواحيه المعرفية والسلوكية والانفعالية، وهو يحدد الاهداف ويستعمل كل التقنيات الضرورة لتحقيقها.فهو يستعمل الوقت بافضل طريقة ويستخدم كل التدخلات العلاجية الضرورية، ويحقق أفضل النتائج العلاجية عمقا في النفس وتأثيرا على الحياة وأكثر ثباتا لنتائجه الإيجابية",
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            initialValue: "depPlanDesc".tr(),
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
 
                             decoration: const InputDecoration(
                               alignLabelWithHint: true,
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
@@ -615,7 +664,7 @@ class _DepressionScreenState extends State<DepressionScreen> {
                         SizedBox(height: screenHeight.h * 0.03.h),
                         // "الخطة / العلاج" Section
                         Text(
-                          "الخطة / العلاج",
+                          "planSection".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -638,19 +687,20 @@ class _DepressionScreenState extends State<DepressionScreen> {
                             ],
                           ),
                           child: TextFormField(
-
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6),
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6),
                             decoration: const InputDecoration(
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
                         SizedBox(height: screenHeight.h * 0.03.h),
                         // "الأهداف" Section
                         Text(
-                          "الأهداف",
+                          "goals".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -673,26 +723,27 @@ class _DepressionScreenState extends State<DepressionScreen> {
                             ],
                           ),
                           child: TextFormField(
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h ),
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
                             decoration: const InputDecoration(
-
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
-                        SizedBox(height: screenHeight.h  * 0.045.h ),
+                        SizedBox(height: screenHeight.h * 0.045.h),
                         // "الأهداف" Section
                         Text(
-                          "المراحل",
+                          "stages".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
                             color: Colors.blue[900],
                           ),
                         ),
-                        SizedBox(height: screenHeight.h  * 0.01.h ),
+                        SizedBox(height: screenHeight.h * 0.01.h),
                         Container(
                           padding: const EdgeInsets.symmetric(vertical: 20),
                           decoration: BoxDecoration(
@@ -708,26 +759,27 @@ class _DepressionScreenState extends State<DepressionScreen> {
                             ],
                           ),
                           child: TextFormField(
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h ),
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
                             decoration: const InputDecoration(
-
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
-                        SizedBox(height: screenHeight.h  * 0.03.h ),
+                        SizedBox(height: screenHeight.h * 0.03.h),
                         // "الأهداف" Section
                         Text(
-                          "التقنيات",
+                          "techniques".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
                             color: Colors.blue[900],
                           ),
                         ),
-                        SizedBox(height: screenHeight.h  * 0.01.h ),
+                        SizedBox(height: screenHeight.h * 0.01.h),
                         Container(
                           padding: const EdgeInsets.symmetric(vertical: 30),
                           decoration: BoxDecoration(
@@ -743,26 +795,27 @@ class _DepressionScreenState extends State<DepressionScreen> {
                             ],
                           ),
                           child: TextFormField(
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h ),
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
                             decoration: const InputDecoration(
-
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
-                        SizedBox(height: screenHeight.h  * 0.03.h ),
+                        SizedBox(height: screenHeight.h * 0.03.h),
                         // "الأهداف" Section
                         Text(
-                          "الجلسات",
+                          "sessions".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
                             color: Colors.blue[900],
                           ),
                         ),
-                        SizedBox(height: screenHeight.h  * 0.01.h ),
+                        SizedBox(height: screenHeight.h * 0.01.h),
                         Container(
                           padding: const EdgeInsets.symmetric(vertical: 30),
                           decoration: BoxDecoration(
@@ -778,26 +831,27 @@ class _DepressionScreenState extends State<DepressionScreen> {
                             ],
                           ),
                           child: TextFormField(
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h ),
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
                             decoration: const InputDecoration(
-
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
-                        SizedBox(height: screenHeight.h  * 0.03.h ),
+                        SizedBox(height: screenHeight.h * 0.03.h),
                         // "الأهداف" Section
                         Text(
-                          "تدريب على مهارات",
+                          "trainSkill".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
                             color: Colors.blue[900],
                           ),
                         ),
-                        SizedBox(height: screenHeight.h  * 0.01.h ),
+                        SizedBox(height: screenHeight.h * 0.01.h),
                         Container(
                           padding: const EdgeInsets.symmetric(vertical: 30),
                           decoration: BoxDecoration(
@@ -813,52 +867,58 @@ class _DepressionScreenState extends State<DepressionScreen> {
                             ],
                           ),
                           child: TextFormField(
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h ),
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
                             decoration: const InputDecoration(
-
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
-                        SizedBox(height: screenHeight.h  * 0.05.h ),
+                        SizedBox(height: screenHeight.h * 0.05.h),
                         GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => MultiBlocProvider(
                                   providers: [
-                                    BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                    BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                    BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                    BlocProvider<UserProfileCubit>(
+                                        create: (_) => UserProfileCubit()),
+                                    BlocProvider<AddImageToProfileCubit>(
+                                        create: (_) =>
+                                            AddImageToProfileCubit()),
+                                    BlocProvider<UpdateUserCubit>(
+                                        create: (_) => UpdateUserCubit()),
                                   ],
                                   child: const SpecialistsScreen(),
                                 ),
-
                               ),
-
                             );
                           },
                           child: Center(
                             child: Container(
-                              width: screenWidth.w* 0.9.w,
-                              height: 48.h ,
+                              width: screenWidth.w * 0.9.w,
+                              height: 48.h,
                               decoration: BoxDecoration(
                                 color: Color(0xff19649E),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Center(
                                 child: Text(
-                                  'إستمرار',
-                                  style: TextStyle(fontSize: 20.sp, color: Colors.white, fontWeight: FontWeight.bold),
+                                  "continue".tr(),
+                                  style: TextStyle(
+                                      fontSize: 20.sp,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(height: screenHeight.h * 0.03.h ),
+                        SizedBox(height: screenHeight.h * 0.03.h),
                       ],
                     ),
                   ),
@@ -868,7 +928,6 @@ class _DepressionScreenState extends State<DepressionScreen> {
             }
             return Container(); // Default return in case no state matches
           },
-        )
-    );
+        ));
   }
 }

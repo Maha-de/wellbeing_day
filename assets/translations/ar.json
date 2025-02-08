@@ -46,7 +46,6 @@
   "regionValidator": "يرجى إدخال المنطقة",
   "profession": "المهنة",
   "professionAddress": "عنوان العمل",
-
   "professionValidator": "يرجى إدخال المهنة",
   "createAccount": "إنشاء حساب",
   "bio": "عن الأخصائي",
@@ -89,7 +88,6 @@
   "generalValidatorFor": "يرجى إدخال قيمة صحيحة لـ",
   "moreThanTwo": "يجب أن يكون أكثر من حرفين",
   "phoneValidator": "يرجى إدخال رقم هاتف صالح (10-15 أرقام)",
-
   "greeting": "مرحبا",
   "consultation": "استشارة مجانية",
   "instantSession": "جلسة فورية",
@@ -105,7 +103,6 @@
   "skillDevelopment": "تطوير مهارات",
   "physicalHealth": "صحه جسديه",
   "mentalHealth": "صحه نفسيه",
-
   "improvingTrust": "تحسين الثقة",
   "achievingGoals": "تحقيق الأهداف",
   "achievingSuccess": "تحقيق النجاح",
@@ -149,5 +146,18 @@
   "dateExample": "04 يونيو - 7:00 مساءً",
   "price": "السعر",
   "currency": "ليرة",
-  "timeSession": "دقيقة"
+  "timeSession": "دقيقة",
+  "importanceOfPrograms": "أهمية البرنامج",
+  "depPlanDesc": "هو خطة مدروسة متكاملة لعلاج الفرد بكل نواحيه المعرفية والسلوكية والانفعالية، وهو يحدد الاهداف ويستعمل كل التقنيات الضرورة لتحقيقها.فهو يستعمل الوقت بافضل طريقة ويستخدم كل التدخلات العلاجية الضرورية، ويحقق أفضل النتائج العلاجية عمقا في النفس وتأثيرا على الحياة وأكثر ثباتا لنتائجه الإيجابية",
+  "planSection": "الخطة / العلاج",
+  "goals": "الأهداف",
+  "stages": "المراحل",
+  "techniques": "التقنيات",
+  "sessions": "الجلسات",
+  "trainSkill": "تدريب على مهارات",
+  "continue": "Continue",
+  "alert": "تنبيه",
+  "guestAccessibilityAlert": "يجب عليك تسجيل الدخول أو إنشاء حساب للوصول إلى هذه الصفحة",
+  "login": "تسجيل الدخول",
+  "cancel": "الغاء"
 }
