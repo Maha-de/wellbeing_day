@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
+import '../cubit/update_user_cubit/update_user_cubit.dart';
+import '../cubit/user_profile_cubit/user_profile_cubit.dart';
+import 'client_profile_screen.dart';
 
 class SuccessScreen extends StatelessWidget {
   const SuccessScreen({super.key});
@@ -21,11 +27,11 @@ class SuccessScreen extends StatelessWidget {
                 children: [
                   Center(
                     child: Image(image: const AssetImage("assets/images/success.png"),
-                    height: screenHeight*0.25.h,),
+                    height: 200.h,),
                   ),
                   Container(
                     padding: const EdgeInsets.only(top: 15),
-                    height: screenHeight*0.15.h,
+                    height: 110.h,
                     child:  Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -47,10 +53,26 @@ class SuccessScreen extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: (){},
+            onTap: (){
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MultiBlocProvider(
+                    providers: [
+                      BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                      BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                      BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                    ],
+                    child: const ClientProfileScreen(),
+                  ),
+
+                ),
+                    (route) => false,
+              );
+            },
             child: Container(
-              width: screenWidth * 0.9.w,
-              height: screenHeight * 0.06.h,
+              width: 333.w,
+              height: 48.h,
               decoration: BoxDecoration(
                 color: const Color(0xff19649E),
                 borderRadius: BorderRadius.circular(10),

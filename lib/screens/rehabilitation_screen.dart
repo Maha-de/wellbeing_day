@@ -292,7 +292,7 @@ class _RehabilitationScreenState extends State<RehabilitationScreen> {
                           return Text(state.errMessage); // Display error message
                         } else if (state is SpecialistSuccess) {
                           return Container(
-                            height: screenHeight*0.57.h,
+                            height: screenHeight*0.87.h,
                             child: ListView.builder(
                               itemCount: state.specialists.length,
                               itemBuilder: (context, index) {
@@ -400,7 +400,7 @@ class _RehabilitationScreenState extends State<RehabilitationScreen> {
                           return Text(state.errMessage); // Display error message
                         } else if (state is SpecialistSuccess) {
                           return Container(
-                            height: screenHeight*0.57.h,
+                            height: screenHeight*0.87.h,
                             child: ListView.builder(
                               itemCount: state.specialists.length,
                               itemBuilder: (context, index) {

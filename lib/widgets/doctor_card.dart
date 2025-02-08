@@ -42,84 +42,91 @@ class DoctorCard extends StatelessWidget {
           );
         }
       },
-      child: Container(
-        width: screenWidth * 0.9.w,
-        height: screenHeight * 0.38.h,
-        child: Card(
-          child: Column(
-            children: [
-              Container(
-                height: screenHeight * 0.3.h,
-                color: Color(0xFF19649E),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10, top: 10, left: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${specialistModel?.firstName ?? "notFound".tr()} ${specialistModel?.lastName ?? ''}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20.sp,
-                              color: Colors.white,
+      child: Expanded(
+        child: Container(
+          width: 344.w,
+          height: 272.h,
+          child: Card(
+            child: Column(
+              children: [
+                Container(
+                  height: 199.h,
+                  color: Color(0xFF19649E),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10, top: 10, left: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: 140.w,
+                              child: Text(
+                                overflow: TextOverflow.ellipsis,
+                                '${specialistModel?.firstName ?? "notFound".tr()} ${specialistModel?.lastName ?? ''}',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20.sp,
+                                  color: Colors.white,
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
                             ),
-                            textAlign: TextAlign.left,
-                          ),
-                           SizedBox(height: 2.h),
-                          Text(
-                            specialistModel?.work ?? "notAvailable".tr(),
-                            style:  TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.sp,
+                             SizedBox(height: 2.h),
+                            Text(
+                              specialistModel?.work ?? "notAvailable".tr(),
+                              style:  TextStyle(
+                                color: Colors.white,
+                                fontSize: 12.sp,
+                              ),
+                              textAlign: TextAlign.left,
                             ),
-                            textAlign: TextAlign.left,
-                          ),
-                           SizedBox(height: 10.h),
-                          buildInfoRow("assets/images/heart.png",
-                              "speciality".tr() + "${(specialistModel?.specialties?.mentalHealth?.isNotEmpty ?? false)
-                                  ? specialistModel.specialties?.mentalHealth?.join(", ") : "notAvailable".tr()}"),
-                           SizedBox(height: 4.h),
-                          buildInfoRow("assets/images/PhoneCall.png",
-                              'availableVideo'.tr()),
-                           SizedBox(height: 4.h),
-                          buildInfoRow("assets/images/experience.png",
-                              "experienceYears".tr() + ' ${specialistModel?.yearsExperience ?? 0} ' + "years".tr()),
-                           SizedBox(height: 4.h),
-                          buildInfoRow("assets/images/translation.png",
-                              "language".tr() + "arabic".tr() + "، " + "english".tr()),
-                        ],
-                      ),
-                    ),
-                    Flexible(
-                      child: Container(
-                        height: screenHeight * 0.28.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
+                             SizedBox(height: 15.h),
+                            buildInfoRow("assets/images/heart.png",
+                                "speciality".tr() + "${(specialistModel?.specialties?.mentalHealth?.isNotEmpty ?? false)
+                                    ? specialistModel.specialties?.mentalHealth?.join(", ") : "notAvailable".tr()}"),
+                             SizedBox(height: 4.h),
+                            buildInfoRow("assets/images/PhoneCall.png",
+                                'availableVideo'.tr()),
+                             SizedBox(height: 4.h),
+                            buildInfoRow("assets/images/experience.png",
+                                "experienceYears".tr() + ' ${specialistModel?.yearsExperience ?? 0} ' + "years".tr()),
+                             SizedBox(height: 4.h),
+                            buildInfoRow("assets/images/translation.png",
+                                "language".tr() + "arabic".tr() + "، " + "english".tr()),
+                          ],
                         ),
-                        child: Image.asset('assets/images/doctor.png',
-                            fit: BoxFit.cover),
                       ),
+                      Flexible(
+                        child: Container(
+                          height: 231.h,
+                          width: 151.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Image.asset('assets/images/doctor.png',
+                              fit: BoxFit.cover),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 10.h),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    buildDetailColumn("assets/images/time.png", 'availability'.tr(),
+                        "dateExample".tr()),
+                    buildDetailColumn("assets/images/price.png", 'price'.tr(),
+                        '${specialistModel?.sessionPrice ?? 'notAvailable'.tr()} ' + "currency".tr()
+                            + ' / ' +
+                            '${specialistModel?.sessionDuration ?? 'notAvailable'.tr()} ' + "timeSession".tr()
                     ),
                   ],
                 ),
-              ),
-              SizedBox(height: 10.h),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  buildDetailColumn("assets/images/time.png", 'availability'.tr(),
-                      "dateExample".tr()),
-                  buildDetailColumn("assets/images/price.png", 'price'.tr(),
-                      '${specialistModel?.sessionPrice ?? 'notAvailable'.tr()} ' + "currency".tr()
-                          + ' / ' +
-                          '${specialistModel?.sessionDuration ?? 'notAvailable'.tr()} ' + "timeSession".tr()
-                  ),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -141,7 +148,7 @@ class DoctorCard extends StatelessWidget {
          SizedBox(width: 8.w),
         Text(
           text,
-          style: TextStyle(fontSize: 16.sp, color: Colors.white),
+          style: TextStyle(fontSize: 14.sp, color: Colors.white),
           textAlign: TextAlign.right,
         ),
       ],

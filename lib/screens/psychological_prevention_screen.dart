@@ -291,7 +291,7 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                           return Text(state.errMessage); // Display error message
                         } else if (state is SpecialistSuccess) {
                           return Container(
-                            height: screenHeight*0.57.h,
+                            height: screenHeight*0.85.h,
                             child: ListView.builder(
                               itemCount: state.specialists.length,
                               itemBuilder: (context, index) {
@@ -398,7 +398,7 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                           return Text(state.errMessage); // Display error message
                         } else if (state is SpecialistSuccess) {
                           return Container(
-                            height: screenHeight*0.57.h,
+                            height: screenHeight*0.85.h,
                             child: ListView.builder(
                               itemCount: state.specialists.length,
                               itemBuilder: (context, index) {

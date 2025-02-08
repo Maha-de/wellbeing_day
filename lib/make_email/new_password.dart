@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../cubit/reset_password_cubit/reset_password_cubit.dart';
 
 class NewPasswordPage extends StatefulWidget {
@@ -32,24 +33,24 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 50),
+                     SizedBox(height: 50.h),
                     Image.asset(
                       'assets/images/newpassword.png',
-                      height: 330,
-                      width: 550,
+                      height: 330.h,
+                      width: 550.w,
                       fit: BoxFit
                           .contain, // Ensures the image scales properly within the bounds
                     ),
-                    const SizedBox(height: 20),
+                     SizedBox(height: 20.h),
                     Text(
                       "newPassword".tr(),
-                      style: const TextStyle(
-                        fontSize: 24,
+                      style:  TextStyle(
+                        fontSize: 24.sp,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF19649E),
                       ),
                     ),
-                    const SizedBox(height: 30),
+                     SizedBox(height: 30.h),
                     buildTextField(
                       validation: (String? value) {
                         value = passwordController.text;
@@ -75,7 +76,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
               ),
                       isPassword: _isObscure1,
                     ),
-                    const SizedBox(height: 20),
+                     SizedBox(height: 20.h),
                     buildTextField(
                       validation: (String? value) {
                         value = passwordController.text;
@@ -101,7 +102,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                       isPassword: _isObscure2,
                       controller: confirmPasswordController,
                     ),
-                    const SizedBox(height: 30),
+                    SizedBox(height: 30.h),
                     ElevatedButton(
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
@@ -125,8 +126,8 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                       ),
                       child: Text(
                         "confirm".tr(),
-                        style: const TextStyle(
-                          fontSize: 18,
+                        style:  TextStyle(
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.bold, color: Colors.white
                         ),
                       ),

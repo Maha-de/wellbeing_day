@@ -201,12 +201,13 @@ class _PaymentMethodsProfileState extends State<PaymentMethodsProfile> {
                       child: Center(
                         child: Container(
                           width: 343.w,
-                          height: 150.h,
+                          height: 137.h,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: const Color(0xff1F78BC)
                           ),
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
                                 padding: const EdgeInsets.only(right: 10),
@@ -221,6 +222,7 @@ class _PaymentMethodsProfileState extends State<PaymentMethodsProfile> {
                                   ],
                                 ),
                               ),
+
                               Center(
                                 child: Container(
                                   width: 295.w,
@@ -230,11 +232,11 @@ class _PaymentMethodsProfileState extends State<PaymentMethodsProfile> {
                               ),
                               Container(
                                 padding: const EdgeInsets.only(right: 10),
-                                width: 307,
+                                width: 317.w,
                                 child: Row(
                                   mainAxisAlignment:MainAxisAlignment.spaceBetween,
                                   children: [
-                                     Image(image: AssetImage("assets/images/visa.png"),width: 70.29.w,height: 20.h,fit: BoxFit.fill,),
+                                     Image(image: AssetImage("assets/images/logos_mastercard.png"),width: 70.29.w,height: 30.h,fit: BoxFit.fill,),
                                     IconButton(
                                         onPressed: (){
 
@@ -242,24 +244,6 @@ class _PaymentMethodsProfileState extends State<PaymentMethodsProfile> {
 
                                         },
                                         icon:  Image(image: AssetImage("assets/images/left_arrow.png"),width: 12.w,height: 22.h,))
-                                  ],
-                                ),
-                              ),
-                              Center(
-                                child: Container(
-                                  width: 295.w,
-                                  height: 1.h,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.only(right: 10),
-                                width: 307.w,
-                                child: Row(
-                                  mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                                  children: [
-                                     Image(image: AssetImage("assets/images/logos_mastercard.png"),width: 70.29.w,height: 30.h,fit: BoxFit.fill,),
-                                    IconButton(onPressed: (){}, icon:  Image(image: AssetImage("assets/images/left_arrow.png"),width: 12.w,height: 22.h,))
                                   ],
                                 ),
                               ),

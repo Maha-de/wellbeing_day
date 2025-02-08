@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
@@ -76,7 +77,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
           "changeLanguage".tr(),
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: screenWidth * 0.06,
+            fontSize: screenWidth.w * 0.06.sp,
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
@@ -90,7 +91,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
             children: [
               Container(
                 width: screenWidth,
-                height: screenHeight * 0.21, // Adjust height proportionally
+                height: screenHeight.h * 0.21.h, // Adjust height proportionally
                 decoration: const BoxDecoration(
                   color: Color(0xff19649E),
                   borderRadius: BorderRadius.only(
@@ -117,9 +118,9 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
 
                           },
                           child: Container(
-                            height: screenWidth * 0.3,
+                            height: screenWidth.w * 0.3.h,
                             // Adjust size proportionally
-                            width: screenWidth * 0.3,
+                            width: screenWidth.w * 0.3.w,
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius:
@@ -168,12 +169,12 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
               ),
             ],
           ),
-          const SizedBox(height: 35),
+           SizedBox(height: 55.h),
           Text(
             "${userProfileCubit.userData?.firstName}",
             style: TextStyle(
               fontWeight: FontWeight.w800,
-              fontSize: screenWidth * 0.06,
+              fontSize: screenWidth * 0.06.sp,
               color: const Color(0xff19649E),
             ),
           ),
@@ -184,7 +185,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
             child: Column(
               children: [
                 Container(
-                  height: 50,
+                  height: 50.h,
                   decoration: BoxDecoration(
                     color: const Color(0xFF19649E),
                     borderRadius: BorderRadius.circular(10), // Circular shape
@@ -192,7 +193,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
                   child: NavigationBar(
 
                     backgroundColor: Colors.transparent,
-                    height: 50,
+                    height: 50.h,
                     destinations: [
                       TextButton(
                         onPressed: () {
@@ -208,7 +209,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
                         child: Text(
                           "arabic".tr(),
                           style: TextStyle(
-                            fontSize: 25,
+                            fontSize: 25.sp,
                             fontWeight: FontWeight.bold,
                             color: _currentPage == 0
                                 ? const Color(0xFF19649E)
@@ -230,7 +231,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
                         child: Text(
                           "english".tr(),
                           style: TextStyle(
-                              fontSize: 25,
+                              fontSize: 25.sp,
                               fontWeight: FontWeight.bold,
                               color: _currentPage == 1
                                   ? const Color(0xFF19649E)
@@ -240,7 +241,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 150,),
+                 SizedBox(height: 150.h,),
                 Center(
                   child: ElevatedButton(
                     onPressed: () {
@@ -252,8 +253,8 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
                             borderRadius: BorderRadius.circular(10))),
                     child: Text(
                       "update".tr(),
-                      style: const TextStyle(
-                          fontSize: 20,
+                      style:  TextStyle(
+                          fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
                     ),

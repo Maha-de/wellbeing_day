@@ -3,6 +3,7 @@ import 'package:doctor/widgets/custom_bottom_nav_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -68,7 +69,7 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                     items: [
                       BottomNavigationBarItem(
                         icon: SizedBox(
-                          height: 27, // Adjust icon size
+                          height: 27.h, // Adjust icon size
                           child:
                           Image.asset(
                             "assets/images/meteor-icons_home.png",
@@ -77,7 +78,7 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                           ),
                         ),
                         activeIcon: SizedBox(
-                          height: 27, // Active icon size adjustment
+                          height: 27.h, // Active icon size adjustment
                           child: Image.asset(
                             "assets/images/meteor-icons_home.png",
                             color: currentIndex == 0 ? Colors.white : Colors.black,
@@ -89,14 +90,14 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                       ),
                       BottomNavigationBarItem(
                         icon: SizedBox(
-                          height: 27,
+                          height: 27.h,
                           child: Image.asset(
                             "assets/images/nrk_category1.png",
                             fit: BoxFit.fill,
                           ),
                         ),
                         activeIcon: SizedBox(
-                          height: 27,
+                          height: 27.h,
                           child: Image.asset(
                             "assets/images/nrk_category.png",
                             fit: BoxFit.fill,
@@ -106,14 +107,14 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                       ),
                       BottomNavigationBarItem(
                         icon: SizedBox(
-                          height: 25, // Adjust icon size
+                          height: 25.h, // Adjust icon size
                           child: Image.asset(
                             "assets/images/material-symbols_help-clinic-outline-rounded.png",
                             fit: BoxFit.fill,
                           ),
                         ),
                         activeIcon: SizedBox(
-                          height: 33,
+                          height: 33.h,
                           // width: 50,
                           child: Image.asset(
                             "assets/images/material-symbols_help-clinic-outline-rounded_Active.png",
@@ -124,14 +125,14 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                       ),
                       BottomNavigationBarItem(
                         icon: SizedBox(
-                          height: 27,
+                          height: 27.h,
                           child: Image.asset(
                             "assets/images/gg_profile.png",
                             fit: BoxFit.fill,
                           ),
                         ),
                         activeIcon: SizedBox(
-                          height: 27,
+                          height: 27.h,
                           child: Image.asset(
                             "assets/images/gg_profile1.png",
                             fit: BoxFit.fill,
@@ -225,8 +226,8 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
 
                                 child: Center(
                                   child: Container(
-                                    width: 161,
-                                    height: 40,
+                                    width: 161.w,
+                                    height: 40.h,
                                     decoration: BoxDecoration(
                                       color: Color(0xFF1F78BC),
                                       borderRadius: BorderRadius.only(bottomRight: Radius.circular(20), topLeft: Radius.circular(20)),
@@ -234,30 +235,30 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                                     alignment: Alignment.center,
                                     child: Text(
                                       "إستشاره مجانيه",
-                                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                                      style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Colors.white),
                                     ),
                                   ),
                                 ),
                               ),
                               Container(
-                                width: screenWidth * 0.9,
+                                width: screenWidth * 0.9.w,
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Text(
                                     "عبر عن حالتك بشكل مختصر",
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xff19649E)),
+                                    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Color(0xff19649E)),
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 5),
+                              SizedBox(height: 5.h),
                               Container(
-                                width:screenWidth* 0.9,
-                                height: 180,
+                                width:screenWidth* 0.9.w,
+                                height: 180.h,
                                 child: TextFormField(
 
                                   decoration: InputDecoration(
                                     hintText: "ما هو شعورك؟ أكتب وصفاً قصيراً لحالتك لعرضها على المختص",
-                                    hintStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.grey),
+                                    hintStyle: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.grey),
                                     filled: true,
                                     fillColor: Color(0xFFD5D5D5),
                                     border: OutlineInputBorder(
@@ -269,49 +270,49 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                                   maxLines: 10,
                                 ),
                               ),
-                              SizedBox(height: 15),
+                              SizedBox(height: 15.h),
                               Container(
-                                width: screenWidth * 0.9,
+                                width: screenWidth * 0.9.w,
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Text(
                                     "شروط الجلسه",
-                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xff1F78BC)),
+                                    style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff1F78BC)),
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 7),
+                              SizedBox(height: 7.h),
                               Column(
                                 children: [
                                   Row(
 
                                     children: [
                                       Icon(Icons.circle, size: 10, color: Colors.black),
-                                      SizedBox(width: 5),
+                                      SizedBox(width: 5.w),
                                       Text("ستكون مده الإستشاره 15 دقيقه"),
                                     ],
                                   ),
-                                  SizedBox(height: 5),
+                                  SizedBox(height: 5.h),
                                   Row(
 
                                     children: [
                                       Icon(Icons.circle, size: 10, color: Colors.black),
-                                      SizedBox(width: 5),
+                                      SizedBox(width: 5.w),
                                       Text("عند الحاجه للتوجيه للعلاج او الأخصائي المناسب"),
                                     ],
                                   ),
-                                  SizedBox(height: 5),
+                                  SizedBox(height: 5.h),
                                   Row(
 
                                     children: [
                                       Icon(Icons.circle, size: 10, color: Colors.black),
-                                      SizedBox(width: 5),
+                                      SizedBox(width: 5.w),
                                       Text("عند عدم وضوح الحاله النفسيه او الجسديه"),
                                     ],
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 15),
+                              SizedBox(height: 15.h),
                             ],
                           ),
                         ),
@@ -352,8 +353,8 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                             ),
                           );},
                           child: Container(
-                            width: screenWidth* 0.9,
-                            height: 48,
+                            width: screenWidth* 0.9.w,
+                            height: 48.h,
                             decoration: BoxDecoration(
                               color: Color(0xff19649E),
                               borderRadius: BorderRadius.circular(10),
@@ -361,7 +362,7 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                             child: Center(
                               child: Text(
                                 'إستمرار',
-                                style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+                                style: TextStyle(fontSize: 20.sp, color: Colors.white, fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
@@ -393,8 +394,8 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                     
                                 child: Center(
                                   child: Container(
-                                    width: 161,
-                                    height: 40,
+                                    width: 161.w,
+                                    height: 40.h,
                                     decoration: BoxDecoration(
                                       color: Color(0xFF1F78BC),
                                       borderRadius: BorderRadius.only(bottomRight: Radius.circular(20), topLeft: Radius.circular(20)),
@@ -402,30 +403,30 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                                     alignment: Alignment.center,
                                     child: Text(
                                       "إستشاره مجانيه",
-                                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                                      style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Colors.white),
                                     ),
                                   ),
                                 ),
                               ),
                               Container(
-                                width: screenWidth * 0.9,
+                                width: screenWidth * 0.9.w,
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Text(
                                     "عبر عن حالتك بشكل مختصر",
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xff19649E)),
+                                    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Color(0xff19649E)),
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 5),
+                              SizedBox(height: 5.h),
                               Container(
-                                width:screenWidth* 0.9,
-                                height: 180,
+                                width:screenWidth* 0.9.w,
+                                height: 180.h,
                                 child: TextFormField(
                     
                                   decoration: InputDecoration(
                                     hintText: "ما هو شعورك؟ أكتب وصفاً قصيراً لحالتك لعرضها على المختص",
-                                    hintStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.grey),
+                                    hintStyle: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.grey),
                                     filled: true,
                                     fillColor: Color(0xFFD5D5D5),
                                     border: OutlineInputBorder(
@@ -437,57 +438,57 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                                   maxLines: 10,
                                 ),
                               ),
-                              SizedBox(height: 15),
+                              SizedBox(height: 15.h),
                               Container(
-                                width: screenWidth * 0.9,
+                                width: screenWidth * 0.9.w,
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Text(
                                     "شروط الجلسه",
-                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xff1F78BC)),
+                                    style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff1F78BC)),
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 7),
+                              SizedBox(height: 7.h),
                               Column(
                                 children: [
                                   Row(
                     
                                     children: [
                                       Icon(Icons.circle, size: 10, color: Colors.black),
-                                      SizedBox(width: 5),
+                                      SizedBox(width: 5.w),
                                       Text("ستكون مده الإستشاره 15 دقيقه"),
                                     ],
                                   ),
-                                  SizedBox(height: 5),
+                                  SizedBox(height: 5.h),
                                   Row(
                     
                                     children: [
                                       Icon(Icons.circle, size: 10, color: Colors.black),
-                                      SizedBox(width: 5),
+                                      SizedBox(width: 5.w),
                                       Text("عند الحاجه للتوجيه للعلاج او الأخصائي المناسب"),
                                     ],
                                   ),
-                                  SizedBox(height: 5),
+                                  SizedBox(height: 5.h),
                                   Row(
                     
                                     children: [
                                       Icon(Icons.circle, size: 10, color: Colors.black),
-                                      SizedBox(width: 5),
+                                      SizedBox(width: 5.w),
                                       Text("عند عدم وضوح الحاله النفسيه او الجسديه"),
                                     ],
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 15),
+                              SizedBox(height: 15.h),
                             ],
                           ),
                         ),
                         GestureDetector(
                           onTap: (){},
                           child: Container(
-                            width: screenWidth* 0.9,
-                            height: 48,
+                            width: screenWidth* 0.9.w,
+                            height: 48.h,
                             decoration: BoxDecoration(
                               color: Color(0xff19649E),
                               borderRadius: BorderRadius.circular(10),
@@ -495,7 +496,7 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                             child: Center(
                               child: Text(
                                 'إستمرار',
-                                style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+                                style: TextStyle(fontSize: 20.sp, color: Colors.white, fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),

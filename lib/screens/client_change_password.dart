@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -66,7 +67,7 @@ class _ClientChangePasswordState extends State<ClientChangePassword> {
                     "passwordManager".tr(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: screenWidth * 0.06,
+                      fontSize: screenWidth.w * 0.06.sp,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
@@ -84,7 +85,7 @@ class _ClientChangePasswordState extends State<ClientChangePassword> {
                   children: [
                     Container(
                       width: screenWidth,
-                      height: screenHeight * 0.21, // Adjust height proportionally
+                      height: screenHeight * 0.21.h, // Adjust height proportionally
                       decoration: BoxDecoration(
                         color: Color(0xff19649E),
                         borderRadius: BorderRadius.only(
@@ -130,8 +131,8 @@ class _ClientChangePasswordState extends State<ClientChangePassword> {
                             alignment: Alignment.bottomLeft,
                             children: [
                               Container(
-                                height: screenWidth * 0.3,
-                                width: screenWidth * 0.3,
+                                height: screenWidth * 0.3.h,
+                                width: screenWidth * 0.3.w,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(40),
@@ -170,15 +171,15 @@ class _ClientChangePasswordState extends State<ClientChangePassword> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 35),
+                 SizedBox(height: 55.h),
                 Positioned(
-                  left: screenWidth * 0.35,
+                  left: screenWidth * 0.35.w,
                   top: -100,
                   child: Text(
                     "${userProfileCubit.userData?.firstName}",
                     style: TextStyle(
                       fontWeight: FontWeight.w800,
-                      fontSize: screenWidth * 0.06,
+                      fontSize: screenWidth.w * 0.06.sp,
                       color: const Color(0xff19649E),
                     ),
                   ),
@@ -186,7 +187,7 @@ class _ClientChangePasswordState extends State<ClientChangePassword> {
               ],
             ),
             Container(
-              height: 420,
+              height: 420.h,
               child: Expanded(
                 child: Column(
                   children: [
@@ -204,16 +205,16 @@ class _ClientChangePasswordState extends State<ClientChangePassword> {
                                   "newPassword".tr(),
                                   // textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 16.sp,
                                     color: Color(0xff19649E),
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
-                                SizedBox(height: screenHeight * 0.01),
+                                SizedBox(height: screenHeight * 0.01.h),
                                 Center(
                                   child: Container(
-                                    width: screenWidth * 0.9,
-                                    height: screenHeight * 0.06,
+                                    width: 327.w,
+                                    height: 48.h,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(11),
                                       boxShadow: [
@@ -267,7 +268,7 @@ class _ClientChangePasswordState extends State<ClientChangePassword> {
                               ],
                             ),
                           ),
-                          SizedBox(height: screenHeight * 0.01),
+                          SizedBox(height: screenHeight * 0.01.h),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -275,16 +276,16 @@ class _ClientChangePasswordState extends State<ClientChangePassword> {
                                 "confirmPassword".tr(),
                                 // textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   color: Color(0xff19649E),
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
-                              SizedBox(height: screenHeight * 0.01),
+                              SizedBox(height: screenHeight* 0.01.h),
                               Center(
                                 child: Container(
-                                  width: screenWidth * 0.9,
-                                  height: screenHeight * 0.06,
+                                  width: 327.w,
+                                  height: 48.h,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(11),
                                     boxShadow: [
@@ -340,7 +341,7 @@ class _ClientChangePasswordState extends State<ClientChangePassword> {
                         ],
                       ),
                     ),
-                    SizedBox(height: screenHeight * 0.09),
+                    SizedBox(height: screenHeight* 0.09.h),
                     Center(
                       child: GestureDetector(
                         onTap: (){
@@ -358,8 +359,8 @@ class _ClientChangePasswordState extends State<ClientChangePassword> {
     }
                         },
                         child: Container(
-                          width: screenWidth * 0.9,
-                          height: screenHeight * 0.06,
+                          width: 327.w,
+                          height: 48.h,
                           decoration: BoxDecoration(
                             color: Color(0xff19649E),
                             borderRadius: BorderRadius.circular(10),
@@ -368,7 +369,7 @@ class _ClientChangePasswordState extends State<ClientChangePassword> {
                             child: Text(
                               "update".tr(),
                               style: TextStyle(
-                                fontSize: 24,
+                                fontSize: 24.sp,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w400,
                               ),

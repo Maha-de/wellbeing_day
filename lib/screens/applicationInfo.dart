@@ -6,6 +6,7 @@ import 'package:doctor/widgets/custom_bottom_nav_bar.dart';
 import 'package:doctor/widgets/socialMediaButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -32,13 +33,15 @@ class SocialMediaPage extends StatefulWidget {
 }
 
 class _SocialMediaPageState extends State<SocialMediaPage> {
-  int _selectedIndex = 3;
+  int _selectedIndex = 0;
 
   final List<String> tabs = [
-    "التعليمات",
-    "تعريف التطبيق",
-    "الأسئلة الشائعة",
     "الاتصال"
+    "",
+    "الأسئلة الشائعة",
+    "تعريف التطبيق",
+    "التعليمات",
+
   ];
   // late UserProfileCubit userProfileCubit;
   // @override
@@ -81,7 +84,7 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
           Stack(
             children: [
               Container(
-                height: 145,
+                height: 145.h,
                 decoration: BoxDecoration(
                   color: const Color(0xff1B659F),
                   borderRadius: const BorderRadius.only(
@@ -134,9 +137,9 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
                           ),
                           child: Text(
                             tabs[index],
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Colors.white,
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -150,7 +153,7 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
           ),
           Expanded(
             child: Padding(
-                padding: const EdgeInsets.fromLTRB(30, 50, 30, 50),
+                padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
                 child: AppearedItemFromTabls(_selectedIndex)),
           ),
         ],
@@ -160,16 +163,16 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
 
   Widget AppearedItemFromTabls(int index) {
     switch (index) {
-      case 0:
+      case 3:
         return const InstructionTab();
 
-      case 1:
+      case 2:
         return const AppDef();
 
-      case 2:
+      case 1:
         return const FqaTab();
 
-      case 3:
+      case 0:
         return contactTab();
 
       default:
@@ -178,39 +181,41 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
   }
 
   Widget contactTab() {
-    return Column(
-      children: [
-        SocialMediaButton(
-          label: "واتساب",
-          icon: FontAwesomeIcons.whatsapp,
-          color: Colors.green,
-          onPressed: openWhatsApp,
-        ),
-        SocialMediaButton(
-          label: "فيسبوك",
-          icon: FontAwesomeIcons.facebook,
-          color: Colors.blue,
-          onPressed: openWhatsApp,
-        ),
-        SocialMediaButton(
-          label: "إنستجرام",
-          icon: FontAwesomeIcons.instagram,
-          color: Colors.pink,
-          onPressed: openWhatsApp,
-        ),
-        SocialMediaButton(
-          label: "تويتر",
-          icon: FontAwesomeIcons.twitter,
-          color: Colors.lightBlue,
-          onPressed: openWhatsApp,
-        ),
-        SocialMediaButton(
-          label: "يوتيوب",
-          icon: FontAwesomeIcons.youtube,
-          color: Colors.red,
-          onPressed: openWhatsApp,
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SocialMediaButton(
+            label: "واتساب",
+            icon: FontAwesomeIcons.whatsapp,
+            color: Colors.green,
+            onPressed: openWhatsApp,
+          ),
+          SocialMediaButton(
+            label: "فيسبوك",
+            icon: FontAwesomeIcons.facebook,
+            color: Colors.blue,
+            onPressed: openWhatsApp,
+          ),
+          SocialMediaButton(
+            label: "إنستجرام",
+            icon: FontAwesomeIcons.instagram,
+            color: Colors.pink,
+            onPressed: openWhatsApp,
+          ),
+          SocialMediaButton(
+            label: "تويتر",
+            icon: FontAwesomeIcons.twitter,
+            color: Colors.lightBlue,
+            onPressed: openWhatsApp,
+          ),
+          SocialMediaButton(
+            label: "يوتيوب",
+            icon: FontAwesomeIcons.youtube,
+            color: Colors.red,
+            onPressed: openWhatsApp,
+          ),
+        ],
+      ),
     );
   }
 }

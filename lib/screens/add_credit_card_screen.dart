@@ -1,5 +1,6 @@
 import 'package:doctor/screens/success_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class AddCreditCardScreen extends StatefulWidget {
@@ -21,8 +22,8 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
 
   Widget buildCard() {
     return Container(
-      width: 244,
-      height: 163,
+      width: 244.w,
+      height: 163.h,
       margin: const EdgeInsets.only(left: 10), // Space between cards
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -53,7 +54,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
               children: [
                 // الخلفية العلوية الزرقاء - **زاد ارتفاعها**
                 Container(
-                  height: 250, // ✅ زودنا الارتفاع عشان يبان أكتر
+                  height: 250.h, // ✅ زودنا الارتفاع عشان يبان أكتر
                   decoration: const BoxDecoration(
                     color: Color(0xff1B659F),
                   ),
@@ -64,8 +65,8 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                   left: 0,
                   right: 0,
                   child: Container(
-                    width: screenWidth,
-                    height: 100,
+                    width: screenWidth.w,
+                    height: 100.h,
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.vertical(
@@ -90,11 +91,11 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                           child: Row(mainAxisAlignment: MainAxisAlignment.end,children: cards),
                         ),
                       ),
-                      const SizedBox(width: 10), // مسافة بين الزر والبطاقات
+                    SizedBox(width: 10.w), // مسافة بين الزر والبطاقات
                       // زر الإضافة بنفس الشكل القديم
                       Container(
-                        width: 44,
-                        height: 163,
+                        width: 44.w,
+                        height: 163.h,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20),
@@ -125,25 +126,26 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
             ),
             Column(
               children: [
+                SizedBox(height: 7.h,),
                 Container(
-                  width: screenWidth * 0.9,
-                  child: const Align(
+                  width: screenWidth.w * 0.9.w,
+                  child:  Align(
                     alignment: Alignment.centerRight,
                     child:  Text(
                       "رقم البطاقة",
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.grey),
+                      style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Colors.grey),
                     ),
                   ),
                 ),
-                const SizedBox(height: 4,),
+                 SizedBox(height: 4.h,),
                 Container(
-                  width: 343.0,
-                  height: 48.0,
+                  width: 343.0.w,
+                  height: 48.0.h,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
                     border: Border.all(
                       color: const Color(0xFF1B659F), // اللون الأزرق للحدود
-                      width: 1.0, // سمك الحد
+                      width: 1.0.w, // سمك الحد
                     ),
                   ),
                   child: TextFormField(
@@ -157,28 +159,28 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 15,),
+             SizedBox(height: 15.h,),
             Column(
               children: [
                 Container(
-                  width: screenWidth * 0.9,
-                  child: const Align(
+                  width: screenWidth.w * 0.9.w,
+                  child:  Align(
                     alignment: Alignment.centerRight,
                     child:  Text(
                       "اسم حامل البطاقة",
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.grey),
+                      style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Colors.grey),
                     ),
                   ),
                 ),
-                const SizedBox(height: 4,),
+                SizedBox(height: 4.h,),
                 Container(
-                  width: 343.0,
-                  height: 48.0,
+                  width: 343.0.w,
+                  height: 48.0.h,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
                     border: Border.all(
                       color: const Color(0xFF1B659F), // اللون الأزرق للحدود
-                      width: 1.0, // سمك الحد
+                      width: 1.0.w, // سمك الحد
                     ),
                   ),
                   child: TextFormField(
@@ -192,7 +194,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 20,),
+             SizedBox(height: 20.h,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -200,23 +202,23 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                   children: [
                     Container(
         
-                      child: const Align(
+                      child:  Align(
                         alignment: Alignment.centerRight,
                         child:  Text(
                           "تاريخ الأنتهاء",
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xff858585)),
+                          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff858585)),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 4,),
+                     SizedBox(height: 4.h,),
                     Container(
-                      width: screenWidth * 0.45,
-                      height: 48.0,
+                      width: screenWidth.w * 0.45.w,
+                      height: 48.0.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
                         border: Border.all(
                           color: const Color(0xFF1B659F), // اللون الأزرق للحدود
-                          width: 1.0, // سمك الحد
+                          width: 1.0.w, // سمك الحد
                         ),
                       ),
                       child: TextFormField(
@@ -234,23 +236,23 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                   children: [
                     Container(
         
-                      child: const Align(
+                      child:  Align(
                         alignment: Alignment.centerRight,
                         child:  Text(
                           "رمز أمان البطاقة",
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xff858585)),
+                          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff858585)),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 4,),
+                     SizedBox(height: 4.h,),
                     Container(
-                      width: screenWidth * 0.45,
-                      height: 48.0,
+                      width: screenWidth.w * 0.45.w,
+                      height: 48.0.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
                         border: Border.all(
                           color: const Color(0xFF1B659F), // اللون الأزرق للحدود
-                          width: 1.0, // سمك الحد
+                          width: 1.0.w, // سمك الحد
                         ),
                       ),
                       child: TextFormField(
@@ -275,8 +277,8 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
       ),
       // تأكد من عدم وجود bottomNavigationBar في الـ Scaffold:
       bottomNavigationBar:     Container(
-        width: screenWidth, // Full screen width
-        height: 104,
+        width: screenWidth.w, // Full screen width
+        height: 104.h,
         decoration: const BoxDecoration(
           color: Color(0xFF1B659F), // Background color
           borderRadius: BorderRadius.only(
@@ -290,8 +292,8 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                width: 142,
-                height: 38,
+                width: 142.w,
+                height: 38.h,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(25), // Optional rounded corners
@@ -303,10 +305,10 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                         Navigator.push(context, MaterialPageRoute(builder: (context)=> const SuccessScreen()));
 
                       },
-                      child: const Text(
+                      child:  Text(
                             "ادفع الاّن",
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 20.sp,
                               fontWeight: FontWeight.w500, // Medium weight
                               color: Color(0xFF1B659F),
                             ),

@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../cubit/verify_code_cubit/verify_code_cubit.dart';
@@ -30,20 +31,20 @@ class _VerifyScreenState extends State<VerifyScreenEmail> {
               Image.asset("assets/images/verify.png"),
               Text(
                 "verifyCode".tr(),
-                style: const TextStyle(
-                    fontSize: 30,
+                style:  TextStyle(
+                    fontSize: 30.sp,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF19649E)),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(
-                height: 20,
+               SizedBox(
+                height: 20.h,
               ),
               Text(
                 "pleaseEnterCodeSentToYourEmail".tr(),
-                style: const TextStyle(fontSize: 20, color: Colors.black),
+                style:  TextStyle(fontSize: 20.sp, color: Colors.black),
               ),
-              const SizedBox(height: 50,),
+               SizedBox(height: 50.h,),
 
               PinCodeTextField(
                 appContext: context,
@@ -63,26 +64,26 @@ class _VerifyScreenState extends State<VerifyScreenEmail> {
 
 
 
-              const SizedBox(
-                height: 50,
+               SizedBox(
+                height: 50.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("notReceivedCode".tr(),
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold
+                      style:  TextStyle(
+                          fontSize: 18.sp, fontWeight: FontWeight.bold
                       )),
                   TextButton(
                       onPressed: () {
 
                       },
                       child: Text("resendCode".tr(),
-                          style: TextStyle(color: Color(0xFF19649E), fontWeight: FontWeight.bold, fontSize: 18))),
+                          style: TextStyle(color: Color(0xFF19649E), fontWeight: FontWeight.bold, fontSize: 18.sp))),
 
                 ],
               ),
-              const SizedBox(height: 20,),
+               SizedBox(height: 20.h,),
 
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -97,8 +98,8 @@ class _VerifyScreenState extends State<VerifyScreenEmail> {
                     BlocProvider.of<VerifyCodeCubit>(context)
                         .verifyCodeByEmail(context,widget.email,code??0);
                   }, 
-                  child: Text("verify".tr(), style: const TextStyle(
-                  fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),)),
+                  child: Text("verify".tr(), style:  TextStyle(
+                  fontSize: 18.sp, color: Colors.white, fontWeight: FontWeight.bold),)),
 
             ]))
 

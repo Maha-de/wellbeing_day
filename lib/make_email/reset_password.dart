@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../cubit/forget_password_cubit/forget_password_cubit.dart';
 import '../cubit/forget_password_cubit/forget_password_state.dart';
@@ -40,13 +41,13 @@ class _ResetPasswordState extends State<ResetPassword> {
               Image.asset("assets/images/lock.png"),
               Text(
                 "resetPassword".tr(),
-                style: const TextStyle(
-                    fontSize: 30,
+                style: TextStyle(
+                    fontSize: 30.sp,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF19649E)),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 20),
+               SizedBox(height: 20.h),
 
 
 
@@ -59,20 +60,20 @@ class _ResetPasswordState extends State<ResetPassword> {
                     Text(
                       "email".tr(),
                       textAlign: TextAlign.start,
-                      style: const TextStyle(fontSize: 20, color: Color(0xff19649E)),
+                      style:  TextStyle(fontSize: 20.sp, color: Color(0xff19649E)),
                     ),
-                    const SizedBox(height: 10),
+                     SizedBox(height: 10.h),
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(width: 2, color: Colors.grey),
+                        border: Border.all(width: 2.w, color: Colors.grey),
                       ),
                       child: TextFormField(
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                            borderSide: const BorderSide(width: 10),
+                            borderSide:  BorderSide(width: 10.w),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           enabledBorder: const OutlineInputBorder(
@@ -88,7 +89,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         },
                       ),
                     ),
-                    const SizedBox(height: 25),
+                     SizedBox(height: 25.h),
                     Center(
                       child: ElevatedButton(
                         onPressed: () async {
@@ -103,8 +104,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                         ),
                         child: Text(
                           "send".tr(),
-                          style: const TextStyle(
-                              fontSize: 20,
+                          style:  TextStyle(
+                              fontSize: 20.sp,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),

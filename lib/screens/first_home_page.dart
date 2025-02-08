@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:doctor/screens/homescreen.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -10,6 +12,7 @@ import '../cubit/get_specialist/get_specialist_state.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
 import '../models/user_profile_model.dart';
+import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_bottom_nav_bar.dart';
 import '../widgets/doctor_card.dart';
 import 'client_profile_screen.dart';
@@ -27,7 +30,6 @@ class _FirstHomePageState extends State<FirstHomePage> {
   late UserProfileCubit userProfileCubit;
 
   var images = [
-    'assets/images/family.png',
     'assets/images/familyy.png',
     'assets/images/familyyy.png',
   ];
@@ -39,13 +41,28 @@ class _FirstHomePageState extends State<FirstHomePage> {
     _loadUserProfile();
     final specialistCubit = BlocProvider.of<GetSpecialistCubit>(context);
     specialistCubit.fetchSpecialists();
+    _startAutoPageSwitch();
   }
-
+  PageController _pageController = PageController();
+  void _startAutoPageSwitch() {
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (_pageController.page?.toInt() == images.length - 1) {
+        _pageController.jumpToPage(0);
+      } else {
+        _pageController.nextPage(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
   Future<void> _loadUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
     userProfileCubit.getUserProfile(context, id);
   }
+  late Timer _timer;
+
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +82,10 @@ class _FirstHomePageState extends State<FirstHomePage> {
               } else if (state is UserProfileSuccess) {
                 UserProfileModel userProfile = state.userProfile;
                 return Scaffold(
+                  appBar: CustomAppBar(
+                    screenWidth: screenWidth,
+                    screenHeight: screenHeight,
+                  ),
                   backgroundColor: Colors.white,
                   bottomNavigationBar: const CustomBottomNavBar(
                     currentIndex: 0,
@@ -72,205 +93,36 @@ class _FirstHomePageState extends State<FirstHomePage> {
                   body: SingleChildScrollView(
                     child: Column(
                       children: [
+                        SizedBox(height: 10.h,),
                         Container(
-                          height: screenHeight * 0.24,
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFAFDCFF),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(40.0),
-                              bottomRight: Radius.circular(40.0),
-                            ),
+                          width: 343.w,
+                          height:145.h,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20)
                           ),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        0, 70, 20, 20),
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          width: 66.w,
-                                          height: 66.h,
-                                          decoration: const BoxDecoration(
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(
-                                                50),
-                                            child:
-                                            userProfile.imageUrl == "" ||
-                                                userProfile.imageUrl == null
-                                                ? Image.asset(
-                                                "assets/images/profile.jpg",
-                                                fit: BoxFit.fill)
-                                                : Image.network(
-                                                userProfile.imageUrl ?? "",
-                                                fit: BoxFit.fill),
-
-                                          ),
-                                        ),
-                                         SizedBox(
-                                          height: 10.h,
-                                        ),
-                                        Text(
-                                          "greeting".tr() + "\n ${userProfile.firstName}",
-                                          textAlign: TextAlign.center,
-                                          style:  TextStyle(
-                                            fontSize: 16.sp,
-                                            color: Color(0xff19649E),
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 20, right: 40),
-                                    child: SizedBox(
-                                      height: 100.h,
-                                      width: 110.w,
-                                      child: Image.asset('assets/images/img.png',
-                                          fit: BoxFit.fill),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 50),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .end,
-                                          children: [
-                                            IconButton(
-                                                onPressed: () {},
-                                                icon: const Icon(
-                                                  Icons.phone,
-                                                  size: 35,
-                                                  color: Colors.red,
-                                                )),
-                                            IconButton(
-                                                onPressed: () {},
-                                                icon: const Icon(
-                                                  Icons.notifications_outlined,
-                                                  size: 40,
-                                                  color: Color(0xff19649E),
-                                                )),
-                                          ],
-                                        ),
-                                         SizedBox(
-                                          height: 20.h,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 30),
-                                          child: Column(
-                                            children: [
-                                               Text(
-                                                "تواصل معنا",
-                                                style: TextStyle(
-                                                  color: Color(0xff19649E),
-                                                  fontSize: 17.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                               SizedBox(
-                                                height: 10.h,
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                                children: [
-                                                  GestureDetector(
-                                                    onTap: () {},
-                                                    child: SizedBox(
-                                                      width: 27.66.w,
-                                                      height: 25.33.h,
-                                                      child: Image.asset(
-                                                          "assets/images/fa-brands_twitter-square.png",
-                                                          fit: BoxFit.fill),
-                                                    ),
-                                                  ),
-                                                   SizedBox(width: 5.w),
-                                                  GestureDetector(
-                                                    onTap: () {},
-                                                    child: SizedBox(
-                                                      width: 27.66.w,
-                                                      height: 25.33.h,
-                                                      child: Image.asset(
-                                                          "assets/images/uil_facebook.png",
-                                                          fit: BoxFit.fill),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(width: 5),
-                                                  GestureDetector(
-                                                    onTap: () {},
-                                                    child: SizedBox(
-                                                      width: 27.66.w,
-                                                      height: 25.33.h,
-                                                      child: Image.asset(
-                                                          "assets/images/ri_instagram-fill.png",
-                                                          fit: BoxFit.fill),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                         SizedBox(
-                          height: 20.h,
-                        ),
-                        SizedBox(
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width.w,
-                          child: CarouselSlider(
-                            carouselController: carouselControllerEx,
-                            options: CarouselOptions(
-                                height: 180.h,
-                                autoPlay: true,
-                                onPageChanged: (index, _) {
-                                  sliderIndex = index;
-                                  setState(() {});
-                                }),
-                            items: images.map((i) {
-                              return ClipRRect(
-                                borderRadius: BorderRadius.circular(30),
-                                child: Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 5.0),
-                                    child: Image.asset(
-                                      i,
-                                      fit: BoxFit.cover,
-                                    )),
+                          child: PageView.builder(
+                            controller: _pageController,
+                            itemCount: images.length,
+                            itemBuilder: (context, index) {
+                              return Image.asset(
+                                images[index],
+                                fit: BoxFit.fill,
+                                width: 343.w,
+                                height:145.h,
                               );
-                            }).toList(),
+                            },
                           ),
                         ),
                          SizedBox(
-                          height: 20.h,
+                          height: 10.h,
                         ),
                         Center(
                           child: Container(
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(10),
                                 color: const Color(0xFFAFDCFF)),
-                            height: 50.h,
-                            width: 380.w,
+                            height: 40.h,
+                            width: 310.w,
                             child: TextFormField(
                               decoration: const InputDecoration(
                                 prefixIcon: Icon(Icons.search),
@@ -295,6 +147,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
                             } else if (state is SpecialistSuccess) {
                               return Container(
                                 height: screenHeight*0.57.h,
+                                width: 344.w,
                                 child: ListView.builder(
                                   itemCount: state.specialists.length,
                                   itemBuilder: (context, index) {
