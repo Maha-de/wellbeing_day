@@ -268,7 +268,7 @@ int currentIndex=1;
                   children: [
                     // Header
 
-
+                  SizedBox(height: 7.h,),
 
                     // Category List
                     SizedBox(
@@ -346,7 +346,7 @@ int currentIndex=1;
                       ),
                     ),
 
-
+                    SizedBox(height: 7.h,),
 
                     // Image Slider
                     SizedBox(
@@ -362,7 +362,7 @@ int currentIndex=1;
                         },
                       ),
                     ),
-
+                    SizedBox(height: 7.h,),
 
                     // Buttons
                     Row(

@@ -76,7 +76,7 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
     double screenHeight = MediaQuery.of(context).size.height.h;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal:8, vertical: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
 
@@ -244,7 +244,7 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
                 Text(
                   entry.key,
                   textAlign: TextAlign.right,
-                  style:  TextStyle(fontSize: 16.sp),
+                  style:  TextStyle(fontSize: 15.sp),
                 ),
               ],
             );

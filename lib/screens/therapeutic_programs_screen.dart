@@ -48,7 +48,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
     userProfileCubit.getUserProfile(context, id);
-  }
+  }ScrollController scroll=ScrollController();
   int currentIndex=1;
   @override
   Widget build(BuildContext context) {
@@ -226,6 +226,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                 body: Padding(
                   padding: const EdgeInsets.only(top: 15.0),
                   child: SingleChildScrollView(
+                    controller: scroll,
                     child: Column(
                       children: [
                         Center(
@@ -364,8 +365,9 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                               return Text(state.errMessage); // Display error message
                             } else if (state is SpecialistSuccess) {
                               return Container(
-                                height: screenHeight*0.8.h,
+                                height: screenHeight*0.63.h,
                                 child: ListView.builder(
+                                  controller: scroll,
                                   itemCount: state.specialists.length,
                                   itemBuilder: (context, index) {
                                     return DoctorCard(specialistModel: state.specialists[index]);
@@ -395,6 +397,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                 body: Padding(
                   padding: const EdgeInsets.only(top: 15.0),
                   child: SingleChildScrollView(
+                    controller: scroll,
                     child: Column(
                       children: [
                         Center(
@@ -533,8 +536,9 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                               return Text(state.errMessage); // Display error message
                             } else if (state is SpecialistSuccess) {
                               return Container(
-                                height: screenHeight*0.8.h,
+                                height: screenHeight*0.63.h,
                                 child: ListView.builder(
+                                  controller: scroll,
                                   itemCount: state.specialists.length,
                                   itemBuilder: (context, index) {
                                     return DoctorCard(specialistModel: state.specialists[index]);

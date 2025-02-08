@@ -223,7 +223,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                         margin: const EdgeInsets.only(
                             top: 0, left: 15, right: 15, bottom: 5),
                         height: screenHeight.h *
-                            0.62.h, // Adjust height proportionally
+                            0.52.h, // Adjust height proportionally
                         child: ListView.builder(
                           // physics: NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {

@@ -312,7 +312,7 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
                           return Text(state.errMessage); // Display error message
                         } else if (state is SpecialistSuccess) {
                           return Container(
-                            height: screenHeight*0.75.h,
+                            height: screenHeight*0.63.h,
                             child: ListView.builder(
                               itemCount: state.specialists.length,
                               itemBuilder: (context, index) {
@@ -440,7 +440,7 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
                           return Text(state.errMessage); // Display error message
                         } else if (state is SpecialistSuccess) {
                           return Container(
-                            height: screenHeight*0.75.h,
+                            height: screenHeight*0.63.h,
                             child: ListView.builder(
                               itemCount: state.specialists.length,
                               itemBuilder: (context, index) {
