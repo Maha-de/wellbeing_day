@@ -174,5 +174,29 @@
   "address2": "Jbeil, Nahr Ibrahim, Al-Shaqiq District, Al-Khoury Building",
   "congratulations": "Congratulations",
   "appointmentBookedSuccess": "Your appointment has been successfully booked",
-  "return": "return"
+  "return": "return",
+
+
+  "importantInstructions": "Important Instructions",
+  "client_registration": "• The client (beneficiary) registers his personal information to create a private account before subscribing to any individual or group consultation or any skills training.",
+  "therapeutic_relationship": "• He is asked during the therapeutic relationship to maintain respect for the therapeutic framework that will be explained to him later, such as paying subscriptions on time, being present minutes before the start of the session online, not asking to transfer his treatment outside the application, being in a private place alone without noise or communications, knowing his role and the role of the specialist, and the type of treatment he is benefiting from and its limits, maintaining frankness and respecting time and communication principles.",
+  "payment_method": "• Payment is made in advance either by transferring to the admin's account via the bank or WISH, OMT, Westerunion, others.",
+  "send_receipt": "• Send a copy of the receipt to the admin.",
+  "responsibility_for_payment": "• He is responsible for paying the transfer cost in addition to the cost of the sessions in dollars.",
+  "recommendationsForSpecialists": "Recommendations for specialists",
+ "recommendation" : "As a specialist, you must read these recommendations well",
+ "specialist_account_creation": "• When the specialist creates his account, his personal information and required files are only accessible to the admin, while job-related and specialized information are included in his account that will be visible to clients.",
+ "professional_requirements": "• The specialist is asked to send certain files to ensure that he meets the professional standards.",
+ "ethical_conduct": "• The specialist is required to respect the professional ethics and not transfer online sessions outside the app or to his clinic.",
+ "professional_ethics": "• The specialist must respect the principles of neutrality, scientific integrity, and the rights and privacy of clients.",
+ "respect_laws": "• The specialist must maintain professional ethics and respect public laws.",
+ "correct_framework": "• The specialist must maintain a proper framework for online sessions.",
+ "punctuality": "• The specialist is required to respect the scheduled appointments and be present before the session begins."
+,
+  "some_notes": "Some Notes",
+  "platform_usage_restriction": "• The platform should not be used by anyone under the age of 18.",
+  "emergency_cases": "• In case of emergencies, the user should immediately contact the local mental health professional or an ambulance for help.",
+  "disclaimer": "• The administration is specifically exempt from any responsibility or obligation that may arise from any misunderstandings, incorrect information, or damages resulting from communication between the specialist and any user.",
+  "company_responsibility": "• The company's role is limited to providing the technology that enables the delivery of the company's services to the user through specialists, and the specialist holds exclusive responsibility for the services provided."
+
 }
