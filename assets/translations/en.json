@@ -195,7 +195,6 @@
   "emergency_cases": "• In case of emergencies, the user should immediately contact the local mental health professional or an ambulance for help.",
   "disclaimer": "• The administration is specifically exempt from any responsibility or obligation that may arise from any misunderstandings, incorrect information, or damages resulting from communication between the specialist and any user.",
   "company_responsibility": "• The company's role is limited to providing the technology that enables the delivery of the company's services to the user through specialists, and the specialist holds exclusive responsibility for the services provided.",
-
   "session_booking_method": "How to Book a Session?",
   "session_booking_details": "• Download the Wellbeing Day app, create a personal account, then go to the health page, select the disorder, then go to the types of disorders page, then to the specialists page, select the suitable specialist and book a session. Afterward, communicate privately with the specialist in the appointments page through chat, voice call, or video call.",
   "why_online_session": "Why do you need to talk to a specialist online?",
@@ -208,9 +207,10 @@
   "what_to_expect_from_consultation": "What can I expect from the consultation?",
   "what_to_expect_from_consultation_details": "• A professional and effective relationship between the psychologist and you. It can be difficult to look beyond our own boundaries and perspectives, but counseling provides ways to improve our daily lives from an unbiased, professional viewpoint, without any judgment on us during that process.",
   "what_if_late": "What if one party is late for the session?",
-  "what_if_late_details": "• Sessions will be terminated 15 minutes after one of the parties has not shown up. If the delay is from the client’s side, you may communicate with the specialist. If the delay is from the specialist’s side within the given time frame, the specialist will contact you when available, or you may cancel the session and receive a refund."
-
-
-
-
+  "what_if_late_details": "• Sessions will be terminated 15 minutes after one of the parties has not shown up. If the delay is from the client’s side, you may communicate with the specialist. If the delay is from the specialist’s side within the given time frame, the specialist will contact you when available, or you may cancel the session and receive a refund.",
+  "platform_intro": "This platform and app are a real achievement, as we made the most out of technology to serve humanity. We moved the clinic’s work into the app with its components and conditions. Some of the advantages that the app offers include: \n Quick access to consultations or starting with the symptoms the individual is experiencing, followed by consultation, or accessing the list of specialists to choose the most suitable one.",
+  "featured_services": "Featured Services:",
+  "individual_family_treatment": "• Individual or family treatment",
+  "therapeutic_program_subscription": "• Subscription to therapeutic programs",
+  "relaxation_skills_training": "• Relaxation and skills training"
 }
