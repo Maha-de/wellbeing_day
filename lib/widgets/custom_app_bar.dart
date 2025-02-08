@@ -45,8 +45,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Container(
-                          width: width * 0.16.w,
-                          height: width * 0.16.h,
+                          width: 69.w,
+                          height: 66.h,
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                           ),
@@ -71,8 +71,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       ],
                     ),
                     SizedBox(
-                      height: height * 0.5.h,
-                      width: width * 0.3.w,
+                      height: 100.h,
+                      width: 110 * 0.3.w,
                       child: Image.asset('assets/images/img.png', fit: BoxFit.fill),
                     ),
                     SizedBox(
