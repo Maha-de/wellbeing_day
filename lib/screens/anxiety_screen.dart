@@ -32,30 +32,31 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
     _loadUserProfile();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {});
   }
-  int currentIndex=1;
+
+  int currentIndex = 1;
   Future<void> _loadUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
     userProfileCubit.getUserProfile(context, id);
   }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
     return BlocProvider(
-        create: (_) => userProfileCubit,  // Use the same cubit instance
+        create: (_) => userProfileCubit, // Use the same cubit instance
         child: BlocBuilder<UserProfileCubit, UserProfileState>(
           builder: (context, state) {
             if (state is UserProfileLoading) {
-              return Scaffold(body: Center(child: CircularProgressIndicator(),));
+              return Scaffold(
+                  body: Center(
+                child: CircularProgressIndicator(),
+              ));
             } else if (state is UserProfileFailure) {
-
-
               // return BlocBuilder<UserProfileCubit, UserProfileState>(
               //   builder: (context, state) {
               //     if (state is UserProfileLoading) {
@@ -70,29 +71,42 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                 appBar: AppBar(
                   backgroundColor: Colors.white,
                   elevation: 0,
-                  leading: IconButton(onPressed:(){Navigator.pop(context);},icon:Icon(Icons.keyboard_backspace_rounded,size: 30,),color: Color(0xff19649E),),
+                  leading: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      Icons.keyboard_backspace_rounded,
+                      size: 30,
+                    ),
+                    color: Color(0xff19649E),
+                  ),
                 ),
                 body: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 10,right: 10),
+                    padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(bottom: 10.0),
-
                           child: Center(
                             child: Container(
                               width: 161.w,
                               height: 40.h,
                               decoration: BoxDecoration(
                                 color: Color(0xFF1F78BC),
-                                borderRadius: BorderRadius.only(bottomRight: Radius.circular(20), topLeft: Radius.circular(20)),
+                                borderRadius: BorderRadius.only(
+                                    bottomRight: Radius.circular(20),
+                                    topLeft: Radius.circular(20)),
                               ),
                               alignment: Alignment.center,
                               child: Text(
-                                "القلق",
-                                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Colors.white),
+                                "anxiety".tr(),
+                                style: TextStyle(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
                               ),
                             ),
                           ),
@@ -100,7 +114,7 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                         SizedBox(height: screenHeight.h * 0.02.h),
                         // "أهمية البرامج" Section
                         Text(
-                          "أهمية البرامج",
+                          "importanceOfPrograms".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -123,16 +137,16 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                             ],
                           ),
                           child: TextFormField(
-
-                            initialValue:
-                            "هو خطة مدروسة متكاملة لعلاج الفرد بكل نواحيه المعرفية والسلوكية والانفعالية، وهو يحدد الاهداف ويستعمل كل التقنيات الضرورة لتحقيقها.فهو يستعمل الوقت بافضل طريقة ويستخدم كل التدخلات العلاجية الضرورية، ويحقق أفضل النتائج العلاجية عمقا في النفس وتأثيرا على الحياة وأكثر ثباتا لنتائجه الإيجابية",
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            initialValue: "depPlanDesc".tr(),
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
 
                             decoration: const InputDecoration(
                               alignLabelWithHint: true,
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
@@ -140,7 +154,7 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                         SizedBox(height: screenHeight.h * 0.03.h),
                         // "الخطة / العلاج" Section
                         Text(
-                          "الخطة / العلاج",
+                          "planSection".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -163,19 +177,20 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                             ],
                           ),
                           child: TextFormField(
-
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
                             decoration: const InputDecoration(
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
                         SizedBox(height: screenHeight.h * 0.03.h),
                         // "الأهداف" Section
                         Text(
-                          "الأهداف",
+                          "goals".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -198,19 +213,20 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                             ],
                           ),
                           child: TextFormField(
-                            maxLines: null, // Allows the field to expand for multiline input
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
                             style: TextStyle(fontSize: 14.sp, height: 1.6.h),
                             decoration: const InputDecoration(
-
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
                         SizedBox(height: screenHeight.h * 0.045.h),
                         // "الأهداف" Section
                         Text(
-                          "المراحل",
+                          "stages".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -233,19 +249,20 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                             ],
                           ),
                           child: TextFormField(
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
                             decoration: const InputDecoration(
-
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
                         SizedBox(height: screenHeight.h * 0.03.h),
                         // "الأهداف" Section
                         Text(
-                          "التقنيات",
+                          "techniques".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -268,19 +285,20 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                             ],
                           ),
                           child: TextFormField(
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
                             decoration: const InputDecoration(
-
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
                         SizedBox(height: screenHeight.h * 0.03.h),
                         // "الأهداف" Section
                         Text(
-                          "الجلسات",
+                          "sessions".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -303,19 +321,20 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                             ],
                           ),
                           child: TextFormField(
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
                             decoration: const InputDecoration(
-
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
                         SizedBox(height: screenHeight.h * 0.03.h),
                         // "الأهداف" Section
                         Text(
-                          "تدريب على مهارات",
+                          "trainSkill".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -338,36 +357,39 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                             ],
                           ),
                           child: TextFormField(
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
                             decoration: const InputDecoration(
-
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
                         SizedBox(height: screenHeight.h * 0.05.h),
                         GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => MultiBlocProvider(
                                   providers: [
-                                    BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                    BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                    BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                    BlocProvider<UserProfileCubit>(
+                                        create: (_) => UserProfileCubit()),
+                                    BlocProvider<AddImageToProfileCubit>(
+                                        create: (_) =>
+                                            AddImageToProfileCubit()),
+                                    BlocProvider<UpdateUserCubit>(
+                                        create: (_) => UpdateUserCubit()),
                                   ],
                                   child: const SpecialistsScreen(),
                                 ),
-
                               ),
-
                             );
                           },
                           child: Container(
-                            width: screenWidth.w* 0.9.w,
+                            width: screenWidth.w * 0.9.w,
                             height: 48.h,
                             decoration: BoxDecoration(
                               color: Color(0xff19649E),
@@ -375,8 +397,11 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                             ),
                             child: Center(
                               child: Text(
-                                'إستمرار',
-                                style: TextStyle(fontSize: 20.sp, color: Colors.white, fontWeight: FontWeight.bold),
+                                "continue".tr(),
+                                style: TextStyle(
+                                    fontSize: 20.sp,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
@@ -386,20 +411,23 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                     ),
                   ),
                 ),
-                bottomNavigationBar:BottomNavigationBar(
-                  backgroundColor: const Color(0xff19649E), // Ensures the background is consistent
-                  selectedItemColor: Colors.white, // Sets the color of the selected icons
-                  unselectedItemColor: Colors.black, // Sets the color of unselected icons
+                bottomNavigationBar: BottomNavigationBar(
+                  backgroundColor: const Color(
+                      0xff19649E), // Ensures the background is consistent
+                  selectedItemColor:
+                      Colors.white, // Sets the color of the selected icons
+                  unselectedItemColor:
+                      Colors.black, // Sets the color of unselected icons
                   showSelectedLabels: false, // Hides selected labels
                   showUnselectedLabels: false, // Hides unselected labels
                   currentIndex: currentIndex, // Default selected index
-                  type: BottomNavigationBarType.fixed, // Prevents animation on shifting types
+                  type: BottomNavigationBarType
+                      .fixed, // Prevents animation on shifting types
                   items: [
                     BottomNavigationBarItem(
                       icon: SizedBox(
                         height: 27.h, // Adjust icon size
-                        child:
-                        Image.asset(
+                        child: Image.asset(
                           "assets/images/meteor-icons_home.png",
                           // color: currentIndex == 0 ? Colors.white : Colors.black,
                           fit: BoxFit.fill,
@@ -409,8 +437,8 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                         height: 27.h, // Active icon size adjustment
                         child: Image.asset(
                           "assets/images/meteor-icons_home.png",
-                          color: currentIndex == 0 ? Colors.white : Colors.black,
-
+                          color:
+                              currentIndex == 0 ? Colors.white : Colors.black,
                           fit: BoxFit.fill,
                         ),
                       ),
@@ -472,45 +500,48 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                   onTap: (index) {
                     switch (index) {
                       case 3:
-
                         showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                            title: Text("تنبيه"),
-                            content: Text("يجب عليك تسجيل الدخول أو إنشاء حساب للوصول إلى هذه الصفحة."),
+                            title: Text("alert".tr()),
+                            content: Text("guestAccessibilityAlert".tr()),
                             actions: [
                               TextButton(
                                 onPressed: () {
                                   Navigator.pop(context); // إغلاق الـ Alert
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            LoginPage()), // استبدليها بصفحة تسجيل الدخول
                                   );
                                 },
-                                child: Text("تسجيل الدخول"),
+                                child: Text("login".tr()),
                               ),
                               TextButton(
                                 onPressed: () {
                                   Navigator.pop(context); // إغلاق الـ Alert
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SignUpAsClient()), // استبدليها بصفحة التسجيل
                                   );
                                 },
-                                child: Text("إنشاء حساب"),
+                                child: Text("createAccount".tr()),
                               ),
                               TextButton(
                                 onPressed: () {
-                                  Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
+                                  Navigator.pop(
+                                      context); // إغلاق الـ Alert بدون أي انتقال
                                 },
-                                child: Text("إلغاء"),
+                                child: Text("cancel".tr()),
                               ),
                             ],
                           ),
                         );
                         break;
                       case 1:
-
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
@@ -522,14 +553,18 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                         );
                         break;
                       case 2:
-
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const ApplicationInfo()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ApplicationInfo()));
 
                         break;
 
                       case 0:
-
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstHomePage()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const FirstHomePage()));
 
                         break;
                     }
@@ -539,7 +574,6 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
             } else if (state is UserProfileSuccess) {
               // Once the profile is loaded, show the actual UI
               UserProfileModel userProfile = state.userProfile;
-
 
               // return BlocBuilder<UserProfileCubit, UserProfileState>(
               //   builder: (context, state) {
@@ -555,29 +589,42 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                 appBar: AppBar(
                   backgroundColor: Colors.white,
                   elevation: 0,
-                  leading: IconButton(onPressed:(){Navigator.pop(context);},icon:Icon(Icons.keyboard_backspace_rounded,size: 30,),color: Color(0xff19649E),),
+                  leading: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      Icons.keyboard_backspace_rounded,
+                      size: 30,
+                    ),
+                    color: Color(0xff19649E),
+                  ),
                 ),
                 body: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 10,right: 10),
+                    padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(bottom: 10.0),
-
                           child: Center(
                             child: Container(
                               width: 161.w,
                               height: 40.h,
                               decoration: BoxDecoration(
                                 color: Color(0xFF1F78BC),
-                                borderRadius: BorderRadius.only(bottomRight: Radius.circular(20), topLeft: Radius.circular(20)),
+                                borderRadius: BorderRadius.only(
+                                    bottomRight: Radius.circular(20),
+                                    topLeft: Radius.circular(20)),
                               ),
                               alignment: Alignment.center,
                               child: Text(
-                                "القلق",
-                                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Colors.white),
+                                "anxiety".tr(),
+                                style: TextStyle(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
                               ),
                             ),
                           ),
@@ -585,7 +632,7 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                         SizedBox(height: screenHeight.h * 0.02.h),
                         // "أهمية البرامج" Section
                         Text(
-                          "أهمية البرامج",
+                          "importanceOfPrograms".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -608,16 +655,16 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                             ],
                           ),
                           child: TextFormField(
-
-                            initialValue:
-                            "هو خطة مدروسة متكاملة لعلاج الفرد بكل نواحيه المعرفية والسلوكية والانفعالية، وهو يحدد الاهداف ويستعمل كل التقنيات الضرورة لتحقيقها.فهو يستعمل الوقت بافضل طريقة ويستخدم كل التدخلات العلاجية الضرورية، ويحقق أفضل النتائج العلاجية عمقا في النفس وتأثيرا على الحياة وأكثر ثباتا لنتائجه الإيجابية",
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            initialValue: "depPlanDesc".tr(),
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
 
                             decoration: const InputDecoration(
                               alignLabelWithHint: true,
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
@@ -625,7 +672,7 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                         SizedBox(height: screenHeight.h * 0.03.h),
                         // "الخطة / العلاج" Section
                         Text(
-                          "الخطة / العلاج",
+                          "planSection".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -648,19 +695,20 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                             ],
                           ),
                           child: TextFormField(
-
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
                             decoration: const InputDecoration(
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
                         SizedBox(height: screenHeight.h * 0.03.h),
                         // "الأهداف" Section
                         Text(
-                          "الأهداف",
+                          "goals".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -683,19 +731,20 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                             ],
                           ),
                           child: TextFormField(
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
                             decoration: const InputDecoration(
-
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
                         SizedBox(height: screenHeight.h * 0.045.h),
                         // "الأهداف" Section
                         Text(
-                          "المراحل",
+                          "stages".tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -718,142 +767,148 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                             ],
                           ),
                           child: TextFormField(
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h),
-                            decoration: const InputDecoration(
-
-                              border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: screenHeight.h * 0.03.h),
-                        // "الأهداف" Section
-                        Text(
-                          "التقنيات",
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue[900],
-                          ),
-                        ),
-                        SizedBox(height: screenHeight.h * 0.01.h),
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 30),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                spreadRadius: 1,
-                                blurRadius: 5,
-                                offset: Offset(0, 3),
-                              ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h),
-                            decoration: const InputDecoration(
-
-                              border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: screenHeight.h * 0.03.h),
-                        // "الأهداف" Section
-                        Text(
-                          "الجلسات",
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue[900],
-                          ),
-                        ),
-                        SizedBox(height: screenHeight.h * 0.01.h),
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 30),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                spreadRadius: 1,
-                                blurRadius: 5,
-                                offset: Offset(0, 3),
-                              ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            maxLines: null, // Allows the field to expand for multiline input
-                            style:  TextStyle(fontSize: 14.sp, height: 1.6.h),
-                            decoration: const InputDecoration(
-
-                              border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: screenHeight.h * 0.03.h),
-                        // "الأهداف" Section
-                        Text(
-                          "تدريب على مهارات",
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue[900],
-                          ),
-                        ),
-                        SizedBox(height: screenHeight.h * 0.01.h),
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 30),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                spreadRadius: 1,
-                                blurRadius: 5,
-                                offset: Offset(0, 3),
-                              ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            maxLines: null, // Allows the field to expand for multiline input
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
                             style: TextStyle(fontSize: 14.sp, height: 1.6.h),
                             decoration: const InputDecoration(
-
                               border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets.zero, // Matches the original padding
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: screenHeight.h * 0.03.h),
+                        // "الأهداف" Section
+                        Text(
+                          "techniques".tr(),
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue[900],
+                          ),
+                        ),
+                        SizedBox(height: screenHeight.h * 0.01.h),
+                        Container(
+                          padding: const EdgeInsets.symmetric(vertical: 30),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: TextFormField(
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            decoration: const InputDecoration(
+                              border: InputBorder.none, // Removes the underline
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: screenHeight.h * 0.03.h),
+                        // "الأهداف" Section
+                        Text(
+                          "sessions".tr(),
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue[900],
+                          ),
+                        ),
+                        SizedBox(height: screenHeight.h * 0.01.h),
+                        Container(
+                          padding: const EdgeInsets.symmetric(vertical: 30),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: TextFormField(
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            decoration: const InputDecoration(
+                              border: InputBorder.none, // Removes the underline
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: screenHeight.h * 0.03.h),
+                        // "الأهداف" Section
+                        Text(
+                          "trainSkill".tr(),
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue[900],
+                          ),
+                        ),
+                        SizedBox(height: screenHeight.h * 0.01.h),
+                        Container(
+                          padding: const EdgeInsets.symmetric(vertical: 30),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: TextFormField(
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            decoration: const InputDecoration(
+                              border: InputBorder.none, // Removes the underline
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
                             ),
                           ),
                         ),
                         SizedBox(height: screenHeight.h * 0.05.h),
                         GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => MultiBlocProvider(
                                   providers: [
-                                    BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                    BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                    BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                    BlocProvider<UserProfileCubit>(
+                                        create: (_) => UserProfileCubit()),
+                                    BlocProvider<AddImageToProfileCubit>(
+                                        create: (_) =>
+                                            AddImageToProfileCubit()),
+                                    BlocProvider<UpdateUserCubit>(
+                                        create: (_) => UpdateUserCubit()),
                                   ],
                                   child: const SpecialistsScreen(),
                                 ),
-
                               ),
-
                             );
                           },
                           child: Center(
                             child: Container(
-                              width: screenWidth.w* 0.9.w,
+                              width: screenWidth.w * 0.9.w,
                               height: 48.h,
                               decoration: BoxDecoration(
                                 color: Color(0xff19649E),
@@ -861,8 +916,11 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                               ),
                               child: Center(
                                 child: Text(
-                                  'إستمرار',
-                                  style: TextStyle(fontSize: 20.sp, color: Colors.white, fontWeight: FontWeight.bold),
+                                  "continue".tr(),
+                                  style: TextStyle(
+                                      fontSize: 20.sp,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ),
@@ -878,7 +936,6 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
             }
             return Container(); // Default return in case no state matches
           },
-        )
-    );
+        ));
   }
 }
