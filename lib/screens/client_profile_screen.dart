@@ -322,8 +322,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                                               actions[index],
                                               style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: screenWidth.w *
-                                                    0.05.sp, // Adjust text size
+                                                fontSize: 20.sp, // Adjust text size
                                                 fontWeight: FontWeight.w600,
                                               ),
                                             ),
