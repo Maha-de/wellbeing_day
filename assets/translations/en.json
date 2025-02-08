@@ -171,5 +171,8 @@
   "twitter": "Twitter",
   "youTube": "YouTube",
   "address1": "Beirut, Achrafieh, Al-Hikma, opposite the Maronite Diocese",
-  "address2": "Jbeil, Nahr Ibrahim, Al-Shaqiq District, Al-Khoury Building"
+  "address2": "Jbeil, Nahr Ibrahim, Al-Shaqiq District, Al-Khoury Building",
+  "congratulations": "Congratulations",
+  "appointmentBookedSuccess": "Your appointment has been successfully booked",
+  "return": "return"
 }
