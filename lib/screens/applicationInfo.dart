@@ -1,14 +1,13 @@
-import 'package:doctor/cubit/user_profile_cubit/user_profile_cubit.dart';
 import 'package:doctor/widgets/appInfo/appDef.dart';
 import 'package:doctor/widgets/appInfo/faq.dart';
 import 'package:doctor/widgets/appInfo/instructions.dart';
 import 'package:doctor/widgets/custom_bottom_nav_bar.dart';
 import 'package:doctor/widgets/socialMediaButton.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -63,6 +62,16 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
     }
   }
 
+  void _openGmail(String email) async {
+    final Uri emailLaunchUri =
+        Uri(scheme: 'mailto', path: email, query: Uri.encodeComponent(''));
+
+    if (await canLaunchUrl(emailLaunchUri)) {
+      await launchUrl(emailLaunchUri, mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not open Gmail';
+    }
+  }
   // Future<void> _loadUserProfile() async {
   //   final prefs = await SharedPreferences.getInstance();
   //   String id = prefs.getString('userId') ?? "";
@@ -193,25 +202,71 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
             label: "facebook".tr(),
             icon: FontAwesomeIcons.facebook,
             color: Colors.blue,
-            onPressed: openWhatsApp,
+            onPressed: () {},
           ),
           SocialMediaButton(
-            label: "instagram".tr(),
-            icon: FontAwesomeIcons.instagram,
-            color: Colors.pink,
-            onPressed: openWhatsApp,
-          ),
+              label: "instagram".tr(),
+              icon: FontAwesomeIcons.instagram,
+              color: Colors.pink,
+              onPressed: () {}),
           SocialMediaButton(
             label: "twitter".tr(),
             icon: FontAwesomeIcons.twitter,
             color: Colors.lightBlue,
-            onPressed: openWhatsApp,
+            onPressed: () {},
           ),
           SocialMediaButton(
             label: "youTube".tr(),
             icon: FontAwesomeIcons.youtube,
             color: Colors.red,
-            onPressed: openWhatsApp,
+            onPressed: () {},
+          ),
+          SocialMediaButton(
+            label: "wellbeingallday@gmail.com",
+            icon: FontAwesomeIcons.google,
+            color: Colors.orange,
+            onPressed: () => _openGmail("wellbeingallday@gmail.com"),
+          ),
+          SocialMediaButton(
+            label: "wellbeingallday@outlook.com",
+            icon: FontAwesomeIcons.microsoft,
+            color: Colors.blue,
+            onPressed: () => _openGmail("wellbeingallday@outlook.com"),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "address1".tr(),
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "address2".tr(),
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
