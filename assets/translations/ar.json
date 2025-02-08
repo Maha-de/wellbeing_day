@@ -159,5 +159,15 @@
   "alert": "تنبيه",
   "guestAccessibilityAlert": "يجب عليك تسجيل الدخول أو إنشاء حساب للوصول إلى هذه الصفحة",
   "login": "تسجيل الدخول",
-  "cancel": "الغاء"
+  "cancel": "الغاء",
+  "contactLinks": "الاتصال",
+  "fqa": "الأسئلة الشائعة",
+  "AppDef": "تعريف التطبيق",
+  "instructions": "التعليمات",
+  "anotherPayWays": "هل تريد الدفع عن طريق أي وسائل أخرى؟",
+  "whatsApp": "واتساب",
+  "facebook": "فيسبوك",
+  "instagram": "إنستجرام",
+  "twitter": "تويتر",
+  "youTube": "يوتيوب"
 }

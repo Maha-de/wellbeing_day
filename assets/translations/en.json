@@ -159,5 +159,15 @@
   "alert": "Alert",
   "guestAccessibilityAlert": "You must log in or create an account to access this page",
   "login": "Login",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "contactLinks": "Contact Links",
+  "fqa": "FAQ",
+  "AppDef": "App Definition",
+  "instructions": "Instructions",
+  "anotherPayWays": "Do you want to pay by any other means?",
+  "whatsApp": "WhatsApp",
+  "facebook": "Facebook",
+  "instagram": "Instagram",
+  "twitter": "Twitter",
+  "youTube": "YouTube"
 }

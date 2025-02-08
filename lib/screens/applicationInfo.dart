@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ApplicationInfo extends StatefulWidget {
   const ApplicationInfo({super.key});
@@ -36,12 +37,11 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
   int _selectedIndex = 0;
 
   final List<String> tabs = [
-    "الاتصال"
+    "contactLinks".tr(),
     "",
-    "الأسئلة الشائعة",
-    "تعريف التطبيق",
-    "التعليمات",
-
+    "fqa".tr(),
+    "AppDef".tr(),
+    "instructions".tr(),
   ];
   // late UserProfileCubit userProfileCubit;
   // @override
@@ -52,8 +52,7 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
   // }
 
   void openWhatsApp() async {
-    String message =
-        Uri.encodeComponent("هل تريد الدفع عن طريق أي وسائل أخرى؟");
+    String message = Uri.encodeComponent("anotherPayWays".tr());
     String whatsappUrl = "https://wa.me/?text=$message";
 
     if (await canLaunchUrl(Uri.parse(whatsappUrl))) {
@@ -185,31 +184,31 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
       child: Column(
         children: [
           SocialMediaButton(
-            label: "واتساب",
+            label: "whatsApp".tr(),
             icon: FontAwesomeIcons.whatsapp,
             color: Colors.green,
             onPressed: openWhatsApp,
           ),
           SocialMediaButton(
-            label: "فيسبوك",
+            label: "facebook".tr(),
             icon: FontAwesomeIcons.facebook,
             color: Colors.blue,
             onPressed: openWhatsApp,
           ),
           SocialMediaButton(
-            label: "إنستجرام",
+            label: "instagram".tr(),
             icon: FontAwesomeIcons.instagram,
             color: Colors.pink,
             onPressed: openWhatsApp,
           ),
           SocialMediaButton(
-            label: "تويتر",
+            label: "twitter".tr(),
             icon: FontAwesomeIcons.twitter,
             color: Colors.lightBlue,
             onPressed: openWhatsApp,
           ),
           SocialMediaButton(
-            label: "يوتيوب",
+            label: "youTube".tr(),
             icon: FontAwesomeIcons.youtube,
             color: Colors.red,
             onPressed: openWhatsApp,
