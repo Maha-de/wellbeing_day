@@ -9,12 +9,9 @@ import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
 import '../make_email/login.dart';
 import '../models/user_profile_model.dart';
-import '../widgets/custom_app_bar.dart';
 import '../widgets/doctor_details_info.dart';
 import 'appointment_screen.dart';
 import '../models/specialist_model.dart';
-
-// import 'package:intl/intl.dart';
 
 
 class DoctorDetails extends StatefulWidget {
