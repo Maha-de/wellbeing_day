@@ -372,7 +372,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                                   controller: scroll,
                                   itemCount: state.specialists.length,
                                   itemBuilder: (context, index) {
-                                    return DoctorCard(specialistModel: state.specialists[index]);
+                                    return DoctorCard(specialistModel: state.specialists[index], doctorID:state.specialists[index].id??"",);
                                   },
                                 ),
                               );
@@ -543,7 +543,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                                   controller: scroll,
                                   itemCount: state.specialists.length,
                                   itemBuilder: (context, index) {
-                                    return DoctorCard(specialistModel: state.specialists[index]);
+                                    return DoctorCard(specialistModel: state.specialists[index], doctorID: state.specialists[index].id??"",);
                                   },
                                 ),
                               );

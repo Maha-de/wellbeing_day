@@ -1,14 +1,17 @@
+import 'package:doctor/cubit/doctor_details_cubit/doctor_profile_cubit.dart';
 import 'package:doctor/screens/doctor_details.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../models/specialist_model.dart';
 
 class DoctorCard extends StatelessWidget {
   final Specialist specialistModel;
-
-  const DoctorCard({super.key, required this.specialistModel});
+  final String  doctorID;
+  const DoctorCard({super.key, required this.specialistModel, required this.doctorID});
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +31,17 @@ class DoctorCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => DoctorDetails(
-                specialistModel: specialistModel,
+              builder: (context) => MultiBlocProvider(
+                providers: [
+                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                  BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
+                ],
+                child:  DoctorDetails(
+                    specialistModel: specialistModel, doctorID:doctorID),
               ),
+
             ),
+
           );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -42,91 +52,89 @@ class DoctorCard extends StatelessWidget {
           );
         }
       },
-      child: Expanded(
-        child: Container(
-          width: 345.w,
-          height: 272.h,
-          child: Card(
-            child: Column(
-              children: [
-                Container(
-                  height: 199.h,
-                  color: Color(0xFF19649E),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 5, top: 10, left: 5),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: 140.w,
-                              child: Text(
-                                overflow: TextOverflow.ellipsis,
-                                '${specialistModel?.firstName ?? "notFound".tr()} ${specialistModel?.lastName ?? ''}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20.sp,
-                                  color: Colors.white,
-                                ),
-                                textAlign: TextAlign.left,
-                              ),
-                            ),
-                             SizedBox(height: 2.h),
-                            Text(
-                              specialistModel?.work ?? "notAvailable".tr(),
-                              style:  TextStyle(
+      child: Container(
+        width: 345.w,
+        height: 272.h,
+        child: Card(
+          child: Column(
+            children: [
+              Container(
+                height: 199.h,
+                color: Color(0xFF19649E),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 5, top: 10, left: 5),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 140.w,
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              '${specialistModel?.firstName ?? "notFound".tr()} ${specialistModel?.lastName ?? ''}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.sp,
                                 color: Colors.white,
-                                fontSize: 12.sp,
                               ),
                               textAlign: TextAlign.left,
                             ),
-                             SizedBox(height: 15.h),
-                            buildInfoRow("assets/images/heart.png",
-                                "speciality".tr() + "${(specialistModel?.specialties?.mentalHealth?.isNotEmpty ?? false)
-                                    ? specialistModel.specialties?.mentalHealth?.join(", ") : "notAvailable".tr()}"),
-                             SizedBox(height: 4.h),
-                            buildInfoRow("assets/images/PhoneCall.png",
-                                'availableVideo'.tr()),
-                             SizedBox(height: 4.h),
-                            buildInfoRow("assets/images/experience.png",
-                                "experienceYears".tr() + ' ${specialistModel?.yearsExperience ?? 0} ' + "years".tr()),
-                             SizedBox(height: 4.h),
-                            buildInfoRow("assets/images/translation.png",
-                                "language".tr() + "arabic".tr() + "، " + "english".tr()),
-                          ],
-                        ),
-                      ),
-                      Flexible(
-                        child: Container(
-                          height: 210.h,
-                          width: 164.w,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Image.asset('assets/images/doctor.png',
-                              fit: BoxFit.cover),
-                        ),
+                           SizedBox(height: 2.h),
+                          Text(
+                            specialistModel?.work ?? "notAvailable".tr(),
+                            style:  TextStyle(
+                              color: Colors.white,
+                              fontSize: 12.sp,
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
+                           SizedBox(height: 15.h),
+                          buildInfoRow("assets/images/heart.png",
+                              "speciality".tr() + "${(specialistModel?.specialties?.mentalHealth?.isNotEmpty ?? false)
+                                  ? specialistModel.specialties?.mentalHealth?.join(", ") : "notAvailable".tr()}"),
+                           SizedBox(height: 4.h),
+                          buildInfoRow("assets/images/PhoneCall.png",
+                              'availableVideo'.tr()),
+                           SizedBox(height: 4.h),
+                          buildInfoRow("assets/images/experience.png",
+                              "experienceYears".tr() + ' ${specialistModel?.yearsExperience ?? 0} ' + "years".tr()),
+                           SizedBox(height: 4.h),
+                          buildInfoRow("assets/images/translation.png",
+                              "language".tr() + "arabic".tr() + "، " + "english".tr()),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 10.h),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    buildDetailColumn("assets/images/time.png", 'availability'.tr(),
-                        "dateExample".tr()),
-                    buildDetailColumn("assets/images/price.png", 'price'.tr(),
-                        '${specialistModel?.sessionPrice ?? 'notAvailable'.tr()} ' + "currency".tr()
-                            + ' / ' +
-                            '${specialistModel?.sessionDuration ?? 'notAvailable'.tr()} ' + "timeSession".tr()
+                    ),
+                    Flexible(
+                      child: Container(
+                        height: 210.h,
+                        width: 164.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Image.asset('assets/images/doctor.png',
+                            fit: BoxFit.cover),
+                      ),
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              SizedBox(height: 10.h),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  buildDetailColumn("assets/images/time.png", 'availability'.tr(),
+                      "dateExample".tr()),
+                  buildDetailColumn("assets/images/price.png", 'price'.tr(),
+                      '${specialistModel?.sessionPrice ?? 'notAvailable'.tr()} ' + "currency".tr()
+                          + ' / ' +
+                          '${specialistModel?.sessionDuration ?? 'notAvailable'.tr()} ' + "timeSession".tr()
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

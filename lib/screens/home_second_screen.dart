@@ -456,7 +456,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                       Center(
                         child: Container(
                           width: 338,
-                          height: 170,
+                          height: 190,
                           child: Column(
                             children: [
                               Row(

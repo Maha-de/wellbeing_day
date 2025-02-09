@@ -358,7 +358,7 @@ class _ProblemSolvingScreenState extends State<ProblemSolvingScreen> {
                             child: ListView.builder(
                               itemCount: state.specialists.length,
                               itemBuilder: (context, index) {
-                                return DoctorCard(specialistModel: state.specialists[index]);
+                                return DoctorCard(specialistModel: state.specialists[index], doctorID: state.specialists[index].id??"",);
                               },
                             ),
                           );
@@ -529,7 +529,7 @@ class _ProblemSolvingScreenState extends State<ProblemSolvingScreen> {
                             child: ListView.builder(
                               itemCount: state.specialists.length,
                               itemBuilder: (context, index) {
-                                return DoctorCard(specialistModel: state.specialists[index]);
+                                return DoctorCard(specialistModel: state.specialists[index], doctorID: state.specialists[index].id??"",);
                               },
                             ),
                           );

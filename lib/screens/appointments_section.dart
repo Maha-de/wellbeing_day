@@ -184,6 +184,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
           backgroundColor: Colors.white,
           bottomNavigationBar: const CustomBottomNavBar(currentIndex: 3,),
           appBar: CustomAppBar(
+            userProfile: userProfile,
             screenWidth: screenWidth,
             screenHeight: screenHeight,
           ),
@@ -266,7 +267,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                                     
                                     child: Column(
                                       children: [
-                                        DoctorCard(specialistModel: state.specialists[index]),
+                                        DoctorCard(specialistModel: state.specialists[index], doctorID: state.specialists[index].id??"",),
                                         Container(
 
                                           color: Colors.white,
@@ -347,7 +348,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                                 },
                                 itemCount: state.specialists.length,
                                 itemBuilder: (context, index) {
-                                  return DoctorCard(specialistModel: state.specialists[index]);
+                                  return DoctorCard(specialistModel: state.specialists[index], doctorID: state.specialists[index].id??"",);
                                 },
                               ),
                             );
@@ -380,7 +381,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                                 },
                                 itemCount: state.specialists.length,
                                 itemBuilder: (context, index) {
-                                  return DoctorCard(specialistModel: state.specialists[index]);
+                                  return DoctorCard(specialistModel: state.specialists[index], doctorID: state.specialists[index].id??"",);
                                 },
                               ),
                             );
