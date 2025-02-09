@@ -227,7 +227,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                 ),
                 body: Padding(
                   padding: const EdgeInsets.only(top: 15.0),
-                  child: SingleChildScrollView(
+                  child:  SingleChildScrollView(
                     controller: scroll,
                     child: Column(
                       children: [
@@ -252,7 +252,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                           ),
                         ),
                         SizedBox(
-                          height: 40.h,
+                          height: 20.h,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -423,7 +423,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                           ),
                         ),
                         SizedBox(
-                          height: 40.h,
+                          height: 20.h,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -568,7 +568,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
   // Helper method to build disorder buttons
   Widget _buildDisorderButton(String title) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.3.w,
+      width: 105.w,
       height: 68.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),

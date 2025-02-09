@@ -446,254 +446,270 @@ int currentIndex=1;
                       ],
                     ),
                     SizedBox(height: screenHeight * 0.03.h),
-                    Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    Center(
+                      child: Container(
+                        width: 338.w,
+                        height: 252.h,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            for (var label in [
-                              "therapeuticPrograms",
-                              "groupTherapy",
-                              "psychologicalDisorders"
-                            ])
-                              GestureDetector(
-                                onTap: (){
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                for (var label in [
+                                  "therapeuticPrograms",
+                                  "groupTherapy",
+                                  "psychologicalDisorders"
+                                ])
+                                  GestureDetector(
+                                    onTap: (){
 
-                                  if(label=="psychologicalDisorders"){  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => MultiBlocProvider(
-                                        providers: [
-                                          BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                          BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                          BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                          // BlocProvider<GetSpecialistCubit>(create: (_) => GetSpecialistCubit()),
+                                      if(label=="psychologicalDisorders"){  Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => MultiBlocProvider(
+                                            providers: [
+                                              BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                              BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                              BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                              // BlocProvider<GetSpecialistCubit>(create: (_) => GetSpecialistCubit()),
 
-                                        ],
-                                        child: const PsychologicalDisordersScreen(),
-                                      ),
+                                            ],
+                                            child: const PsychologicalDisordersScreen(),
+                                          ),
 
-                                    ),
-
-                                  );}
-
-                                  else if(label=="groupTherapy"){
-
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => MultiBlocProvider(
-                                          providers: [
-                                            BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                            BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                            BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                          ],
-                                          child: const GroupTherapy(),
                                         ),
 
-                                      ),
+                                      );}
 
-                                    );
-                                  }
-                                  else if(label=="therapeuticPrograms"){
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => MultiBlocProvider(
-                                          providers: [
-                                            BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                            BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                            BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                          ],
-                                          child: const TherapeuticProgramsScreen(),
+                                      else if(label=="groupTherapy"){
+
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => MultiBlocProvider(
+                                              providers: [
+                                                BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                                BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                                BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                              ],
+                                              child: const GroupTherapy(),
+                                            ),
+
+                                          ),
+
+                                        );
+                                      }
+                                      else if(label=="therapeuticPrograms"){
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => MultiBlocProvider(
+                                              providers: [
+                                                BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                                BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                                BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                              ],
+                                              child: const TherapeuticProgramsScreen(),
+                                            ),
+
+                                          ),
+
+                                        );
+                                      }
+
+                                    },
+                                    child: Container(
+                                      width: 100.w,
+                                      height: 68.h,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: const Color(0xff69B7F3),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withOpacity(0.2),
+                                            spreadRadius: 2,
+                                            blurRadius: 4,
+                                            offset: const Offset(0, 2),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          label.tr(),
+                                          textAlign: TextAlign.center,
+                                          style:  TextStyle(
+                                            fontSize: 16.sp,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                            SizedBox(height: 16.h),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                for (var label in [
+                                  "guidanceAndInstructions",
+                                  "diagnoseAndMotivation",
+                                  "childrenDisorder"
+                                ])
+                                  Row(
+                                    children: [
+
+                                      GestureDetector(
+                                        onTap: (){
+                                          if(label== "diagnoseAndMotivation"){  Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => MultiBlocProvider(
+                                                providers: [
+                                                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                                  BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                                  BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                                ],
+                                                child: const ProblemSolvingScreen(),
+                                              ),
+
+                                            ),
+
+                                          );}
+                                          else if(label=="childrenDisorder"){  Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => MultiBlocProvider(
+                                                providers: [
+                                                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                                  BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                                  BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                                ],
+                                                child: const ChildrensDisorderScreen(),
+                                              ),
+
+                                            ),
+
+                                          );}
+
+                                        },
+                                        child: Container(
+
+                                          width: 100.w,
+                                          height: 74.h,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: label=="diagnoseAndMotivation" ?
+                                                Color(0xff19649E) : Colors.transparent , width: 4),
+
+                                            borderRadius: BorderRadius.circular(20),
+                                            color: const Color(0xff69B7F3),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black.withOpacity(0.2),
+                                                spreadRadius: 2,
+                                                blurRadius: 4,
+                                                offset: const Offset(0, 2),
+                                              ),
+                                            ],
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              label.tr(),
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize: 16.sp,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 2.5.w,
+                                      )
+                                    ],
+                                  ),
+                              ],
+                            ),
+                            SizedBox(height: 16.h),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                for (var label in [
+                                  "PsychologicalPreventionAndFollowUp",
+                                  "rehabilitation"
+                                ])
+                                  GestureDetector(
+                                    onTap: (){
+                                      if(label=="rehabilitation"){  Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => MultiBlocProvider(
+                                            providers: [
+                                              BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                              BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                              BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                            ],
+                                            child: const RehabilitationScreen(),
+                                          ),
+
                                         ),
 
-                                      ),
+                                      );}
+                                      else if(label=="PsychologicalPreventionAndFollowUp"){  Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => MultiBlocProvider(
+                                            providers: [
+                                              BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                              BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                              BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                            ],
+                                            child: const PsychologicalPreventionScreen(),
+                                          ),
 
-                                    );
-                                  }
+                                        ),
 
-                                },
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width * 0.3.w,
-                                  height: 68.h,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: const Color(0xff69B7F3),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.2),
-                                        spreadRadius: 2,
-                                        blurRadius: 4,
-                                        offset: const Offset(0, 2),
+                                      );}
+
+                                    },
+                                    child: Container(
+                                      width: 120.w,
+                                      height: 74.h,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: const Color(0xff69B7F3),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withOpacity(0.2),
+                                            spreadRadius: 2,
+                                            blurRadius: 4,
+                                            offset: const Offset(0, 2),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      label.tr(),
-                                      textAlign: TextAlign.center,
-                                      style:  TextStyle(
-                                        fontSize: 16.sp,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
+                                      child: Center(
+                                        child: Text(
+                                          label.tr(),
+                                          textAlign: TextAlign.center,
+                                          style:  TextStyle(
+                                            fontSize: 16.sp,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ),
+                              ],
+                            ),
                           ],
                         ),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.02.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            for (var label in [
-                              "guidanceAndInstructions",
-                              "diagnoseAndMotivation",
-                              "childrenDisorder"
-                            ])
-                              GestureDetector(
-                                onTap: (){
-                                  if(label== "diagnoseAndMotivation"){  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => MultiBlocProvider(
-                                        providers: [
-                                          BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                          BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                          BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                        ],
-                                        child: const ProblemSolvingScreen(),
-                                      ),
-
-                                    ),
-
-                                  );}
-                                  else if(label=="childrenDisorder"){  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => MultiBlocProvider(
-                                        providers: [
-                                          BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                          BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                          BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                        ],
-                                        child: const ChildrensDisorderScreen(),
-                                      ),
-
-                                    ),
-
-                                  );}
-
-                                },
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width * 0.3.w,
-                                  height: 68.h,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: label=="diagnoseAndMotivation" ?
-                                        Color(0xff19649E) : Colors.transparent , width: 4),
-
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: const Color(0xff69B7F3),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.2),
-                                        spreadRadius: 2,
-                                        blurRadius: 4,
-                                        offset: const Offset(0, 2),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      label.tr(),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 16.sp,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                          ],
-                        ),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.02.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            for (var label in [
-                              "PsychologicalPreventionAndFollowUp",
-                              "rehabilitation"
-                            ])
-                              GestureDetector(
-                                onTap: (){
-                                  if(label=="rehabilitation"){  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => MultiBlocProvider(
-                                        providers: [
-                                          BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                          BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                          BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                        ],
-                                        child: const RehabilitationScreen(),
-                                      ),
-
-                                    ),
-
-                                  );}
-                                  else if(label=="PsychologicalPreventionAndFollowUp"){  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => MultiBlocProvider(
-                                        providers: [
-                                          BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                          BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                          BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                        ],
-                                        child: const PsychologicalPreventionScreen(),
-                                      ),
-
-                                    ),
-
-                                  );}
-
-                                },
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width * 0.35.w,
-                                  height: 72.h,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: const Color(0xff69B7F3),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.2),
-                                        spreadRadius: 2,
-                                        blurRadius: 4,
-                                        offset: const Offset(0, 2),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      label.tr(),
-                                      textAlign: TextAlign.center,
-                                      style:  TextStyle(
-                                        fontSize: 16.sp,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                          ],
-                        ),
-                      ],
+                      ),
                     )
 
                   ],
@@ -890,251 +906,270 @@ int currentIndex=1;
                       ],
                     ),
                     SizedBox(height: screenHeight * 0.02.h),
-                    Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    Center(
+                      child: Container(
+                        width: 338.w,
+                        height: 252.h,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            for (var label in [
-                              "therapeuticPrograms",
-                              "groupTherapy",
-                              "psychologicalDisorders"
-                            ])
-                              GestureDetector(
-                                onTap: (){
-                                  if(label=="psychologicalDisorders"){  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => MultiBlocProvider(
-                                        providers: [
-                                          BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                          BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                          BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                          // BlocProvider<GetSpecialistCubit>(create: (_) => GetSpecialistCubit()),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                for (var label in [
+                                  "therapeuticPrograms",
+                                  "groupTherapy",
+                                  "psychologicalDisorders"
+                                ])
+                                  GestureDetector(
+                                    onTap: (){
 
-                                        ],
-                                        child: const PsychologicalDisordersScreen(),
-                                      ),
+                                      if(label=="psychologicalDisorders"){  Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => MultiBlocProvider(
+                                            providers: [
+                                              BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                              BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                              BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                              // BlocProvider<GetSpecialistCubit>(create: (_) => GetSpecialistCubit()),
 
-                                    ),
+                                            ],
+                                            child: const PsychologicalDisordersScreen(),
+                                          ),
 
-                                  );}
-                                  else if(label=="groupTherapy"){
-
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => MultiBlocProvider(
-                                          providers: [
-                                            BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                            BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                            BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                          ],
-                                          child: const GroupTherapy(),
                                         ),
 
-                                      ),
+                                      );}
 
-                                    );
-                                  }
-                                  else if(label=="therapeuticPrograms"){
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => MultiBlocProvider(
-                                          providers: [
-                                            BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                            BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                            BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                          ],
-                                          child: const TherapeuticProgramsScreen(),
+                                      else if(label=="groupTherapy"){
+
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => MultiBlocProvider(
+                                              providers: [
+                                                BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                                BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                                BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                              ],
+                                              child: const GroupTherapy(),
+                                            ),
+
+                                          ),
+
+                                        );
+                                      }
+                                      else if(label=="therapeuticPrograms"){
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => MultiBlocProvider(
+                                              providers: [
+                                                BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                                BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                                BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                              ],
+                                              child: const TherapeuticProgramsScreen(),
+                                            ),
+
+                                          ),
+
+                                        );
+                                      }
+
+                                    },
+                                    child: Container(
+                                      width: 100.w,
+                                      height: 68.h,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: const Color(0xff69B7F3),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withOpacity(0.2),
+                                            spreadRadius: 2,
+                                            blurRadius: 4,
+                                            offset: const Offset(0, 2),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          label.tr(),
+                                          textAlign: TextAlign.center,
+                                          style:  TextStyle(
+                                            fontSize: 16.sp,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                            SizedBox(height: 16.h),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                for (var label in [
+                                  "guidanceAndInstructions",
+                                  "diagnoseAndMotivation",
+                                  "childrenDisorder"
+                                ])
+                                  Row(
+                                    children: [
+
+                                      GestureDetector(
+                                        onTap: (){
+                                          if(label== "diagnoseAndMotivation"){  Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => MultiBlocProvider(
+                                                providers: [
+                                                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                                  BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                                  BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                                ],
+                                                child: const ProblemSolvingScreen(),
+                                              ),
+
+                                            ),
+
+                                          );}
+                                          else if(label=="childrenDisorder"){  Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => MultiBlocProvider(
+                                                providers: [
+                                                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                                  BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                                  BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                                ],
+                                                child: const ChildrensDisorderScreen(),
+                                              ),
+
+                                            ),
+
+                                          );}
+
+                                        },
+                                        child: Container(
+
+                                          width: 100.w,
+                                          height: 74.h,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: label=="diagnoseAndMotivation" ?
+                                                Color(0xff19649E) : Colors.transparent , width: 4),
+
+                                            borderRadius: BorderRadius.circular(20),
+                                            color: const Color(0xff69B7F3),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black.withOpacity(0.2),
+                                                spreadRadius: 2,
+                                                blurRadius: 4,
+                                                offset: const Offset(0, 2),
+                                              ),
+                                            ],
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              label.tr(),
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize: 16.sp,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 2.5.w,
+                                      )
+                                    ],
+                                  ),
+                              ],
+                            ),
+                            SizedBox(height: 16.h),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                for (var label in [
+                                  "PsychologicalPreventionAndFollowUp",
+                                  "rehabilitation"
+                                ])
+                                  GestureDetector(
+                                    onTap: (){
+                                      if(label=="rehabilitation"){  Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => MultiBlocProvider(
+                                            providers: [
+                                              BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                              BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                              BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                            ],
+                                            child: const RehabilitationScreen(),
+                                          ),
+
                                         ),
 
-                                      ),
+                                      );}
+                                      else if(label=="PsychologicalPreventionAndFollowUp"){  Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => MultiBlocProvider(
+                                            providers: [
+                                              BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                              BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                              BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                            ],
+                                            child: const PsychologicalPreventionScreen(),
+                                          ),
 
-                                    );
-                                  }
-                                },
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width * 0.3.w,
-                                  height: 68.h,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: const Color(0xff69B7F3),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.2),
-                                        spreadRadius: 2,
-                                        blurRadius: 4,
-                                        offset: const Offset(0, 2),
+                                        ),
+
+                                      );}
+
+                                    },
+                                    child: Container(
+                                      width: 120.w,
+                                      height: 74.h,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: const Color(0xff69B7F3),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withOpacity(0.2),
+                                            spreadRadius: 2,
+                                            blurRadius: 4,
+                                            offset: const Offset(0, 2),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      label.tr(),
-                                      textAlign: TextAlign.center,
-                                      style:  TextStyle(
-                                        fontSize: 16.sp,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
+                                      child: Center(
+                                        child: Text(
+                                          label.tr(),
+                                          textAlign: TextAlign.center,
+                                          style:  TextStyle(
+                                            fontSize: 16.sp,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ),
+                              ],
+                            ),
                           ],
                         ),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.01.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            for (var label in [
-                              "guidanceAndInstructions",
-                              "diagnoseAndMotivation",
-                              "childrenDisorder"
-                            ])
-                              GestureDetector(
-                                onTap: (){
-                                  if(label== "diagnoseAndMotivation"){  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => MultiBlocProvider(
-                                        providers: [
-                                          BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                          BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                          BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                        ],
-                                        child: const ProblemSolvingScreen(),
-                                      ),
-
-                                    ),
-
-                                  );}
-                                  else if(label=="childrenDisorder"){  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => MultiBlocProvider(
-                                        providers: [
-                                          BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                          BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                          BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                        ],
-                                        child: const ChildrensDisorderScreen(),
-                                      ),
-
-                                    ),
-
-                                  );}
-
-                                },
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width * 0.3.w,
-                                  height: 68.h,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: label=="diagnoseAndMotivation" ?
-                                        Color(0xff19649E) : Colors.transparent , width: 4),
-
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: const Color(0xff69B7F3),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.2),
-                                        spreadRadius: 2,
-                                        blurRadius: 4,
-                                        offset: const Offset(0, 2),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      label.tr(),
-                                      textAlign: TextAlign.center,
-                                      style:  TextStyle(
-                                        fontSize: 16.sp,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                          ],
-                        ),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.01.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            for (var label in [
-                              "PsychologicalPreventionAndFollowUp",
-                              "rehabilitation"
-                            ])
-                              GestureDetector(
-                                onTap: (){
-                                  if(label=="rehabilitation"){  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => MultiBlocProvider(
-                                        providers: [
-                                          BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                          BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                          BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                        ],
-                                        child: const RehabilitationScreen(),
-                                      ),
-
-                                    ),
-
-                                  );}
-                                  else if(label=="PsychologicalPreventionAndFollowUp"){  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => MultiBlocProvider(
-                                        providers: [
-                                          BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                          BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                          BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                        ],
-                                        child: const PsychologicalPreventionScreen(),
-                                      ),
-
-                                    ),
-
-                                  );}
-
-                                },
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width * 0.35.w,
-                                  height: 72.h,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: const Color(0xff69B7F3),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.2),
-                                        spreadRadius: 2,
-                                        blurRadius: 4,
-                                        offset: const Offset(0, 2),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      label.tr(),
-                                      textAlign: TextAlign.center,
-                                      style:  TextStyle(
-                                        fontSize: 16.sp,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                          ],
-                        ),
-                      ],
+                      ),
                     )
 
                   ],

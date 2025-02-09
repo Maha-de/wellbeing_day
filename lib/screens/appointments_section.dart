@@ -244,7 +244,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
 
 
                     Padding(
-                      padding: const EdgeInsets.only(right: 30, left: 30),
+                      padding: const EdgeInsets.only(right: 15, left: 15),
                       child:  BlocBuilder<GetSpecialistCubit, GetSpecialistState>(
                         builder: (context, state) {
                           if (state is SpecialistLoading) {
@@ -253,7 +253,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                             return Text(state.errMessage); // Display error message
                           } else if (state is SpecialistSuccess) {
                             return Container(
-                              height: screenHeight*0.52.h,
+                              height: 360.h,
                               child: ListView.builder(
                                 itemCount: state.specialists.length,
                                 itemBuilder: (context, index) {
@@ -331,7 +331,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
 
 
                     Padding(
-                      padding: const EdgeInsets.only(right: 30, left: 30),
+                      padding: const EdgeInsets.only(right: 15, left: 15),
                       child:  BlocBuilder<GetSpecialistCubit, GetSpecialistState>(
                         builder: (context, state) {
                           if (state is SpecialistLoading) {
@@ -340,7 +340,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                             return Text(state.errMessage); // Display error message
                           } else if (state is SpecialistSuccess) {
                             return Container(
-                              height: screenHeight*0.52.h,
+                              height: 360.h,
                               child: ListView.separated(
                                 separatorBuilder: (context,index){
                                   return SizedBox(height: 12.h,);
@@ -364,7 +364,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
 
 
                     Padding(
-                      padding: const EdgeInsets.only(right: 30, left: 30),
+                      padding: const EdgeInsets.only(right: 15, left: 15),
                       child:  BlocBuilder<GetSpecialistCubit, GetSpecialistState>(
                         builder: (context, state) {
                           if (state is SpecialistLoading) {
@@ -373,7 +373,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                             return Text(state.errMessage); // Display error message
                           } else if (state is SpecialistSuccess) {
                             return Container(
-                              height: screenHeight*0.52.h,
+                              height: 360.h,
                               child: ListView.separated(
                                 separatorBuilder: (context,index){
                                   return SizedBox(height: 12.h,);

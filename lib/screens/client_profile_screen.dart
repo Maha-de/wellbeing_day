@@ -206,7 +206,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                     SizedBox(height: 55.h),
                     Positioned(
                       left: screenWidth.w * 0.35.w, // Adjust for better centering
-                      top: -100,
+                      top: -50,
                       child: Text(
                         "${userProfileCubit.firstNameController.text}",
                         style: TextStyle(
@@ -221,9 +221,9 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                     Center(
                       child: Container(
                         margin: const EdgeInsets.only(
-                            top: 0, left: 15, right: 15, bottom: 5),
-                        height: screenHeight.h *
-                            0.52.h, // Adjust height proportionally
+                            top: 0, left: 15, right: 15),
+                        height: 377.h,
+                        width: 347,// Adjust height proportionally
                         child: ListView.builder(
                           // physics: NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
@@ -307,11 +307,11 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                               },
                               child: Container(
                                 margin: EdgeInsets.only(
-                                    bottom: 5, top: 15, left: 5, right: 5),
+                                    bottom: 7, top: 7, left: 5, right: 5),
                                 child: Column(
                                   children: [
                                     Container(
-                                      width:screenWidth*0.9.w,
+                                      width:343.w,
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -337,9 +337,10 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                                       ),
                                     ),
                                     Container(
+                                      width:343.w,
                                       margin:
-                                          EdgeInsets.only(top: 15, left: 12),
-                                      width: screenWidth.w * 0.9.w,
+                                          EdgeInsets.only(top: 7, left: 12),
+
                                       height: 2.h,
                                       color: Color(0xff19649E),
                                     ),

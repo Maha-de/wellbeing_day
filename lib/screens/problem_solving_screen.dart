@@ -239,7 +239,7 @@ class _ProblemSolvingScreenState extends State<ProblemSolvingScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 40.h,
+                      height: 20.h,
                     ),
 
 
@@ -489,15 +489,15 @@ class _ProblemSolvingScreenState extends State<ProblemSolvingScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: screenHeight * 0.03.h),
+
 
 
                     SizedBox(
-                      height: 30.h,
+                      height: 20.h,
                     ),
                     Center(
                       child: Container(
-                        margin: EdgeInsets.only(bottom: 25),
+                        margin: EdgeInsets.only(bottom: 20),
                         width: 161.w,
                         height: 40.h,
                         decoration: BoxDecoration(
@@ -552,7 +552,7 @@ class _ProblemSolvingScreenState extends State<ProblemSolvingScreen> {
   // Helper method to build disorder buttons
   Widget _buildDisorderButton(String title) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.3.w,
+      width: 105.w,
       height: 68.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),

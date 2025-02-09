@@ -453,67 +453,103 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                       ),
                       SizedBox(height: screenHeight * 0.05.h),
                       // Health Services
-                      Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      Center(
+                        child: Container(
+                          width: 338,
+                          height: 160,
+                          child: Column(
                             children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.3.w,
-                                height: 68.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Color(0xff69B7F3),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 2,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Container(
+                                    width: 100.w,
+                                    height: 68.h,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Color(0xff69B7F3),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 2,
+                                          blurRadius: 4,
+                                          offset: Offset(0, 2),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    textAlign: TextAlign.center,
-                                    "HealthCare".tr(),
-                                    style: TextStyle(
-                                      fontSize: 16.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.3.w,
-                                height: 68.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Color(0xff69B7F3),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 2,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    textAlign: TextAlign.center,
-                                    "SportsSystem".tr(),
-                                    style: TextStyle(
-                                      fontSize: 16.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
+                                    child: Center(
+                                      child: Text(
+                                        textAlign: TextAlign.center,
+                                        "HealthCare".tr(),
+                                        style: TextStyle(
+                                          fontSize: 16.sp,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
+                                  SizedBox(width: 4.w,),
+                                  Container(
+                                    width: 100.w,
+                                    height: 68.h,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Color(0xff69B7F3),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 2,
+                                          blurRadius: 4,
+                                          offset: Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        textAlign: TextAlign.center,
+                                        "SportsSystem".tr(),
+                                        style: TextStyle(
+                                          fontSize: 16.sp,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 4.w,),
+                                  Container(
+                                    width: 100.w,
+                                    height: 68.h,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Color(0xff69B7F3),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 2,
+                                          blurRadius: 4,
+                                          offset: Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        textAlign: TextAlign.center,
+                                        "diet".tr(),
+                                        style: TextStyle(
+                                          fontSize: 16.sp,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
+                              SizedBox(height: 29.h),
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.3.w,
+                                width: 100.w,
                                 height: 68.h,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
@@ -530,7 +566,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                 child: Center(
                                   child: Text(
                                     textAlign: TextAlign.center,
-                                    "diet".tr(),
+                                    "examinations".tr(),
                                     style: TextStyle(
                                       fontSize: 16.sp,
                                       color: Colors.white,
@@ -541,35 +577,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                               ),
                             ],
                           ),
-                          SizedBox(height: screenHeight * 0.03.h),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.3.w,
-                            height: 68.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Color(0xff69B7F3),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: Text(
-                                textAlign: TextAlign.center,
-                                "examinations".tr(),
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ],
                   ),
@@ -766,40 +774,103 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                       ),
                       SizedBox(height: screenHeight * 0.05.h),
                       // Health Services
-                      Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      Center(
+                        child: Container(
+                          width: 338,
+                          height: 160,
+                          child: Column(
                             children: [
-                              Container(
-                      width: MediaQuery.of(context).size.width * 0.3.w,
-                    height: 68.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Color(0xff69B7F3),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 2,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Container(
+                                    width: 100.w,
+                                    height: 68.h,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Color(0xff69B7F3),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 2,
+                                          blurRadius: 4,
+                                          offset: Offset(0, 2),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                                child: Center(
-                                  child: Text(
-                                textAlign: TextAlign.center,
-                                    "HealthCare".tr(),
-                                    style: TextStyle(
-                                      fontSize: 16.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
+                                    child: Center(
+                                      child: Text(
+                                        textAlign: TextAlign.center,
+                                        "HealthCare".tr(),
+                                        style: TextStyle(
+                                          fontSize: 16.sp,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
+                                  SizedBox(width: 4.w,),
+                                  Container(
+                                    width: 100.w,
+                                    height: 68.h,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Color(0xff69B7F3),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 2,
+                                          blurRadius: 4,
+                                          offset: Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        textAlign: TextAlign.center,
+                                        "SportsSystem".tr(),
+                                        style: TextStyle(
+                                          fontSize: 16.sp,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 4.w,),
+                                  Container(
+                                    width: 100.w,
+                                    height: 68.h,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Color(0xff69B7F3),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 2,
+                                          blurRadius: 4,
+                                          offset: Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        textAlign: TextAlign.center,
+                                        "diet".tr(),
+                                        style: TextStyle(
+                                          fontSize: 16.sp,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
+                              SizedBox(height: 29.h),
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.3.w,
+                                width: 100.w,
                                 height: 68.h,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
@@ -816,34 +887,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                 child: Center(
                                   child: Text(
                                     textAlign: TextAlign.center,
-                                    "SportsSystem".tr(),
-                                    style: TextStyle(
-                                      fontSize: 16.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.3.w,
-                                height: 68.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Color(0xff69B7F3),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 2,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    textAlign: TextAlign.center,
-                                    "diet".tr(),
+                                    "examinations".tr(),
                                     style: TextStyle(
                                       fontSize: 16.sp,
                                       color: Colors.white,
@@ -854,35 +898,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                               ),
                             ],
                           ),
-                          SizedBox(height: screenHeight * 0.03.h),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.3.w,
-                            height: 68.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Color(0xff69B7F3),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: Text(
-                                textAlign: TextAlign.center,
-                                "examinations".tr(),
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ],
                   ),

@@ -56,7 +56,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
               children: [
                 // الخلفية العلوية الزرقاء - **زاد ارتفاعها**
                 Container(
-                  height: 250.h, // ✅ زودنا الارتفاع عشان يبان أكتر
+                  height: 245.h, // ✅ زودنا الارتفاع عشان يبان أكتر
                   decoration: const BoxDecoration(
                     color: Color(0xff1B659F),
                   ),
@@ -132,7 +132,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
               children: [
                 SizedBox(height: 7.h,),
                 Container(
-                  width: screenWidth.w * 0.9.w,
+                  width: 343.w,
                   child:  Text(
                     "cardNumber".tr(),
                     style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Colors.grey),
@@ -140,7 +140,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                 ),
                  SizedBox(height: 4.h,),
                 Container(
-                  width: 343.0.w,
+                  width: 343.w,
                   height: 48.0.h,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
@@ -165,7 +165,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  width: screenWidth.w * 0.9.w,
+                  width:343.w,
                   child:  Text(
                     "cardHolderName".tr(),
                     style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Colors.grey),
@@ -195,9 +195,10 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
             ),
              SizedBox(height: 20.h,),
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       "expiryDate".tr(),
@@ -205,7 +206,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                     ),
                      SizedBox(height: 4.h,),
                     Container(
-                      width: screenWidth.w * 0.45.w,
+                      width: 159.w,
                       height: 48.0.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
@@ -226,7 +227,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                   ],
                 ),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       "cardPin".tr(),
@@ -234,7 +235,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                     ),
                      SizedBox(height: 4.h,),
                     Container(
-                      width: screenWidth.w * 0.45.w,
+                      width: 159.w,
                       height: 48.0.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),

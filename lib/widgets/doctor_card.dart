@@ -44,7 +44,7 @@ class DoctorCard extends StatelessWidget {
       },
       child: Expanded(
         child: Container(
-          width: 344.w,
+          width: 345.w,
           height: 272.h,
           child: Card(
             child: Column(
@@ -55,7 +55,7 @@ class DoctorCard extends StatelessWidget {
                   child: Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(right: 10, top: 10, left: 10),
+                        padding: const EdgeInsets.only(right: 5, top: 10, left: 5),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -99,8 +99,8 @@ class DoctorCard extends StatelessWidget {
                       ),
                       Flexible(
                         child: Container(
-                          height: 231.h,
-                          width: 151.w,
+                          height: 210.h,
+                          width: 164.w,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -146,12 +146,22 @@ class DoctorCard extends StatelessWidget {
           color: Colors.white,
         ),
          SizedBox(width: 8.w),
-        Text(
-          overflow: null,
-          maxLines : null,
-          text,
-          style: TextStyle(fontSize: 14.sp, color: Colors.white,),
-          textAlign: TextAlign.right,
+        Container(
+          width: 184.w,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                width: 180.w,
+                child: Text(
+                  overflow: TextOverflow.ellipsis,
+                  text,
+                  style: TextStyle(fontSize: 14.sp, color: Colors.white,),
+
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );
@@ -169,17 +179,24 @@ class DoctorCard extends StatelessWidget {
               Image.asset(icon, width: 19.w, height: 19.h),
               const SizedBox(width: 8),
               Text(
+
                 title,
                 style: TextStyle(color: Color(0xff19649E), fontSize: 14.sp),
               ),
             ],
           ),
-          Text(
-            value,
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16.sp,
-                color: Color(0xff19649E)),
+          Container(
+            width: 160.w,
+            child: Center(
+              child: Text(
+                value,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16.sp,
+                    color: Color(0xff19649E)),
+              ),
+            ),
           ),
         ],
       ),

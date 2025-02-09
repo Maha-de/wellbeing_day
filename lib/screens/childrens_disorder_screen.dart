@@ -343,118 +343,123 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
                 ),
               ),
               body: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Center(
-                      child: Container(
-                        width: 200.w,
-                        height: 40.h,
-                        decoration: BoxDecoration(
-                          color: Color(0xFF1F78BC),
-                          borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(20),
-                              topLeft: Radius.circular(20)),
-                        ),
-                        alignment: Alignment.center,
-                        child: Text(
-                          "childrenDisorder".tr(),
-                          style: TextStyle(
-                              fontSize: isEnglish ? 17.sp : 20.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
+                child: Center(
+                  child: Container(
+                    width:354.w,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: Container(
+                          width: 200.w,
+                          height: 40.h,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF1F78BC),
+                            borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(20),
+                                topLeft: Radius.circular(20)),
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            "childrenDisorder".tr(),
+                            style: TextStyle(
+                                fontSize: isEnglish ? 17.sp : 20.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 40.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _buildDisorderButton("learningDifficulties".tr()),
-                        _buildDisorderButton("speechDifficulties".tr()),
-                        _buildDisorderButton("hyperactivity".tr()),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _buildDisorderButton("autism".tr()),
-                        _buildDisorderButton("lie".tr()),
-                        _buildDisorderButton("theft".tr()),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _buildDisorderButton("stubbornness".tr()),
-                        _buildDisorderButton("addiction".tr()),
-                        _buildDisorderButton("stuttering".tr()),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _buildDisorderButton("attachment".tr()),
+                      SizedBox(
+                        height: 40.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          _buildDisorderButton("learningDifficulties".tr()),
+                          _buildDisorderButton("speechDifficulties".tr()),
+                          _buildDisorderButton("hyperactivity".tr()),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          _buildDisorderButton("autism".tr()),
+                          _buildDisorderButton("lie".tr()),
+                          _buildDisorderButton("theft".tr()),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          _buildDisorderButton("stubbornness".tr()),
+                          _buildDisorderButton("addiction".tr()),
+                          _buildDisorderButton("stuttering".tr()),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          _buildDisorderButton("attachment".tr()),
 
-                      ],
-                    ),
-                    SizedBox(
-                      height: 30.h,
-                    ),
-                    Center(
-                      child: Container(
-                        margin: EdgeInsets.only(bottom: 25),
-                        width: 161.w,
-                        height: 40.h,
-                        decoration: BoxDecoration(
-                          color: Color(0xFF1F78BC),
-                          borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(20),
-                              topLeft: Radius.circular(20)),
-                        ),
-                        alignment: Alignment.center,
-                        child: Text(
-                          "specialists".tr(),
-                          style: TextStyle(
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 30.h,
+                      ),
+                      Center(
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 25),
+                          width: 161.w,
+                          height: 40.h,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF1F78BC),
+                            borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(20),
+                                topLeft: Radius.circular(20)),
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            "specialists".tr(),
+                            style: TextStyle(
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
                         ),
                       ),
-                    ),
-                    // List of doctors
-                    BlocBuilder<GetSpecialistCubit, GetSpecialistState>(
-                      builder: (context, state) {
-                        if (state is SpecialistLoading) {
-                          return CircularProgressIndicator(); // Show loading indicator
-                        } else if (state is SpecialistFailure) {
-                          return Text(state.errMessage); // Display error message
-                        } else if (state is SpecialistSuccess) {
-                          return Container(
-                            height: screenHeight*0.63.h,
-                            child: ListView.builder(
-                              itemCount: state.specialists.length,
-                              itemBuilder: (context, index) {
-                                return DoctorCard(specialistModel: state.specialists[index]);
-                              },
-                            ),
-                          );
-                        } else {
-                          return Center(child: Text('noSpecialistsFound'.tr()));
-                        }
-                      },
-                    )
-                  ],
+                      // List of doctors
+                      BlocBuilder<GetSpecialistCubit, GetSpecialistState>(
+                        builder: (context, state) {
+                          if (state is SpecialistLoading) {
+                            return CircularProgressIndicator(); // Show loading indicator
+                          } else if (state is SpecialistFailure) {
+                            return Text(state.errMessage); // Display error message
+                          } else if (state is SpecialistSuccess) {
+                            return Container(
+                              height: screenHeight*0.63.h,
+                              child: ListView.builder(
+                                itemCount: state.specialists.length,
+                                itemBuilder: (context, index) {
+                                  return DoctorCard(specialistModel: state.specialists[index]);
+                                },
+                              ),
+                            );
+                          } else {
+                            return Center(child: Text('noSpecialistsFound'.tr()));
+                          }
+                        },
+                      )
+                    ],
+                  )),
                 ),
               ),
             );
@@ -468,7 +473,7 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
   // Helper method to build disorder buttons
   Widget _buildDisorderButton(String title) {
     return Container(
-      width: MediaQuery.of(context).size.width.w * 0.3.w,
+      width: 105.w,
       height: 68.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),

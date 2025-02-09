@@ -178,98 +178,109 @@ class PaymentScreen extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: screenHeight*0.25.h,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SizedBox(
-                    width: screenWidth*0.4,
-                    child:  Center(
-                      child: Text(
-                        "paymentWay".tr(),
-                        style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w100, color: Color(0xff1F78BC)),
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Container(
-                      width: 343.w,
-                      height: 150.h,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: const Color(0xff1F78BC)
-                      ),
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.only(right: 10),
-                            width: 307,
-                            child: Row(
-                              mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                              children: [
-                                 Image(image: AssetImage("assets/images/neo.png"),width: 70.29.w,height: 30.w,fit: BoxFit.fill,),
-                                IconButton(onPressed: (){}, icon:  Icon(Icons.arrow_forward_ios,
-                                  color: Colors.white,
-                                  size: screenWidth *
-                                      0.06.w,))
-                              ],
-                            ),
-                          ),
-                          Center(
-                            child: Container(
-                              width: 295.w,
-                              height: 1.h,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.only(right: 10),
-                            width: 277.w,
-                            child: Row(
-                              mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                              children: [
-                                 Image(image: AssetImage("assets/images/visa.png"),width: 70.29.w,height: 20.h,fit: BoxFit.fill,),
-                                IconButton(
-                                    onPressed: (){
-
-                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> const AddCreditCardScreen()));
-
-                                    },
-                                    icon:  Icon(Icons.arrow_forward_ios,
-                                      color: Colors.white,
-                                      size: screenWidth *
-                                          0.06.w,))
-                              ],
-                            ),
-                          ),
-                          Center(
-                            child: Container(
-                              width: 295.w,
-                              height: 1.h,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.only(right: 10),
-                            width: 307,
-                            child: Row(
-                              mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                              children: [
-                                 Image(image: AssetImage("assets/images/logos_mastercard.png"),width: 70.29.w,height: 30.h,fit: BoxFit.fill,),
-                                IconButton(onPressed: (){}, icon:  Icon(Icons.arrow_forward_ios,
-                                  color: Colors.white,
-                                  size: screenWidth *
-                                      0.06.w,))
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+              width: 343.w,
+              child:  Padding(
+                padding: EdgeInsets.only(right: 15.0, left: 15,bottom: 10),
+                child: Text(
+                  "paymentWay".tr(),
+                  style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400, color: Color(0xff1F78BC)),
+                ),
               ),
+            ),
+            Center(
+              child: Center(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Center(
+                                      child: Container(
+                                        width: 343.w,
+                                        height: 152.h,
+                                        decoration: BoxDecoration(
+               borderRadius: BorderRadius.circular(20),
+               color: const Color(0xff1F78BC)
+                                        ),
+                                        child: Column(
+               children: [
+                 Container(
+                   padding: const EdgeInsets.only(right: 10),
+                   width: 307,
+                   child: Row(
+                     mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                     children: [
+                        Image(image: AssetImage("assets/images/neo.png"),width: 70.29.w,height: 30.h,fit: BoxFit.fill,),
+                       IconButton(onPressed: (){}, icon:  Container(
+                         width: 7.58,
+                         height: 17,
+                         child: Icon(Icons.arrow_forward_ios,
+                           color: Colors.white,
+                           size: 20,),
+                       ))
+                     ],
+                   ),
+                 ),
+                 Center(
+                   child: Container(
+                     width: 295.w,
+                     height: 1.h,
+                     color: Colors.white,
+                   ),
+                 ),
+                 Container(
+                   padding: const EdgeInsets.only(right: 15),
+                   width: 307.w,
+                   child: Row(
+                     mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                     children: [
+                        Image(image: AssetImage("assets/images/visa.png"),width: 85.w,height: 35.h,fit: BoxFit.fill,),
+                       IconButton(
+                           onPressed: (){
+
+                             Navigator.push(context, MaterialPageRoute(builder: (context)=> const AddCreditCardScreen()));
+
+                           },
+                           icon:  Container(
+                             width: 7.58,
+                             height: 17,
+                             child: Icon(Icons.arrow_forward_ios,
+                               color: Colors.white,
+                               size:20.w,),
+                           ))
+                     ],
+                   ),
+                 ),
+                 Center(
+                   child: Container(
+                     width: 295.w,
+                     height: 1.h,
+                     color: Colors.white,
+                   ),
+                 ),
+                 Container(
+                   padding: const EdgeInsets.only(right: 10),
+                   width: 307,
+                   child: Row(
+                     mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                     children: [
+                        Image(image: AssetImage("assets/images/logos_mastercard.png"),width: 62.w,height: 36.h,fit: BoxFit.fill,),
+                       IconButton(onPressed: (){}, icon:  Container(
+                         width: 7.58,
+                         height: 17,
+                         child: Icon(Icons.arrow_forward_ios,
+                           color: Colors.white,
+                           size: 20.w,),
+                       ))
+                     ],
+                   ),
+                 ),
+               ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
             ),
             Center(
               child: SizedBox(
@@ -306,7 +317,7 @@ class PaymentScreen extends StatelessWidget {
                 ) ,
               ),
             ),
-            SizedBox(height: 55.h),
+            SizedBox(height: 35.h),
           ],
         ),
       ),

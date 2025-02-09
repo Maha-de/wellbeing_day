@@ -238,7 +238,7 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 40.h,
+                      height: 20.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -261,11 +261,11 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                     ),
 
                     SizedBox(
-                      height: 30.h,
+                      height: 20.h,
                     ),
                     Center(
                       child: Container(
-                        margin: EdgeInsets.only(bottom: 25),
+                        margin: EdgeInsets.only(bottom: 20),
                         width: 161.w,
                         height: 40.h,
                         decoration: BoxDecoration(
@@ -346,7 +346,7 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 40.h,
+                      height: 20.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -369,11 +369,11 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                     ),
 
                     SizedBox(
-                      height: 30.h,
+                      height: 20.h,
                     ),
                     Center(
                       child: Container(
-                        margin: EdgeInsets.only(bottom: 25),
+                        margin: EdgeInsets.only(bottom: 20),
                         width: 161.w,
                         height: 40.h,
                         decoration: BoxDecoration(
@@ -428,7 +428,7 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
   // Helper method to build disorder buttons
   Widget _buildDisorderButton(String title) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.3.w,
+      width: 105.w,
       height: 68.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -445,6 +445,7 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
       child: Center(
         child: Text(
           title,
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 16.sp,
             color: Colors.white,
