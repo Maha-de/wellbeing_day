@@ -456,7 +456,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                       Center(
                         child: Container(
                           width: 338,
-                          height: 160,
+                          height: 170,
                           child: Column(
                             children: [
                               Row(
@@ -547,7 +547,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 29.h),
+                              SizedBox(height: 20.h),
                               Container(
                                 width: 100.w,
                                 height: 68.h,
