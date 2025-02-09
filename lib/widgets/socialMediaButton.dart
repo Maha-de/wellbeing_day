@@ -35,7 +35,7 @@ class SocialMediaButton extends StatelessWidget {
             FaIcon(
               icon,
               color: color,
-              size: 35,
+              size: 27,
             ),
              SizedBox(width: 10.w),
             Text(
