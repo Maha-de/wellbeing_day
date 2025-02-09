@@ -18,11 +18,11 @@ class InstructionTab extends StatelessWidget {
               children: [
                 TextSpan(
                   text: "${"importantInstructions".tr()}\n",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
                 ),
                 TextSpan(
                   text: "${"client_registration".tr()}\n",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
                 ),
                 TextSpan(
                   text: "${"therapeutic_relationship".tr()}\n",
@@ -54,7 +54,7 @@ class InstructionTab extends StatelessWidget {
                 ),
                 TextSpan(
                   text: "${"specialist_account_creation".tr()}\n",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
                 ),
                 TextSpan(
                   text: "${"professional_requirements".tr()}\n",
@@ -76,7 +76,7 @@ class InstructionTab extends StatelessWidget {
                 ),
                 TextSpan(
                   text: "${"some_notes".tr()}\n",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
                 ),
                 TextSpan(
                   text: "${"platform_usage_restriction".tr()}\n",

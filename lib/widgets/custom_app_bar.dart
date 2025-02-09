@@ -72,7 +72,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     SizedBox(
                       height: 100.h,
-                      width: 110 * 0.3.w,
+                      width: 110 * 0.9.w,
                       child: Image.asset('assets/images/img.png', fit: BoxFit.fill),
                     ),
                     SizedBox(
@@ -97,7 +97,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                               Padding(
                                 padding: EdgeInsets.only(bottom: height * 0.005.h),
                                 child: Text(
-                                  "تواصل معنا",
+                                  "contactUs".tr(),
                                   style: TextStyle(
                                     color: const Color(0xff19649E),
                                     fontSize: width * 0.04.sp,

@@ -53,7 +53,7 @@ class CustomTextField extends StatelessWidget {
             controller: controller,
             keyboardType: keyboardType,
             obscureText: obscureText,
-            textAlign: TextAlign.right,
+            textAlign: TextAlign.start,
             maxLines: isMultiline ? 3 : 1,
             textDirection: TextDirection.rtl,
             decoration: InputDecoration(

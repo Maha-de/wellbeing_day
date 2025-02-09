@@ -54,6 +54,8 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width.w;
     double screenHeight = MediaQuery.of(context).size.height.h;
+    bool isEnglish = Localizations.localeOf(context).languageCode == 'en';
+
 
     return WillPopScope(
       onWillPop: () async {
@@ -160,8 +162,8 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                         showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                            title: Text("تنبيه"),
-                            content: Text("يجب عليك تسجيل الدخول أو إنشاء حساب للوصول إلى هذه الصفحة."),
+                            title: Text("alert".tr()),
+                            content: Text("guestAccessibilityAlert".tr()),
                             actions: [
                               TextButton(
                                 onPressed: () {
@@ -171,7 +173,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                                     MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
                                   );
                                 },
-                                child: Text("تسجيل الدخول"),
+                                child: Text("login".tr()),
                               ),
                               TextButton(
                                 onPressed: () {
@@ -181,13 +183,13 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                                     MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
                                   );
                                 },
-                                child: Text("إنشاء حساب"),
+                                child: Text("createAccount".tr()),
                               ),
                               TextButton(
                                 onPressed: () {
                                   Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
                                 },
-                                child: Text("إلغاء"),
+                                child: Text("cancel".tr()),
                               ),
                             ],
                           ),
@@ -231,7 +233,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                       children: [
                         Center(
                           child: Container(
-                            width: 161.w,
+                            width: 200.w,
                             height: 40.h,
                             decoration: BoxDecoration(
                               color: Color(0xFF1F78BC),
@@ -241,9 +243,9 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                             ),
                             alignment: Alignment.center,
                             child: Text(
-                              "برامج علاجية",
+                              "therapeuticPrograms".tr(),
                               style: TextStyle(
-                                  fontSize: 20.sp,
+                                  fontSize: isEnglish ? 17.sp : 20.sp,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white),
                             ),
@@ -255,7 +257,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            _buildDisorderButton("الرهاب"),
+                            _buildDisorderButton("phobia".tr()),
                             GestureDetector(onTap: (){
                               Navigator.push(
                                 context,
@@ -272,7 +274,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                                 ),
 
                               );
-                            },child: _buildDisorderButton("الاكتئاب")),
+                            },child: _buildDisorderButton("depression".tr())),
                             GestureDetector(onTap: (){
                               Navigator.push(
                                 context,
@@ -291,7 +293,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                                 ),
 
                               );
-                            },child: _buildDisorderButton("القلق")),
+                            },child: _buildDisorderButton("anxiety".tr())),
                           ],
                         ),
                         SizedBox(
@@ -300,9 +302,9 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            _buildDisorderButton("اضطراب الاكل"),
-                            _buildDisorderButton("اضطراب جنسي"),
-                            _buildDisorderButton("الوسواس"),
+                            _buildDisorderButton("eatingDisorder".tr()),
+                            _buildDisorderButton("sexualDisorder".tr()),
+                            _buildDisorderButton("obsessiveDisorder".tr()),
                           ],
                         ),
                         SizedBox(
@@ -311,8 +313,8 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            _buildDisorderButton("اضطراب الصدمة"),
-                            _buildDisorderButton("الادمان"),
+                            _buildDisorderButton("traumaDisorder".tr()),
+                            _buildDisorderButton("addiction".tr()),
                             GestureDetector(onTap: (){
                               Navigator.push(
                                 context,
@@ -329,7 +331,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                                 ),
 
                               );
-                            },child: _buildDisorderButton("اضطراب شخصي")),
+                            },child: _buildDisorderButton("personalityDisorder".tr())),
                           ],
                         ),
                         SizedBox(
@@ -348,7 +350,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                             ),
                             alignment: Alignment.center,
                             child: Text(
-                              "المختصين",
+                              "specialists".tr(),
                               style: TextStyle(
                                   fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
@@ -375,7 +377,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                                 ),
                               );
                             } else {
-                              return Center(child: Text('No specialists found.'));
+                              return Center(child: Text('noSpecialistsFound'.tr()));
                             }
                           },
                         )
@@ -402,7 +404,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                       children: [
                         Center(
                           child: Container(
-                            width: 161.w,
+                            width: 200.w,
                             height: 40.h,
                             decoration: BoxDecoration(
                               color: Color(0xFF1F78BC),
@@ -412,9 +414,9 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                             ),
                             alignment: Alignment.center,
                             child: Text(
-                              "برامج علاجية",
+                              "therapeuticPrograms".tr(),
                               style: TextStyle(
-                                  fontSize: 20.sp,
+                                  fontSize: isEnglish ? 17.sp : 20.sp,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white),
                             ),
@@ -426,7 +428,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            _buildDisorderButton("الرهاب"),
+                            _buildDisorderButton("phobia".tr()),
                             GestureDetector(onTap: (){
                               Navigator.push(
                                 context,
@@ -443,7 +445,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                                 ),
 
                               );
-                            },child: _buildDisorderButton("الاكتئاب")),
+                            },child: _buildDisorderButton("depression".tr())),
                             GestureDetector(onTap: (){
                               Navigator.push(
                                 context,
@@ -462,7 +464,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                                 ),
 
                               );
-                            },child: _buildDisorderButton("القلق")),
+                            },child: _buildDisorderButton("anxiety".tr())),
                           ],
                         ),
                         SizedBox(
@@ -471,9 +473,9 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            _buildDisorderButton("اضطراب الاكل"),
-                            _buildDisorderButton("اضطراب جنسي"),
-                            _buildDisorderButton("الوسواس"),
+                            _buildDisorderButton("eatingDisorder".tr()),
+                            _buildDisorderButton("sexualDisorder".tr()),
+                            _buildDisorderButton("obsessiveDisorder".tr()),
                           ],
                         ),
                         SizedBox(
@@ -482,8 +484,8 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            _buildDisorderButton("اضطراب الصدمة"),
-                            _buildDisorderButton("الادمان"),
+                            _buildDisorderButton("traumaDisorder".tr()),
+                            _buildDisorderButton("addiction".tr()),
                             GestureDetector(onTap: (){
                               Navigator.push(
                                 context,
@@ -500,7 +502,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                                 ),
 
                               );
-                            },child: _buildDisorderButton("اضطراب شخصي")),
+                            },child: _buildDisorderButton("personalityDisorder".tr())),
                           ],
                         ),
                         SizedBox(
@@ -519,7 +521,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                             ),
                             alignment: Alignment.center,
                             child: Text(
-                              "المختصين",
+                              "specialists".tr(),
                               style: TextStyle(
                                   fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
@@ -546,7 +548,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                                 ),
                               );
                             } else {
-                              return Center(child: Text('No specialists found.'));
+                              return Center(child: Text('noSpecialistsFound'.tr()));
                             }
                           },
                         )

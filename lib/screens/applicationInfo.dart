@@ -37,7 +37,6 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
 
   final List<String> tabs = [
     "contactLinks".tr(),
-    "",
     "fqa".tr(),
     "AppDef".tr(),
     "instructions".tr(),
@@ -233,12 +232,18 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
             color: Colors.blue,
             onPressed: () => _openGmail("wellbeingallday@outlook.com"),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
+
+          Container(
+            height: 60.h,
+            decoration: BoxDecoration(
+              color: const Color(0xFFAFDCFF),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(10),
+              ),
+            ),
+            child: Center(
+              child: Expanded(
+                child: Text(
                   "address1".tr(),
                   style: TextStyle(
                     fontSize: 18.sp,
@@ -246,18 +251,23 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
                     color: Colors.black,
                   ),
                 ),
-              ],
+              ),
             ),
           ),
           SizedBox(
-            height: 20,
+            height: 10,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
+          Container(
+            height: 60.h,
+            decoration: BoxDecoration(
+              color: const Color(0xFFAFDCFF),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(10),
+              ),
+            ),
+            child: Center(
+              child: Expanded(
+                child: Text(
                   "address2".tr(),
                   style: TextStyle(
                     fontSize: 18.sp,
@@ -265,7 +275,7 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
                     color: Colors.black,
                   ),
                 ),
-              ],
+              ),
             ),
           ),
         ],

@@ -91,7 +91,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
             children: [
               Container(
                 width: screenWidth,
-                height: screenHeight.h * 0.21.h, // Adjust height proportionally
+                height: screenHeight.h * 0.18.h, // Adjust height proportionally
                 decoration: const BoxDecoration(
                   color: Color(0xff19649E),
                   borderRadius: BorderRadius.only(

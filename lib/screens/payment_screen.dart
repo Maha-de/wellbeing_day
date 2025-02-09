@@ -1,4 +1,5 @@
 import 'package:doctor/screens/payment_methods_profile.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,9 +15,12 @@ class PaymentScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leading:IconButton(onPressed: (){Navigator.pop(context);}, icon: const Image(image: AssetImage("assets/images/back.png"),fit: BoxFit.fill,width: 20,height: 14,))
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(
+          color: Color(0xff19649E),
+        ),
       ),
-      body: SafeArea(
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -37,7 +41,7 @@ class PaymentScreen extends StatelessWidget {
                       ),
                       alignment: Alignment.center,
                       child:  Text(
-                        "الدفع",
+                        "payment".tr(),
                         style: TextStyle(
                             fontSize: 20.sp,
                             fontWeight: FontWeight.bold,
@@ -66,7 +70,7 @@ class PaymentScreen extends StatelessWidget {
                                   Image.asset("assets/images/session.png", width: 20.w, height: 20.h),
                                    SizedBox(width: 5.w,),
                                    Text(
-                                    "جلسه واحده",
+                                    "oneSession".tr(),
                                     style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600, color: Color(0xff000000)),
                                   ),
 
@@ -78,7 +82,7 @@ class PaymentScreen extends StatelessWidget {
                                   Image.asset("assets/images/solar_hand-heart-bold.png", width: 20.w, height: 20.h),
                                    SizedBox(width: 5.w,),
                                    Text(
-                                    "إستشاره",
+                                    "consultant".tr(),
                                     style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600, color: Color(0xff000000)),
                                   ),
 
@@ -97,7 +101,7 @@ class PaymentScreen extends StatelessWidget {
                                   Image.asset("assets/images/clock.png", width: 20, height: 20),
                                    SizedBox(width: 5.w,),
                                    Text(
-                                    "30 دقيقه",
+                                    "minutesInPayment".tr(),
                                     style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600, color: Color(0xff000000)),
                                   ),
 
@@ -109,7 +113,7 @@ class PaymentScreen extends StatelessWidget {
                                   Image.asset("assets/images/doctorr.png", width: 20.w, height: 20.h),
                                    SizedBox(width: 5.w,),
                                    Text(
-                                    "معالج",
+                                    "therapist".tr(),
                                     style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600, color: Color(0xff000000)),
                                   ),
 
@@ -133,9 +137,9 @@ class PaymentScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                    Padding(
-                    padding: EdgeInsets.only(right: 15.0),
+                    padding: EdgeInsets.only(right: 15.0, left: 15),
                     child: Text(
-                      "تفاصيل الفاتوره",
+                      "invoiceDetails".tr(),
                       style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal, color: Color(0xff1F78BC)),
                     ),
                   ),
@@ -156,7 +160,7 @@ class PaymentScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "التكلفه",
+                                "cost".tr(),
                                 style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.normal, color: Color(0xff000000)),
                               ),
                               Text(
@@ -180,10 +184,10 @@ class PaymentScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   SizedBox(
-                    width: screenWidth*0.3,
+                    width: screenWidth*0.4,
                     child:  Center(
                       child: Text(
-                        "طريقه الدفع",
+                        "paymentWay".tr(),
                         style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w100, color: Color(0xff1F78BC)),
                       ),
                     ),
@@ -205,7 +209,10 @@ class PaymentScreen extends StatelessWidget {
                               mainAxisAlignment:MainAxisAlignment.spaceBetween,
                               children: [
                                  Image(image: AssetImage("assets/images/neo.png"),width: 70.29.w,height: 30.w,fit: BoxFit.fill,),
-                                IconButton(onPressed: (){}, icon:  Image(image: AssetImage("assets/images/left_arrow.png"),width: 12.w,height: 22.h,))
+                                IconButton(onPressed: (){}, icon:  Icon(Icons.arrow_forward_ios,
+                                  color: Colors.white,
+                                  size: screenWidth *
+                                      0.06.w,))
                               ],
                             ),
                           ),
@@ -218,7 +225,7 @@ class PaymentScreen extends StatelessWidget {
                           ),
                           Container(
                             padding: const EdgeInsets.only(right: 10),
-                            width: 307.w,
+                            width: 277.w,
                             child: Row(
                               mainAxisAlignment:MainAxisAlignment.spaceBetween,
                               children: [
@@ -229,7 +236,10 @@ class PaymentScreen extends StatelessWidget {
                                       Navigator.push(context, MaterialPageRoute(builder: (context)=> const AddCreditCardScreen()));
 
                                     },
-                                    icon:  Image(image: AssetImage("assets/images/left_arrow.png"),width: 12.w,height: 22.h,))
+                                    icon:  Icon(Icons.arrow_forward_ios,
+                                      color: Colors.white,
+                                      size: screenWidth *
+                                          0.06.w,))
                               ],
                             ),
                           ),
@@ -247,7 +257,10 @@ class PaymentScreen extends StatelessWidget {
                               mainAxisAlignment:MainAxisAlignment.spaceBetween,
                               children: [
                                  Image(image: AssetImage("assets/images/logos_mastercard.png"),width: 70.29.w,height: 30.h,fit: BoxFit.fill,),
-                                IconButton(onPressed: (){}, icon:  Image(image: AssetImage("assets/images/left_arrow.png"),width: 12.w,height: 22.h,))
+                                IconButton(onPressed: (){}, icon:  Icon(Icons.arrow_forward_ios,
+                                  color: Colors.white,
+                                  size: screenWidth *
+                                      0.06.w,))
                               ],
                             ),
                           ),
@@ -262,13 +275,15 @@ class PaymentScreen extends StatelessWidget {
               child: SizedBox(
                 height: screenHeight*0.13.h,
                 child:  Center(
-                  child: Text("يمكن الدفع أيضا من خلال الاتي\n والتواصل مباشرة بإدارة التطبيق",textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Color(0xff1F78BC),
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w600
+                  child: Expanded(
+                    child: Text("payAlso".tr(),textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xff1F78BC),
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w600
 
-                  ),),
+                    ),),
+                  ),
                 ),
               ),
             ),
@@ -290,7 +305,8 @@ class PaymentScreen extends StatelessWidget {
                   ],
                 ) ,
               ),
-            )
+            ),
+            SizedBox(height: 55.h),
           ],
         ),
       ),

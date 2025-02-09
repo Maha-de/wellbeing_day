@@ -1,3 +1,4 @@
+import 'package:doctor/api/end_points.dart';
 import 'package:doctor/screens/sign_up_as_client.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -64,12 +65,24 @@ int currentIndex=0;
     'الجمعة',
   ];
 
+final List<String> daySlotsEnglish = [
+  'Saturday',
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+];
+
 
   @override
   Widget build(BuildContext context) {
 
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    bool isEnglish = Localizations.localeOf(context).languageCode == 'en';
+
     return BlocProvider(
         create: (_) => userProfileCubit,
         child: BlocBuilder<UserProfileCubit, UserProfileState>(
@@ -92,6 +105,7 @@ int currentIndex=0;
                 ),
                 body: SingleChildScrollView(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Stack(
                         children: [
@@ -106,9 +120,9 @@ int currentIndex=0;
                               ),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.fromLTRB(0,120,50,10),
+                              padding: const EdgeInsets.fromLTRB(20,120,20,10),
                               child: Text(
-                                "د. محمود محمد",
+                                "nameSample".tr(),
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold, // Bold text
                                   fontSize: 20, // Font size
@@ -117,10 +131,11 @@ int currentIndex=0;
                             ),
                           ),
                           SizedBox(
-                            height: 220.h,
-                            width: 180.w,
+                            height: 200.h,
+                            width: 150.w,
                             child: Transform.translate(
-                              offset: const Offset(-210, 50),
+                              offset: Offset(isEnglish ? 230 : -210, 50
+                              ),
                               child: Container(
                                 decoration: const BoxDecoration(
                                     shape: BoxShape.rectangle,
@@ -137,31 +152,26 @@ int currentIndex=0;
                         ],
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(right: 20, top: 60),
+                        padding: const EdgeInsets.only(right: 20, top: 60, left: 20),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const DoctorInfo(text: 'السعر: 300 ليرة / 30 دقيقة',),
+                            DoctorInfo(text: 'priceSample'.tr(),),
                             SizedBox(height: 6.h),
-                            Align(
-                                alignment: Alignment.centerRight,
-                                child: Text("نبذة عن الأخصائي", style: TextStyle(fontSize: 18.sp, color: Color(0xff19649E), fontWeight: FontWeight.bold,),)),
+                            Text("bioExample".tr(), style: TextStyle(fontSize: 18.sp, color: Color(0xff19649E), fontWeight: FontWeight.bold,),),
                             SizedBox(height: 6.h),
-                            Align(
-                                alignment: Alignment.centerRight,
-                                child: Text("طبيب نفسي مهتم بالوقاية النفسية", style: TextStyle(fontSize: 18.sp, color: Colors.black, fontWeight: FontWeight.bold),)),
+                            Text("doctorExample".tr(), style: TextStyle(fontSize: 18.sp, color: Colors.black, fontWeight: FontWeight.bold),),
                             SizedBox(height: 6.h),
-                            const DoctorInfo(text: 'النوع: وقاية نفسية',),
+                            DoctorInfo(text: 'typeExample'.tr(),),
                             SizedBox(height: 6.h),
-                            const DoctorInfo(text: 'متاح جلسات صوتية، فيديو',),
+                            DoctorInfo(text: 'availableVideo'.tr(),),
                             SizedBox(height: 6.h),
-                            const DoctorInfo(text: 'خبرة 7 سنوات',),
+                            DoctorInfo(text: 'yearsExample'.tr(),),
                             SizedBox(height: 6.h),
-                            const DoctorInfo(text: 'اللغة: العربية، الإنجليزية',),
+                            DoctorInfo(text: 'languageExample'.tr(),),
                             SizedBox(height: 10.h),
-                            Align(
-                                alignment: Alignment.centerRight,
-                                child: Text("ساعات العمل", style: TextStyle(fontSize: 20.sp, color: Color(0xff19649E), fontWeight: FontWeight.bold,),)),
+                            Text("workingHours".tr(), style: TextStyle(fontSize: 20.sp, color: Color(0xff19649E), fontWeight: FontWeight.bold,),),
                             SizedBox(height: 10.h),
                             SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
@@ -198,9 +208,7 @@ int currentIndex=0;
                               ),
                             ),
                             SizedBox(height: 10.h,),
-                            Align(
-                                alignment: Alignment.centerRight,
-                                child: Text("اليوم", style: TextStyle(fontSize: 20.sp, color: Color(0xff19649E), fontWeight: FontWeight.bold,),)),
+                            Text("day".tr(), style: TextStyle(fontSize: 20.sp, color: Color(0xff19649E), fontWeight: FontWeight.bold,),),
                             SizedBox(height: 10.h),
                             SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
@@ -237,11 +245,12 @@ int currentIndex=0;
                             Center(
                               child: ElevatedButton(
                                 onPressed: () {
+
                                   showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      title: Text("تنبيه"),
-                                      content: Text("يجب عليك تسجيل الدخول أو إنشاء حساب للوصول إلى هذه الصفحة."),
+                                      title: Text("alert".tr()),
+                                      content: Text("guestAccessibilityAlert".tr()),
                                       actions: [
                                         TextButton(
                                           onPressed: () {
@@ -251,7 +260,7 @@ int currentIndex=0;
                                               MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
                                             );
                                           },
-                                          child: Text("تسجيل الدخول"),
+                                          child: Text("login".tr()),
                                         ),
                                         TextButton(
                                           onPressed: () {
@@ -261,13 +270,13 @@ int currentIndex=0;
                                               MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
                                             );
                                           },
-                                          child: Text("إنشاء حساب"),
+                                          child: Text("createAccount".tr()),
                                         ),
                                         TextButton(
                                           onPressed: () {
                                             Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
                                           },
-                                          child: Text("إلغاء"),
+                                          child: Text("cancel".tr()),
                                         ),
                                       ],
                                     ),
@@ -279,7 +288,7 @@ int currentIndex=0;
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10))),
                                 child:  Text(
-                                  "حجز موعد",
+                                  "bookDate".tr(),
                                   style: TextStyle(
                                       fontSize: 20.sp,
                                       fontWeight: FontWeight.bold,
@@ -324,9 +333,9 @@ int currentIndex=0;
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0,120,50,10),
+                    padding: const EdgeInsets.fromLTRB(20,120,20,10),
                     child: Text(
-                      "د. محمود محمد",
+                      "nameSample".tr(),
                       style: const TextStyle(
                       fontWeight: FontWeight.bold, // Bold text
                       fontSize: 20, // Font size
@@ -335,10 +344,10 @@ int currentIndex=0;
                   ),
                 ),
                 SizedBox(
-                  height: 220.h,
-                  width: 180.w,
+                  height: 200.h,
+                  width: 150.w,
                   child: Transform.translate(
-                    offset: const Offset(-210, 50),
+                    offset: Offset(isEnglish ? 230 : -210, 50),
                     child: Container(
                       decoration: const BoxDecoration(
                         shape: BoxShape.rectangle,
@@ -355,31 +364,27 @@ int currentIndex=0;
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 20, top: 60),
+              padding: const EdgeInsets.only(right: 20, top: 60, left: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const DoctorInfo(text: 'السعر: 300 ليرة / 30 دقيقة',),
+                  DoctorInfo(text: 'priceSample'.tr(),),
                    SizedBox(height: 6.h),
-                   Align(
-                    alignment: Alignment.centerRight,
-                      child: Text("نبذة عن الأخصائي", style: TextStyle(fontSize: 18.sp, color: Color(0xff19649E), fontWeight: FontWeight.bold,),)),
+                   Text("bioExample".tr(), style: TextStyle(fontSize: 18.sp, color: Color(0xff19649E), fontWeight: FontWeight.bold,),),
                    SizedBox(height: 6.h),
-                   Align(
-                      alignment: Alignment.centerRight,
-                      child: Text("طبيب نفسي مهتم بالوقاية النفسية", style: TextStyle(fontSize: 18.sp, color: Colors.black, fontWeight: FontWeight.bold),)),
+                   Text("doctorExample".tr(), style: TextStyle(fontSize: 18.sp, color: Colors.black, fontWeight: FontWeight.bold),),
                    SizedBox(height: 6.h),
-                  const DoctorInfo(text: 'النوع: وقاية نفسية',),
+                  DoctorInfo(text: 'typeExample'.tr(),),
                    SizedBox(height: 6.h),
-                  const DoctorInfo(text: 'متاح جلسات صوتية، فيديو',),
+                  DoctorInfo(text: 'availableVideo'.tr(),),
                    SizedBox(height: 6.h),
-                  const DoctorInfo(text: 'خبرة 7 سنوات',),
+                  DoctorInfo(text: 'yearsExample'.tr(),),
                    SizedBox(height: 6.h),
-                  const DoctorInfo(text: 'اللغة: العربية، الإنجليزية',),
+                  DoctorInfo(text: 'languageExample'.tr(),),
                    SizedBox(height: 10.h),
-                   Align(
-                      alignment: Alignment.centerRight,
-                      child: Text("ساعات العمل", style: TextStyle(fontSize: 20.sp, color: Color(0xff19649E), fontWeight: FontWeight.bold,),)),
+                   Text("workingHours".tr(), textAlign: TextAlign.start,
+                     style: TextStyle(fontSize: 20.sp, color: Color(0xff19649E), fontWeight: FontWeight.bold,),),
                    SizedBox(height: 10.h),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -416,17 +421,16 @@ int currentIndex=0;
                     ),
                   ),
                   SizedBox(height: 10.h,),
-                   Align(
-                      alignment: Alignment.centerRight,
-                      child: Text("اليوم", style: TextStyle(fontSize: 20.sp, color: Color(0xff19649E), fontWeight: FontWeight.bold,),)),
+                   Text("day".tr(), style: TextStyle(fontSize: 20.sp, color: Color(0xff19649E), fontWeight: FontWeight.bold,),),
                    SizedBox(height: 10.h),
+
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
 
                     child: Row(
                       spacing: 10,
                       children:
-                      daySlots.map((day) {
+                      (isEnglish ? daySlotsEnglish  : daySlots).map((day) {
                         return TextButton(
                           onPressed: () {
                             setState(() {
@@ -463,7 +467,7 @@ int currentIndex=0;
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
                       child:  Text(
-                        "حجز موعد",
+                        "bookDate".tr(),
                         style: TextStyle(
                             fontSize: 20.sp,
                             fontWeight: FontWeight.bold,
@@ -471,6 +475,7 @@ int currentIndex=0;
                       ),
                     ),
                   ),
+                  SizedBox(height: 50.h,),
 
                 ],
               ),

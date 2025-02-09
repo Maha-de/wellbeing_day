@@ -45,6 +45,7 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width.w;
     double screenHeight = MediaQuery.of(context).size.height.h;
+    bool isEnglish = Localizations.localeOf(context).languageCode == 'en';
 
     return BlocProvider(
       create: (_) => userProfileCubit,
@@ -146,8 +147,8 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          title: Text("تنبيه"),
-                          content: Text("يجب عليك تسجيل الدخول أو إنشاء حساب للوصول إلى هذه الصفحة."),
+                          title: Text("alert".tr()),
+                          content: Text("guestAccessibilityAlert".tr()),
                           actions: [
                             TextButton(
                               onPressed: () {
@@ -157,7 +158,7 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                                   MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
                                 );
                               },
-                              child: Text("تسجيل الدخول"),
+                              child: Text("login".tr()),
                             ),
                             TextButton(
                               onPressed: () {
@@ -167,13 +168,13 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                                   MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
                                 );
                               },
-                              child: Text("إنشاء حساب"),
+                              child: Text("createAccount".tr()),
                             ),
                             TextButton(
                               onPressed: () {
                                 Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
                               },
-                              child: Text("إلغاء"),
+                              child: Text("cancel".tr()),
                             ),
                           ],
                         ),
@@ -218,7 +219,7 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                   children: [
                     Center(
                       child: Container(
-                        width: 161.w,
+                        width: 200.w,
                         height: 40.h,
                         decoration: BoxDecoration(
                           color: Color(0xFF1F78BC),
@@ -228,9 +229,9 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          "إضطراب شخصي",
+                          "personalityDisorder".tr(),
                           style: TextStyle(
-                              fontSize: 20.sp,
+                              fontSize: isEnglish ? 17.sp : 20.sp,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
@@ -242,9 +243,9 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildDisorderButton("حديّ"),
-                        _buildDisorderButton("نرجسي"),
-                        _buildDisorderButton("وسواسي"),
+                        _buildDisorderButton("borderline".tr()),
+                        _buildDisorderButton("narcissistic".tr()),
+                        _buildDisorderButton("obsessive".tr()),
                       ],
                     ),
                     SizedBox(
@@ -253,9 +254,9 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildDisorderButton("إعتمادي"),
-                        _buildDisorderButton("رهابي"),
-                        _buildDisorderButton("إنحرافي"),
+                        _buildDisorderButton("dependent".tr()),
+                        _buildDisorderButton("phophia".tr()),
+                        _buildDisorderButton("disruption".tr()),
                       ],
                     ),
 
@@ -275,7 +276,7 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          "المختصين",
+                          "specialists".tr(),
                           style: TextStyle(
                               fontSize: 20.sp,
                               fontWeight: FontWeight.bold,
@@ -301,7 +302,7 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                             ),
                           );
                         } else {
-                          return Center(child: Text('No specialists found.'));
+                          return Center(child: Text('noSpecialistsFound'.tr()));
                         }
                       },
                     )
@@ -326,7 +327,7 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                   children: [
                     Center(
                       child: Container(
-                        width: 161.w,
+                        width: 200.w,
                         height: 40.h,
                         decoration: BoxDecoration(
                           color: Color(0xFF1F78BC),
@@ -336,9 +337,9 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          "إضطراب شخصي",
+                          "personalityDisorder".tr(),
                           style: TextStyle(
-                              fontSize: 20.sp,
+                              fontSize: isEnglish ? 17.sp : 20.sp,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
@@ -350,9 +351,9 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildDisorderButton("حديّ"),
-                        _buildDisorderButton("نرجسي"),
-                        _buildDisorderButton("وسواسي"),
+                        _buildDisorderButton("borderline".tr()),
+                        _buildDisorderButton("narcissistic".tr()),
+                        _buildDisorderButton("obsessive".tr()),
                       ],
                     ),
                     SizedBox(
@@ -361,9 +362,9 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildDisorderButton("إعتمادي"),
-                        _buildDisorderButton("رهابي"),
-                        _buildDisorderButton("إنحرافي"),
+                        _buildDisorderButton("dependent".tr()),
+                        _buildDisorderButton("phophia".tr()),
+                        _buildDisorderButton("disruption".tr()),
                       ],
                     ),
 
@@ -383,7 +384,7 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          "المختصين",
+                          "specialists".tr(),
                           style: TextStyle(
                               fontSize: 20.sp,
                               fontWeight: FontWeight.bold,
@@ -409,7 +410,7 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                             ),
                           );
                         } else {
-                          return Center(child: Text('No specialists found.'));
+                          return Center(child: Text('noSpecialistsFound'.tr()));
                         }
                       },
                     )

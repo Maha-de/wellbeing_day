@@ -45,6 +45,7 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    bool isEnglish = Localizations.localeOf(context).languageCode == 'en';
 
     return BlocProvider(
       create: (_) => userProfileCubit,
@@ -146,8 +147,8 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          title: Text("تنبيه"),
-                          content: Text("يجب عليك تسجيل الدخول أو إنشاء حساب للوصول إلى هذه الصفحة."),
+                          title: Text("alert".tr()),
+                          content: Text("guestAccessibilityAlert".tr()),
                           actions: [
                             TextButton(
                               onPressed: () {
@@ -157,7 +158,7 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
                                   MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
                                 );
                               },
-                              child: Text("تسجيل الدخول"),
+                              child: Text("login".tr()),
                             ),
                             TextButton(
                               onPressed: () {
@@ -167,13 +168,13 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
                                   MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
                                 );
                               },
-                              child: Text("إنشاء حساب"),
+                              child: Text("createAccount".tr()),
                             ),
                             TextButton(
                               onPressed: () {
                                 Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
                               },
-                              child: Text("إلغاء"),
+                              child: Text("cancel".tr()),
                             ),
                           ],
                         ),
@@ -218,7 +219,7 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
                   children: [
                     Center(
                       child: Container(
-                        width: 161.w,
+                        width: 200.w,
                         height: 40.h,
                         decoration: BoxDecoration(
                           color: Color(0xFF1F78BC),
@@ -228,9 +229,9 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          "اضطراب الاطفال",
+                          "childrenDisorder".tr(),
                           style: TextStyle(
-                              fontSize: 20.sp,
+                              fontSize: isEnglish ? 17.sp : 20.sp,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
@@ -242,9 +243,9 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildDisorderButton("صعوبات  التعلم"),
-                        _buildDisorderButton("صعوبات النطق"),
-                        _buildDisorderButton("فرط الحركة"),
+                        _buildDisorderButton("learningDifficulties".tr()),
+                        _buildDisorderButton("speechDifficulties".tr()),
+                        _buildDisorderButton("hyperactivity".tr()),
                       ],
                     ),
                     SizedBox(
@@ -253,9 +254,9 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildDisorderButton("التوحد"),
-                        _buildDisorderButton("الكذب"),
-                        _buildDisorderButton("السرقه"),
+                        _buildDisorderButton("autism".tr()),
+                        _buildDisorderButton("lie".tr()),
+                        _buildDisorderButton("theft".tr()),
                       ],
                     ),
                     SizedBox(
@@ -264,9 +265,9 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildDisorderButton("العناد"),
-                        _buildDisorderButton("الادمان"),
-                        _buildDisorderButton("التعلثم"),
+                        _buildDisorderButton("stubbornness".tr()),
+                        _buildDisorderButton("addiction".tr()),
+                        _buildDisorderButton("stuttering".tr()),
                       ],
                     ),
                     SizedBox(
@@ -275,7 +276,7 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildDisorderButton("التعلق"),
+                        _buildDisorderButton("attachment".tr()),
 
                       ],
                     ),
@@ -295,7 +296,7 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          "المختصين",
+                          "specialists".tr(),
                           style: TextStyle(
                               fontSize: 20.sp,
                               fontWeight: FontWeight.bold,
@@ -321,7 +322,7 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
                             ),
                           );
                         } else {
-                          return Center(child: Text('No specialists found.'));
+                          return Center(child: Text('noSpecialistsFound'.tr()));
                         }
                       },
                     )
@@ -346,7 +347,7 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
                   children: [
                     Center(
                       child: Container(
-                        width: 161.w,
+                        width: 200.w,
                         height: 40.h,
                         decoration: BoxDecoration(
                           color: Color(0xFF1F78BC),
@@ -356,9 +357,9 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          "اضطراب الاطفال",
+                          "childrenDisorder".tr(),
                           style: TextStyle(
-                              fontSize: 20.sp,
+                              fontSize: isEnglish ? 17.sp : 20.sp,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
@@ -370,9 +371,9 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildDisorderButton("صعوبات  التعلم"),
-                        _buildDisorderButton("صعوبات النطق"),
-                        _buildDisorderButton("فرط الحركة"),
+                        _buildDisorderButton("learningDifficulties".tr()),
+                        _buildDisorderButton("speechDifficulties".tr()),
+                        _buildDisorderButton("hyperactivity".tr()),
                       ],
                     ),
                     SizedBox(
@@ -381,9 +382,9 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildDisorderButton("التوحد"),
-                        _buildDisorderButton("الكذب"),
-                        _buildDisorderButton("السرقه"),
+                        _buildDisorderButton("autism".tr()),
+                        _buildDisorderButton("lie".tr()),
+                        _buildDisorderButton("theft".tr()),
                       ],
                     ),
                     SizedBox(
@@ -392,9 +393,9 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildDisorderButton("العناد"),
-                        _buildDisorderButton("الادمان"),
-                        _buildDisorderButton("التعلثم"),
+                        _buildDisorderButton("stubbornness".tr()),
+                        _buildDisorderButton("addiction".tr()),
+                        _buildDisorderButton("stuttering".tr()),
                       ],
                     ),
                     SizedBox(
@@ -403,7 +404,7 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildDisorderButton("التعلق"),
+                        _buildDisorderButton("attachment".tr()),
 
                       ],
                     ),
@@ -423,7 +424,7 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          "المختصين",
+                          "specialists".tr(),
                           style: TextStyle(
                               fontSize: 20.sp,
                               fontWeight: FontWeight.bold,
@@ -449,7 +450,7 @@ class _ChildrensDisorderScreenState extends State<ChildrensDisorderScreen> {
                             ),
                           );
                         } else {
-                          return Center(child: Text('No specialists found.'));
+                          return Center(child: Text('noSpecialistsFound'.tr()));
                         }
                       },
                     )

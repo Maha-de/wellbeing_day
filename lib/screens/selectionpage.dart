@@ -120,7 +120,7 @@ class SelectionPage extends StatelessWidget {
                   height: 52.h, // ارتفاع الزر
                   alignment: Alignment.center, // مركز النص
                   child: Text(
-                    "متابعه كضيف",
+                    "continueAsGuest".tr(),
                     style:  TextStyle(
                         fontSize: 18.sp, fontWeight: FontWeight.w700,color: Colors.white), // حجم النص
                   ),

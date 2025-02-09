@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../widgets/custom_bottom_nav_bar.dart';
@@ -19,23 +20,23 @@ class _GroupTherapyState extends State<GroupTherapy> {
 
   final Map<String, bool> _problems = {
 
-  "ادمان": false,
-  "خلاف عائلي": false,
-    "قلق": false,
-    "اكتئاب": false,
-    "رهاب اجتماعي": false,
-    "وسواس": false,
-    "غير ذلك": false,
+  "addictionCheck".tr(): false,
+  "familyDispute".tr(): false,
+    "anxiety".tr(): false,
+    "depression".tr(): false,
+    "socialPhobia".tr(): false,
+    "obsessiveDisorder".tr(): false,
+    "other".tr(): false,
 
   };
 
   final Map<String, bool> _goals = {
 
-    "علاج": false,
-    "تنفيس انفعالي": false,
-    "تدرب على مهارة اجتماعية": false,
-    "حل مشاكل": false,
-    "غير ذلك": false,
+    "therapy".tr(): false,
+    "emotionalVenting".tr(): false,
+    "socialSkill".tr(): false,
+    "solveProblems".tr(): false,
+    "other".tr(): false,
 
   };
 
@@ -76,7 +77,7 @@ class _GroupTherapyState extends State<GroupTherapy> {
             ),
             child:  Center(
                 child: Text(
-                  "العلاج الجماعي",
+                  "theGroupTherapy".tr(),
                   style: TextStyle(fontSize: 20.sp, color: Colors.white),
                 )),
           ),
@@ -86,9 +87,9 @@ class _GroupTherapyState extends State<GroupTherapy> {
         ),
 
             Padding(
-              padding: const EdgeInsets.only(right: 20),
+              padding: const EdgeInsets.only(right: 20, left: 20),
               child: Text(
-                "ما هو العلاج الجماعي؟",
+                "whatGroupTherapy".tr(),
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
@@ -123,9 +124,9 @@ class _GroupTherapyState extends State<GroupTherapy> {
             SizedBox(height: screenHeight * 0.01.h),
 
             Padding(
-              padding: const EdgeInsets.only(right: 20),
+              padding: const EdgeInsets.only(right: 20, left: 20),
               child: Text(
-                "إيجابياته",
+                "positives".tr(),
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
@@ -160,9 +161,9 @@ class _GroupTherapyState extends State<GroupTherapy> {
             SizedBox(height: screenHeight * 0.01.h),
 
             Padding(
-              padding:  EdgeInsets.only(right: 20),
+              padding: const EdgeInsets.only(right: 20, left: 20),
               child: Text(
-                "المشكلات التي تعاني منها",
+                "problemsExperiencing".tr(),
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
@@ -202,9 +203,9 @@ class _GroupTherapyState extends State<GroupTherapy> {
             SizedBox(height: screenHeight * 0.01.h),
 
             Padding(
-              padding:  EdgeInsets.only(right: 20),
+              padding: const EdgeInsets.only(right: 20, left: 20),
               child: Text(
-                "الأهداف",
+                "goals".tr(),
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
@@ -248,7 +249,7 @@ class _GroupTherapyState extends State<GroupTherapy> {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          title: const Text("تم التسجيل"),
+                          title: Text("registered".tr()),
                           content: Text("سيتم تسجيل اسمك على لائحة الانتظار\nعند اكتمال العدد سيتم التواصل معك لتحديد موعد"),
                           actions: [
                             TextButton(
@@ -256,7 +257,7 @@ class _GroupTherapyState extends State<GroupTherapy> {
                                 Navigator.of(context)
                                     .pop(); // Close the dialog
                               },
-                              child: const Text('حسنا'),
+                              child: Text('ok'.tr()),
                             ),
                           ],
                         );
@@ -273,8 +274,8 @@ class _GroupTherapyState extends State<GroupTherapy> {
                     backgroundColor: const Color(0xFF19649E),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10))),
-                child:  Text(
-                  "تسجيل",
+                child: Text(
+                  "approve".tr(),
                   style: TextStyle(
                       fontSize: 20.sp,
                       fontWeight: FontWeight.bold,

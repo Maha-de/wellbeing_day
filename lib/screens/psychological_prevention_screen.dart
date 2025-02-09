@@ -28,6 +28,8 @@ class PsychologicalPreventionScreen extends StatefulWidget {
 class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionScreen> {
   late UserProfileCubit userProfileCubit;
 
+
+
   @override
   void initState() {
     super.initState();
@@ -45,6 +47,8 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width.w;
     double screenHeight = MediaQuery.of(context).size.height.h;
+
+    bool isEnglish = Localizations.localeOf(context).languageCode == 'en';
 
     return BlocProvider(
       create: (_) => userProfileCubit,
@@ -146,8 +150,8 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          title: Text("تنبيه"),
-                          content: Text("يجب عليك تسجيل الدخول أو إنشاء حساب للوصول إلى هذه الصفحة."),
+                          title: Text("alert".tr()),
+                          content: Text("guestAccessibilityAlert".tr()),
                           actions: [
                             TextButton(
                               onPressed: () {
@@ -157,7 +161,7 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                                   MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
                                 );
                               },
-                              child: Text("تسجيل الدخول"),
+                              child: Text("login".tr()),
                             ),
                             TextButton(
                               onPressed: () {
@@ -167,13 +171,13 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                                   MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
                                 );
                               },
-                              child: Text("إنشاء حساب"),
+                              child: Text("createAccount".tr()),
                             ),
                             TextButton(
                               onPressed: () {
                                 Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
                               },
-                              child: Text("إلغاء"),
+                              child: Text("cancel".tr()),
                             ),
                           ],
                         ),
@@ -217,7 +221,7 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                   children: [
                     Center(
                       child: Container(
-                        width: 161.w,
+                        width: 200.w,
                         height: 40.h,
                         decoration: BoxDecoration(
                           color: Color(0xFF1F78BC),
@@ -227,9 +231,9 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          "وقايه نفسيه",
+                          "psychologicalProtection".tr(),
                           style: TextStyle(
-                              fontSize: 20.sp,
+                              fontSize: isEnglish ? 17.sp : 20.sp,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
@@ -241,9 +245,9 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildDisorderButton("تنميه الأستقلاليه"),
-                        _buildDisorderButton("تنميه التوكيديه"),
-                        _buildDisorderButton("تنميه الثقه بالذات"),
+                        _buildDisorderButton("independence".tr()),
+                        _buildDisorderButton("assertive".tr()),
+                        _buildDisorderButton("Self-confidence".tr()),
                       ],
                     ),
                     SizedBox(
@@ -252,8 +256,8 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildDisorderButton("تنميه قوه الأنا"),
-                        _buildDisorderButton("مواجهه التحديات"),
+                        _buildDisorderButton("ego".tr()),
+                        _buildDisorderButton("challenges".tr()),
 
                       ],
                     ),
@@ -274,7 +278,7 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          "المختصين",
+                          "specialists".tr(),
                           style: TextStyle(
                               fontSize: 20.sp,
                               fontWeight: FontWeight.bold,
@@ -300,7 +304,7 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                             ),
                           );
                         } else {
-                          return Center(child: Text('No specialists found.'));
+                          return Center(child: Text('noSpecialistsFound'.tr()));
                         }
                       },
                     )
@@ -324,7 +328,7 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                   children: [
                     Center(
                       child: Container(
-                        width: 161.w,
+                        width: 200.w,
                         height: 40.h,
                         decoration: BoxDecoration(
                           color: Color(0xFF1F78BC),
@@ -334,9 +338,9 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          "وقايه نفسيه",
+                          "psychologicalProtection".tr(),
                           style: TextStyle(
-                              fontSize: 20.sp,
+                              fontSize: isEnglish ? 17.sp : 20.sp,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
@@ -348,9 +352,9 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildDisorderButton("تنميه الأستقلاليه"),
-                        _buildDisorderButton("تنميه التوكيديه"),
-                        _buildDisorderButton("تنميه الثقه بالذات"),
+                        _buildDisorderButton("independence".tr()),
+                        _buildDisorderButton("assertive".tr()),
+                        _buildDisorderButton("Self-confidence".tr()),
                       ],
                     ),
                     SizedBox(
@@ -359,8 +363,8 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildDisorderButton("تنميه قوه الأنا"),
-                        _buildDisorderButton("مواجهه التحديات"),
+                        _buildDisorderButton("ego".tr()),
+                        _buildDisorderButton("challenges".tr()),
 
                       ],
                     ),
@@ -381,7 +385,7 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          "المختصين",
+                          "specialists".tr(),
                           style: TextStyle(
                               fontSize: 20.sp,
                               fontWeight: FontWeight.bold,
@@ -407,7 +411,7 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                             ),
                           );
                         } else {
-                          return Center(child: Text('No specialists found.'));
+                          return Center(child: Text('noSpecialistsFound'.tr()));
                         }
                       },
                     )

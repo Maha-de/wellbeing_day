@@ -91,7 +91,7 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                               Container(
                                 width: screenWidth.w ,
                                 height: screenHeight.h *
-                                    0.22.h, // Adjust height proportionally
+                                    0.18.h, // Adjust height proportionally
                                 decoration: BoxDecoration(
                                   color: Color(0xff19649E),
                                   borderRadius: BorderRadius.only(

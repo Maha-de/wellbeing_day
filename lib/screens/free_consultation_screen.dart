@@ -148,8 +148,8 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                              title: Text("تنبيه"),
-                              content: Text("يجب عليك تسجيل الدخول أو إنشاء حساب للوصول إلى هذه الصفحة."),
+                              title: Text("alert".tr()),
+                              content: Text("guestAccessibilityAlert".tr()),
                               actions: [
                                 TextButton(
                                   onPressed: () {
@@ -159,7 +159,7 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                                       MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
                                     );
                                   },
-                                  child: Text("تسجيل الدخول"),
+                                  child: Text("login".tr()),
                                 ),
                                 TextButton(
                                   onPressed: () {
@@ -169,13 +169,13 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                                       MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
                                     );
                                   },
-                                  child: Text("إنشاء حساب"),
+                                  child: Text("createAccount".tr()),
                                 ),
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
                                   },
-                                  child: Text("إلغاء"),
+                                  child: Text("cancel".tr()),
                                 ),
                               ],
                             ),
@@ -234,7 +234,7 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                                     ),
                                     alignment: Alignment.center,
                                     child: Text(
-                                      "إستشاره مجانيه",
+                                      "consultation".tr(),
                                       style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Colors.white),
                                     ),
                                   ),
@@ -242,12 +242,9 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                               ),
                               Container(
                                 width: screenWidth * 0.9.w,
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    "عبر عن حالتك بشكل مختصر",
-                                    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Color(0xff19649E)),
-                                  ),
+                                child: Text(
+                                  "conditionBriefly".tr(),
+                                  style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Color(0xff19649E)),
                                 ),
                               ),
                               SizedBox(height: 5.h),
@@ -257,7 +254,7 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                                 child: TextFormField(
 
                                   decoration: InputDecoration(
-                                    hintText: "ما هو شعورك؟ أكتب وصفاً قصيراً لحالتك لعرضها على المختص",
+                                    hintText: "howDoYouFeel".tr(),
                                     hintStyle: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.grey),
                                     filled: true,
                                     fillColor: Color(0xFFD5D5D5),
@@ -273,41 +270,38 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                               SizedBox(height: 15.h),
                               Container(
                                 width: screenWidth * 0.9.w,
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    "شروط الجلسه",
-                                    style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff1F78BC)),
-                                  ),
+                                child: Text(
+                                  "sessionTerms".tr(),
+                                  style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff1F78BC)),
                                 ),
                               ),
                               SizedBox(height: 7.h),
                               Column(
                                 children: [
                                   Row(
-
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Icon(Icons.circle, size: 10, color: Colors.black),
                                       SizedBox(width: 5.w),
-                                      Text("ستكون مده الإستشاره 15 دقيقه"),
+                                      Text("term1".tr()),
                                     ],
                                   ),
                                   SizedBox(height: 5.h),
                                   Row(
-
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Icon(Icons.circle, size: 10, color: Colors.black),
                                       SizedBox(width: 5.w),
-                                      Text("عند الحاجه للتوجيه للعلاج او الأخصائي المناسب"),
+                                      Text("term2".tr()),
                                     ],
                                   ),
                                   SizedBox(height: 5.h),
                                   Row(
-
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Icon(Icons.circle, size: 10, color: Colors.black),
                                       SizedBox(width: 5.w),
-                                      Text("عند عدم وضوح الحاله النفسيه او الجسديه"),
+                                      Text("term3".tr()),
                                     ],
                                   ),
                                 ],
@@ -319,9 +313,10 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                         GestureDetector(
                           onTap: (){   showDialog(
                             context: context,
-                            builder: (context) => AlertDialog(
-                              title: Text("تنبيه"),
-                              content: Text("يجب عليك تسجيل الدخول أو إنشاء حساب للوصول إلى هذه الصفحة."),
+                            builder: (context) =>
+                                AlertDialog(
+                              title: Text("alert".tr()),
+                              content: Text("guestAccessibilityAlert".tr()),
                               actions: [
                                 TextButton(
                                   onPressed: () {
@@ -331,7 +326,7 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                                       MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
                                     );
                                   },
-                                  child: Text("تسجيل الدخول"),
+                                  child: Text("login".tr()),
                                 ),
                                 TextButton(
                                   onPressed: () {
@@ -341,13 +336,13 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                                       MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
                                     );
                                   },
-                                  child: Text("إنشاء حساب"),
+                                  child: Text("createAccount".tr()),
                                 ),
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
                                   },
-                                  child: Text("إلغاء"),
+                                  child: Text("cancel".tr()),
                                 ),
                               ],
                             ),
@@ -361,7 +356,7 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                             ),
                             child: Center(
                               child: Text(
-                                'إستمرار',
+                                'continue'.tr(),
                                 style: TextStyle(fontSize: 20.sp, color: Colors.white, fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -382,7 +377,8 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                   ),
                   body: SingleChildScrollView(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                     
                         Padding(
@@ -402,7 +398,7 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                                     ),
                                     alignment: Alignment.center,
                                     child: Text(
-                                      "إستشاره مجانيه",
+                                      "consultation".tr(),
                                       style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Colors.white),
                                     ),
                                   ),
@@ -410,12 +406,9 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                               ),
                               Container(
                                 width: screenWidth * 0.9.w,
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    "عبر عن حالتك بشكل مختصر",
-                                    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Color(0xff19649E)),
-                                  ),
+                                child: Text(
+                                  "conditionBriefly".tr(),
+                                  style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Color(0xff19649E)),
                                 ),
                               ),
                               SizedBox(height: 5.h),
@@ -425,7 +418,7 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                                 child: TextFormField(
                     
                                   decoration: InputDecoration(
-                                    hintText: "ما هو شعورك؟ أكتب وصفاً قصيراً لحالتك لعرضها على المختص",
+                                    hintText: "howDoYouFeel".tr(),
                                     hintStyle: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.grey),
                                     filled: true,
                                     fillColor: Color(0xFFD5D5D5),
@@ -441,41 +434,39 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                               SizedBox(height: 15.h),
                               Container(
                                 width: screenWidth * 0.9.w,
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    "شروط الجلسه",
-                                    style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff1F78BC)),
-                                  ),
+                                child: Text(
+                                  "sessionTerms".tr(),
+                                  style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff1F78BC)),
                                 ),
                               ),
                               SizedBox(height: 7.h),
                               Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
-                    
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Icon(Icons.circle, size: 10, color: Colors.black),
                                       SizedBox(width: 5.w),
-                                      Text("ستكون مده الإستشاره 15 دقيقه"),
+                                      Text("term1".tr()),
                                     ],
                                   ),
                                   SizedBox(height: 5.h),
                                   Row(
-                    
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Icon(Icons.circle, size: 10, color: Colors.black),
                                       SizedBox(width: 5.w),
-                                      Text("عند الحاجه للتوجيه للعلاج او الأخصائي المناسب"),
+                                      Text("term2".tr()),
                                     ],
                                   ),
                                   SizedBox(height: 5.h),
                                   Row(
-                    
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Icon(Icons.circle, size: 10, color: Colors.black),
                                       SizedBox(width: 5.w),
-                                      Text("عند عدم وضوح الحاله النفسيه او الجسديه"),
+                                      Text("term3".tr()),
                                     ],
                                   ),
                                 ],
@@ -495,7 +486,7 @@ class _FreeConsultationScreenState extends State<FreeConsultationScreen> {
                             ),
                             child: Center(
                               child: Text(
-                                'إستمرار',
+                                'continue'.tr(),
                                 style: TextStyle(fontSize: 20.sp, color: Colors.white, fontWeight: FontWeight.bold),
                               ),
                             ),

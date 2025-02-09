@@ -54,6 +54,8 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    bool isEnglish = Localizations.localeOf(context).languageCode == 'en';
+
     return BlocProvider(
         create: (context) => userProfileCubit,
     child: BlocBuilder<UserProfileCubit, UserProfileState>(
@@ -88,7 +90,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                   ),
                   child: Center(
                       child: Text(
-                        "مواعيدي",
+                        "appointments".tr(),
                         style: TextStyle(fontSize: 20.sp,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,),
@@ -128,7 +130,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                      SizedBox(height: 30.h,),
 
                     Padding(
-                      padding: const EdgeInsets.only(right: 30, left: 30),
+                      padding: const EdgeInsets.only(right: 30, left: 30, top: 30),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -140,7 +142,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20))),
                             child:  Text(
-                              "إعادة جدوله",
+                              "reschedule".tr(),
                               style: TextStyle(
                                   fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
@@ -155,9 +157,9 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20))),
                             child: Text(
-                              "إلغاء الموعد",
+                              "cancelAppointment".tr(),
                               style: TextStyle(
-                                  fontSize: 20.sp,
+                                  fontSize: isEnglish ? 17.sp : 20.sp,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white),
                             ),
@@ -204,7 +206,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                   ),
                   child:  Center(
                       child: Text(
-                        "مواعيدي",
+                        "appointments".tr(),
                         style: TextStyle(fontSize: 20.sp,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,),
@@ -272,7 +274,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Container(
-                                                width:131.w,
+                                                width:160.w,
                                                 height:40.h,
                                                 decoration: BoxDecoration(
                                                     color: Color(0xFF19649E),
@@ -280,7 +282,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                                                 ),
                                                 child: Center(
                                                   child: Text(
-                                                    "إعادة جدوله",
+                                                    "reschedule".tr(),
                                                     style: TextStyle(
                                                         fontSize: 18.sp,
                                                         fontWeight: FontWeight.bold,
@@ -290,7 +292,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
 
                                               ),
                                               Container(
-                                                width:131.w,
+                                                width:160.w,
                                                 height:40.h,
                                                 decoration: BoxDecoration(
                                                   color: Color(0xFF19649E),
@@ -298,9 +300,9 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                                                 ),
                                                 child: Center(
                                                   child: Text(
-                                                    "إلغاء الموعد",
+                                                    "cancelAppointment".tr(),
                                                     style: TextStyle(
-                                                        fontSize: 18.sp,
+                                                        fontSize: isEnglish ? 17.sp : 20.sp,
                                                         fontWeight: FontWeight.bold,
                                                         color: Colors.white),
                                                   ),
@@ -317,7 +319,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                               ),
                             );
                           } else {
-                            return Center(child: Text('No specialists found.'));
+                            return Center(child: Text('noSpecialistsFound'.tr()));
                           }
                         },
                       ),
@@ -350,7 +352,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                               ),
                             );
                           } else {
-                            return Center(child: Text('No specialists found.'));
+                            return Center(child: Text('noSpecialistsFound'.tr()));
                           }
                         },
                       ),
@@ -383,7 +385,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                               ),
                             );
                           } else {
-                            return Center(child: Text('No specialists found.'));
+                            return Center(child: Text('noSpecialistsFound'.tr()));
                           }
                         },
                       ),
@@ -421,7 +423,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
           backgroundColor: _currentPage == index ? const Color(0xFF19649E) : Colors.grey.shade300,
         ),
         child: Text(
-          index == 0 ? "القادمة" : index == 1 ? "مكتمل" : "تم الإلغاء",
+          index == 0 ? "coming".tr() : index == 1 ? "completed".tr() : "canceled".tr(),
           style:  TextStyle(
             fontSize: 14.sp,
             fontWeight: FontWeight.bold,

@@ -205,8 +205,8 @@ int currentIndex=1;
                         showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                            title: Text("تنبيه"),
-                            content: Text("يجب عليك تسجيل الدخول أو إنشاء حساب للوصول إلى هذه الصفحة."),
+                            title: Text("alert".tr()),
+                            content: Text("guestAccessibilityAlert".tr()),
                             actions: [
                               TextButton(
                                 onPressed: () {
@@ -216,7 +216,7 @@ int currentIndex=1;
                                     MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
                                   );
                                 },
-                                child: Text("تسجيل الدخول"),
+                                child: Text("login".tr()),
                               ),
                               TextButton(
                                 onPressed: () {
@@ -226,13 +226,13 @@ int currentIndex=1;
                                     MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
                                   );
                                 },
-                                child: Text("إنشاء حساب"),
+                                child: Text("createAccount".tr()),
                               ),
                               TextButton(
                                 onPressed: () {
                                   Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
                                 },
-                                child: Text("إلغاء"),
+                                child: Text("cancel".tr()),
                               ),
                             ],
                           ),
@@ -550,12 +550,12 @@ int currentIndex=1;
                           children: [
                             for (var label in [
                               "guidanceAndInstructions",
-                              "تشخيص وتحفيز",
+                              "diagnoseAndMotivation",
                               "childrenDisorder"
                             ])
                               GestureDetector(
                                 onTap: (){
-                                  if(label== "تشخيص وتحفيز"){  Navigator.push(
+                                  if(label== "diagnoseAndMotivation"){  Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => MultiBlocProvider(
@@ -592,7 +592,7 @@ int currentIndex=1;
                                   height: 68.h,
                                   decoration: BoxDecoration(
                                     border: Border.all(
-                                        color: label=="تشخيص وتحفيز" ?
+                                        color: label=="diagnoseAndMotivation" ?
                                         Color(0xff19649E) : Colors.transparent , width: 4),
 
                                     borderRadius: BorderRadius.circular(20),
@@ -991,12 +991,12 @@ int currentIndex=1;
                           children: [
                             for (var label in [
                               "guidanceAndInstructions",
-                              "تشخيص وتحفيز",
+                              "diagnoseAndMotivation",
                               "childrenDisorder"
                             ])
                               GestureDetector(
                                 onTap: (){
-                                  if(label== "تشخيص وتحفيز"){  Navigator.push(
+                                  if(label== "diagnoseAndMotivation"){  Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => MultiBlocProvider(
@@ -1033,7 +1033,7 @@ int currentIndex=1;
                                   height: 68.h,
                                   decoration: BoxDecoration(
                                     border: Border.all(
-                                        color: label=="تشخيص وتحفيز" ?
+                                        color: label=="diagnoseAndMotivation" ?
                                         Color(0xff19649E) : Colors.transparent , width: 4),
 
                                     borderRadius: BorderRadius.circular(20),

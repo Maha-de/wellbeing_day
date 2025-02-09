@@ -1,4 +1,5 @@
 import 'package:doctor/screens/payment_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -45,7 +46,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
               ),
               child:  Center(
                   child: Text(
-                "حدد التاريخ والوقت",
+                "calenderDate".tr(),
                 style: TextStyle(fontSize: 20.sp, color: Colors.white),
               )),
             ),
@@ -84,7 +85,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                SizedBox(height: 50.h),
 
                Center(
-                  child: Text("أقرب إتاحة                 4 يونيو - 7 مساءا",
+                  child: Text("availability".tr() + "                 " + "dateExample".tr(),
                       style: TextStyle(fontSize: 20.h, color: Color(0xff19649E), fontWeight: FontWeight.bold,))),
 
 
@@ -136,7 +137,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))),
                   child: Text(
-                    "تأكيد الموعد",
+                    "confirmDate".tr(),
                     style: TextStyle(
                         fontSize: 20.h,
                         fontWeight: FontWeight.bold,

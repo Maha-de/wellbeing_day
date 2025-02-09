@@ -148,8 +148,8 @@ class _InstantSessionScreenState extends State<InstantSessionScreen> {
               showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
-                  title: Text("تنبيه"),
-                  content: Text("يجب عليك تسجيل الدخول أو إنشاء حساب للوصول إلى هذه الصفحة."),
+                  title: Text("alert".tr()),
+                  content: Text("guestAccessibilityAlert".tr()),
                   actions: [
                     TextButton(
                       onPressed: () {
@@ -159,7 +159,7 @@ class _InstantSessionScreenState extends State<InstantSessionScreen> {
                           MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
                         );
                       },
-                      child: Text("تسجيل الدخول"),
+                      child: Text("login".tr()),
                     ),
                     TextButton(
                       onPressed: () {
@@ -169,13 +169,13 @@ class _InstantSessionScreenState extends State<InstantSessionScreen> {
                           MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
                         );
                       },
-                      child: Text("إنشاء حساب"),
+                      child: Text("createAccount".tr()),
                     ),
                     TextButton(
                       onPressed: () {
                         Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
                       },
-                      child: Text("إلغاء"),
+                      child: Text("cancel".tr()),
                     ),
                   ],
                 ),
@@ -234,7 +234,7 @@ class _InstantSessionScreenState extends State<InstantSessionScreen> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          "جلسه فوريه",
+                          "instantSession".tr(),
                           style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Colors.white),
                         ),
                       ),
@@ -245,7 +245,7 @@ class _InstantSessionScreenState extends State<InstantSessionScreen> {
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: Text(
-                        "عبر عن حالتك بشكل مختصر",
+                        "conditionBriefly".tr(),
                         style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Color(0xff19649E)),
                       ),
                     ),
@@ -257,7 +257,7 @@ class _InstantSessionScreenState extends State<InstantSessionScreen> {
                     child: TextFormField(
 
                       decoration: InputDecoration(
-                        hintText: "ما هو شعورك؟ أكتب وصفاً قصيراً لحالتك لعرضها على المختص",
+                        hintText: "howDoYouFeel".tr(),
                         hintStyle: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.grey),
                         filled: true,
                         fillColor: Color(0xFFD5D5D5),
@@ -276,7 +276,7 @@ class _InstantSessionScreenState extends State<InstantSessionScreen> {
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: Text(
-                        "شروط الجلسه",
+                        "sessionTerms".tr(),
                         style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff1F78BC)),
                       ),
                     ),
@@ -285,29 +285,31 @@ class _InstantSessionScreenState extends State<InstantSessionScreen> {
                   Column(
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
 
                         children: [
                           Icon(Icons.circle, size: 10, color: Colors.black),
                           SizedBox(width: 5.w),
-                          Text("تطلب الجلسه عند الضروره أو وجود وضع صعب"),
+                          Expanded(child: Text("term1Instant".tr())),
                         ],
                       ),
                       SizedBox(height: 5.h),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
 
                         children: [
                           Icon(Icons.circle, size: 10, color: Colors.black),
                           SizedBox(width: 5.w),
-                          Text("لا تطلب الجلسه عند حالات الإنتحار أو ايذاء الذات أو الآخرين"),
+                          Expanded(child: Text("term2Instant".tr())),
                         ],
                       ),
                       SizedBox(height: 5.h),
                       Row(
-
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Icon(Icons.circle, size: 10, color: Colors.black),
                           SizedBox(width: 5.w),
-                          Text("يتم تحويلك إلي الأخصائي المتوفر لاجراء الجلسه"),
+                          Expanded(child: Text("term3Instant".tr())),
                         ],
                       ),
                     ],
@@ -320,8 +322,8 @@ class _InstantSessionScreenState extends State<InstantSessionScreen> {
               onTap: (){   showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
-                  title: Text("تنبيه"),
-                  content: Text("يجب عليك تسجيل الدخول أو إنشاء حساب للوصول إلى هذه الصفحة."),
+                  title: Text("alert".tr()),
+                  content: Text("guestAccessibilityAlert".tr()),
                   actions: [
                     TextButton(
                       onPressed: () {
@@ -331,7 +333,7 @@ class _InstantSessionScreenState extends State<InstantSessionScreen> {
                           MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
                         );
                       },
-                      child: Text("تسجيل الدخول"),
+                      child: Text("login".tr()),
                     ),
                     TextButton(
                       onPressed: () {
@@ -341,13 +343,13 @@ class _InstantSessionScreenState extends State<InstantSessionScreen> {
                           MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
                         );
                       },
-                      child: Text("إنشاء حساب"),
+                      child: Text("createAccount".tr()),
                     ),
                     TextButton(
                       onPressed: () {
                         Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
                       },
-                      child: Text("إلغاء"),
+                      child: Text("cancel".tr()),
                     ),
                   ],
                 ),
@@ -361,7 +363,7 @@ class _InstantSessionScreenState extends State<InstantSessionScreen> {
                 ),
                 child: Center(
                   child: Text(
-                    'إستمرار',
+                    'continue'.tr(),
                     style: TextStyle(fontSize: 20.sp, color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -403,7 +405,7 @@ class _InstantSessionScreenState extends State<InstantSessionScreen> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          "جلسه فوريه",
+                          "instantSession".tr(),
                           style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Colors.white),
                         ),
                       ),
@@ -411,12 +413,9 @@ class _InstantSessionScreenState extends State<InstantSessionScreen> {
                   ),
                   Container(
                     width: screenWidth * 0.9.w,
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "عبر عن حالتك بشكل مختصر",
-                        style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Color(0xff19649E)),
-                      ),
+                    child: Text(
+                      "conditionBriefly".tr(),
+                      style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Color(0xff19649E)),
                     ),
                   ),
                   SizedBox(height: 5.h),
@@ -426,7 +425,7 @@ class _InstantSessionScreenState extends State<InstantSessionScreen> {
                     child: TextFormField(
               
                       decoration: InputDecoration(
-                        hintText: "ما هو شعورك؟ أكتب وصفاً قصيراً لحالتك لعرضها على المختص",
+                        hintText: "howDoYouFeel".tr(),
                         hintStyle: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.grey),
                         filled: true,
                         fillColor: Color(0xFFD5D5D5),
@@ -442,41 +441,38 @@ class _InstantSessionScreenState extends State<InstantSessionScreen> {
                   SizedBox(height: 15.h),
                   Container(
                     width: screenWidth * 0.9.w,
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "شروط الجلسه",
-                        style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff1F78BC)),
-                      ),
+                    child: Text(
+                      "sessionTerms".tr(),
+                      style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff1F78BC)),
                     ),
                   ),
                   SizedBox(height: 7.h),
                   Column(
                     children: [
                       Row(
-              
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Icon(Icons.circle, size: 10, color: Colors.black),
                           SizedBox(width: 5.w),
-                          Text("تطلب الجلسه عند الضروره أو وجود وضع صعب"),
+                          Expanded(child: Text("term1Instant".tr())),
                         ],
                       ),
                       SizedBox(height: 5.h),
                       Row(
-              
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Icon(Icons.circle, size: 10, color: Colors.black),
                           SizedBox(width: 5.w),
-                          Text("لا تطلب الجلسه عند حالات الإنتحار أو ايذاء الذات أو الآخرين"),
+                          Expanded(child: Text("term2Instant".tr())),
                         ],
                       ),
                       SizedBox(height: 5.h),
                       Row(
-              
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Icon(Icons.circle, size: 10, color: Colors.black),
                           SizedBox(width: 5.w),
-                          Text("يتم تحويلك إلي الأخصائي المتوفر لاجراء الجلسه"),
+                          Expanded(child: Text("term3Instant".tr())),
                         ],
                       ),
                     ],
@@ -496,7 +492,7 @@ class _InstantSessionScreenState extends State<InstantSessionScreen> {
                 ),
                 child: Center(
                   child: Text(
-                    'إستمرار',
+                    'continue'.tr(),
                     style: TextStyle(fontSize: 20.sp, color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                 ),

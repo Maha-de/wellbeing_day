@@ -147,8 +147,10 @@ class DoctorCard extends StatelessWidget {
         ),
          SizedBox(width: 8.w),
         Text(
+          overflow: null,
+          maxLines : null,
           text,
-          style: TextStyle(fontSize: 14.sp, color: Colors.white),
+          style: TextStyle(fontSize: 14.sp, color: Colors.white,),
           textAlign: TextAlign.right,
         ),
       ],

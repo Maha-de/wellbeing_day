@@ -215,8 +215,8 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                              title: Text("تنبيه"),
-                              content: Text("يجب عليك تسجيل الدخول أو إنشاء حساب للوصول إلى هذه الصفحة."),
+                              title: Text("alert".tr()),
+                              content: Text("guestAccessibilityAlert".tr()),
                               actions: [
                                 TextButton(
                                   onPressed: () {
@@ -226,7 +226,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                       MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
                                     );
                                   },
-                                  child: Text("تسجيل الدخول"),
+                                  child: Text("login".tr()),
                                 ),
                                 TextButton(
                                   onPressed: () {
@@ -236,13 +236,13 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                       MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
                                     );
                                   },
-                                  child: Text("إنشاء حساب"),
+                                  child: Text("createAccount".tr()),
                                 ),
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
                                   },
-                                  child: Text("إلغاء"),
+                                  child: Text("cancel".tr()),
                                 ),
                               ],
                             ),
@@ -451,7 +451,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                           ),
                         ],
                       ),
-                      SizedBox(height: screenHeight * 0.1.h),
+                      SizedBox(height: screenHeight * 0.05.h),
                       // Health Services
                       Column(
                         children: [
@@ -764,7 +764,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                           ),
                         ],
                       ),
-                      SizedBox(height: screenHeight * 0.1.h),
+                      SizedBox(height: screenHeight * 0.05.h),
                       // Health Services
                       Column(
                         children: [

@@ -176,8 +176,8 @@ int currentIndex=0;
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                              title: Text("تنبيه"),
-                              content: Text("يجب عليك تسجيل الدخول أو إنشاء حساب للوصول إلى هذه الصفحة."),
+                              title: Text("alert".tr()),
+                              content: Text("guestAccessibilityAlert".tr()),
                               actions: [
                                 TextButton(
                                   onPressed: () {
@@ -187,7 +187,7 @@ int currentIndex=0;
                                       MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
                                     );
                                   },
-                                  child: Text("تسجيل الدخول"),
+                                  child: Text("login".tr()),
                                 ),
                                 TextButton(
                                   onPressed: () {
@@ -197,13 +197,13 @@ int currentIndex=0;
                                       MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
                                     );
                                   },
-                                  child: Text("إنشاء حساب"),
+                                  child: Text("createAccount".tr()),
                                 ),
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
                                   },
-                                  child: Text("إلغاء"),
+                                  child: Text("cancel".tr()),
                                 ),
                               ],
                             ),
@@ -269,9 +269,9 @@ int currentIndex=0;
                             height: 40.h,
                             width: 310.w,
                             child: TextFormField(
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
                                 prefixIcon: Icon(Icons.search),
-                                labelText: "البحث",
+                                labelText: "search".tr(),
                                 border: OutlineInputBorder(
                                     borderSide: BorderSide.none),
                               ),
@@ -301,7 +301,7 @@ int currentIndex=0;
                                 ),
                               );
                             } else {
-                              return Center(child: Text('No specialists found.'));
+                              return Center(child: Text('noSpecialistsFound'.tr()));
                             }
                           },
                         )
@@ -355,9 +355,9 @@ int currentIndex=0;
                             height: 40.h,
                             width: 310.w,
                             child: TextFormField(
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
                                 prefixIcon: Icon(Icons.search),
-                                labelText: "البحث",
+                                labelText: "search".tr(),
                                 border: OutlineInputBorder(
                                     borderSide: BorderSide.none),
                               ),
@@ -387,7 +387,7 @@ int currentIndex=0;
                                 ),
                               );
                             } else {
-                              return Center(child: Text('No specialists found.'));
+                              return Center(child: Text('noSpecialistsFound'.tr()));
                             }
                           },
                         )

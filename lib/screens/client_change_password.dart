@@ -85,7 +85,7 @@ class _ClientChangePasswordState extends State<ClientChangePassword> {
                   children: [
                     Container(
                       width: screenWidth,
-                      height: screenHeight * 0.21.h, // Adjust height proportionally
+                      height: screenHeight * 0.18.h, // Adjust height proportionally
                       decoration: BoxDecoration(
                         color: Color(0xff19649E),
                         borderRadius: BorderRadius.only(

@@ -1,7 +1,8 @@
 import 'package:doctor/screens/success_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+// import 'package:get/get.dart' hide Trans;
 
 class AddCreditCardScreen extends StatefulWidget {
   const AddCreditCardScreen({super.key});
@@ -49,6 +50,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
+
           children: [
             Stack(
               children: [
@@ -125,16 +127,15 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
               ],
             ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              // mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(height: 7.h,),
                 Container(
                   width: screenWidth.w * 0.9.w,
-                  child:  Align(
-                    alignment: Alignment.centerRight,
-                    child:  Text(
-                      "رقم البطاقة",
-                      style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Colors.grey),
-                    ),
+                  child:  Text(
+                    "cardNumber".tr(),
+                    style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Colors.grey),
                   ),
                 ),
                  SizedBox(height: 4.h,),
@@ -149,10 +150,10 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                     ),
                   ),
                   child: TextFormField(
-                    textDirection: TextDirection.rtl, // الكتابة من اليمين لليسار
-                    decoration: const InputDecoration(
+                    // textDirection: TextDirection.rtl, // الكتابة من اليمين لليسار
+                    decoration: InputDecoration(
                       border: InputBorder.none, // إزالة الحدود الافتراضية للـ TextFormField
-                      hintText: 'أدخل النص', // النص المؤقت
+                      hintText: "enterText".tr(), // النص المؤقت
                       contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0), // تعديل المسافة داخل الـ TextFormField
                     ),
                   ),
@@ -161,15 +162,13 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
             ),
              SizedBox(height: 15.h,),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                   width: screenWidth.w * 0.9.w,
-                  child:  Align(
-                    alignment: Alignment.centerRight,
-                    child:  Text(
-                      "اسم حامل البطاقة",
-                      style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Colors.grey),
-                    ),
+                  child:  Text(
+                    "cardHolderName".tr(),
+                    style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Colors.grey),
                   ),
                 ),
                 SizedBox(height: 4.h,),
@@ -184,10 +183,10 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                     ),
                   ),
                   child: TextFormField(
-                    textDirection: TextDirection.rtl, // الكتابة من اليمين لليسار
-                    decoration: const InputDecoration(
+                    // textDirection: TextDirection.rtl, // الكتابة من اليمين لليسار
+                    decoration: InputDecoration(
                       border: InputBorder.none, // إزالة الحدود الافتراضية للـ TextFormField
-                      hintText: 'أدخل النص', // النص المؤقت
+                      hintText: 'enterText'.tr(), // النص المؤقت
                       contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0), // تعديل المسافة داخل الـ TextFormField
                     ),
                   ),
@@ -196,19 +195,13 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
             ),
              SizedBox(height: 20.h,),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Column(
                   children: [
-                    Container(
-        
-                      child:  Align(
-                        alignment: Alignment.centerRight,
-                        child:  Text(
-                          "تاريخ الأنتهاء",
-                          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff858585)),
-                        ),
-                      ),
+                    Text(
+                      "expiryDate".tr(),
+                      style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff858585)),
                     ),
                      SizedBox(height: 4.h,),
                     Container(
@@ -222,10 +215,10 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                         ),
                       ),
                       child: TextFormField(
-                        textDirection: TextDirection.rtl, // الكتابة من اليمين لليسار
-                        decoration: const InputDecoration(
+                        // textDirection: TextDirection.rtl, // الكتابة من اليمين لليسار
+                        decoration: InputDecoration(
                           border: InputBorder.none, // إزالة الحدود الافتراضية للـ TextFormField
-                          hintText: 'أدخل النص', // النص المؤقت
+                          hintText: 'enterText'.tr(), // النص المؤقت
                           contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0), // تعديل المسافة داخل الـ TextFormField
                         ),
                       ),
@@ -233,16 +226,11 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                   ],
                 ),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-        
-                      child:  Align(
-                        alignment: Alignment.centerRight,
-                        child:  Text(
-                          "رمز أمان البطاقة",
-                          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff858585)),
-                        ),
-                      ),
+                    Text(
+                      "cardPin".tr(),
+                      style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff858585)),
                     ),
                      SizedBox(height: 4.h,),
                     Container(
@@ -256,10 +244,10 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                         ),
                       ),
                       child: TextFormField(
-                        textDirection: TextDirection.rtl, // الكتابة من اليمين لليسار
-                        decoration: const InputDecoration(
+                        // textDirection: TextDirection.rtl, // الكتابة من اليمين لليسار
+                        decoration: InputDecoration(
                           border: InputBorder.none, // إزالة الحدود الافتراضية للـ TextFormField
-                          hintText: 'أدخل النص', // النص المؤقت
+                          hintText: 'enterText'.tr(), // النص المؤقت
                           contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0), // تعديل المسافة داخل الـ TextFormField
                         ),
                       ),
@@ -287,7 +275,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(right: 15.0),
+          padding: const EdgeInsets.only(right: 15.0, left: 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -306,7 +294,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
 
                       },
                       child:  Text(
-                            "ادفع الاّن",
+                            "payNow".tr(),
                             style: TextStyle(
                               fontSize: 20.sp,
                               fontWeight: FontWeight.w500, // Medium weight

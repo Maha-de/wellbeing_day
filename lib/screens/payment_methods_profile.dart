@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -55,14 +56,13 @@ class _PaymentMethodsProfileState extends State<PaymentMethodsProfile> {
               return Scaffold(
                 backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: BackButton(onPressed: (){Navigator.pop(context);},),
         backgroundColor: const Color(0xff19649E),
         iconTheme: const IconThemeData(
           color: Colors.white,
         ),
         centerTitle: true,
         title: Text(
-          "وسائل الدفع",
+          "paymentMethod".tr(),
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: screenWidth * 0.06.sp,
@@ -217,8 +217,12 @@ class _PaymentMethodsProfileState extends State<PaymentMethodsProfile> {
                                   children: [
                                      Image(image: AssetImage("assets/images/neo.png"),width: 70.29.w,height: 30.h,fit: BoxFit.fill,),
                                     IconButton(
-                                        onPressed: (){},
-                                        icon:  Image(image: AssetImage("assets/images/left_arrow.png"),width: 12.w,height: 22.h,))
+                                        onPressed: (){}, icon: Icon(Icons.arrow_forward_ios,
+                                      color: Colors.white,
+                                      size: screenWidth *
+                                          0.06.w, // Adjust icon size proportionally),
+                                    )),
+                                        // icon:  Image(image: AssetImage("assets/images/left_arrow.png"),width: 12.w,height: 22.h,))
                                   ],
                                 ),
                               ),
@@ -230,20 +234,24 @@ class _PaymentMethodsProfileState extends State<PaymentMethodsProfile> {
                                   color: Colors.white,
                                 ),
                               ),
+                              SizedBox(height: 7.h,),
                               Container(
                                 padding: const EdgeInsets.only(right: 10),
-                                width: 317.w,
+                                width: 277.w,
                                 child: Row(
                                   mainAxisAlignment:MainAxisAlignment.spaceBetween,
                                   children: [
-                                     Image(image: AssetImage("assets/images/logos_mastercard.png"),width: 70.29.w,height: 30.h,fit: BoxFit.fill,),
+                                     Image(image: AssetImage("assets/images/logos_mastercard.png"),width: 60.29.w,height: 35.h,fit: BoxFit.fill,),
                                     IconButton(
                                         onPressed: (){
 
                                           Navigator.push(context, MaterialPageRoute(builder: (context)=> const AddCreditCardScreen()));
 
                                         },
-                                        icon:  Image(image: AssetImage("assets/images/left_arrow.png"),width: 12.w,height: 22.h,))
+                                        icon:  Icon(Icons.arrow_forward_ios,
+                                          color: Colors.white,
+                                          size: screenWidth *
+                                              0.06.w,))
                                   ],
                                 ),
                               ),

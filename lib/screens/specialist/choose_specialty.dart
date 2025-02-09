@@ -144,7 +144,7 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
             },
             child: Container(
               width: screenWidth * 0.9.w,
-              height: screenHeight * 0.07.h,
+              height: screenHeight * 0.05.h,
               decoration: BoxDecoration(
                 color: const Color(0xff19649E),
                 borderRadius: BorderRadius.circular(11),
@@ -217,14 +217,16 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Text(
-            category,
-            style:  TextStyle(
-              color: Color(0xff19649E),
-              fontSize: 18.sp,
-              fontWeight: FontWeight.bold,
+          child: Expanded(
+            child: Text(
+              category,
+              style:  TextStyle(
+                color: Color(0xff19649E),
+                fontSize: 18.sp,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.right,
             ),
-            textAlign: TextAlign.right,
           ),
         ),
         Column(
@@ -241,10 +243,12 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
                     });
                   },
                 ),
-                Text(
-                  entry.key,
-                  textAlign: TextAlign.right,
-                  style:  TextStyle(fontSize: 15.sp),
+                Expanded(
+                  child: Text(
+                    entry.key,
+                    textAlign: TextAlign.start,
+                    style:  TextStyle(fontSize: 15.sp),
+                  ),
                 ),
               ],
             );

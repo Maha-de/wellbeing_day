@@ -146,8 +146,8 @@ class _RehabilitationScreenState extends State<RehabilitationScreen> {
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          title: Text("تنبيه"),
-                          content: Text("يجب عليك تسجيل الدخول أو إنشاء حساب للوصول إلى هذه الصفحة."),
+                          title: Text("alert".tr()),
+                          content: Text("guestAccessibilityAlert".tr()),
                           actions: [
                             TextButton(
                               onPressed: () {
@@ -157,7 +157,7 @@ class _RehabilitationScreenState extends State<RehabilitationScreen> {
                                   MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
                                 );
                               },
-                              child: Text("تسجيل الدخول"),
+                              child: Text("login".tr()),
                             ),
                             TextButton(
                               onPressed: () {
@@ -167,13 +167,13 @@ class _RehabilitationScreenState extends State<RehabilitationScreen> {
                                   MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
                                 );
                               },
-                              child: Text("إنشاء حساب"),
+                              child: Text("createAccount".tr()),
                             ),
                             TextButton(
                               onPressed: () {
                                 Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
                               },
-                              child: Text("إلغاء"),
+                              child: Text("cancel".tr()),
                             ),
                           ],
                         ),
@@ -228,7 +228,7 @@ class _RehabilitationScreenState extends State<RehabilitationScreen> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          "إعاده التأهيل ",
+                          "rehabilitationPage".tr(),
                           style: TextStyle(
                               fontSize: 20.sp,
                               fontWeight: FontWeight.bold,
@@ -242,9 +242,9 @@ class _RehabilitationScreenState extends State<RehabilitationScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildDisorderButton("لمرض الباركنسون"),
-                        _buildDisorderButton("لمرض ألزهايمر"),
-                        _buildDisorderButton("لمرض الصرع"),
+                        _buildDisorderButton("parkinson".tr()),
+                        _buildDisorderButton("alzheimer".tr()),
+                        _buildDisorderButton("epilepsy".tr()),
                       ],
                     ),
                     SizedBox(
@@ -253,9 +253,9 @@ class _RehabilitationScreenState extends State<RehabilitationScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildDisorderButton("مرض عقلي"),
-                        _buildDisorderButton("مرض الذهان"),
-                        _buildDisorderButton("بعد صدمه واحداث"),
+                        _buildDisorderButton("mentalIllness".tr()),
+                        _buildDisorderButton("psychosis".tr()),
+                        _buildDisorderButton("shockEvents".tr()),
                       ],
                     ),
 
@@ -275,7 +275,7 @@ class _RehabilitationScreenState extends State<RehabilitationScreen> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          "المختصين",
+                          "specialists".tr(),
                           style: TextStyle(
                               fontSize: 20.sp,
                               fontWeight: FontWeight.bold,
@@ -301,7 +301,7 @@ class _RehabilitationScreenState extends State<RehabilitationScreen> {
                             ),
                           );
                         } else {
-                          return Center(child: Text('No specialists found.'));
+                          return Center(child: Text('noSpecialistsFound'.tr()));
                         }
                       },
                     )
@@ -336,7 +336,7 @@ class _RehabilitationScreenState extends State<RehabilitationScreen> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          "إعاده التأهيل ",
+                          "rehabilitationPage".tr(),
                           style: TextStyle(
                               fontSize: 20.sp,
                               fontWeight: FontWeight.bold,
@@ -350,9 +350,9 @@ class _RehabilitationScreenState extends State<RehabilitationScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildDisorderButton("لمرض الباركنسون"),
-                        _buildDisorderButton("لمرض ألزهايمر"),
-                        _buildDisorderButton("لمرض الصرع"),
+                        _buildDisorderButton("parkinson".tr()),
+                        _buildDisorderButton("alzheimer".tr()),
+                        _buildDisorderButton("epilepsy".tr()),
                       ],
                     ),
                     SizedBox(
@@ -361,9 +361,9 @@ class _RehabilitationScreenState extends State<RehabilitationScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildDisorderButton("مرض عقلي"),
-                        _buildDisorderButton("مرض الذهان"),
-                        _buildDisorderButton("بعد صدمه واحداث"),
+                        _buildDisorderButton("mentalIllness".tr()),
+                        _buildDisorderButton("psychosis".tr()),
+                        _buildDisorderButton("shockEvents".tr()),
                       ],
                     ),
 
@@ -383,7 +383,7 @@ class _RehabilitationScreenState extends State<RehabilitationScreen> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          "المختصين",
+                          "specialists".tr(),
                           style: TextStyle(
                               fontSize: 20.sp,
                               fontWeight: FontWeight.bold,
@@ -409,7 +409,7 @@ class _RehabilitationScreenState extends State<RehabilitationScreen> {
                             ),
                           );
                         } else {
-                          return Center(child: Text('No specialists found.'));
+                          return Center(child: Text('noSpecialistsFound'.tr()));
                         }
                       },
                     )
