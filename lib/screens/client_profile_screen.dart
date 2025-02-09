@@ -267,11 +267,22 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                                     ),
                                   );
                                 } else if (index == 2) {
+
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) =>
-                                              const AppointmentsSection()));
+                                      builder: (context) => MultiBlocProvider(
+                                      providers: [
+                                        BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                        BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                        BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                      ],
+                                  child: AppointmentsSection())));
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) =>
+                                  //             const AppointmentsSection()));
                                 } else if (index == 3) {
 
                                   Navigator.push(

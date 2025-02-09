@@ -244,6 +244,7 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
             child: Center(
               child: Expanded(
                 child: Text(
+                  textAlign: TextAlign.center,
                   "address1".tr(),
                   style: TextStyle(
                     fontSize: 18.sp,
@@ -268,6 +269,7 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
             child: Center(
               child: Expanded(
                 child: Text(
+                  textAlign: TextAlign.center,
                   "address2".tr(),
                   style: TextStyle(
                     fontSize: 18.sp,

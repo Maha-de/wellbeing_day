@@ -229,7 +229,7 @@ class PaymentScreen extends StatelessWidget {
                  ),
                  Container(
                    padding: const EdgeInsets.only(right: 15),
-                   width: 307.w,
+                   width: 295.w,
                    child: Row(
                      mainAxisAlignment:MainAxisAlignment.spaceBetween,
                      children: [
