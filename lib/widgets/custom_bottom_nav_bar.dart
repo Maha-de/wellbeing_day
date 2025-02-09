@@ -142,7 +142,21 @@ class CustomBottomNavBar extends StatelessWidget {
 
           case 0:
 
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstHomePage()));
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                    BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                    BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                  ],
+                  child: const FirstHomePage(),
+                ),
+
+              ),
+                  (route) => false,
+            );
 
             break;
         }

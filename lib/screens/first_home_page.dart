@@ -314,6 +314,7 @@ int currentIndex=0;
                 UserProfileModel userProfile = state.userProfile;
                 return Scaffold(
                   appBar: CustomAppBar(
+                    userProfile: userProfile,
                     screenWidth: screenWidth,
                     screenHeight: screenHeight,
                   ),

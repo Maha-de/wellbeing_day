@@ -17,10 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        double width = constraints.maxWidth.w;
-        double height = constraints.maxHeight.h;
+
 
         return ClipRRect(
           borderRadius: const BorderRadius.only(
@@ -36,7 +33,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               elevation: 0,
               automaticallyImplyLeading: false,
               flexibleSpace: Padding(
-                padding: EdgeInsets.symmetric(horizontal: width * 0.04, vertical: height * 0.02.h),
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04, vertical: screenHeight * 0.02.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -58,11 +55,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: height * 0.01.h),
+                          padding: EdgeInsets.only(top: screenHeight * 0.01.h),
                           child: Text(
                             "greeting".tr() + " " + "${userProfile?.firstName ?? "guest"}",
                             style: TextStyle(
-                              fontSize: width * 0.04.sp,
+                              fontSize: 16.sp,
                               color: const Color(0xff19649E),
                               fontWeight: FontWeight.bold,
                             ),
@@ -72,22 +69,24 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     SizedBox(
                       height: 100.h,
-                      width: 110 * 0.9.w,
+                      width: 110.w,
                       child: Image.asset('assets/images/img.png', fit: BoxFit.fill),
                     ),
                     SizedBox(
-                      width: width * 0.26.w,
+                      width: 110.w,
+
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(top: height * 0.15.h, bottom: height * 0.05.h),
+                            padding: EdgeInsets.only(top: 10.h, bottom: 20.h),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 _iconButton("assets/images/phone.png"),
-                                SizedBox(width: width * 0.05.w),
+                                SizedBox(width: screenWidth * 0.05.w),
                                 _iconButton("assets/images/notification.png"),
                               ],
                             ),
@@ -95,12 +94,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           Column(
                             children: [
                               Padding(
-                                padding: EdgeInsets.only(bottom: height * 0.005.h),
+                                padding: EdgeInsets.only(bottom: screenHeight * 0.005.h),
                                 child: Text(
                                   "contactUs".tr(),
                                   style: TextStyle(
                                     color: const Color(0xff19649E),
-                                    fontSize: width * 0.04.sp,
+                                    fontSize: 14.sp,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -109,9 +108,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   _iconButton("assets/images/fa-brands_twitter-square.png"),
-                                  SizedBox(width: width * 0.01.w),
+                                  SizedBox(width:  screenWidth* 0.01.w),
                                   _iconButton("assets/images/uil_facebook.png"),
-                                  SizedBox(width: width * 0.01.w),
+                                  SizedBox(width: screenWidth * 0.01.w),
                                   _iconButton("assets/images/ri_instagram-fill.png"),
                                 ],
                               ),
@@ -126,8 +125,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
         );
-      },
-    );
+
+
   }
 
   Widget _iconButton(String assetPath) {
