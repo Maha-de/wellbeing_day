@@ -198,7 +198,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
                       TextButton(
                         onPressed: () {
                           _onItemTapped(0);
-                          EasyLocalization.of(context)!.setLocale(const Locale('ar'));
+                          EasyLocalization.of(context)?.setLocale(const Locale('ar'));
 
                         },
                         style: TextButton.styleFrom(
@@ -220,7 +220,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
                       TextButton(
                         onPressed: () {
                           _onItemTapped(1);
-                          EasyLocalization.of(context)!.setLocale(const Locale('en'));
+                          EasyLocalization.of(context)?.setLocale(const Locale('en'));
 
                         },
                         style: TextButton.styleFrom(

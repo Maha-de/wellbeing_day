@@ -728,7 +728,7 @@ int currentIndex=1;
                   children: [
                     // Header
 
-                    SizedBox(height: screenHeight * 0.01.h),
+                    SizedBox(height:10.h),
 
                     // Category List
                     SizedBox(
@@ -806,7 +806,7 @@ int currentIndex=1;
                       ),
                     ),
 
-                    SizedBox(height: screenHeight * 0.02.h),
+                    SizedBox(height: 15.h),
 
                     // Image Slider
                     SizedBox(
@@ -822,7 +822,7 @@ int currentIndex=1;
                         },
                       ),
                     ),
-                    SizedBox(height: screenHeight * 0.02.h),
+                    SizedBox(height: 15.h),
 
                     // Buttons
                     Row(
@@ -905,7 +905,7 @@ int currentIndex=1;
                         ),
                       ],
                     ),
-                    SizedBox(height: screenHeight * 0.02.h),
+                    SizedBox(height: 15.h),
                     Center(
                       child: Container(
                         width: 338.w,
@@ -1058,7 +1058,7 @@ int currentIndex=1;
                                         child: Container(
 
                                           width: 100.w,
-                                          height: 74.h,
+                                          height: 73.h,
                                           decoration: BoxDecoration(
                                             border: Border.all(
                                                 color: label=="diagnoseAndMotivation" ?
@@ -1139,7 +1139,7 @@ int currentIndex=1;
                                     },
                                     child: Container(
                                       width: 120.w,
-                                      height: 74.h,
+                                      height: 73.h,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
                                         color: const Color(0xff69B7F3),
