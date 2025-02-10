@@ -18,11 +18,11 @@ import '../models/specialist_model.dart'as s;
 
 
 class DoctorDetails extends StatefulWidget {
-  final s.Specialist specialistModel;
+  final s.Specialist? specialistModel;
   final String doctorID;
 
   const DoctorDetails(
-      {super.key, required this.specialistModel, required this.doctorID});
+      {super.key,  this.specialistModel, required this.doctorID});
 
   @override
   State<DoctorDetails> createState() => _DoctorDetailsState();

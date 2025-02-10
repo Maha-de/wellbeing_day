@@ -7,6 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../cubit/doctor_by_category_cubit/doctor_by_category_cubit.dart';
+import '../cubit/doctor_by_category_cubit/doctor_by_category_state.dart';
 import '../cubit/get_specialist/get_sepcialist_cubit.dart';
 import '../cubit/get_specialist/get_specialist_state.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
@@ -19,7 +21,9 @@ import 'first_home_page.dart';
 import 'homescreen.dart';
 
 class ProblemSolvingScreen extends StatefulWidget {
-  const ProblemSolvingScreen({super.key});
+  final String category;
+  final String subCategory;
+  const ProblemSolvingScreen({super.key, required this.category, required this.subCategory});
 
   @override
   State<ProblemSolvingScreen> createState() => _ProblemSolvingScreenState();
@@ -27,11 +31,13 @@ class ProblemSolvingScreen extends StatefulWidget {
 
 class _ProblemSolvingScreenState extends State<ProblemSolvingScreen> {
   late UserProfileCubit userProfileCubit;
+  late DoctorByCategoryCubit doctorByCategoryCubit;
 
   @override
   void initState() {
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
+    doctorByCategoryCubit = BlocProvider.of<DoctorByCategoryCubit>(context);
     _loadUserProfile();
   }
 
@@ -39,6 +45,7 @@ class _ProblemSolvingScreenState extends State<ProblemSolvingScreen> {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
     userProfileCubit.getUserProfile(context, id);
+    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.category, widget.subCategory);
   }
   int currentIndex=1;
   @override
@@ -346,19 +353,19 @@ class _ProblemSolvingScreenState extends State<ProblemSolvingScreen> {
                     ),
                     // List of doctors
 
-                    BlocBuilder<GetSpecialistCubit, GetSpecialistState>(
+                    BlocBuilder<DoctorByCategoryCubit, DoctorByCategoryState>(
                       builder: (context, state) {
-                        if (state is SpecialistLoading) {
+                        if (state is DoctorByCategoryLoading) {
                           return CircularProgressIndicator(); // Show loading indicator
-                        } else if (state is SpecialistFailure) {
+                        } else if (state is DoctorByCategoryFailure) {
                           return Text(state.errMessage); // Display error message
-                        } else if (state is SpecialistSuccess) {
+                        } else if (state is DoctorByCategorySuccess) {
                           return Container(
                             height: screenHeight*0.63.h,
                             child: ListView.builder(
                               itemCount: state.specialists.length,
                               itemBuilder: (context, index) {
-                                return DoctorCard(specialistModel: state.specialists[index], doctorID: state.specialists[index].id??"",);
+                                return DoctorCard(specialists: state.specialists[index], doctorID: state.specialists[index].id??"",);
                               },
                             ),
                           );
@@ -517,24 +524,24 @@ class _ProblemSolvingScreenState extends State<ProblemSolvingScreen> {
                       ),
                     ),
                     // List of doctors
-                    BlocBuilder<GetSpecialistCubit, GetSpecialistState>(
+                    BlocBuilder<DoctorByCategoryCubit, DoctorByCategoryState>(
                       builder: (context, state) {
-                        if (state is SpecialistLoading) {
+                        if (state is DoctorByCategoryLoading) {
                           return CircularProgressIndicator(); // Show loading indicator
-                        } else if (state is SpecialistFailure) {
+                        } else if (state is DoctorByCategoryFailure) {
                           return Text(state.errMessage); // Display error message
-                        } else if (state is SpecialistSuccess) {
+                        } else if (state is DoctorByCategorySuccess) {
                           return Container(
                             height: screenHeight*0.63.h,
                             child: ListView.builder(
                               itemCount: state.specialists.length,
                               itemBuilder: (context, index) {
-                                return DoctorCard(specialistModel: state.specialists[index], doctorID: state.specialists[index].id??"",);
+                                return DoctorCard(specialists: state.specialists[index], doctorID: state.specialists[index].id??"",);
                               },
                             ),
                           );
                         } else {
-                          return Center(child: Text('No specialists found.'));
+                          return Center(child: Text('noSpecialistsFound'.tr()));
                         }
                       },
                     )
