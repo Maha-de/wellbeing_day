@@ -304,5 +304,11 @@
   "workingHours": "Working Hours",
   "day": "Day",
   "search": "Search",
-  "notifications": "Notifications"
+  "notifications": "Notifications",
+  "clientInstructions": "Important Instructions",
+  "clientInstructionsPoints": "The client (the beneficiary) records their personal information to create a private account before participating in any individual or group consultation or skills training. During the therapeutic relationship, they are asked to maintain respect for the therapeutic framework, which will later be explained to them, such as paying subscriptions on time, arriving a few minutes before the online session starts, not requesting to transfer their therapy outside the application, being in a private place alone without noise or calls, knowing their role and the specialist's role, the type of therapy they are benefiting from and its limits, maintaining honesty, respecting time, and proper communication etiquette. Payment should be made in advance either through a bank transfer to the admin's account or WISH, OMT, Western Union, or others. A copy of the receipt should be sent to the admin. They must cover the cost of the transfer in addition to the session fees in dollars.",
+  "checkboxApproval1": "Approve the instructions",
+  "doctorInstructionsPoints": "• The client (beneficiary) registers their personal information to create a private account before subscribing to any individual or group consultation or any skills training.  \n• They are requested during the therapeutic relationship to maintain respect for the therapeutic framework that will be explained to them later, such as paying subscriptions on time, attending a few minutes before the online session starts, not requesting to transfer their treatment outside the app, being in a quiet private place without noise or calls, knowing their role and the specialist's role, the type of treatment they are benefiting from and its limits, maintaining honesty and respecting time and communication etiquette.  \n• Payment should be made in advance either by transferring to the admin's account via the bank or  \n• WISH, OMT, Western Union, others.  \n• A copy of the receipt should be sent to the admin.  \n• They must bear the transfer cost in addition to the cost of the sessions in dollars.",
+  "doctorInstructions": "Recommendations for specialists\nAs a specialist, you should read these recommendations carefully"
+
 }

@@ -197,7 +197,7 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
             label: "whatsApp".tr(),
             icon: FontAwesomeIcons.whatsapp,
             color: Colors.green,
-            onPressed: (){openWhatsApp();},
+            onPressed: openWhatsApp,
           ),
           SocialMediaButton(
             label: "facebook".tr(),
@@ -226,13 +226,13 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
             label: "wellbeingallday@gmail.com",
             icon: FontAwesomeIcons.google,
             color: Colors.orange,
-            onPressed: () {_openGmail("wellbeingallday@gmail.com");},
+            onPressed: () => _openGmail("wellbeingallday@gmail.com"),
           ),
           SocialMediaButton(
             label: "wellbeingallday@outlook.com",
             icon: FontAwesomeIcons.microsoft,
             color: Colors.blue,
-            onPressed: () {_openGmail("wellbeingallday@outlook.com");},
+            onPressed: () => _openGmail("wellbeingallday@outlook.com"),
           ),
           Container(
             height: 60.h,

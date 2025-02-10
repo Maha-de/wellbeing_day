@@ -1,3 +1,4 @@
+import 'package:doctor/screens/doctor_instructions.dart';
 import 'package:doctor/screens/sign_up_as_client.dart';
 import 'package:doctor/screens/specialist/sign_up_specialist_info_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../make_email/login.dart';
+import 'client_instructions.dart';
 import 'homescreen.dart';
 
 class SelectionPage extends StatelessWidget {
@@ -47,7 +49,7 @@ class SelectionPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SignUpAsClient()),
+                    MaterialPageRoute(builder: (context) => ClientInstructions()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -74,7 +76,7 @@ class SelectionPage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => SignUpAsDoctorFirstScreen()),
+                        builder: (context) => DoctorInstructions()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
