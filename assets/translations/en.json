@@ -166,7 +166,9 @@
   "fqa": "FAQ",
   "AppDef": "App Definition",
   "instructions": "Instructions",
-  "anotherPayWays": "Do you want to pay by any other means?",
+  "anotherPayWays": "Please send the required amount via the transfer office to Mr. Fadi Bou Ghanem or to his account on this number, then upload a picture of the invoice here. payment way:",
+  "contactMssgForWhats": "Hello, we are pleased to contact you, how can we help you?",
+  "titleOfEmail": "Support in Wellbeing Day",
   "whatsApp": "WhatsApp",
   "facebook": "Facebook",
   "instagram": "Instagram",
@@ -292,7 +294,6 @@
   "psychosis": "Psychosis",
   "shockEvents": "After a Shock and Events",
   "bookDate": "Book Appointment",
-
   "nameSample": "Dr. Mahmoud Ahmed",
   "priceSample": "Price: 300 Lira - 30 minutes",
   "bioExample": "About the Specialist",
@@ -300,8 +301,8 @@
   "typeExample": "Type: Psychological Protection",
   "yearsExample": "Experience 7 Years",
   "languageExample": "Language: Arabic, English",
-
   "workingHours": "Working Hours",
   "day": "Day",
-  "search": "Search"
+  "search": "Search",
+  "notifications": "Notifications"
 }

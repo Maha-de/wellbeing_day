@@ -1,3 +1,4 @@
+import 'package:doctor/core/strings.dart';
 import 'package:doctor/widgets/appInfo/appDef.dart';
 import 'package:doctor/widgets/appInfo/faq.dart';
 import 'package:doctor/widgets/appInfo/instructions.dart';
@@ -50,8 +51,8 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
   // }
 
   void openWhatsApp() async {
-    String message = Uri.encodeComponent("anotherPayWays".tr());
-    String whatsappUrl = "https://wa.me/?text=$message";
+    String message = Uri.encodeComponent("contactMssgForWhats".tr());
+    String whatsappUrl = "https://wa.me/${contactNumber}?text=$message";
 
     if (await canLaunchUrl(Uri.parse(whatsappUrl))) {
       await launchUrl(Uri.parse(whatsappUrl),
@@ -62,11 +63,12 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
   }
 
   void _openGmail(String email) async {
-    final Uri emailLaunchUri =
-        Uri(scheme: 'mailto', path: email, query: Uri.encodeComponent(''));
+    String emailUrl = Uri.encodeFull(
+        "mailto:$email?subject=${"titleOfEmail".tr()}&body=${"contactMssgForWhats".tr()}");
 
-    if (await canLaunchUrl(emailLaunchUri)) {
-      await launchUrl(emailLaunchUri, mode: LaunchMode.externalApplication);
+    if (await canLaunchUrl(Uri.parse(emailUrl))) {
+      await launchUrl(Uri.parse(emailUrl),
+          mode: LaunchMode.externalApplication);
     } else {
       throw 'Could not open Gmail';
     }
@@ -232,7 +234,6 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
             color: Colors.blue,
             onPressed: () => _openGmail("wellbeingallday@outlook.com"),
           ),
-
           Container(
             height: 60.h,
             decoration: BoxDecoration(
