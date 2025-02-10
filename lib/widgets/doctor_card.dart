@@ -6,12 +6,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
+import '../models/doctor_by_category_model.dart';
 import '../models/specialist_model.dart';
 
 class DoctorCard extends StatelessWidget {
-  final Specialist specialistModel;
+  final Specialist? specialistModel;
+  final Specialists? specialists;
   final String  doctorID;
-  const DoctorCard({super.key, required this.specialistModel, required this.doctorID});
+  const DoctorCard({super.key,  this.specialistModel, required this.doctorID, this.specialists});
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +74,7 @@ class DoctorCard extends StatelessWidget {
                             width: 140.w,
                             child: Text(
                               overflow: TextOverflow.ellipsis,
-                              '${specialistModel?.firstName ?? "notFound".tr()} ${specialistModel?.lastName ?? ''}',
+                              '${specialists?.firstName ?? "notFound".tr()} ${specialistModel?.lastName ?? ''}',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20.sp,
@@ -83,7 +85,7 @@ class DoctorCard extends StatelessWidget {
                           ),
                            SizedBox(height: 2.h),
                           Text(
-                            specialistModel?.work ?? "notAvailable".tr(),
+                            specialists?.work ?? "notAvailable".tr(),
                             style:  TextStyle(
                               color: Colors.white,
                               fontSize: 12.sp,
@@ -92,14 +94,14 @@ class DoctorCard extends StatelessWidget {
                           ),
                            SizedBox(height: 15.h),
                           buildInfoRow("assets/images/heart.png",
-                              "speciality".tr() + "${(specialistModel?.specialties?.mentalHealth?.isNotEmpty ?? false)
-                                  ? specialistModel.specialties?.mentalHealth?.join(", ") : "notAvailable".tr()}"),
+                              "speciality".tr() + "${(specialists?.specialties?.mentalHealth?.isNotEmpty ?? false)
+                                  ? specialists?.specialties?.mentalHealth?.join(", ") : "notAvailable".tr()}"),
                            SizedBox(height: 4.h),
                           buildInfoRow("assets/images/PhoneCall.png",
                               'availableVideo'.tr()),
                            SizedBox(height: 4.h),
                           buildInfoRow("assets/images/experience.png",
-                              "experienceYears".tr() + ' ${specialistModel?.yearsExperience ?? 0} ' + "years".tr()),
+                              "experienceYears".tr() + ' ${specialists?.yearsExperience ?? 0} ' + "years".tr()),
                            SizedBox(height: 4.h),
                           buildInfoRow("assets/images/translation.png",
                               "language".tr() + "arabic".tr() + "، " + "english".tr()),
