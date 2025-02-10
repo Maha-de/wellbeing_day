@@ -78,36 +78,35 @@ class SignUpAsClient extends StatelessWidget {
                         child: Text(
                           "discoverSpecialist".tr(),
                           textAlign: TextAlign.center,
-                          style:  TextStyle(
+                          style: TextStyle(
                             fontSize: 20.sp,
                             color: Colors.black,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
-                       SizedBox(height: 16.h),
+                      SizedBox(height: 16.h),
                       CustomTextField(
                         label: "firstName".tr(),
                         suffixIcon: Icons.person,
                         controller: firstNameController,
                         validator: (value) =>
-                        value!.isEmpty ? "firstNameValidator".tr() : null,
+                            value!.isEmpty ? "firstNameValidator".tr() : null,
                       ),
                       CustomTextField(
                         label: "lastName".tr(),
                         suffixIcon: Icons.family_restroom,
                         controller: lastNameController,
                         validator: (value) =>
-                        value!.isEmpty ? "lastNameValidator".tr() : null,
+                            value!.isEmpty ? "lastNameValidator".tr() : null,
                       ),
                       CustomTextField(
                         label: "email".tr(),
                         suffixIcon: Icons.email,
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
-                        validator: (value) => value!.isEmpty
-                            ? "emailValidator".tr()
-                            : null,
+                        validator: (value) =>
+                            value!.isEmpty ? "emailValidator".tr() : null,
                       ),
                       CustomTextField(
                         label: "password".tr(),
@@ -129,7 +128,7 @@ class SignUpAsClient extends StatelessWidget {
                         controller: phoneController,
                         keyboardType: TextInputType.phone,
                         validator: (value) =>
-                        value!.isEmpty ? "phoneNumberValidator".tr() : null,
+                            value!.isEmpty ? "phoneNumberValidator".tr() : null,
                       ),
                       CustomTextField(
                         label: "age".tr(),
@@ -143,12 +142,13 @@ class SignUpAsClient extends StatelessWidget {
                               : null;
                         },
                       ),
-                      Text("gender".tr(), style:  TextStyle(
-                        fontSize: 16.sp,
-                        color: Color(0xff19649E),
-                        fontWeight: FontWeight.w500,
-                      )),
-                       SizedBox(height: 5.h),
+                      Text("gender".tr(),
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            color: Color(0xff19649E),
+                            fontWeight: FontWeight.w500,
+                          )),
+                      SizedBox(height: 5.h),
                       DropdownButtonFormField<String>(
                         decoration: InputDecoration(
                           labelText: "gender".tr(),
@@ -157,46 +157,46 @@ class SignUpAsClient extends StatelessWidget {
                         value: selectedGender,
                         items: ['male', 'female']
                             .map((gender) => DropdownMenuItem(
-                          value: gender,
-                          child: Text(gender),
-                        ))
+                                  value: gender,
+                                  child: Text(gender),
+                                ))
                             .toList(),
                         onChanged: (value) {
                           selectedGender = value!;
                         },
-                        validator: (value) =>
-                        value == null ? "genderValidator".tr() : null,
+                        // validator: (value) =>
+                        //     value == null ? "genderValidator".tr() : null,
                       ),
-                       SizedBox(height: 10.h),
+                      SizedBox(height: 10.h),
                       CustomTextField(
                         label: "nationality".tr(),
                         suffixIcon: Icons.flag,
                         controller: nationalityController,
-                        validator: (value) =>
-                        value!.isEmpty ? "nationalityValidator".tr() : null,
+                        // validator: (value) =>
+                        // value!.isEmpty ? "nationalityValidator".tr() : null,
                       ),
                       CustomTextField(
                         label: "homeAddress".tr(),
                         suffixIcon: Icons.home,
                         controller: addressController,
-                        validator: (value) =>
-                        value!.isEmpty ? "homeAddressValidator".tr() : null,
+                        // validator: (value) =>
+                        //     value!.isEmpty ? "homeAddressValidator".tr() : null,
                       ),
                       CustomTextField(
                         label: "region".tr(),
                         suffixIcon: Icons.location_on,
                         controller: regionController,
                         validator: (value) =>
-                        value!.isEmpty ? "regionValidator".tr() : null,
+                            value!.isEmpty ? "regionValidator".tr() : null,
                       ),
                       CustomTextField(
                         label: "profession".tr(),
                         suffixIcon: Icons.work,
                         controller: professionController,
                         validator: (value) =>
-                        value!.isEmpty ? "professionValidator".tr() : null,
+                            value!.isEmpty ? "professionValidator".tr() : null,
                       ),
-                       SizedBox(height: 24.h),
+                      SizedBox(height: 24.h),
                       ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
@@ -207,11 +207,15 @@ class SignUpAsClient extends StatelessWidget {
                               password: passwordController.text,
                               phone: phoneController.text,
                               profession: professionController.text,
-                              homeAddress: addressController.text,
+                              homeAddress: addressController.text.isEmpty
+                                  ? " "
+                                  : addressController.text,
                               age: int.tryParse(ageController.text) ?? 0,
                               region: regionController.text,
-                              nationality: nationalityController.text,
-                              gender: selectedGender!,
+                              nationality: nationalityController.text.isEmpty
+                                  ? " "
+                                  : nationalityController.text,
+                              gender: selectedGender ?? "male",
                             );
                           }
                         },
@@ -223,23 +227,23 @@ class SignUpAsClient extends StatelessWidget {
                         ),
                         child: state is SignupLoading
                             ? const CircularProgressIndicator(
-                            color: Colors.white)
+                                color: Colors.white)
                             : Text(
-                          "createAccount".tr(),
-                          style:  TextStyle(
-                            fontSize: 24.sp,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
+                                "createAccount".tr(),
+                                style: TextStyle(
+                                  fontSize: 24.sp,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
                       ),
-                       SizedBox(height: 10.h),
+                      SizedBox(height: 10.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             "alreadyHaveAnAccount".tr(),
-                            style:  TextStyle(
+                            style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w700,
                             ),
@@ -252,16 +256,14 @@ class SignUpAsClient extends StatelessWidget {
                                     builder: (context) => LoginPage()),
                               );
                             },
-
-                              child: Text(
-                                "signIn".tr(),
-                                style: const TextStyle(
-                                  color: Color(0xff19649E),
-                                  fontWeight: FontWeight.w700,
-                                ),
+                            child: Text(
+                              "signIn".tr(),
+                              style: const TextStyle(
+                                color: Color(0xff19649E),
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
-
+                          ),
                         ],
                       ),
                     ],
@@ -296,7 +298,8 @@ class SignUpCubit extends Cubit<SignupState> {
     required String gender,
   }) async {
     emit(SignupLoading());
-    final String url = "https://scopey.onrender.com/api/beneficiaries/register/beneficiary";
+    final String url =
+        "https://scopey.onrender.com/api/beneficiaries/register/beneficiary";
 
     try {
       final response = await http.post(
@@ -328,6 +331,7 @@ class SignUpCubit extends Cubit<SignupState> {
 
         emit(SignupSuccess(message: 'تم تسجيل الدخول بنجاح'));
       } else {
+        print("Response status: ${response.statusCode} + ${response.body}");
         emit(SignupError(
             error: 'البريد الإلكتروني أو كلمة المرور أو الدور غير صحيح.'));
       }
