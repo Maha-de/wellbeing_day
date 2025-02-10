@@ -17,6 +17,9 @@ class _NotificationsscreenState extends State<Notificationsscreen> {
 
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Color(0xff19649E),
+        ),
         title: Center(
           child: Container(
             width: 200.w,
