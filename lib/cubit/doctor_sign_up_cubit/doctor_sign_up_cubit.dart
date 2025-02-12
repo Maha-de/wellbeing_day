@@ -125,7 +125,7 @@ class SignUpSpecialistCubit extends Cubit<SignUpSpecialistState> {
 
   SignUpSpecialistCubit() : super(SignUpSpecialistInitial());
 
-  Future<void> signUp(Specialist doctor) async {
+  Future<void> signUp(Doctor doctor) async {
     emit(SignUpSpecialistLoading(message: SpSignUpLoadingMsg));
     log("Sign-up is loading...");
 
@@ -146,6 +146,7 @@ class SignUpSpecialistCubit extends Cubit<SignUpSpecialistState> {
       emit(SignUpSpecialistFailure(errMessage: e.errModel.message!));
     }
   }
+
 }
 
 String handleFailureResponse(Map<String, dynamic> errorResponse) {
@@ -156,3 +157,5 @@ String handleFailureResponse(Map<String, dynamic> errorResponse) {
   }
   return "";
 }
+
+

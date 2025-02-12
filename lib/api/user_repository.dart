@@ -1,6 +1,5 @@
 
-import '../errors/exceptions.dart';
-import '../models/sign_up_model.dart';
+import '../models/specialist_model.dart';
 import 'api_consumer.dart';
 import 'either.dart';
 import 'end_points.dart';
@@ -10,54 +9,28 @@ import 'end_points.dart';
 class UserRepository {
   final ApiConsumer api;
 
-
   UserRepository({required this.api});
 
-
-  Future<Either<String, SignUpModel>> signUp({
-    required String firstname,
-    required String lastname,
-    required String email,
-    required String password,
-    // required String confirmPassword,
-    required String phone,
-    required String nationality,
-    required String homeAddress,
-    required String workAddress,
-    required String filePath,
-
-
-
-
-
-  }) async {
+  Future<Either<String, List<Specialist>>> getSpecialists() async {
     try {
-      final response = await api.post(
-        EndPoint.signUp,
-        data: {
-
-          ApiKey.firstName: firstname,
-          ApiKey.lastName: lastname,
-          ApiKey.email: email,
-          ApiKey.password: password,
-          ApiKey.phone: phone,
-          ApiKey.nationality: nationality,
-          ApiKey.homeAddress: homeAddress,
-          ApiKey.workAddress: workAddress,
-          ApiKey.files: filePath
-
-        },
-
+      // Make your API call here to fetch the list of specialists
+      final response = await api.get(
+        EndPoint.getAllSpecialist,
+        data: {},
       );
 
+      if (response['message'] == "specialists gitting successfully") {
+        // Parse the entire response to get the list of specialists
+        SpecialistModel specialistModel = SpecialistModel.fromJson(response);
 
-      final signUpModel = SignUpModel.fromJson(response);
-      return Right(signUpModel);
-    } on ServerException catch (e) {
-      return Left(e.errModel.data);
+        // Return the list of specialists from the parsed response
+        return Right(specialistModel.specialists ?? []);
+      } else {
+        return Left('Failed to load specialists');
+      }
+    } catch (e) {
+      return Left('An error occurred: $e');
     }
   }
-
-
-
 }
+

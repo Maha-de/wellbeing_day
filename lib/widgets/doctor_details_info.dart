@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DoctorInfo extends StatelessWidget {
   final String text;
@@ -12,7 +13,7 @@ class DoctorInfo extends StatelessWidget {
       children: [
         Text(
           text,
-          style: const TextStyle(fontSize: 16, color: Color(0xff19649E)), // Styling the text
+          style:  TextStyle(fontSize: 16.sp, color: Color(0xff19649E)), // Styling the text
           textAlign: TextAlign.right, // Align text to the right
         ),
       ],

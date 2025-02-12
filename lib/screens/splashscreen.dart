@@ -2,6 +2,7 @@ import 'package:doctor/screens/home_second_screen.dart';
 import 'package:doctor/screens/welcomescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:async';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -73,8 +74,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         child: ScaleTransition(
           scale: _animation,
           child: SizedBox(
-            width: 225,
-            height: 178.62,
+            width: 225.w,
+            height: 178.62.h,
             child: Image.asset('assets/images/img.png', fit: BoxFit.cover),
           ),
         ),

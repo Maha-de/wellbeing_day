@@ -1,16 +1,24 @@
+import 'dart:async';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:doctor/screens/homescreen.dart';
+import 'package:doctor/screens/sign_up_as_client.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../cubit/get_specialist/get_sepcialist_cubit.dart';
+import '../cubit/get_specialist/get_specialist_state.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
+import '../make_email/login.dart';
 import '../models/user_profile_model.dart';
+import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_bottom_nav_bar.dart';
 import '../widgets/doctor_card.dart';
+import 'applicationInfo.dart';
 import 'client_profile_screen.dart';
-import 'info_screen.dart';
 
 class FirstHomePage extends StatefulWidget {
   const FirstHomePage({super.key});
@@ -23,9 +31,8 @@ class _FirstHomePageState extends State<FirstHomePage> {
   var sliderIndex = 0;
   CarouselSliderController carouselControllerEx = CarouselSliderController();
   late UserProfileCubit userProfileCubit;
-
+int currentIndex=0;
   var images = [
-    'assets/images/family.png',
     'assets/images/familyy.png',
     'assets/images/familyyy.png',
   ];
@@ -35,16 +42,35 @@ class _FirstHomePageState extends State<FirstHomePage> {
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
     _loadUserProfile();
+    final specialistCubit = BlocProvider.of<GetSpecialistCubit>(context);
+    specialistCubit.fetchSpecialists();
+    _startAutoPageSwitch();
   }
-
+  PageController _pageController = PageController();
+  void _startAutoPageSwitch() {
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (_pageController.page?.toInt() == images.length - 1) {
+        _pageController.jumpToPage(0);
+      } else {
+        _pageController.nextPage(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
   Future<void> _loadUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
     userProfileCubit.getUserProfile(context, id);
   }
+  late Timer _timer;
+
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width.w;
+    double screenHeight = MediaQuery.of(context).size.height.h;
     return BlocProvider(
         create: (context) => userProfileCubit,
         child: BlocBuilder<UserProfileCubit, UserProfileState>(
@@ -54,250 +80,321 @@ class _FirstHomePageState extends State<FirstHomePage> {
                   body: Center(child: CircularProgressIndicator()),
                 );
               } else if (state is UserProfileFailure) {
-                return Center(
-                    child: Text("Error loading profile: ${state.error}"));
+                return  Scaffold(
+                  appBar: CustomAppBar(
+                    screenWidth: screenWidth,
+                    screenHeight: screenHeight,
+                  ),
+                  backgroundColor: Colors.white,
+                  bottomNavigationBar:BottomNavigationBar(
+                    backgroundColor: const Color(0xff19649E), // Ensures the background is consistent
+                    selectedItemColor: Colors.white, // Sets the color of the selected icons
+                    unselectedItemColor: Colors.black, // Sets the color of unselected icons
+                    showSelectedLabels: false, // Hides selected labels
+                    showUnselectedLabels: false, // Hides unselected labels
+                    currentIndex: currentIndex, // Default selected index
+                    type: BottomNavigationBarType.fixed, // Prevents animation on shifting types
+                    items: [
+                      BottomNavigationBarItem(
+                        icon: SizedBox(
+                          height: 27.h, // Adjust icon size
+                          child:
+                          Image.asset(
+                            "assets/images/meteor-icons_home.png",
+                            // color: currentIndex == 0 ? Colors.white : Colors.black,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        activeIcon: SizedBox(
+                          height: 27.h, // Active icon size adjustment
+                          child: Image.asset(
+                            "assets/images/meteor-icons_home.png",
+                            color: currentIndex == 0 ? Colors.white : Colors.black,
+
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        label: "home".tr(),
+                      ),
+                      BottomNavigationBarItem(
+                        icon: SizedBox(
+                          height: 27.h,
+                          child: Image.asset(
+                            "assets/images/nrk_category1.png",
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        activeIcon: SizedBox(
+                          height: 27.h,
+                          child: Image.asset(
+                            "assets/images/nrk_category.png",
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        label: "menu".tr(),
+                      ),
+                      BottomNavigationBarItem(
+                        icon: SizedBox(
+                          height: 25.h, // Adjust icon size
+                          child: Image.asset(
+                            "assets/images/material-symbols_help-clinic-outline-rounded.png",
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        activeIcon: SizedBox(
+                          height: 33.h,
+                          // width: 50,
+                          child: Image.asset(
+                            "assets/images/material-symbols_help-clinic-outline-rounded_Active.png",
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        label: "info".tr(),
+                      ),
+                      BottomNavigationBarItem(
+                        icon: SizedBox(
+                          height: 27.h,
+                          child: Image.asset(
+                            "assets/images/gg_profile.png",
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        activeIcon: SizedBox(
+                          height: 27.h,
+                          child: Image.asset(
+                            "assets/images/gg_profile1.png",
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        label: "profile".tr(),
+                      ),
+                    ],
+                    onTap: (index) {
+                      switch (index) {
+                        case 3:
+
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text("alert".tr()),
+                              content: Text("guestAccessibilityAlert".tr()),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context); // إغلاق الـ Alert
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
+                                    );
+                                  },
+                                  child: Text("login".tr()),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context); // إغلاق الـ Alert
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
+                                    );
+                                  },
+                                  child: Text("createAccount".tr()),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
+                                  },
+                                  child: Text("cancel".tr()),
+                                ),
+                              ],
+                            ),
+                          );
+                          break;
+                        case 1:
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider(
+                                create: (_) => UserProfileCubit(),
+                                child: const HomeScreen(),
+                              ),
+                            ),
+                          );
+                          break;
+                        case 2:
+
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const ApplicationInfo()));
+
+                          break;
+
+                        case 0:
+
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstHomePage()));
+
+                          break;
+                      }
+                    },
+                  ),
+                  body: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(height: 10.h,),
+                        Container(
+                          width: 343.w,
+                          height:145.h,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20)
+                          ),
+                          child: PageView.builder(
+                            controller: _pageController,
+                            itemCount: images.length,
+                            itemBuilder: (context, index) {
+                              return Image.asset(
+                                images[index],
+                                fit: BoxFit.fill,
+                                width: 343.w,
+                                height:145.h,
+                              );
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        Center(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: const Color(0xFFAFDCFF)),
+                            height: 40.h,
+                            width: 310.w,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.search),
+                                labelText: "search".tr(),
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide.none),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+
+                        // List of doctors
+                        BlocBuilder<GetSpecialistCubit, GetSpecialistState>(
+                          builder: (context, state) {
+                            if (state is SpecialistLoading) {
+                              return CircularProgressIndicator(); // Show loading indicator
+                            } else if (state is SpecialistFailure) {
+                              return Text(state.errMessage); // Display error message
+                            } else if (state is SpecialistSuccess) {
+                              return Container(
+                                height: screenHeight*0.57.h,
+                                width: 344.w,
+                                child: ListView.builder(
+                                  itemCount: state.specialists.length,
+                                  itemBuilder: (context, index) {
+                                    return DoctorCard(specialistModel: state.specialists[index], doctorID:state.specialists[index].id??"",);
+                                  },
+                                ),
+                              );
+                            } else {
+                              return Center(child: Text('noSpecialistsFound'.tr()));
+                            }
+                          },
+                        )
+
+                      ],
+                    ),
+                  ),
+                );
               } else if (state is UserProfileSuccess) {
                 UserProfileModel userProfile = state.userProfile;
                 return Scaffold(
+                  appBar: CustomAppBar(
+                    userProfile: userProfile,
+                    screenWidth: screenWidth,
+                    screenHeight: screenHeight,
+                  ),
                   backgroundColor: Colors.white,
                   bottomNavigationBar: const CustomBottomNavBar(
                     currentIndex: 0,
                   ),
-                  body: Column(
-                    children: [
-                      Container(
-                        height: 200,
-                        decoration: const BoxDecoration(
-                          color: Color(0xFFAFDCFF),
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(40.0),
-                            bottomRight: Radius.circular(40.0),
-                          ),
-                        ),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      0, 70, 20, 20),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        width: 66,
-                                        height: 50,
-                                        decoration: const BoxDecoration(
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(
-                                              50),
-                                          child:
-                                          userProfile.imageUrl == "" ||
-                                              userProfile.imageUrl == null
-                                              ? Image.asset(
-                                              "assets/images/profile.jpg",
-                                              fit: BoxFit.fill)
-                                              : Image.network(
-                                              userProfile.imageUrl ?? "",
-                                              fit: BoxFit.fill),
-
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        "greeting".tr() + " ${userProfile.firstName}",
-                                        textAlign: TextAlign.start,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Color(0xff19649E),
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 20, right: 40),
-                                  child: SizedBox(
-                                    height: 100,
-                                    width: 110,
-                                    child: Image.asset('assets/images/img.png',
-                                        fit: BoxFit.fill),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 50),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .end,
-                                        children: [
-                                          IconButton(
-                                              onPressed: () {},
-                                              icon: const Icon(
-                                                Icons.phone,
-                                                size: 35,
-                                                color: Colors.red,
-                                              )),
-                                          IconButton(
-                                              onPressed: () {},
-                                              icon: const Icon(
-                                                Icons.notifications_outlined,
-                                                size: 40,
-                                                color: Color(0xff19649E),
-                                              )),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 30),
-                                        child: Column(
-                                          children: [
-                                            const Text(
-                                              "تواصل معنا",
-                                              style: TextStyle(
-                                                color: Color(0xff19649E),
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                              children: [
-                                                GestureDetector(
-                                                  onTap: () {},
-                                                  child: SizedBox(
-                                                    width: 27.66,
-                                                    height: 25.33,
-                                                    child: Image.asset(
-                                                        "assets/images/fa-brands_twitter-square.png",
-                                                        fit: BoxFit.fill),
-                                                  ),
-                                                ),
-                                                const SizedBox(width: 5),
-                                                GestureDetector(
-                                                  onTap: () {},
-                                                  child: SizedBox(
-                                                    width: 27.66,
-                                                    height: 25.33,
-                                                    child: Image.asset(
-                                                        "assets/images/uil_facebook.png",
-                                                        fit: BoxFit.fill),
-                                                  ),
-                                                ),
-                                                const SizedBox(width: 5),
-                                                GestureDetector(
-                                                  onTap: () {},
-                                                  child: SizedBox(
-                                                    width: 27.66,
-                                                    height: 25.33,
-                                                    child: Image.asset(
-                                                        "assets/images/ri_instagram-fill.png",
-                                                        fit: BoxFit.fill),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width,
-                        child: CarouselSlider(
-                          carouselController: carouselControllerEx,
-                          options: CarouselOptions(
-                              height: 180,
-                              autoPlay: true,
-                              onPageChanged: (index, _) {
-                                sliderIndex = index;
-                                setState(() {});
-                              }),
-                          items: images.map((i) {
-                            return ClipRRect(
-                              borderRadius: BorderRadius.circular(30),
-                              child: Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 5.0),
-                                  child: Image.asset(
-                                    i,
-                                    fit: BoxFit.cover,
-                                  )),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Center(
-                        child: Container(
+                  body: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(height: 10.h,),
+                        Container(
+                          width: 343.w,
+                          height:145.h,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: const Color(0xFFAFDCFF)),
-                          height: 50,
-                          width: 380,
-                          child: TextFormField(
-                            decoration: const InputDecoration(
-                              prefixIcon: Icon(Icons.search),
-                              labelText: "البحث",
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide.none),
+                            borderRadius: BorderRadius.circular(20)
+                          ),
+                          child: PageView.builder(
+                            controller: _pageController,
+                            itemCount: images.length,
+                            itemBuilder: (context, index) {
+                              return Image.asset(
+                                images[index],
+                                fit: BoxFit.fill,
+                                width: 343.w,
+                                height:145.h,
+                              );
+                            },
+                          ),
+                        ),
+                         SizedBox(
+                          height: 10.h,
+                        ),
+                        Center(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: const Color(0xFFAFDCFF)),
+                            height: 40.h,
+                            width: 310.w,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.search),
+                                labelText: "search".tr(),
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide.none),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          child: ListView.separated(
-                            padding:
-                            const EdgeInsets.only(left: 10, right: 10, top: 30),
-                            itemBuilder: (context, index) {
-                              return DoctorCard();
-                            },
-                            separatorBuilder: (context, index) {
-                              return const SizedBox(height: 20);
-                            },
-                            itemCount: 2,
-                            shrinkWrap:
-                            true,
-                            // Makes ListView behave like a normal widget inside a Column
-                            physics:
-                            const NeverScrollableScrollPhysics(), // Prevents the ListView from having its own scroll
-                          ),
+                         SizedBox(
+                          height: 10.h,
                         ),
-                      ),
-                    ],
+
+                        // List of doctors
+                        BlocBuilder<GetSpecialistCubit, GetSpecialistState>(
+                          builder: (context, state) {
+                            if (state is SpecialistLoading) {
+                              return CircularProgressIndicator(); // Show loading indicator
+                            } else if (state is SpecialistFailure) {
+                              return Text(state.errMessage); // Display error message
+                            } else if (state is SpecialistSuccess) {
+                              return Container(
+                                height: screenHeight*0.57.h,
+                                width: 344.w,
+                                child: ListView.builder(
+                                  itemCount: state.specialists.length,
+                                  itemBuilder: (context, index) {
+                                    return DoctorCard(specialistModel: state.specialists[index], doctorID: state.specialists[index].id??"",);
+                                  },
+                                ),
+                              );
+                            } else {
+                              return Center(child: Text('noSpecialistsFound'.tr()));
+                            }
+                          },
+                        )
+
+                      ],
+                    ),
                   ),
                 );
               }

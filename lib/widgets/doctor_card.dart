@@ -1,161 +1,214 @@
+import 'package:doctor/cubit/doctor_details_cubit/doctor_profile_cubit.dart';
 import 'package:doctor/screens/doctor_details.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-// A stateless widget representing a card for displaying doctor information
+import '../cubit/user_profile_cubit/user_profile_cubit.dart';
+import '../models/doctor_by_category_model.dart';
+import '../models/specialist_model.dart';
+
 class DoctorCard extends StatelessWidget {
+  final Specialist? specialistModel;
+  final Specialists? specialists;
+  final String  doctorID;
+  const DoctorCard({super.key,  this.specialistModel, required this.doctorID, this.specialists});
+
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width.w;
+    final double screenHeight = MediaQuery.of(context).size.height.h;
+
+    print("specialistModel: ${specialistModel.toString()}");
+    if (specialistModel != null) {
+      print("Doctor Name: ${specialistModel?.firstName} ${specialistModel?.lastName}");
+    } else {
+      print("No specialist data found!");
+    }
+
     return GestureDetector(
+      onTap: () {
+        if (specialistModel != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MultiBlocProvider(
+                providers: [
+                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                  BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
+                ],
+                child:  DoctorDetails(
+                    specialistModel: specialistModel, doctorID:doctorID),
+              ),
+
+            ),
+
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("doctorInfoNotAvailable".tr()),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      },
       child: Container(
-        width: Get.width * 0.9, // Setting the width of the card to 90% of screen width
-        height: 297, // Setting the height of the card
+        width: 345.w,
+        height: 272.h,
         child: Card(
           child: Column(
             children: [
-              // Top section of the card, displaying the doctor's image and details
               Container(
-                height: 220, // Height of the image container
-                color: Color(0xFF19649E), // Background color for the top section
+                height: 199.h,
+                color: Color(0xFF19649E),
                 child: Row(
                   children: [
-                    // Right side section displaying the doctor's information
                     Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
+                      padding: const EdgeInsets.only(right: 5, top: 10, left: 5),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start, // Align the text to the right
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'د. محمود محمد', // Doctor's name
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold, // Bold text
-                              fontSize: 20, // Font size
-                              color: Colors.white, // Text color is white
+                          Container(
+                            width: 140.w,
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              '${specialists?.firstName ?? "notFound".tr()} ${specialistModel?.lastName ?? ''}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.sp,
+                                color: Colors.white,
+                              ),
+                              textAlign: TextAlign.left,
                             ),
-                            textAlign: TextAlign.left, // Align the text to the left
                           ),
-                          const SizedBox(height: 2),
-                          const Text(
-                            'طبيب نفسي مهتم بالوقاية النفسية', // Doctor's specialty
-                            style: TextStyle(
+                           SizedBox(height: 2.h),
+                          Text(
+                            specialists?.work ?? "notAvailable".tr(),
+                            style:  TextStyle(
                               color: Colors.white,
-                              fontSize: 16, // Font size
+                              fontSize: 12.sp,
                             ),
                             textAlign: TextAlign.left,
                           ),
-                          const SizedBox(height: 10),
-                          buildInfoRow("assets/images/heart.png", 'النوع: وقاية نفسية'), // Call method to display type info
-                          const SizedBox(height: 4),
-                          buildInfoRow("assets/images/PhoneCall.png", 'متاح جلسات صوتية، فيديو'), // Call method to display availability info
-                          const SizedBox(height: 4),
-                          buildInfoRow("assets/images/experience.png", 'خبرة 7 سنوات'), // Call method to display experience info
-                          const SizedBox(height: 4),
-                          buildInfoRow("assets/images/translation.png", 'اللغة: العربية، الإنجليزية'), // Call method to display language info
+                           SizedBox(height: 15.h),
+                          buildInfoRow("assets/images/heart.png",
+                              "speciality".tr() + "${(specialists?.specialties?.mentalHealth?.isNotEmpty ?? false)
+                                  ? specialists?.specialties?.mentalHealth?.join(", ") : "notAvailable".tr()}"),
+                           SizedBox(height: 4.h),
+                          buildInfoRow("assets/images/PhoneCall.png",
+                              'availableVideo'.tr()),
+                           SizedBox(height: 4.h),
+                          buildInfoRow("assets/images/experience.png",
+                              "experienceYears".tr() + ' ${specialists?.yearsExperience ?? 0} ' + "years".tr()),
+                           SizedBox(height: 4.h),
+                          buildInfoRow("assets/images/translation.png",
+                              "language".tr() + "arabic".tr() + "، " + "english".tr()),
                         ],
                       ),
                     ),
-                    // Image Container with 3D effect and zoom
                     Flexible(
                       child: Container(
-                        height: 220, // Height for the image
+                        height: 210.h,
+                        width: 164.w,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8), // Rounded corners for the image
+
+                          borderRadius: BorderRadius.circular(8),
+
                         ),
-                        child: Transform.translate(
-                          offset: Offset(-17, -12), // Move the image upwards by 14 units
-                          child: Transform.scale(
-                            scale: 1.1, // Scale the image to give a zoom effect
-                            child: Image.asset('assets/images/doctor.png', fit: BoxFit.contain), // Displaying the image
-                          ),
-                        ),
+                        child: Image.asset('assets/images/doctor.png',
+                            fit: BoxFit.cover),
                       ),
                     ),
-
-
-
                   ],
                 ),
               ),
-              SizedBox(height: 10,),
-              // Bottom section displaying the doctor's availability and price
+              SizedBox(height: 10.h),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  buildDetailColumn("assets/images/time.png", 'أقرب إتاحة', '04 يونيو - 7:00 مساءً'), // Call method to display availability time
-                  buildDetailColumn("assets/images/price.png", 'السعر', '300 ليرة / 30 دقيقة'), // Call method to display price
+                  buildDetailColumn("assets/images/time.png", 'availability'.tr(),
+                      "dateExample".tr()),
+                  buildDetailColumn("assets/images/price.png", 'price'.tr(),
+                      '${specialistModel?.sessionPrice ?? 'notAvailable'.tr()} ' + "currency".tr()
+                          + ' / ' +
+                          '${specialistModel?.sessionDuration ?? 'notAvailable'.tr()} ' + "timeSession".tr()
+                  ),
                 ],
               ),
             ],
           ),
         ),
       ),
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> const DoctorDetails()));
-      },
     );
   }
 
-
-
-
-  // Method to build each info row (e.g., type, availability, etc.)
   Widget buildInfoRow(String icon, String text) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start, // Align the row to the right
-      crossAxisAlignment: CrossAxisAlignment.end, // Align the row elements to the bottom
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        Container(
-          width: 21.19,
-          height: 19,
-          child: Image.asset(
-            icon, // Icon for the row
-            fit: BoxFit.fill, // Fill the container with the image
-            width: 21.19,
-            height: 19,
-            color: Colors.white, // Icon color is white
-          ),
+        Image.asset(
+          icon,
+          fit: BoxFit.fill,
+          width: 21.w,
+          height: 19.h,
+          color: Colors.white,
         ),
+         SizedBox(width: 8.w),
+        Container(
+          width: 184.w,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                width: 180.w,
+                child: Text(
+                  overflow: TextOverflow.ellipsis,
+                  text,
+                  style: TextStyle(fontSize: 14.sp, color: Colors.white,),
 
-        const SizedBox(width: 8), // Space between the text and the icon
-        Text(
-          text,
-          style: TextStyle(fontSize: 16, color: Colors.white), // Styling the text
-          textAlign: TextAlign.right, // Align text to the right
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );
   }
 
-  // Method to build the detail columns (e.g., availability time and price)
   Widget buildDetailColumn(String icon, String title, String value) {
-    return Container(
-      width: Get.width * 0.8, // Setting width of the detail container to 80% of the screen width
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end, // Align the row to the bottom
-        mainAxisAlignment: MainAxisAlignment.spaceBetween, // Space between the elements
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
-
-              Container(
-                color: Colors.white,
-                width: 19,
-                height: 19,
-                child: Image.asset(icon, fit: BoxFit.fill), // Displaying the icon
-              ),
-              const SizedBox(width: 8), // Space between the title and the icon
+              Image.asset(icon, width: 19.w, height: 19.h),
+              const SizedBox(width: 8),
               Text(
+
                 title,
-                style: TextStyle(color: Color(0xff19649E), fontSize: 14), // Styling the title text
+                style: TextStyle(color: Color(0xff19649E), fontSize: 14.sp),
               ),
             ],
           ),
-
-          const SizedBox(width: 4), // Space between the text and the icon
-          Text(
-            value,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Color(0xff19649E)), // Styling the value text
+          Container(
+            width: 160.w,
+            child: Center(
+              child: Text(
+                value,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16.sp,
+                    color: Color(0xff19649E)),
+              ),
+            ),
           ),
         ],
       ),

@@ -7,6 +7,7 @@ import 'package:doctor/screens/splashscreen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
@@ -49,7 +50,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
       "yourProfile".tr(),
       "settings".tr(),
       "appointments".tr(),
-      "وسائل الدفع",
+      "paymentMethod".tr(),
       "signOut".tr()
     ];
 
@@ -90,8 +91,8 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                       clipBehavior: Clip.none,
                       children: [
                         Container(
-                          height: screenHeight *
-                              0.22, // Adjust height proportionally
+                          height: screenHeight.h *
+                              0.18.h, // Adjust height proportionally
                           decoration: BoxDecoration(
                             color: Color(0xff19649E),
                             borderRadius: BorderRadius.only(
@@ -135,9 +136,9 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                                       });
                                     },
                                     child: Container(
-                                      height: screenWidth * 0.3,
+                                      height: screenWidth.w * 0.3.h,
                                       // Adjust size proportionally
-                                      width: screenWidth * 0.3,
+                                      width: screenWidth.w * 0.3.w,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius:
@@ -202,16 +203,17 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 35),
+                    SizedBox(height: 55.h),
                     Positioned(
-                      left: screenWidth * 0.35, // Adjust for better centering
-                      top: -100,
+                      left: screenWidth.w * 0.35.w, // Adjust for better centering
+                      top: -50,
                       child: Text(
                         "${userProfileCubit.firstNameController.text}",
                         style: TextStyle(
                           fontWeight: FontWeight.w800,
-                          fontSize: screenWidth *
-                              0.06, // Adjust size based on screen width
+                          fontSize: screenWidth.w *
+                              0.06.sp
+                          , // Adjust size based on screen width
                           color: Color(0xff19649E),
                         ),
                       ),
@@ -219,9 +221,11 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                     Center(
                       child: Container(
                         margin: const EdgeInsets.only(
-                            top: 5, left: 15, right: 15, bottom: 15),
-                        height: screenHeight *
-                            0.46, // Adjust height proportionally
+
+                            top: 0, left: 15, right: 15),
+                        height: 377.h,
+                        width: 347,// Adjust height proportionally
+
                         child: ListView.builder(
                           // physics: NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
@@ -265,11 +269,22 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                                     ),
                                   );
                                 } else if (index == 2) {
+
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) =>
-                                              const AppointmentsSection()));
+                                      builder: (context) => MultiBlocProvider(
+                                      providers: [
+                                        BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                        BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                        BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                      ],
+                                  child: AppointmentsSection())));
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) =>
+                                  //             const AppointmentsSection()));
                                 } else if (index == 3) {
 
                                   Navigator.push(
@@ -305,38 +320,41 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                               },
                               child: Container(
                                 margin: EdgeInsets.only(
-                                    bottom: 5, top: 15, left: 5, right: 5),
+                                    bottom: 7, top: 7, left: 5, right: 5),
                                 child: Column(
                                   children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(top: 15.0),
-                                          child: Text(
-                                            actions[index],
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: screenWidth *
-                                                  0.05, // Adjust text size
-                                              fontWeight: FontWeight.w600,
+                                    Container(
+                                      width:343.w,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 15.0),
+                                            child: Text(
+                                              actions[index],
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 20.sp, // Adjust text size
+                                                fontWeight: FontWeight.w600,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Icon(
-                                          Icons.arrow_forward,
-                                          color: Color(0xff19649E),
-                                          size: screenWidth *
-                                              0.08, // Adjust icon size proportionally
-                                        ),
-                                      ],
+                                          Icon(
+                                            Icons.arrow_forward,
+                                            color: Color(0xff19649E),
+                                            size: screenWidth.w *
+                                                0.08.w, // Adjust icon size proportionally
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                     Container(
+                                      width:343.w,
                                       margin:
-                                          EdgeInsets.only(top: 15, left: 12),
-                                      width: screenWidth * 0.85,
-                                      height: 2,
+                                          EdgeInsets.only(top: 7, left: 12),
+
+                                      height: 2.h,
                                       color: Color(0xff19649E),
                                     ),
                                   ],

@@ -1,15 +1,17 @@
+import 'package:doctor/screens/notificationsScreen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../models/user_profile_model.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final UserProfileModel userProfile;
+  final UserProfileModel? userProfile;
   final double screenWidth;
   final double screenHeight;
 
   const CustomAppBar({
     Key? key,
-    required this.userProfile,
+    this.userProfile,
     required this.screenWidth,
     required this.screenHeight,
   }) : super(key: key);
@@ -22,45 +24,53 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         bottomRight: Radius.circular(40),
       ),
       child: Container(
-        decoration: BoxDecoration(
-          color: Colors.lightBlue[100], // Background color of the app bar
+        decoration: const BoxDecoration(
+          color: Color(0xFFAFDCFF),
         ),
         child: AppBar(
-          backgroundColor: Colors.transparent, // Set to transparent to allow the custom color to show
-          elevation: 0, // Remove the shadow of the AppBar
-          automaticallyImplyLeading: false, // Prevents the default leading icon (back button)
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          automaticallyImplyLeading: false,
           flexibleSpace: Padding(
-            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04, vertical: 8),
+            padding: EdgeInsets.symmetric(
+                horizontal: screenWidth * 0.04,
+                vertical: screenHeight * 0.02.h),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Left side (profile image and greeting text)
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
-                      width: 69,
-                      height: 66,
+
+                      width: 69.w,
+                      height: 66.h,
+
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                       ),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(60),
-                        child: userProfile.imageUrl == "" || userProfile.imageUrl == null
-                            ? Image.asset("assets/images/profile.jpg", fit: BoxFit.fill)
-                            : Image.network(userProfile.imageUrl ?? "", fit: BoxFit.fill),
+
+                        borderRadius: BorderRadius.circular(50),
+                        child: userProfile?.imageUrl == "" ||
+                                userProfile?.imageUrl == null
+                            ? Image.asset("assets/images/profile.jpg",
+                                fit: BoxFit.fill)
+                            : Image.network(userProfile?.imageUrl ?? "",
+                                fit: BoxFit.fill),
+
                       ),
                     ),
-                    const SizedBox(width: 28),
                     Padding(
-                      padding: const EdgeInsets.only(top: 5.0),
+                      padding: EdgeInsets.only(top: screenHeight * 0.01.h),
                       child: Text(
-                        "greeting".tr() + " " + "${userProfile.firstName}",
-                        textAlign: TextAlign.start,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Color(0xff19649E),
+                        "greeting".tr() +
+                            " " +
+                            "${userProfile?.firstName ?? "guest"}",
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          color: const Color(0xff19649E),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -68,101 +78,69 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ],
                 ),
 
-                // Right side (image and action icons)
-                Center(
-                  child: Padding(
-                    padding: EdgeInsets.only(bottom: screenHeight * 0.02,left: 15),
-                    child: SizedBox(
-
-                      height: 100,
-                      width: 110,
-                      // height: screenHeight * 0.17,
-                      // width: screenWidth * 0.35,
-                      child: Image.asset('assets/images/img.png', fit: BoxFit.fill),
-                    ),
-                  ),
-                ),
-
-                // Middle column (social media and phone icons)
                 SizedBox(
-                  width: screenWidth * 0.25,
+                  height: 100.h,
+                  width: 110.w,
+                  child: Image.asset('assets/images/img.png', fit: BoxFit.fill),
+
+                ),
+                SizedBox(
+                  width: 110.w,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(top: screenHeight * 0.09, bottom: screenHeight * 0.03),
+                        padding: EdgeInsets.only(top: 10.h, bottom: 20.h),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            GestureDetector(
-                              onTap: () {},
-                              child: SizedBox(
-                                width: 27.66,
-                                height: 25.33,
-                                child: Image.asset("assets/images/phone.png", fit: BoxFit.fill),
-                              ),
-                            ),
-                            const SizedBox(width: 20),
-                            GestureDetector(
-                              onTap: () {},
-                              child: SizedBox(
-                                width: 27.66,
-                                height: 25.33,
-                                child: Image.asset("assets/images/notification.png", fit: BoxFit.fill),
-                              ),
-                            ),
+                            _iconButton("assets/images/phone.png", () {}),
+                            SizedBox(width: screenWidth * 0.05.w),
+                            _iconButton("assets/images/notification.png", () {
+                              Future.microtask(() {
+                                // Ensures navigation happens correctly
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Notificationsscreen()),
+                                );
+                              });
+                            })
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(top: screenHeight * 0.005),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: screenWidth * 0.04, bottom: screenHeight * 0.005),
-                              child: const Text(
-                                "تواصل معنا",
-                                style: TextStyle(
-                                  color: Color(0xff19649E),
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                      Column(
+                        children: [
+                          Padding(
+                            padding:
+                                EdgeInsets.only(bottom: screenHeight * 0.005.h),
+                            child: Text(
+                              "contactUs".tr(),
+                              style: TextStyle(
+                                color: const Color(0xff19649E),
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Row(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {},
-                                  child: SizedBox(
-                                    width: 27.66,
-                                    height: 25.33,
-                                    child: Image.asset("assets/images/fa-brands_twitter-square.png", fit: BoxFit.fill),
-                                  ),
-                                ),
-                                const SizedBox(width: 5),
-                                GestureDetector(
-                                  onTap: () {},
-                                  child: SizedBox(
-                                    width: 27.66,
-                                    height: 25.33,
-                                    child: Image.asset("assets/images/uil_facebook.png", fit: BoxFit.fill),
-                                  ),
-                                ),
-                                const SizedBox(width: 5),
-                                GestureDetector(
-                                  onTap: () {},
-                                  child: SizedBox(
-                                    width: 27.66,
-                                    height: 25.33,
-                                    child: Image.asset("assets/images/ri_instagram-fill.png", fit: BoxFit.fill),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              _iconButton(
+                                  "assets/images/fa-brands_twitter-square.png",
+                                  () {}),
+                              SizedBox(width: screenWidth * 0.01.w),
+                              _iconButton(
+                                  "assets/images/uil_facebook.png", () {}),
+                              SizedBox(width: screenWidth * 0.01.w),
+                              _iconButton(
+                                  "assets/images/ri_instagram-fill.png", () {}),
+                            ],
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -175,6 +153,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
+  Widget _iconButton(String assetPath, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: SizedBox(
+        width: 27.w,
+        height: 25.h,
+        child: Image.asset(assetPath, fit: BoxFit.fill),
+      ),
+    );
+  }
+
   @override
-  Size get preferredSize => Size.fromHeight(screenHeight * 0.21);
+  Size get preferredSize => Size.fromHeight(screenHeight * 0.21.h);
 }

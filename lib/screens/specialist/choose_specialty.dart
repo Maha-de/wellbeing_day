@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:get/get.dart';
 import '../../cubit/doctor_sign_up_cubit/doctor_sign_up_cubit.dart';
 import '../../make_email/login.dart';
@@ -8,7 +9,7 @@ import '../../models/Specialist.dart';
 import '../../widgets/custom_snake_bar.dart';
 
 class ChooseSpecialty extends StatefulWidget {
-  final Specialist doctor;
+  final Doctor doctor;
 
   const ChooseSpecialty({super.key, required this.doctor});
 
@@ -71,11 +72,11 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
   @override
   Widget build(BuildContext context) {
 
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width.w;
+    double screenHeight = MediaQuery.of(context).size.height.h;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal:8, vertical: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
 
@@ -84,14 +85,14 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
             child: Text(
               "pickYour".tr(),
               textAlign: TextAlign.start,
-              style: const TextStyle(
-                fontSize: 18,
+              style:  TextStyle(
+                fontSize: 18.sp,
                 color: Color(0xff19649E),
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
-          const SizedBox(height: 20),
+           SizedBox(height: 20.h),
           Expanded(
             child: ListView(
               children: [
@@ -123,7 +124,7 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
               ],
             ),
           ),
-          const SizedBox(height: 32),
+           SizedBox(height: 32.h),
           InkWell(
             onTap: () {
               String selectedSpecialities = getSelectedSpecialities();
@@ -142,8 +143,8 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
               }
             },
             child: Container(
-              width: screenWidth * 0.9,
-              height: screenHeight * 0.07,
+              width: screenWidth * 0.9.w,
+              height: screenHeight * 0.05.h,
               decoration: BoxDecoration(
                 color: const Color(0xff19649E),
                 borderRadius: BorderRadius.circular(11),
@@ -151,8 +152,8 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
               child: Center(
                 child: Text(
                   'createAccount'.tr(),
-                  style: const TextStyle(
-                    fontSize: 24,
+                  style:  TextStyle(
+                    fontSize: 24.sp,
                     color: Colors.white,
                     fontWeight: FontWeight.w700,
                   ),
@@ -160,14 +161,14 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
               ),
             ),
           ),
-          SizedBox(height: screenHeight * 0.02),
+          SizedBox(height: screenHeight * 0.02.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 'alreadyHaveAnAccount'.tr(),
-                style: const TextStyle(
-                  fontSize: 16,
+                style:  TextStyle(
+                  fontSize: 16.sp,
                   color: Colors.black,
                   fontWeight: FontWeight.w700,
                 ),
@@ -182,8 +183,8 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
                 },
                 child: Text(
                   'signIn'.tr(),
-                  style: const TextStyle(
-                    fontSize: 16,
+                  style:  TextStyle(
+                    fontSize: 16.sp,
                     color: Color(0xff19649E),
                     fontWeight: FontWeight.w700,
                   ),
@@ -216,14 +217,16 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Text(
-            category,
-            style: const TextStyle(
-              color: Color(0xff19649E),
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+          child: Expanded(
+            child: Text(
+              category,
+              style:  TextStyle(
+                color: Color(0xff19649E),
+                fontSize: 18.sp,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.right,
             ),
-            textAlign: TextAlign.right,
           ),
         ),
         Column(
@@ -240,10 +243,12 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
                     });
                   },
                 ),
-                Text(
-                  entry.key,
-                  textAlign: TextAlign.right,
-                  style: const TextStyle(fontSize: 16),
+                Expanded(
+                  child: Text(
+                    entry.key,
+                    textAlign: TextAlign.start,
+                    style:  TextStyle(fontSize: 15.sp),
+                  ),
                 ),
               ],
             );

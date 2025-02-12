@@ -1,16 +1,29 @@
+import 'package:doctor/screens/sign_up_as_client.dart';
 import 'package:doctor/widgets/custom_app_bar.dart';
 import 'package:doctor/widgets/custom_bottom_nav_bar.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../cubit/doctor_by_category_cubit/doctor_by_category_cubit.dart';
+import '../cubit/doctor_by_category_cubit/doctor_by_category_state.dart';
+import '../cubit/get_specialist/get_sepcialist_cubit.dart';
+import '../cubit/get_specialist/get_specialist_state.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
+import '../make_email/login.dart';
 import '../models/user_profile_model.dart';
 import '../widgets/doctor_card.dart';
+import 'applicationInfo.dart';
+import 'first_home_page.dart';
+import 'homescreen.dart';
 
 class PersonalityDisorderScreen extends StatefulWidget {
-  const PersonalityDisorderScreen({super.key});
+  final String category;
+  final String subCategory;
+  const PersonalityDisorderScreen({super.key, required this.category, required this.subCategory});
 
   @override
   State<PersonalityDisorderScreen> createState() => _PersonalityDisorderScreenState();
@@ -18,24 +31,27 @@ class PersonalityDisorderScreen extends StatefulWidget {
 
 class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
   late UserProfileCubit userProfileCubit;
-
+  late DoctorByCategoryCubit doctorByCategoryCubit;
   @override
   void initState() {
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
+    doctorByCategoryCubit = BlocProvider.of<DoctorByCategoryCubit>(context);
     _loadUserProfile();
   }
-
+  int currentIndex=1;
   Future<void> _loadUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
     userProfileCubit.getUserProfile(context, id);
+    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.category, widget.subCategory);
   }
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width.w;
+    double screenHeight = MediaQuery.of(context).size.height.h;
+    bool isEnglish = Localizations.localeOf(context).languageCode == 'en';
 
     return BlocProvider(
       create: (_) => userProfileCubit,
@@ -46,7 +62,260 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
               body: Center(child: CircularProgressIndicator()),
             );
           } else if (state is UserProfileFailure) {
-            return Center(child: Text("Error loading profile: ${state.error}"));
+            return Scaffold(
+              bottomNavigationBar:BottomNavigationBar(
+                backgroundColor: const Color(0xff19649E), // Ensures the background is consistent
+                selectedItemColor: Colors.white, // Sets the color of the selected icons
+                unselectedItemColor: Colors.black, // Sets the color of unselected icons
+                showSelectedLabels: false, // Hides selected labels
+                showUnselectedLabels: false, // Hides unselected labels
+                currentIndex: currentIndex, // Default selected index
+                type: BottomNavigationBarType.fixed, // Prevents animation on shifting types
+                items: [
+                  BottomNavigationBarItem(
+                    icon: SizedBox(
+                      height: 27.h, // Adjust icon size
+                      child:
+                      Image.asset(
+                        "assets/images/meteor-icons_home.png",
+                        // color: currentIndex == 0 ? Colors.white : Colors.black,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    activeIcon: SizedBox(
+                      height: 27.h, // Active icon size adjustment
+                      child: Image.asset(
+                        "assets/images/meteor-icons_home.png",
+                        color: currentIndex == 0 ? Colors.white : Colors.black,
+
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    label: "home".tr(),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: SizedBox(
+                      height: 27.h,
+                      child: Image.asset(
+                        "assets/images/nrk_category1.png",
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    activeIcon: SizedBox(
+                      height: 27.h,
+                      child: Image.asset(
+                        "assets/images/nrk_category.png",
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    label: "menu".tr(),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: SizedBox(
+                      height: 25.h, // Adjust icon size
+                      child: Image.asset(
+                        "assets/images/material-symbols_help-clinic-outline-rounded.png",
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    activeIcon: SizedBox(
+                      height: 33.h,
+                      // width: 50,
+                      child: Image.asset(
+                        "assets/images/material-symbols_help-clinic-outline-rounded_Active.png",
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    label: "info".tr(),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: SizedBox(
+                      height: 27.h,
+                      child: Image.asset(
+                        "assets/images/gg_profile.png",
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    activeIcon: SizedBox(
+                      height: 27.h,
+                      child: Image.asset(
+                        "assets/images/gg_profile1.png",
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    label: "profile".tr(),
+                  ),
+                ],
+                onTap: (index) {
+                  switch (index) {
+                    case 3:
+
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text("alert".tr()),
+                          content: Text("guestAccessibilityAlert".tr()),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context); // إغلاق الـ Alert
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
+                                );
+                              },
+                              child: Text("login".tr()),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context); // إغلاق الـ Alert
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
+                                );
+                              },
+                              child: Text("createAccount".tr()),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
+                              },
+                              child: Text("cancel".tr()),
+                            ),
+                          ],
+                        ),
+                      );
+                      break;
+                    case 1:
+
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider(
+                            create: (_) => UserProfileCubit(),
+                            child: const HomeScreen(),
+                          ),
+                        ),
+                      );
+                      break;
+                    case 2:
+
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ApplicationInfo()));
+
+                      break;
+
+                    case 0:
+
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstHomePage()));
+
+                      break;
+                  }
+                },
+              ),
+              appBar: AppBar(
+
+                elevation: 0,
+                backgroundColor: Colors.transparent,
+                iconTheme: const IconThemeData(
+                  color: Color(0xff19649E),
+                ),
+              ),
+              body: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Center(
+                      child: Container(
+                        width: 200.w,
+                        height: 40.h,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF1F78BC),
+                          borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(20),
+                              topLeft: Radius.circular(20)),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          "personalityDisorder".tr(),
+                          style: TextStyle(
+                              fontSize: isEnglish ? 17.sp : 20.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildDisorderButton("borderline".tr()),
+                        _buildDisorderButton("narcissistic".tr()),
+                        _buildDisorderButton("obsessive".tr()),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildDisorderButton("dependent".tr()),
+                        _buildDisorderButton("phophia".tr()),
+                        _buildDisorderButton("disruption".tr()),
+                      ],
+                    ),
+
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Center(
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 20),
+                        width: 161.w,
+                        height: 40.h,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF1F78BC),
+                          borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(20),
+                              topLeft: Radius.circular(20)),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          "specialists".tr(),
+                          style: TextStyle(
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    // List of doctors
+                    BlocBuilder<DoctorByCategoryCubit, DoctorByCategoryState>(
+                      builder: (context, state) {
+                        if (state is DoctorByCategoryLoading) {
+                          return CircularProgressIndicator(); // Show loading indicator
+                        } else if (state is DoctorByCategoryFailure) {
+                          return Text(state.errMessage); // Display error message
+                        } else if (state is DoctorByCategorySuccess) {
+                          return Container(
+                            height: screenHeight*0.63.h,
+                            child: ListView.builder(
+                              itemCount: state.specialists.length,
+                              itemBuilder: (context, index) {
+                                return DoctorCard(specialists: state.specialists[index], doctorID: state.specialists[index].id??"",);
+                              },
+                            ),
+                          );
+                        } else {
+                          return Center(child: Text('noSpecialistsFound'.tr()));
+                        }
+                      },
+                    )
+                  ],
+                ),
+              ),
+            );
           } else if (state is UserProfileSuccess) {
             UserProfileModel userProfile = state.userProfile;
             return Scaffold(
@@ -64,8 +333,8 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                   children: [
                     Center(
                       child: Container(
-                        width: 161,
-                        height: 40,
+                        width: 200.w,
+                        height: 40.h,
                         decoration: BoxDecoration(
                           color: Color(0xFF1F78BC),
                           borderRadius: BorderRadius.only(
@@ -74,45 +343,45 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          "إضطراب شخصي",
+                          "personalityDisorder".tr(),
                           style: TextStyle(
-                              fontSize: 20,
+                              fontSize: isEnglish ? 17.sp : 20.sp,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: 40,
+                      height: 20.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildDisorderButton("حديّ"),
-                        _buildDisorderButton("نرجسي"),
-                        _buildDisorderButton("وسواسي"),
+                        _buildDisorderButton("borderline".tr()),
+                        _buildDisorderButton("narcissistic".tr()),
+                        _buildDisorderButton("obsessive".tr()),
                       ],
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 20.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildDisorderButton("إعتمادي"),
-                        _buildDisorderButton("رهابي"),
-                        _buildDisorderButton("إنحرافي"),
+                        _buildDisorderButton("dependent".tr()),
+                        _buildDisorderButton("phophia".tr()),
+                        _buildDisorderButton("disruption".tr()),
                       ],
                     ),
 
                     SizedBox(
-                      height: 30,
+                      height: 20.h,
                     ),
                     Center(
                       child: Container(
-                        margin: EdgeInsets.only(bottom: 25),
-                        width: 161,
-                        height: 40,
+                        margin: EdgeInsets.only(bottom: 20),
+                        width: 161.w,
+                        height: 40.h,
                         decoration: BoxDecoration(
                           color: Color(0xFF1F78BC),
                           borderRadius: BorderRadius.only(
@@ -121,26 +390,35 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          "المختصين",
+                          "specialists".tr(),
                           style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 20.sp,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
                       ),
                     ),
                     // List of doctors
-                    ListView.separated(
-                      padding: EdgeInsets.only(left: 10,right: 10),
-                      itemBuilder: (context, index) {
-                        return DoctorCard();
+                    BlocBuilder<DoctorByCategoryCubit, DoctorByCategoryState>(
+                      builder: (context, state) {
+                        if (state is DoctorByCategoryLoading) {
+                          return CircularProgressIndicator(); // Show loading indicator
+                        } else if (state is DoctorByCategoryFailure) {
+                          return Text(state.errMessage); // Display error message
+                        } else if (state is DoctorByCategorySuccess) {
+                          return Container(
+                            height: screenHeight*0.63.h,
+                            child: ListView.builder(
+                              itemCount: state.specialists.length,
+                              itemBuilder: (context, index) {
+                                return DoctorCard(specialists: state.specialists[index], doctorID: state.specialists[index].id??"",);
+                              },
+                            ),
+                          );
+                        } else {
+                          return Center(child: Text('noSpecialistsFound'.tr()));
+                        }
                       },
-                      separatorBuilder: (context, index) {
-                        return SizedBox(height: screenHeight * 0.05);
-                      },
-                      itemCount: 2,
-                      shrinkWrap: true, // Makes ListView behave like a normal widget inside a Column
-                      physics: NeverScrollableScrollPhysics(), // Prevents the ListView from having its own scroll
                     )
                   ],
                 ),
@@ -156,8 +434,8 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
   // Helper method to build disorder buttons
   Widget _buildDisorderButton(String title) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.3,
-      height: 68,
+      width: 105.w,
+      height: 68.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Color(0xff69B7F3),
@@ -173,8 +451,9 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
       child: Center(
         child: Text(
           title,
+          textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: 16,
+            fontSize: 16.sp,
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),

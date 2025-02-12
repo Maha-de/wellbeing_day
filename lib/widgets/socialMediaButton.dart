@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SocialMediaButton extends StatelessWidget {
@@ -21,7 +22,7 @@ class SocialMediaButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.lightBlueAccent,
+          backgroundColor: Color(0xFFAFDCFF),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -34,13 +35,13 @@ class SocialMediaButton extends StatelessWidget {
             FaIcon(
               icon,
               color: color,
-              size: 35,
+              size: 27,
             ),
-            const SizedBox(width: 10),
+             SizedBox(width: 10.w),
             Text(
               label,
-              style: const TextStyle(
-                fontSize: 18,
+              style:  TextStyle(
+                fontSize: 18.sp,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),

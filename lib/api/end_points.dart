@@ -4,6 +4,11 @@ class EndPoint {
   static String signUp = "/nectar/signUp";
   static String doctorSignUp = "auth/register/specialist";
   static String signUpSpecialist = "/specialist/register";
+  static String getSpecialist = "/specialist/getByCategory";
+  static String getAllSpecialist = "/specialist/getSpecialists";
+  // static String getUserDataEndPoint(id) {
+  //   return "user/get-user/$id";
+  // }
 }
 
 class ApiKey {

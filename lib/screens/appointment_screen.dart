@@ -1,5 +1,7 @@
 import 'package:doctor/screens/payment_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:table_calendar/table_calendar.dart';
 // import 'package:intl/intl.dart';
 
@@ -19,7 +21,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(35.0), // Set the height here
+        preferredSize:  Size.fromHeight(35.0.h), // Set the height here
         child: AppBar(
           backgroundColor: Colors.white,
           iconTheme: const IconThemeData(
@@ -32,8 +34,8 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
           Align(
             alignment: Alignment.topCenter,
             child: Container(
-              height: 50,
-              width: 250,
+              height: 50.h,
+              width: 250.w,
               decoration: const BoxDecoration(
                 shape: BoxShape.rectangle,
                 color: Color(0xFF19649E),
@@ -42,15 +44,15 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                   bottomRight: Radius.circular(30),
                 ),
               ),
-              child: const Center(
+              child:  Center(
                   child: Text(
-                "حدد التاريخ والوقت",
-                style: TextStyle(fontSize: 20, color: Colors.white),
+                "calenderDate".tr(),
+                style: TextStyle(fontSize: 20.sp, color: Colors.white),
               )),
             ),
           ),
-          const SizedBox(
-            height: 20,
+           SizedBox(
+            height: 20.h,
           ),
           Column(
             children: [
@@ -80,14 +82,14 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                 ),
               ),
 
-              const SizedBox(height: 50),
+               SizedBox(height: 50.h),
 
-              const Center(
-                  child: Text("أقرب إتاحة                 4 يونيو - 7 مساءا",
-                      style: TextStyle(fontSize: 20, color: Color(0xff19649E), fontWeight: FontWeight.bold,))),
+               Center(
+                  child: Text("availability".tr() + "                 " + "dateExample".tr(),
+                      style: TextStyle(fontSize: 20.h, color: Color(0xff19649E), fontWeight: FontWeight.bold,))),
 
 
-              const SizedBox(height: 50),
+               SizedBox(height: 50.h),
 
               Center(
                 child: ElevatedButton(
@@ -134,10 +136,10 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                       backgroundColor: const Color(0xFF19649E),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))),
-                  child: const Text(
-                    "تأكيد الموعد",
+                  child: Text(
+                    "confirmDate".tr(),
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 20.h,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),

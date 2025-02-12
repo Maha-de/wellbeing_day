@@ -2,6 +2,7 @@ import 'package:doctor/cubit/update_user_cubit/update_user_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -73,7 +74,7 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                     "yourProfile".tr(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: screenWidth * 0.06,
+                      fontSize: screenWidth.w * 0.06.sp,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
@@ -88,9 +89,9 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                             clipBehavior: Clip.none,
                             children: [
                               Container(
-                                width: screenWidth,
-                                height: screenHeight *
-                                    0.22, // Adjust height proportionally
+                                width: screenWidth.w ,
+                                height: screenHeight.h *
+                                    0.18.h, // Adjust height proportionally
                                 decoration: BoxDecoration(
                                   color: Color(0xff19649E),
                                   borderRadius: BorderRadius.only(
@@ -147,7 +148,7 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                                             });
                                           },
                                           child: Container(
-                                            height: screenWidth * 0.3,
+                                            height: screenWidth.w * 0.3.h,
                                             // Adjust size proportionally
                                             width: screenWidth * 0.3,
                                             decoration: BoxDecoration(
@@ -198,7 +199,7 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 35),
+                          SizedBox(height: 35.h),
                         ],
                       ),
                       Padding(
@@ -213,16 +214,16 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                                   "firstName".tr(),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 16.sp,
                                     color: Color(0xff19649E),
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
-                                SizedBox(height: screenHeight * 0.01),
+                                SizedBox(height: screenHeight.h * 0.01.h),
                                 Center(
                                   child: Container(
-                                    width: screenWidth * 0.9,
-                                    height: screenHeight * 0.06,
+                                    width: screenWidth.w  * 0.9.w ,
+                                    height: screenHeight.h * 0.06.h,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(11),
                                       boxShadow: [
@@ -256,7 +257,7 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: screenHeight * 0.01),
+                            SizedBox(height: screenHeight.h * 0.01.h),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -264,16 +265,16 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                                   "lastName".tr(),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 16.sp,
                                     color: Color(0xff19649E),
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
-                                SizedBox(height: screenHeight * 0.01),
+                                SizedBox(height: screenHeight.h * 0.01.h),
                                 Center(
                                   child: Container(
-                                    width: screenWidth * 0.9,
-                                    height: screenHeight * 0.06,
+                                    width: screenWidth.w  * 0.9.w ,
+                                    height: screenHeight.h * 0.06.h,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(11),
                                       boxShadow: [
@@ -307,7 +308,7 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: screenHeight * 0.01),
+                            SizedBox(height: screenHeight.h * 0.01.h),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -315,16 +316,16 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                                   "email".tr(),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 16.sp,
                                     color: Color(0xff19649E),
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
-                                SizedBox(height: screenHeight * 0.01),
+                                SizedBox(height: screenHeight.h * 0.01.h),
                                 Center(
                                   child: Container(
-                                    width: screenWidth * 0.9,
-                                    height: screenHeight * 0.06,
+                                    width: screenWidth.w  * 0.9.w ,
+                                    height: screenHeight.h * 0.06.h,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(11),
                                       boxShadow: [
@@ -362,7 +363,7 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: screenHeight * 0.01),
+                            SizedBox(height: screenHeight.h * 0.01.h),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -370,16 +371,16 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                                   "phoneNumber".tr(),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 16.sp,
                                     color: Color(0xff19649E),
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
-                                SizedBox(height: screenHeight * 0.01),
+                                SizedBox(height: screenHeight.h * 0.01.h),
                                 Center(
                                   child: Container(
-                                    width: screenWidth * 0.9,
-                                    height: screenHeight * 0.06,
+                                    width: screenWidth.w  * 0.9.w ,
+                                    height: screenHeight.h * 0.06.h,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(11),
                                       boxShadow: [
@@ -418,7 +419,7 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: screenHeight * 0.01),
+                            SizedBox(height: screenHeight.h * 0.01.h),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -426,16 +427,16 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                                   "gender".tr(),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 16.sp,
                                     color: Color(0xff19649E),
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
-                                SizedBox(height: screenHeight * 0.01),
+                                SizedBox(height: screenHeight.h * 0.01.h),
                                 Center(
                                   child: Container(
-                                    width: screenWidth * 0.9,
-                                    height: screenHeight * 0.06,
+                                    width: screenWidth.w  * 0.9.w ,
+                                    height: screenHeight.h * 0.06.h,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(11),
                                       boxShadow: [
@@ -469,7 +470,7 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: screenHeight * 0.01),
+                            SizedBox(height: screenHeight.h * 0.01.h),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -477,16 +478,16 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                                   "nationality".tr(),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 16.sp,
                                     color: Color(0xff19649E),
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
-                                SizedBox(height: screenHeight * 0.01),
+                                SizedBox(height: screenHeight.h * 0.01.h),
                                 Center(
                                   child: Container(
-                                    width: screenWidth * 0.9,
-                                    height: screenHeight * 0.06,
+                                    width: screenWidth.w  * 0.9.w ,
+                                    height: screenHeight.h * 0.06.h,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(11),
                                       boxShadow: [
@@ -520,7 +521,7 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: screenHeight * 0.01),
+                            SizedBox(height: screenHeight.h * 0.01.h),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -528,16 +529,16 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                                   "homeAddress".tr(),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 16.sp,
                                     color: Color(0xff19649E),
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
-                                SizedBox(height: screenHeight * 0.01),
+                                SizedBox(height: screenHeight.h * 0.01.h),
                                 Center(
                                   child: Container(
-                                    width: screenWidth * 0.9,
-                                    height: screenHeight * 0.06,
+                                    width: screenWidth.w  * 0.9.w ,
+                                    height: screenHeight.h * 0.06.h,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(11),
                                       boxShadow: [
@@ -571,7 +572,7 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: screenHeight * 0.01),
+                            SizedBox(height: screenHeight.h * 0.01.h),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -579,16 +580,16 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                                   "region".tr(),
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 16.sp,
                                     color: Color(0xff19649E),
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
-                                SizedBox(height: screenHeight * 0.01),
+                                SizedBox(height: screenHeight.h * 0.01.h),
                                 Center(
                                   child: Container(
-                                    width: screenHeight * 0.9,
-                                    height: screenHeight * 0.06,
+                                    width: screenHeight.h * 0.9.w ,
+                                    height: screenHeight.h * 0.06.h,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(11),
                                       boxShadow: [
@@ -624,7 +625,7 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                             ),
                             // SizedBox(height: screenHeight * 0.03),
                             SizedBox(
-                              height: 30,
+                              height: 30.h,
                             ),
                             Center(
                               child: GestureDetector(
@@ -661,8 +662,8 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                                   });
                                 },
                                 child: Container(
-                                  width: screenWidth * 0.9,
-                                  height: screenHeight * 0.06,
+                                  width: screenWidth.w  * 0.9.w ,
+                                  height: screenHeight.h * 0.06.h,
                                   decoration: BoxDecoration(
                                     color: Color(0xff19649E),
                                     borderRadius: BorderRadius.circular(10),
@@ -671,7 +672,7 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                                     child: Text(
                                       "update".tr(),
                                       style: TextStyle(
-                                        fontSize: 24,
+                                        fontSize: 24.sp,
                                         color: Colors.white,
                                         fontWeight: FontWeight.w400,
                                       ),

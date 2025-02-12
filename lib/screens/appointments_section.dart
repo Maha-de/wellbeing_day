@@ -1,11 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../cubit/get_specialist/get_sepcialist_cubit.dart';
+import '../cubit/get_specialist/get_specialist_state.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
 import '../models/user_profile_model.dart';
+import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_bottom_nav_bar.dart';
 import '../widgets/doctor_card.dart';
 
@@ -37,6 +41,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
     _loadUserProfile();
+
   }
 
   Future<void> _loadUserProfile() async {
@@ -47,6 +52,10 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    bool isEnglish = Localizations.localeOf(context).languageCode == 'en';
+
     return BlocProvider(
         create: (context) => userProfileCubit,
     child: BlocBuilder<UserProfileCubit, UserProfileState>(
@@ -56,172 +65,21 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
           body: Center(child: CircularProgressIndicator()),
         );
       } else if (state is UserProfileFailure) {
-        return Center(
-            child: Text("Error loading profile: ${state.error}"));
-      } else if (state is UserProfileSuccess) {
-        UserProfileModel userProfile = state.userProfile;
         return Scaffold(
           backgroundColor: Colors.white,
-          bottomNavigationBar: const CustomBottomNavBar(currentIndex: 0,),
-
+          bottomNavigationBar: const CustomBottomNavBar(currentIndex: 3,),
+         appBar:CustomAppBar(
+           screenWidth: screenWidth,
+           screenHeight: screenHeight,
+         ),
           body: Column(
             children: [
-              Container(
-                height: 200,
-                decoration: const BoxDecoration(
-                  color: Color(0xFFAFDCFF),
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(40.0),
-                    bottomRight: Radius.circular(40.0),
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 70, 20, 20),
-                          child: Column(
-                            children: [
-                              Container(
-                                width: 66,
-                                height: 50,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                ),
-                                child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(50),
-                                    child:
-                                    userProfile.imageUrl == "" ||
-                                        userProfile.imageUrl == null
-                                        ? Image.asset(
-                                        "assets/images/profile.jpg",
-                                        fit: BoxFit.fill)
-                                        : Image.network(
-                                        userProfile.imageUrl ?? "",
-                                        fit: BoxFit.fill),
-
-                                ),
-                              ),
-                              const SizedBox(height: 10,),
-
-                              Text(
-                                "greeting".tr() + " ${userProfile.firstName}",
-                                textAlign: TextAlign.start,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Color(0xff19649E),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20, right: 40),
-                          child:
-                          SizedBox(
-                            height: 100,
-                            width: 110,
-                            child: Image.asset(
-                                'assets/images/img.png', fit: BoxFit.fill),
-                          ),
-                        ),
-
-                        Padding(
-                          padding: const EdgeInsets.only(top: 50),
-                          child:
-                          Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  IconButton(onPressed: () {},
-                                      icon: const Icon(Icons.phone, size: 35,
-                                        color: Colors.red,)),
-                                  IconButton(onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.notifications_outlined, size: 40,
-                                        color: Color(0xff19649E),)),
-                                ],
-                              ),
-                              const SizedBox(height: 20,),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 30),
-                                child: Column(
-                                  children: [
-
-
-                                    const Text("تواصل معنا",
-                                      style: TextStyle(
-                                        color: Color(0xff19649E),
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-
-
-                                    const SizedBox(height: 10,),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .start,
-
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {},
-                                          child: SizedBox(
-                                            width: 27.66,
-                                            height: 25.33,
-                                            child: Image.asset(
-                                                "assets/images/fa-brands_twitter-square.png",
-                                                fit: BoxFit.fill),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 5),
-                                        GestureDetector(
-                                          onTap: () {},
-                                          child: SizedBox(
-                                            width: 27.66,
-                                            height: 25.33,
-                                            child: Image.asset(
-                                                "assets/images/uil_facebook.png",
-                                                fit: BoxFit.fill),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 5),
-                                        GestureDetector(
-                                          onTap: () {},
-                                          child: SizedBox(
-                                            width: 27.66,
-                                            height: 25.33,
-                                            child: Image.asset(
-                                                "assets/images/ri_instagram-fill.png",
-                                                fit: BoxFit.fill),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-
-              ),
-              const SizedBox(height: 30,),
+               SizedBox(height: 30.h,),
               Align(
                 alignment: Alignment.topCenter,
                 child: Container(
-                  height: 50,
-                  width: 250,
+                  height: 50.h,
+                  width: 250.w,
                   decoration: const BoxDecoration(
                     shape: BoxShape.rectangle,
                     color: Color(0xFF19649E),
@@ -230,20 +88,20 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                       bottomRight: Radius.circular(30),
                     ),
                   ),
-                  child: const Center(
+                  child: Center(
                       child: Text(
-                        "مواعيدي",
-                        style: TextStyle(fontSize: 20,
+                        "appointments".tr(),
+                        style: TextStyle(fontSize: 20.sp,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,),
                       )),
                 ),
               ),
-              const SizedBox(height: 30,),
+               SizedBox(height: 30.h,),
 
               NavigationBar(
                 backgroundColor: Colors.transparent,
-                height: 50,
+                height: 50.h,
                 destinations: [
 
                   NavigationDestination(
@@ -263,16 +121,16 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                 selectedIndex: _currentPage,
                 onDestinationSelected: _onItemTapped,
               ),
-              const SizedBox(height: 30,),
+               SizedBox(height: 30.h,),
               <Widget>[
 
                 Column(
                   children: [
-                    DoctorCard(),
-                    const SizedBox(height: 30,),
+                    // DoctorCard(),
+                     SizedBox(height: 30.h,),
 
                     Padding(
-                      padding: const EdgeInsets.only(right: 30, left: 30),
+                      padding: const EdgeInsets.only(right: 30, left: 30, top: 30),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -283,10 +141,10 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                                 backgroundColor: const Color(0xFF19649E),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20))),
-                            child: const Text(
-                              "إعادة جدوله",
+                            child:  Text(
+                              "reschedule".tr(),
                               style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white),
                             ),
@@ -298,10 +156,10 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                                 backgroundColor: const Color(0xFF19649E),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20))),
-                            child: const Text(
-                              "إلغاء الموعد",
+                            child: Text(
+                              "cancelAppointment".tr(),
                               style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: isEnglish ? 17.sp : 20.sp,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white),
                             ),
@@ -312,8 +170,232 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                   ],
                 ),
 
-                DoctorCard(),
-                DoctorCard(),
+                // DoctorCard(),
+                // DoctorCard(),
+
+              ]
+              [_currentPage],
+            ],
+          ),
+        );
+      } else if (state is UserProfileSuccess) {
+        UserProfileModel userProfile = state.userProfile;
+        return Scaffold(
+          backgroundColor: Colors.white,
+          bottomNavigationBar: const CustomBottomNavBar(currentIndex: 3,),
+          appBar: CustomAppBar(
+            userProfile: userProfile,
+            screenWidth: screenWidth,
+            screenHeight: screenHeight,
+          ),
+          body: Column(
+            children: [
+
+               SizedBox(height: 30.h,),
+              Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                  height: 50.h,
+                  width: 250.w,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: Color(0xFF19649E),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(30),
+                    ),
+                  ),
+                  child:  Center(
+                      child: Text(
+                        "appointments".tr(),
+                        style: TextStyle(fontSize: 20.sp,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,),
+                      )),
+                ),
+              ),
+              SizedBox(height: 30.h,),
+
+              NavigationBar(
+                backgroundColor: Colors.transparent,
+                height: 50.h,
+                destinations: [
+
+                  NavigationDestination(
+                    icon: _buildIcon(0),
+                    label: "",
+                  ),
+                  NavigationDestination(
+                    icon: _buildIcon(1),
+                    label: "",
+                  ),
+                  NavigationDestination(
+                    icon: _buildIcon(2),
+                    label: "",
+                  ),
+
+                ],
+                selectedIndex: _currentPage,
+                onDestinationSelected: _onItemTapped,
+              ),
+              <Widget>[
+
+                Column(
+                  children: [
+
+
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15, left: 15),
+                      child:  BlocBuilder<GetSpecialistCubit, GetSpecialistState>(
+                        builder: (context, state) {
+                          if (state is SpecialistLoading) {
+                            return CircularProgressIndicator(); // Show loading indicator
+                          } else if (state is SpecialistFailure) {
+                            return Text(state.errMessage); // Display error message
+                          } else if (state is SpecialistSuccess) {
+                            return Container(
+                              height: 360.h,
+                              child: ListView.builder(
+                                itemCount: state.specialists.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    height: 329.h,
+                                   decoration: BoxDecoration(
+                                     color: Colors.white,
+                                     borderRadius: BorderRadius.circular(20)
+                                   ),
+                                    
+                                    child: Column(
+                                      children: [
+                                        DoctorCard(specialistModel: state.specialists[index], doctorID: state.specialists[index].id??"",),
+                                        Container(
+
+                                          color: Colors.white,
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Container(
+                                                width:160.w,
+                                                height:40.h,
+                                                decoration: BoxDecoration(
+                                                    color: Color(0xFF19649E),
+                                                    borderRadius: BorderRadius.circular(20)
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    "reschedule".tr(),
+                                                    style: TextStyle(
+                                                        fontSize: 18.sp,
+                                                        fontWeight: FontWeight.bold,
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+
+                                              ),
+                                              Container(
+                                                width:160.w,
+                                                height:40.h,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFF19649E),
+                                                  borderRadius: BorderRadius.circular(20)
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    "cancelAppointment".tr(),
+                                                    style: TextStyle(
+                                                        fontSize: isEnglish ? 17.sp : 20.sp,
+                                                        fontWeight: FontWeight.bold,
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                          } else {
+                            return Center(child: Text('noSpecialistsFound'.tr()));
+                          }
+                        },
+                      ),
+                    )
+                  ],
+                ),
+                Column(
+                  children: [
+
+
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15, left: 15),
+                      child:  BlocBuilder<GetSpecialistCubit, GetSpecialistState>(
+                        builder: (context, state) {
+                          if (state is SpecialistLoading) {
+                            return CircularProgressIndicator(); // Show loading indicator
+                          } else if (state is SpecialistFailure) {
+                            return Text(state.errMessage); // Display error message
+                          } else if (state is SpecialistSuccess) {
+                            return Container(
+                              height: 360.h,
+                              child: ListView.separated(
+                                separatorBuilder: (context,index){
+                                  return SizedBox(height: 12.h,);
+                                },
+                                itemCount: state.specialists.length,
+                                itemBuilder: (context, index) {
+                                  return DoctorCard(specialistModel: state.specialists[index], doctorID: state.specialists[index].id??"",);
+                                },
+                              ),
+                            );
+                          } else {
+                            return Center(child: Text('noSpecialistsFound'.tr()));
+                          }
+                        },
+                      ),
+                    )
+                  ],
+                ),
+                Column(
+                  children: [
+
+
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15, left: 15),
+                      child:  BlocBuilder<GetSpecialistCubit, GetSpecialistState>(
+                        builder: (context, state) {
+                          if (state is SpecialistLoading) {
+                            return CircularProgressIndicator(); // Show loading indicator
+                          } else if (state is SpecialistFailure) {
+                            return Text(state.errMessage); // Display error message
+                          } else if (state is SpecialistSuccess) {
+                            return Container(
+                              height: 360.h,
+                              child: ListView.separated(
+                                separatorBuilder: (context,index){
+                                  return SizedBox(height: 12.h,);
+                                },
+                                itemCount: state.specialists.length,
+                                itemBuilder: (context, index) {
+                                  return DoctorCard(specialistModel: state.specialists[index], doctorID: state.specialists[index].id??"",);
+                                },
+                              ),
+                            );
+                          } else {
+                            return Center(child: Text('noSpecialistsFound'.tr()));
+                          }
+                        },
+                      ),
+                    )
+                  ],
+                ),
+
+                // DoctorCard(),
+                // DoctorCard(),
 
               ]
               [_currentPage],
@@ -328,7 +410,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
   }
   Widget _buildIcon(int index) {
     return Container(
-      width: 100,
+      width: 100.w,
       child: TextButton(
         onPressed: () {
           _onItemTapped(index);
@@ -342,9 +424,9 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
           backgroundColor: _currentPage == index ? const Color(0xFF19649E) : Colors.grey.shade300,
         ),
         child: Text(
-          index == 0 ? "القادمة" : index == 1 ? "مكتمل" : "تم الإلغاء",
-          style: const TextStyle(
-            fontSize: 20,
+          index == 0 ? "coming".tr() : index == 1 ? "completed".tr() : "canceled".tr(),
+          style:  TextStyle(
+            fontSize: 14.sp,
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),

@@ -2,22 +2,35 @@ import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'package:doctor/screens/homescreen.dart'; // Import HomeScreen
 import 'package:doctor/make_email/reset_password.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../cubit/forget_password_cubit/forget_password_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
+import '../screens/selectionpage.dart';
+import '../widgets/custom_radio_button.dart';
 
-class LoginPage extends StatelessWidget {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController roleController = TextEditingController();
+class LoginPage extends StatefulWidget {
 
   LoginPage({super.key});
 
   @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController emailController = TextEditingController();
+
+  final TextEditingController passwordController = TextEditingController();
+
+  final TextEditingController roleController = TextEditingController();
+
+
+  @override
   Widget build(BuildContext context) {
+    bool _isObscure1 = true;
     return BlocProvider(
       create: (_) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginState>(
@@ -40,7 +53,7 @@ class LoginPage extends StatelessWidget {
         },
         builder: (context, state) {
           if (state is LoginLoading) {
-            return Center(child: CircularProgressIndicator());
+            return Scaffold(body: Center(child: CircularProgressIndicator()));
           }
 
           return Scaffold(
@@ -51,55 +64,68 @@ class LoginPage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 50),
+                     SizedBox(height: 50.h),
                     Text(
                       "welcomeBack".tr(),
-                      style: const TextStyle(
-                        fontSize: 24,
+                      style:  TextStyle(
+                        fontSize: 24.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 20),
+                     SizedBox(height: 20.h),
                     Center(
                       child: Column(
                         children: [
                           Image.asset(
                             'assets/images/img.png',
-                            height: 150,
+                            height: 150.h,
                           ),
-                          const Text(
+                           Text(
                             'Wellbeing Day',
                             style: TextStyle(
-                              fontSize: 22,
+                              fontSize: 22.sp,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const Text(
+                           Text(
                             'THERAPY. RELAX. MAGAZINE',
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 14.sp,
                               color: Colors.grey,
                             ),
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 30),
+                     SizedBox(height: 30.h),
                     buildTextField(
+                      isPassword: false,
                       context,
                       label: "email".tr(),
-                      icon: Icons.email_outlined,
+                      icon: Icon(Icons.email_outlined),
                       controller: emailController,
                     ),
-                    const SizedBox(height: 16),
+                     SizedBox(height: 16.h),
                     buildTextField(
                       context,
                       label: "password".tr(),
-                      icon: Icons.visibility_off_outlined,
-                      isPassword: true,
+                      icon:  IconButton(
+                    icon: Icon(
+                    _isObscure1
+                    ? Icons.visibility_off_rounded
+                      : Icons.visibility_rounded,
+                      color: Colors.grey,
+                    ),
+                onPressed: () {
+                  setState(() {
+                    _isObscure1 = !_isObscure1;
+                  });
+                },
+              ),
+                      isPassword: _isObscure1,
                       controller: passwordController,
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8.h),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: TextButton(
@@ -120,13 +146,28 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    buildTextField(
-                      context,
-                      label: "role".tr(),
-                      icon: Icons.person,
-                      controller: roleController,
+                    SizedBox(height: 8.h),
+                    CustomRadioButtonWidget(
+                      title: "role".tr(),
+                      fRad: "beneficiary".tr(),
+                      sRad: "specialized".tr(),
+                      onRoleSelected: (role) {
+                        if (role == "مستفيد") {
+                          role = "beneficiary";
+                        } else {
+                          role = "specialized";
+                        }
+                        roleController.text = role;
+                      },
                     ),
-                    const SizedBox(height: 30),
+
+                    // buildTextField(
+                    //   context,
+                    //   label: "role".tr(),
+                    //   icon: Icons.person,
+                    //   controller: roleController,
+                    // ),
+                     SizedBox(height: 30.h),
                     ElevatedButton(
                       onPressed: () {
                         final email = emailController.text;
@@ -135,7 +176,7 @@ class LoginPage extends StatelessWidget {
                         context.read<LoginCubit>().login(email, password, role);
                       },
                       style: ElevatedButton.styleFrom(
-                       backgroundColor: const Color(0xff19649E),
+                        backgroundColor: const Color(0xff19649E),
                         minimumSize: const Size(double.infinity, 50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -143,35 +184,38 @@ class LoginPage extends StatelessWidget {
                       ),
                       child: Text(
                         "signIn".tr(),
-                        style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w700, color: Colors.white),
+                        style:  TextStyle(
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white),
                       ),
                     ),
-                    const SizedBox(height: 16),
+                     SizedBox(height: 16.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
 
-                        TextButton(
-                          onPressed: () {
-                            // Handle create account
-                          },
-                          child: Text(
-                            "notHaveAccount".tr(),
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w700,
-                            ),
+                        Text(
+                          "notHaveAccount".tr(),
+                          style:  TextStyle(
+                            fontSize: 16.sp,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
 
-                        Text(
-                          "createAccount".tr(),
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Color(0xff19649E),
-                            fontWeight: FontWeight.w700,
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> const SelectionPage()));
+                          },
+                          child:
+                          Text(
+                            "createAccount".tr(),
+                            style:  TextStyle(
+                              fontSize: 16.sp,
+                              color: Color(0xff19649E),
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                       ],
@@ -188,15 +232,15 @@ class LoginPage extends StatelessWidget {
 
   Widget buildTextField(BuildContext context,
       {required String label,
-      required IconData icon,
-      bool isPassword = false,
-      required TextEditingController controller}) {
+        required Widget icon,
+        required bool isPassword ,
+        required TextEditingController controller}) {
     return TextField(
       controller: controller,
       obscureText: isPassword,
       decoration: InputDecoration(
         labelText: label,
-        suffixIcon: Icon(icon),
+        suffixIcon: icon,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
         ),
@@ -236,6 +280,7 @@ class LoginCubit extends Cubit<LoginState> {
             error: 'البريد الإلكتروني أو كلمة المرور أو الدور غير صحيح.'));
       }
     } catch (e) {
+      print(e);
       emit(LoginError(error: 'حدث خطأ أثناء تسجيل الدخول.'));
     }
   }

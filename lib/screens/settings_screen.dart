@@ -4,6 +4,7 @@ import 'package:doctor/screens/client_change_password.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../cubit/reset_password_cubit/reset_password_cubit.dart';
@@ -40,19 +41,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 "confirmDeleteAccount".tr(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 24.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 16.h),
               Divider(thickness: 1, color: Color(0xff19649E)),
-              SizedBox(height: 16),
+              SizedBox(height: 16.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: Color(0xff19649E),width: 2),
+                      side: BorderSide(color: Color(0xff19649E),width: 2.w),
                       shape: RoundedRectangleBorder(
 
                         borderRadius: BorderRadius.circular(20),
@@ -64,7 +65,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     },
                     child: Text(
                       "dismiss".tr(),
-                      style: TextStyle(color: Color(0xff19649E),fontSize: 20,fontWeight: FontWeight.w600),
+                      style: TextStyle(color: Color(0xff19649E),fontSize: 20.sp,fontWeight: FontWeight.w600),
                     ),
                   ),
                   ElevatedButton(
@@ -80,7 +81,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     },
                     child: Text(
                       "confirm".tr(),
-                      style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w600),
+                      style: TextStyle(color: Colors.white,fontSize: 20.sp,fontWeight: FontWeight.w600),
                     ),
                   ),
                 ],
@@ -117,8 +118,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     List<String> actions = ["changeLanguage".tr(), "passwordManager".tr()];
 
     // MediaQuery for responsive sizing
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width.w;
+    double screenHeight = MediaQuery.of(context).size.height.h;
 
     return BlocProvider(
         create: (_) => userProfileCubit,  // Use the same cubit instance
@@ -143,7 +144,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     "settings".tr(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: screenWidth * 0.06,
+                      fontSize: screenWidth * 0.06.sp,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
@@ -158,7 +159,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 clipBehavior: Clip.none,
                 children: [
                   Container(
-                    height: screenHeight * 0.22,  // Adjust height proportionally
+                    height: screenHeight * 0.22.h,  // Adjust height proportionally
                     decoration: BoxDecoration(
                       color: Color(0xff19649E),
                       borderRadius: BorderRadius.only(
@@ -212,9 +213,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                               },
                               child: Container(
-                                height: screenWidth * 0.3,
+                                height: screenWidth * 0.3.h,
                                 // Adjust size proportionally
-                                width: screenWidth * 0.3,
+                                width: screenWidth * 0.3.w,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius:
@@ -263,7 +264,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 35),
+              SizedBox(height: 55.h),
               Positioned(
                 left: screenWidth * 0.35, // Adjust for better centering
                 top: -100,
@@ -271,7 +272,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   "${userProfileCubit.userData?.firstName}",
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
-                    fontSize: screenWidth * 0.06,
+                    fontSize: screenWidth * 0.06.sp,
                     // Adjust size based on screen width
                     color: Color(0xff19649E),
                   ),
@@ -304,35 +305,38 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   EdgeInsets.only(bottom: 15, top: 25, left: 22, right: 20),
                   child: Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                      Container(
+                        width: screenWidth*0.9.w,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
 
-                          Padding(
-                            padding: EdgeInsets.only(top: 10.0),
-                            child: Text(
-                              "changeLanguage".tr(),
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: screenWidth * 0.05,
-                                // Adjust text size
-                                fontWeight: FontWeight.w600,
+                            Padding(
+                              padding: EdgeInsets.only(top: 10.0),
+                              child: Text(
+                                "changeLanguage".tr(),
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: screenWidth * 0.05.sp,
+                                  // Adjust text size
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
-                          ),
-                          Icon(
-                            Icons.arrow_forward,
-                            color: Color(0xff19649E),
-                            size: screenWidth *
-                                0.08, // Adjust icon size proportionally
-                          ),
-                        ],
+                            Icon(
+                              Icons.arrow_forward,
+                              color: Color(0xff19649E),
+                              size: screenWidth *
+                                  0.08.w, // Adjust icon size proportionally
+                            ),
+                          ],
+                        ),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 15, left: 12),
-                        width: screenWidth * 0.85,
-                        height: 2,
+                        width: screenWidth * 0.9.w,
+                        height: 2.h,
                         color: Color(0xff19649E),
                       ),
                     ],
@@ -360,34 +364,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   EdgeInsets.only(bottom: 15, top: 10, left: 20, right: 20),
                   child: Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                      Container(
+                        width: screenWidth*0.9.w,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
 
-                          Padding(
-                            padding: EdgeInsets.only(top: 15.0),
-                            child: Text(
-                              "changePassword".tr(),
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: screenWidth * 0.05,
-                                // Adjust text size
-                                fontWeight: FontWeight.w600,
+                            Padding(
+                              padding: EdgeInsets.only(top: 15.0),
+                              child: Text(
+                                "changePassword".tr(),
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: screenWidth * 0.05.sp,
+                                  // Adjust text size
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
-                          ),
-                          Icon(
-                            Icons.arrow_forward,
-                            color: Color(0xff19649E),
-                            size: screenWidth *
-                                0.08, // Adjust icon size proportionally
-                          ),
-                        ],
+                            Icon(
+                              Icons.arrow_forward,
+                              color: Color(0xff19649E),
+                              size: screenWidth * 0.08.w, // Adjust icon size proportionally
+                            ),
+                          ],
+                        ),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 15, left: 12),
-                        width: screenWidth * 0.85,
-                        height: 2,
+                        width: screenWidth * 0.9.w,
+                        height: 2.h,
                         color: Color(0xff19649E),
                       ),
                     ],
@@ -407,34 +413,37 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       EdgeInsets.only(bottom: 15, top: 10, left: 20, right: 20),
                   child: Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                      Container(
+                        width: screenWidth * 0.9.w,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
 
-                          Padding(
-                            padding: EdgeInsets.only(top: 15.0),
-                            child: Text(
-                              "deleteAccount".tr(),
-                              style: TextStyle(
-                                color: Colors.redAccent,
-                                fontSize: screenWidth * 0.05,
-                                // Adjust text size
-                                fontWeight: FontWeight.w600,
+                            Padding(
+                              padding: EdgeInsets.only(top: 15.0),
+                              child: Text(
+                                "deleteAccount".tr(),
+                                style: TextStyle(
+                                  color: Colors.redAccent,
+                                  fontSize: screenWidth * 0.05.sp,
+                                  // Adjust text size
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
-                          ),
-                          Icon(
-                            Icons.arrow_forward,
-                            color: Colors.redAccent,
-                            size: screenWidth *
-                                0.08, // Adjust icon size proportionally
-                          ),
-                        ],
+                            Icon(
+                              Icons.arrow_forward,
+                              color: Colors.redAccent,
+                              size: screenWidth *
+                                  0.08.w, // Adjust icon size proportionally
+                            ),
+                          ],
+                        ),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 15, left: 12),
-                        width: screenWidth * 0.85,
-                        height: 2,
+                        width: screenWidth * 0.9.w,
+                        height: 2.h,
                         color: Colors.redAccent,
                       ),
                     ],
