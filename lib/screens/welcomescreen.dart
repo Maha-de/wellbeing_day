@@ -1,4 +1,5 @@
 import 'package:doctor/screens/secondpage.dart';
+import 'package:doctor/screens/specialist/sessions_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,13 +19,17 @@ class WelcomeScreen extends StatelessWidget {
               padding: const EdgeInsets.only(top: 10.0, right: 16.0),
               child: Align(
                 alignment: Alignment.topRight,
-                child: Text(
-                  'skip'.tr(),
-                  style:  TextStyle(
-                    color: Color(0xff19649E),
-                    fontSize: 16.0.sp,
+                child: TextButton(
+                  onPressed: () {
+                    // Navigator.push(context, MaterialPageRoute(builder: (context) => const SessionsScreen()));
+
+                  },
+                  child: Text('skip'.tr(),
+                    style:  TextStyle(
+                      color: Color(0xff19649E),
+                      fontSize: 16.0.sp,),
                   ),
-                ),
+                  ),
               ),
             ),
 

@@ -10,6 +10,7 @@ import '../screens/client_profile_screen.dart';
 import '../screens/first_home_page.dart';
 import '../screens/home_second_screen.dart';
 import '../screens/homescreen.dart';
+import '../screens/specialist/sessions_screen.dart';
 import '../screens/specialist/specialist_home_screen.dart';
 import '../screens/specialist/specialist_profile_screen.dart';
 
@@ -142,8 +143,15 @@ class SpecialistCustomBottomNavBar extends StatelessWidget {
 
           case 1:
 
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstHomePage()));
-
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BlocProvider(
+                  create: (_) => UserProfileCubit(),
+                  child: const SessionsScreen(),
+                ),
+              ),
+            );
             break;
         }
       },
