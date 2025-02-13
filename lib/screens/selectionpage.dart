@@ -10,6 +10,7 @@ import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../make_email/login.dart';
 import 'client_instructions.dart';
 import 'homescreen.dart';
+import 'specialist/specialist_home_screen.dart';
 
 class SelectionPage extends StatelessWidget {
   const SelectionPage({super.key});

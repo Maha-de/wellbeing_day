@@ -1,4 +1,3 @@
-import 'package:doctor/screens/info_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
+import '../screens/applicationInfo.dart';
 import '../screens/client_profile_screen.dart';
 import '../screens/first_home_page.dart';
 import '../screens/home_second_screen.dart';
@@ -136,7 +136,7 @@ class SpecialistCustomBottomNavBar extends StatelessWidget {
             break;
           case 2:
 
-            Navigator.push(context, MaterialPageRoute(builder: (context) => InfoScreen()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ApplicationInfo()));
 
             break;
 

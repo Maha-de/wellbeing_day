@@ -55,7 +55,7 @@ class CustomTextField extends StatelessWidget {
             obscureText: obscureText,
             textAlign: TextAlign.start,
             maxLines: isMultiline ? 3 : 1,
-            textDirection: TextDirection.rtl,
+            // textDirection: TextDirection.rtl,
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(horizontal: 16),
               border: OutlineInputBorder(
