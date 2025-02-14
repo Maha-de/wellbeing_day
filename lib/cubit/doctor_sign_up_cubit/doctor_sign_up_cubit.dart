@@ -103,6 +103,8 @@
 //   }
 //   return "";
 // }
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:doctor/models/Specialist.dart';
@@ -125,28 +127,37 @@ class SignUpSpecialistCubit extends Cubit<SignUpSpecialistState> {
 
   SignUpSpecialistCubit() : super(SignUpSpecialistInitial());
 
-  Future<void> signUp(Doctor doctor) async {
+  Future<void> signUp(Specialist doctor) async {
     emit(SignUpSpecialistLoading(message: SpSignUpLoadingMsg));
     log("Sign-up is loading...");
 
     try {
       // Call the sign-up function from the repository
       Response response = await specialistRepository.signUpSpecialist(doctor);
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        log(response.statusMessage!);
-        emit(SignUpSpecialistSuccess(message: SpSignUpSuccessMsg));
+      var data = response.data;
+      if (data["errors"] != null) {
+        emit(SignUpSpecialistFailure(errMessage: data["errors"][0]['msg']));
       } else {
-        emit(SignUpSpecialistFailure(
-            errMessage:
-                SpSignUpErrorMsg + " " + handleFailureResponse(response.data)));
-        log("Failure: ${response.statusCode} - ${response.data}");
+        var userId = data["specialist"]['_id'];
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          log(response.data.toString());
+          emit(SignUpSpecialistSuccess(
+              message: SpSignUpSuccessMsg, userId: userId));
+
+          log(response.statusMessage!);
+        } else {
+          emit(SignUpSpecialistFailure(
+              errMessage: SpSignUpErrorMsg +
+                  " " +
+                  handleFailureResponse(response.data)));
+          log("Failure: ${response.statusCode} - ${response.data}");
+        }
       }
     } on ServerException catch (e) {
+      log(e.errModel.message!);
       emit(SignUpSpecialistFailure(errMessage: e.errModel.message!));
     }
   }
-
 }
 
 String handleFailureResponse(Map<String, dynamic> errorResponse) {
@@ -157,5 +168,3 @@ String handleFailureResponse(Map<String, dynamic> errorResponse) {
   }
   return "";
 }
-
-
