@@ -336,6 +336,7 @@
 
 import 'package:doctor/screens/homescreen.dart';
 import 'package:doctor/screens/specialist/ChooseSpecialty.dart';
+import 'package:doctor/screens/specialist/specialist_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -398,7 +399,7 @@ class _SignUpAsDoctorThirdScreenState extends State<SignUpAsDoctorThirdScreen> {
   void navigateToHomeScreen(BuildContext context) {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const HomeScreen()),
+      MaterialPageRoute(builder: (context) => const SpecialistHomeScreen()),
     );
   }
 
