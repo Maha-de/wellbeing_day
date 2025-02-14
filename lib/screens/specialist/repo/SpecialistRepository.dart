@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
 
@@ -11,9 +13,47 @@ class SpecialistRepository {
 
   SpecialistRepository({required this.dio});
 
-  Future<Response> signUpSpecialist(Doctor doctor) async {
+  Future<Response> signUpSpecialist(Specialist doctor) async {
     try {
-      // Prepare form data
+      List<Future<MultipartFile>> fileUploadFutures = [];
+
+      if (doctor.idOrPassport != null) {
+        fileUploadFutures.add(MultipartFile.fromFile(
+          doctor.idOrPassport!.path!,
+          contentType: MediaType('application', 'pdf'),
+        ));
+      }
+
+      if (doctor.resume != null) {
+        fileUploadFutures.add(MultipartFile.fromFile(
+          doctor.resume!.path!,
+          contentType: MediaType('application', 'pdf'),
+        ));
+      }
+
+      if (doctor.certificates != null) {
+        fileUploadFutures.add(MultipartFile.fromFile(
+          doctor.certificates!.path!,
+          contentType: MediaType('application', 'pdf'),
+        ));
+      }
+
+      if (doctor.ministryLicense != null) {
+        fileUploadFutures.add(MultipartFile.fromFile(
+          doctor.ministryLicense!.path!,
+          contentType: MediaType('application', 'pdf'),
+        ));
+      }
+
+      if (doctor.associationMembership != null) {
+        fileUploadFutures.add(MultipartFile.fromFile(
+          doctor.associationMembership!.path!,
+          contentType: MediaType('application', 'pdf'),
+        ));
+      }
+
+      List<MultipartFile> uploadedFiles = await Future.wait(fileUploadFutures);
+
       FormData formData = FormData.fromMap({
         'firstName': doctor.firstName,
         'lastName': doctor.lastName,
@@ -29,36 +69,15 @@ class SpecialistRepository {
         'sessionPrice': doctor.sessionPrice,
         'sessionDuration': doctor.sessionDuration,
         'specialties': doctor.specialties,
-        if (doctor.idOrPassport != null)
-          'idOrPassport': await MultipartFile.fromFile(
-            doctor.idOrPassport!.path!,
-            contentType: MediaType('application', 'pdf'),
-          ),
-        if (doctor.resume != null)
-          'resume': await MultipartFile.fromFile(
-            doctor.resume!.path!,
-            contentType: MediaType('application', 'pdf'),
-          ),
-        if (doctor.certificates != null)
-          'certificates': await MultipartFile.fromFile(
-            doctor.certificates!.path!,
-            contentType: MediaType('application', 'pdf'),
-          ),
-        if (doctor.ministryLicense != null)
-          'ministryLicense': await MultipartFile.fromFile(
-            doctor.ministryLicense!.path!,
-            contentType: MediaType('application', 'pdf'),
-          ),
+        if (doctor.idOrPassport != null) 'idOrPassport': uploadedFiles[0],
+        if (doctor.resume != null) 'resume': uploadedFiles[1],
+        if (doctor.certificates != null) 'certificates': uploadedFiles[2],
+        if (doctor.ministryLicense != null) 'ministryLicense': uploadedFiles[3],
         if (doctor.associationMembership != null)
-          'associationMembership': await MultipartFile.fromFile(
-            doctor.associationMembership!.path!,
-            contentType: MediaType('application', 'pdf'),
-          ),
+          'associationMembership': uploadedFiles[4],
       });
-
-      // Send the request to the API
       final response = await dio.post(
-        EndPoint.signUpSpecialist,
+        dio.options.baseUrl + EndPoint.signUpSpecialist,
         data: formData,
         options: Options(
           headers: {"Content-Type": "multipart/form-data"},
