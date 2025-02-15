@@ -1,6 +1,46 @@
+import 'package:doctor/cubit/get_beneficiary_sessions_cubit/beneficiary_session_cubit.dart';
+import 'package:doctor/cubit/get_doctor_sessions_types_cubit/doctor_session_types_cubit.dart';
+import 'package:doctor/models/user_profile_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class UserProfileScreen extends StatelessWidget {
+import '../../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
+import '../../cubit/doctor_details_cubit/doctor_profile_state.dart';
+import '../../cubit/get_beneficiary_sessions_cubit/beneficiary_session_state.dart';
+import '../../cubit/user_profile_cubit/user_profile_cubit.dart';
+import '../../cubit/user_profile_cubit/user_profile_state.dart';
+import '../../models/Doctor_id_model.dart';
+
+class UserProfileScreen extends StatefulWidget {
+  final String id;
+  const UserProfileScreen({super.key, required this.id});
+
+  @override
+  State<UserProfileScreen> createState() => _UserProfileScreenState();
+}
+
+class _UserProfileScreenState extends State<UserProfileScreen> {
+  late UserProfileCubit userProfileCubit;
+ late BeneficiarySessionCubit beneficiarySessionCubit;
+  void initState() {
+    super.initState();
+    userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
+    beneficiarySessionCubit=BlocProvider.of<BeneficiarySessionCubit>(context);
+
+    _loadUserProfile();
+
+  }
+
+  Future<void> _loadUserProfile() async {
+    final prefs = await SharedPreferences.getInstance();
+    String id = widget.id;
+
+    print(id);
+    userProfileCubit.getUserProfile(context, id);
+    beneficiarySessionCubit.getDoctorSessionsTypes(context, id);
+
+  }
   @override
   Widget build(BuildContext context) {
 // Responsive values based on the screen size
@@ -8,8 +48,19 @@ class UserProfileScreen extends StatelessWidget {
     double top = profileH * 0.5;
     double topText = profileH * 0.6;
 
-    return MaterialApp(
-      home: Scaffold(
+    return BlocProvider(
+        create: (_) => userProfileCubit,
+        child: BlocBuilder<UserProfileCubit, UserProfileState>(
+          builder: (context, state) {
+            if (state is UserProfileLoading) {
+              return const Scaffold(
+                body: Center(child: CircularProgressIndicator()),
+              );
+            } else if (state is UserProfileFailure) {
+              return Scaffold(body: Center(child: Text("Error loading profile: ${state.error}")));
+            } else if (state is UserProfileSuccess) {
+              UserProfileModel? userProfile = state.userProfile;
+              return Scaffold(
         body: SingleChildScrollView(
           child: Stack(
             clipBehavior: Clip.none,
@@ -20,27 +71,43 @@ class UserProfileScreen extends StatelessWidget {
                 top: topText + profileH / 6,
                 left: 0,
                 right: 0,
-                child: benDetials(),
+                child: BlocBuilder<BeneficiarySessionCubit, BeneficiarySessionState>(
+                  builder: (context, state) {
+                    if (state is BeneficiarySessionLoading) {
+                      return CircularProgressIndicator(); // Show loading indicator
+                    } else if (state is BeneficiarySessionFailure) {
+                      return Text(state.error); // Display error message
+                    } else if (state is BeneficiarySessionSuccess) {
+                      return benDetials(userProfile.firstName??""+ " "+"${userProfile.lastName??" "}","${userProfile.age}",userProfile.gender??"",userProfile.nationality??"",userProfile.profession??"",beneficiarySessionCubit.sessionData?.scheduledSessions?.map((session) => '${session.sessionDate?.day}/${session.sessionDate?.month}/${session.sessionDate?.year}' ?? '').toList() ?? ["لا يوجد جلسات مكتمله"],beneficiarySessionCubit.sessionData?.completedSessions?.map((session) => '${session.sessionDate?.day}/${session.sessionDate?.month}/${session.sessionDate?.year}' ?? '').toList() ?? ["لا يوجد جلسات مكتمله"]);
+                    } else {
+                      return Center(child: Text("لا يوجد جلسات مكتمله"));
+                    }
+                  },
+                )
               ),
               Positioned(
                 top: topText,
                 left: MediaQuery.of(context).size.width / 2 - (profileH + 150),
                 right: 0,
-                child: namedTextWidget(),
+                child: namedTextWidget("${userProfile.firstName??" "}"+"${userProfile.lastName}",userProfile.profession??""),
               ),
               Positioned(
                 top: top,
                 left: MediaQuery.of(context).size.width / 3 + profileH / 2,
-                child: profilePage(profileH),
+                child: profilePage(profileH,userProfile.imageUrl??""),
               ),
             ],
           ),
         ),
-      ),
     );
-  }
+      }
+      return Container(); // Default return in case no state matches
+    },
+    ));
+}
+}
 
-  Widget benDetials() {
+  Widget benDetials(String name, String age, String gender, String nationality, String profession,List<String> schedule,List<String>  complete) {
     return Container(
       padding: EdgeInsets.all(16),
       decoration: const BoxDecoration(
@@ -62,16 +129,16 @@ class UserProfileScreen extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
-            infoRow("الاسم", "ميرقت مندور"),
-            infoRow("العمر", "23"),
-            infoRow("الجنس", "أنثى"),
-            infoRow("الجنسية", "مصرية"),
-            infoRow("المهنة", "مهندسة برمجة"),
+            infoRow("الاسم", name),
+            infoRow("العمر", age),
+            infoRow("الجنس", gender),
+            infoRow("الجنسية", nationality),
+            infoRow("المهنة", profession),
             SizedBox(
               height: 30,
             ),
             sessionSection(
-                ["20/3/2025"], ["1/10/2024", "7/7/2023", "1/6/2023"]),
+                schedule==[]?["لا يوجد جلسات مكتمله"]:schedule, complete==[]?["لا يوجد جلسات مكتمله"]:complete),
           ],
         ),
       ),
@@ -104,39 +171,51 @@ class UserProfileScreen extends StatelessWidget {
 
   Widget sessionSection(
       List<String> future_dates, List<String> completed_dates) {
-    return Container(
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Color(0xff19649E),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: Text(
-              'الجلسات القادمة',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+    return BlocBuilder<BeneficiarySessionCubit, BeneficiarySessionState>(
+      builder: (context, state) {
+        if (state is BeneficiarySessionLoading) {
+          return CircularProgressIndicator(); // Show loading indicator
+        } else if (state is BeneficiarySessionFailure) {
+          return Text(state.error); // Display error message
+        } else if (state is BeneficiarySessionSuccess) {
+          return Container(
+            padding: EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Color(0xff19649E),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
             ),
-          ),
-          SizedBox(height: 8),
-          Column(
-            children: future_dates.map((date) => sessionBox(date)).toList(),
-          ),
-          SizedBox(height: 12),
-          Center(
-            child: Text('الجلسات المكتملة',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          ),
-          SizedBox(height: 8),
-          Column(
-            children: completed_dates.map((date) => sessionBox(date)).toList(),
-          ),
-        ],
-      ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Text(
+                    'الجلسات القادمة',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(height: 8),
+                Column(
+                  children: future_dates.map((date) => sessionBox(date)).toList(),
+                ),
+                SizedBox(height: 12),
+                Center(
+                  child: Text('الجلسات المكتملة',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                ),
+                SizedBox(height: 8),
+                Column(
+                  children: completed_dates.map((date) => sessionBox(date)).toList(),
+                ),
+              ],
+            ),
+          );
+        } else {
+          return Center(child: Text("لا يوجد جلسات مكتمله"));
+        }
+      },
     );
   }
 
@@ -149,7 +228,7 @@ class UserProfileScreen extends StatelessWidget {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: Colors.blue[100],
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(50),
         ),
         child: Text(date,
             style: TextStyle(
@@ -168,10 +247,10 @@ class UserProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget namedTextWidget() {
+  Widget namedTextWidget(String name, String profession) {
     return Column(children: [
       Text(
-        'ميرقت مندور',
+        name,
         style: TextStyle(
             color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
       ),
@@ -179,7 +258,7 @@ class UserProfileScreen extends StatelessWidget {
         height: 10,
       ),
       Text(
-        'مهندس برمجة',
+        profession,
         style: TextStyle(
             color: Color(0xff19649E),
             fontWeight: FontWeight.bold,
@@ -188,22 +267,23 @@ class UserProfileScreen extends StatelessWidget {
     ]);
   }
 
-  Widget profilePage(double profileHeight) {
+  Widget profilePage(double profileHeight,String img) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(profileHeight),
+        borderRadius: BorderRadius.circular(profileHeight/3),
       ),
       child: Padding(
         padding: EdgeInsets.all(10),
         child: CircleAvatar(
           radius: profileHeight / 3,
-          child: Image(
+          child: img==""||img==null?Image(
               image: AssetImage(
-            "assets/images/doctor.png",
-          )),
+
+            "assets/images/profile.jpg",
+          ),fit: BoxFit.fill,):Image(image: NetworkImage(img)),
         ),
       ),
     );
   }
-}
+

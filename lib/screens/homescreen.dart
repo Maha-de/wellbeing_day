@@ -55,13 +55,13 @@ class _HomeScreenState extends State<HomeScreen> {
   PageController _pageController = PageController();
   late Timer _timer;
   late UserProfileCubit userProfileCubit;
-  late DoctorSessionCubit doctorSessionCubit;
+
 int currentIndex=1;
   @override
   void initState() {
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
-    doctorSessionCubit = BlocProvider.of<DoctorSessionCubit>(context);
+
     _loadUserProfile();
     _startAutoPageSwitch();
   }

@@ -7,10 +7,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
+import '../../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
+import '../../cubit/doctor_details_cubit/doctor_profile_state.dart';
 import '../../cubit/reset_password_cubit/reset_password_cubit.dart';
 import '../../cubit/update_user_cubit/update_user_cubit.dart';
 import '../../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../../cubit/user_profile_cubit/user_profile_state.dart';
+import '../../models/Doctor_id_model.dart';
 import '../../models/user_profile_model.dart';
 
 
@@ -96,12 +99,13 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
   }
 
 
-  late UserProfileCubit userProfileCubit;
+  late DoctorProfileCubit userProfileCubit;
   late AddImageToProfileCubit addImageToProfileCubit;
+
   @override
   void initState() {
     super.initState();
-    userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
+    userProfileCubit = BlocProvider.of<DoctorProfileCubit>(context);
     addImageToProfileCubit = BlocProvider.of<AddImageToProfileCubit>(context);// Initialize the cubit
     _loadUserProfile();
     // Call the asynchronous method here
@@ -109,7 +113,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
 
   Future<void> _loadUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
-    String id = prefs.getString('userId') ?? "";
+    String id = prefs.getString('doctorId') ?? "";
 
     // Set the state once the user profile data is fetched
     userProfileCubit.getUserProfile(context, id);
@@ -125,16 +129,16 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
 
     return BlocProvider(
         create: (_) => userProfileCubit,  // Use the same cubit instance
-        child: BlocBuilder<UserProfileCubit, UserProfileState>(
+        child: BlocBuilder<DoctorProfileCubit, DoctorProfileState>(
           builder: (context, state) {
-            if (state is UserProfileLoading) {
+            if (state is DoctorProfileLoading) {
               return Scaffold(body: Center(child: CircularProgressIndicator(),));
-            } else if (state is UserProfileFailure) {
+            } else if (state is DoctorProfileFailure) {
               return Center(child: Text("Error loading profile: ${state.error}"));
-            } else if (state is UserProfileSuccess) {
+            } else if (state is DoctorProfileSuccess) {
 
               // Once the profile is loaded, show the actual UI
-              UserProfileModel userProfile = state.userProfile;
+              DoctorByIdModel userProfile = state.doctorProfile;
               
               return Scaffold(
                 backgroundColor: Colors.white,
@@ -187,8 +191,8 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                         InkWell(
                                           onTap: (){
                                             setState(() {
-                                              addImageToProfileCubit.pickImage(context,userProfile.id??"");
-                                              BlocProvider.of<UserProfileCubit>(context).getUserProfile(context, userProfile.id??"");
+                                              addImageToProfileCubit.pickImage(context,userProfile.specialist?.id??"");
+                                              BlocProvider.of<DoctorProfileCubit>(context).getUserProfile(context, userProfile.specialist?.id??"");
                                             });
                   
                                           },
@@ -211,8 +215,8 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                                 ),
                                                 child: ClipRRect(
                                                   borderRadius: BorderRadius.circular(50), // زاوية الإطار
-                                                  child: userProfile.imageUrl==""||userProfile.imageUrl==null?Image.asset("assets/images/profile.jpg",fit: BoxFit.fill,):Image.network(
-                                                    userProfile.imageUrl ?? "", // رابط الصورة
+                                                  child: userProfile.specialist?.imageUrl==""||userProfile.specialist?.imageUrl==null?Image.asset("assets/images/profile.jpg",fit: BoxFit.fill,):Image.network(
+                                                    userProfile.specialist?.imageUrl ?? "", // رابط الصورة
                                                     fit: BoxFit.fill, // ملء الصورة
                                                   ),
                                                 ),
@@ -223,8 +227,8 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                         IconButton(
                                           onPressed: (){
                                             setState(() {
-                                              addImageToProfileCubit.pickImage(context,userProfile.id??"");
-                                              BlocProvider.of<UserProfileCubit>(context).getUserProfile(context, userProfile.id??"");
+                                              addImageToProfileCubit.pickImage(context,userProfile.specialist?.id??"");
+                                              BlocProvider.of<DoctorProfileCubit>(context).getUserProfile(context, userProfile.specialist?.id??"");
                                             });
                                           },
                                           icon: Positioned(
@@ -249,7 +253,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                             left: screenWidth * 0.35, // Adjust for better centering
                             top: -100,
                             child: Text(
-                              "${userProfileCubit.userData?.firstName}",
+                              "${userProfileCubit.userData?.specialist?.firstName}",
                               style: TextStyle(
                                 fontWeight: FontWeight.w800,
                                 fontSize: screenWidth * 0.06,

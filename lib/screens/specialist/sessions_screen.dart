@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:doctor/models/Doctor_id_model.dart';
 import 'package:doctor/screens/specialist/specialist_home_screen.dart';
 import 'package:doctor/screens/specialist/specialist_second_home_screen.dart';
+import 'package:doctor/widgets/custom_app_bar_specialist.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +11,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
+import '../../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
+import '../../cubit/doctor_details_cubit/doctor_profile_state.dart';
 import '../../cubit/get_doctor_sessions_cubit/doctor_session_cubit.dart';
 import '../../cubit/get_doctor_sessions_cubit/doctor_session_state.dart';
 import '../../cubit/update_user_cubit/update_user_cubit.dart';
@@ -34,7 +38,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
   int listLength = 2;
 
 
-  late UserProfileCubit userProfileCubit;
+  late DoctorProfileCubit userProfileCubit;
   late DoctorSessionCubit doctorSessionCubit;
 
   void _onItemTapped(int index) {
@@ -46,7 +50,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
   @override
   void initState() {
     super.initState();
-    userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
+    userProfileCubit = BlocProvider.of<DoctorProfileCubit>(context);
     doctorSessionCubit = BlocProvider.of<DoctorSessionCubit>(context);
     _loadUserProfile();
 
@@ -54,7 +58,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
 
   Future<void> _loadUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
-    String id = prefs.getString('userId') ?? "";
+    String id = prefs.getString('doctorId') ?? "";
     userProfileCubit.getUserProfile(context, id);
     doctorSessionCubit.getDoctorSessionsTypes(context);
   }
@@ -66,24 +70,24 @@ class _SessionsScreenState extends State<SessionsScreen> {
     bool isEnglish = Localizations.localeOf(context).languageCode == 'en';
     return BlocProvider(
         create: (_) => userProfileCubit,
-        child: BlocBuilder<UserProfileCubit, UserProfileState>(
+        child: BlocBuilder<DoctorProfileCubit, DoctorProfileState>(
         builder: (context, state)
     {
-      if (state is UserProfileLoading) {
+      if (state is DoctorProfileLoading) {
         return const Scaffold(
           body: Center(child: CircularProgressIndicator()),
         );
-      } else if (state is UserProfileFailure) {
+      } else if (state is DoctorProfileFailure) {
         return Center(child: Text("Error loading profile: ${state.error}"));
-      } else if (state is UserProfileSuccess) {
-        UserProfileModel userProfile = state.userProfile;
+      } else if (state is DoctorProfileSuccess) {
+        DoctorByIdModel userProfile = state.doctorProfile;
 
         return Scaffold(
           backgroundColor: Colors.white,
           bottomNavigationBar: const SpecialistCustomBottomNavBar(
             currentIndex: 1,),
-          appBar: CustomAppBar(
-              userProfile: userProfile,
+          appBar: CustomAppBarSpecialist(
+              userProfile: userProfile.specialist,
 
               screenWidth: screenWidth, screenHeight: screenHeight),
           body: SingleChildScrollView(

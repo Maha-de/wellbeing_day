@@ -29,7 +29,9 @@ class DoctorCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        if (specialistModel != null) {
+        if (doctorID != null) {
+          print(specialists?.id);
+          print(specialists?.id);
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -39,7 +41,7 @@ class DoctorCard extends StatelessWidget {
                   BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
                 ],
                 child:  DoctorDetails(
-                    specialistModel: specialistModel, doctorID:doctorID),
+                     doctorID:doctorID),
               ),
 
             ),

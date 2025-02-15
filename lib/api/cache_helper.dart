@@ -15,7 +15,8 @@ class CacheHelper  {
     return sharedPreferences.getString(key);
   }
   loggingOut(){
-    sharedPreferences.remove("id");
+    sharedPreferences.remove("userId");
+    sharedPreferences.remove("doctorId");
   }
 
 //! this method to put data in local database using key

@@ -1,13 +1,19 @@
 import 'package:doctor/cubit/delete_account_cubit/delete_account_cubit.dart';
 import 'package:doctor/cubit/update_user_cubit/update_user_cubit.dart';
+import 'package:doctor/models/Doctor_id_model.dart';
 import 'package:doctor/screens/client_profile_details.dart';
 import 'package:doctor/screens/settings_screen.dart';
+import 'package:doctor/screens/specialist/specialist_appointments_screen.dart';
+import 'package:doctor/screens/specialist/specialist_profile_details_screen.dart';
+import 'package:doctor/screens/specialist/specialist_settings_screen.dart';
 import 'package:doctor/screens/splashscreen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
+import '../../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
+import '../../cubit/doctor_details_cubit/doctor_profile_state.dart';
 import '../../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../../cubit/user_profile_cubit/user_profile_state.dart';
 import '../../models/user_profile_model.dart';
@@ -22,12 +28,12 @@ class SpecialistProfileScreen extends StatefulWidget {
 }
 
 class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
-  late UserProfileCubit userProfileCubit;
+  late DoctorProfileCubit doctorProfileCubit;
   late AddImageToProfileCubit addImageToProfileCubit;
   @override
   void initState() {
     super.initState();
-    userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
+    doctorProfileCubit = BlocProvider.of<DoctorProfileCubit>(context);
     addImageToProfileCubit = BlocProvider.of<AddImageToProfileCubit>(
         context); // Initialize the cubit
     _loadUserProfile();
@@ -36,10 +42,10 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
 
   Future<void> _loadUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
-    String id = prefs.getString('userId') ?? "";
+    String id = prefs.getString('doctorId') ?? "";
 
     // Set the state once the user profile data is fetched
-    userProfileCubit.getUserProfile(context, id);
+    doctorProfileCubit.getUserProfile(context, id);
   }
 
   @override
@@ -55,20 +61,20 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
     double screenHeight = MediaQuery.of(context).size.height;
 
     return BlocProvider(
-        create: (_) => userProfileCubit, // Use the same cubit instance
-        child: BlocBuilder<UserProfileCubit, UserProfileState>(
+        create: (_) => doctorProfileCubit, // Use the same cubit instance
+        child: BlocBuilder<DoctorProfileCubit, DoctorProfileState>(
           builder: (context, state) {
-            if (state is UserProfileLoading) {
+            if (state is DoctorProfileLoading) {
               return Scaffold(
                   body: Center(
                     child: CircularProgressIndicator(),
                   ));
-            } else if (state is UserProfileFailure) {
+            } else if (state is DoctorProfileFailure) {
               return Center(
                   child: Text("Error loading profile: ${state.error}"));
-            } else if (state is UserProfileSuccess) {
+            } else if (state is DoctorProfileSuccess) {
               // Once the profile is loaded, show the actual UI
-              UserProfileModel userProfile = state.userProfile;
+              DoctorByIdModel userProfile = state.doctorProfile;
               return Scaffold(
                 backgroundColor: Colors.white,
                 appBar: AppBar(
@@ -125,11 +131,11 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
                                     onTap: () {
                                       setState(() {
                                         addImageToProfileCubit.pickImage(
-                                            context, userProfile.id ?? "");
+                                            context, userProfile.specialist?.id ?? "");
                                         BlocProvider.of<UserProfileCubit>(
                                             context)
                                             .getUserProfile(context,
-                                            userProfile.id ?? "");
+                                            userProfile.specialist?.id ?? "");
                                       });
                                     },
                                     child: Container(
@@ -152,16 +158,16 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
                                             borderRadius:
                                             BorderRadius.circular(
                                                 50), // زاوية الإطار
-                                            child: userProfile.imageUrl ==
+                                            child: userProfile.specialist?.imageUrl ==
                                                 "" ||
-                                                userProfile.imageUrl ==
+                                                userProfile.specialist?.imageUrl ==
                                                     null
                                                 ? Image.asset(
                                               "assets/images/profile.jpg",
                                               fit: BoxFit.fill,
                                             )
                                                 : Image.network(
-                                              userProfile.imageUrl ??
+                                              userProfile.specialist?.imageUrl ??
                                                   "", // رابط الصورة
                                               fit: BoxFit
                                                   .fill, // ملء الصورة
@@ -175,11 +181,11 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
                                     onPressed: () {
                                       setState(() {
                                         addImageToProfileCubit.pickImage(
-                                            context, userProfile.id ?? "");
+                                            context, userProfile.specialist?.id ?? "");
                                         BlocProvider.of<UserProfileCubit>(
                                             context)
                                             .getUserProfile(context,
-                                            userProfile.id ?? "");
+                                            userProfile.specialist?.id ?? "");
                                       });
                                     },
                                     icon: Positioned(
@@ -205,7 +211,7 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
                       left: screenWidth * 0.35, // Adjust for better centering
                       top: -100,
                       child: Text(
-                        "${userProfileCubit.firstNameController.text}",
+                        "${doctorProfileCubit.firstNameController.text}",
                         style: TextStyle(
                           fontWeight: FontWeight.w800,
                           fontSize: screenWidth *
@@ -231,15 +237,15 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
                                     MaterialPageRoute(
                                       builder: (context) =>
                                           MultiBlocProvider(providers: [
-                                            BlocProvider<UserProfileCubit>(
+                                            BlocProvider<DoctorProfileCubit>(
                                                 create: (_) =>
-                                                    UserProfileCubit()),
+                                                   DoctorProfileCubit()),
                                             BlocProvider<AddImageToProfileCubit>(
                                                 create: (_) =>
                                                     AddImageToProfileCubit()),
                                             BlocProvider<UpdateUserCubit>(
                                                 create: (_) => UpdateUserCubit()),
-                                          ], child: ClientProfileDetails()),
+                                          ], child: SpecialistProfileDetailsScreen()),
                                     ),
                                   );
                                 } else if (index == 1) {
@@ -248,9 +254,9 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
                                     MaterialPageRoute(
                                       builder: (context) =>
                                           MultiBlocProvider(providers: [
-                                            BlocProvider<UserProfileCubit>(
+                                            BlocProvider<DoctorProfileCubit>(
                                                 create: (_) =>
-                                                    UserProfileCubit()),
+                                                    DoctorProfileCubit()),
                                             BlocProvider<DeleteAccountCubit>(
                                                 create: (_) =>
                                                     DeleteAccountCubit()),
@@ -259,15 +265,23 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
                                             BlocProvider<AddImageToProfileCubit>(
                                                 create: (_) =>
                                                     AddImageToProfileCubit()),
-                                          ], child: SettingsScreen()),
+                                          ], child: SpecialistSettingsScreen()),
                                     ),
                                   );
                                 } else if (index == 2) {
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                          const AppointmentsSection()));
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MultiBlocProvider(
+                                        providers: [
+                                          BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
+                                          BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                          BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                        ],
+                                        child: const SpecialistAppointmentsScreen(),
+                                      ),
+                                    ),
+                                  );
                                 }  else if (index == 3) {
                                   Navigator.push(
                                     context,
@@ -279,7 +293,7 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
                                   );
                                   final prefs =
                                   await SharedPreferences.getInstance();
-                                  prefs.remove("userId");
+                                  prefs.remove("doctorId");
                                 }
                               },
                               child: Container(

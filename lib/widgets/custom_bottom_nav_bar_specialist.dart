@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
+import '../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
+import '../cubit/get_doctor_sessions_cubit/doctor_session_cubit.dart';
+import '../cubit/get_doctor_sessions_types_cubit/doctor_session_types_cubit.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../screens/applicationInfo.dart';
@@ -112,7 +115,7 @@ class SpecialistCustomBottomNavBar extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) => MultiBlocProvider(
                   providers: [
-                    BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                    BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
                     BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
                     BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                   ],
@@ -128,8 +131,12 @@ class SpecialistCustomBottomNavBar extends StatelessWidget {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => BlocProvider(
-                  create: (_) => UserProfileCubit(),
+                builder: (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
+                    BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),
+                    BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                  ],
                   child: const SpecialistHomeScreen(),
                 ),
               ),
@@ -145,12 +152,17 @@ class SpecialistCustomBottomNavBar extends StatelessWidget {
 
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(
-                builder: (context) => BlocProvider(
-                  create: (_) => UserProfileCubit(),
-                  child: const SessionsScreen(),
+                MaterialPageRoute(
+                  builder: (context) => MultiBlocProvider(
+                    providers: [
+                      BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
+                      BlocProvider<DoctorSessionCubit>(create: (_) => DoctorSessionCubit()),
+                      BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                    ],
+                    child: const SessionsScreen(),
+                  ),
+
                 ),
-              ),
             );
             break;
         }
