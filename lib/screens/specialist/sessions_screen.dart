@@ -9,6 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
+import '../../cubit/get_doctor_sessions_cubit/doctor_session_cubit.dart';
+import '../../cubit/get_doctor_sessions_cubit/doctor_session_state.dart';
 import '../../cubit/update_user_cubit/update_user_cubit.dart';
 import '../../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../../cubit/user_profile_cubit/user_profile_state.dart';
@@ -33,7 +35,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
 
 
   late UserProfileCubit userProfileCubit;
-
+  late DoctorSessionCubit doctorSessionCubit;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -45,6 +47,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
   void initState() {
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
+    doctorSessionCubit = BlocProvider.of<DoctorSessionCubit>(context);
     _loadUserProfile();
 
   }
@@ -53,6 +56,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
     userProfileCubit.getUserProfile(context, id);
+    doctorSessionCubit.getDoctorSessionsTypes(context);
   }
 
   @override
@@ -82,136 +86,159 @@ class _SessionsScreenState extends State<SessionsScreen> {
               userProfile: userProfile,
 
               screenWidth: screenWidth, screenHeight: screenHeight),
-          body: Column(
-            children: [
-              SizedBox(height: 30.h,),
-              Align(
-                alignment: Alignment.topCenter,
-                child: Container(
-                  height: 50.h,
-                  width: 250.w,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    color: Color(0xFF19649E),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      bottomRight: Radius.circular(30),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 30.h,),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    height: 50.h,
+                    width: 250.w,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      color: Color(0xFF19649E),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(30),
+                      ),
                     ),
-                  ),
-                  child: Center(
-                      child: Text(
-                        "جلساتي",
-                        style: TextStyle(fontSize: 20.sp,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,),
-                      )),
-                ),
-              ),
-              SizedBox(height: 10.h,),
-
-              Padding(
-                padding: const EdgeInsets.fromLTRB(25, 0, 25, 5),
-                child: Column(
-                  children: [
-                    NavigationBar(
-                      backgroundColor: Colors.transparent,
-                      height: 50.h,
-                      destinations: [
-
-
-                        TextButton(
-                          onPressed: () {
-                            _onItemTapped(1);
-                          },
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.zero,
-                            backgroundColor:
-                            _currentPage == 1 ? Color(0xFF19649E) : Colors.grey
-                                .shade300,
-                          ),
-                          child: Text(
-                            "الجلسات المكتملة",
-                            style: TextStyle(
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-
-                        TextButton(
-                          onPressed: () {
-                            _onItemTapped(0);
-                          },
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.zero,
-                            backgroundColor:
-                            _currentPage == 0 ? Color(0xFF19649E) : Colors.grey
-                                .shade300,
-                          ),
-                          child: Text(
-                            "الجلسات القادمة",
-                            style: TextStyle(
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-
-                      ],
-                      // selectedIndex: _currentPage,
-                      // onDestinationSelected: _onItemTapped,
-                    ),
-                  ],
-                ),
-              ),
-
-              <Widget>[
-
-                SizedBox(height: 5),
-
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: ListView.separated(
-                      padding:
-                      const EdgeInsets.only(left: 10, right: 10, top: 30),
-                      itemBuilder: (context, index) {
-                        return BeneficiaryCard();
-                      },
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(height: 20);
-                      },
-                      itemCount: 2,
-                      shrinkWrap:
-                      true,
-                      // Makes ListView behave like a normal widget inside a Column
-                      // physics:
-                      // const NeverScrollableScrollPhysics(), // Prevents the ListView from having its own scroll
-                    ),
+                    child: Center(
+                        child: Text(
+                          "جلساتي",
+                          style: TextStyle(fontSize: 20.sp,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,),
+                        )),
                   ),
                 ),
+                SizedBox(height: 10.h,),
+            
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(25, 0, 25, 5),
+                  child: Column(
+                    children: [
+                      NavigationBar(
+                        backgroundColor: Colors.transparent,
+                        height: 50.h,
+                        destinations: [
+            
+            
+                          TextButton(
+                            onPressed: () {
+                              _onItemTapped(1);
+                            },
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.zero,
+                              backgroundColor:
+                              _currentPage == 1 ? Color(0xFF19649E) : Colors.grey
+                                  .shade300,
+                            ),
+                            child: Text(
+                              "الجلسات المكتملة",
+                              style: TextStyle(
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+            
+                          TextButton(
+                            onPressed: () {
+                              _onItemTapped(0);
+                            },
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.zero,
+                              backgroundColor:
+                              _currentPage == 0 ? Color(0xFF19649E) : Colors.grey
+                                  .shade300,
+                            ),
+                            child: Text(
+                              "الجلسات القادمة",
+                              style: TextStyle(
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+            
+                        ],
+                        // selectedIndex: _currentPage,
+                        // onDestinationSelected: _onItemTapped,
+                      ),
+                    ],
+                  ),
+                ),
+            
+                <Widget>[
+            
+                  SizedBox(height: 5),
+            
+            
+            
+                  BlocBuilder<DoctorSessionCubit, DoctorSessionState>(
+                    builder: (context, state) {
+                      if (state is DoctorSessionLoading) {
+                        return CircularProgressIndicator(); // Show loading indicator
+                      } else if (state is DoctorSessionFailure) {
+                        return Text(state.error); // Display error message
+                      } else if (state is DoctorSessionSuccess) {
+                        return Container(
+                          height: 400,
 
-                // Expanded(
-                //   child: Container(
-                //
-                //     child: listLength == 0?
-                //     Center(
-                //       child: Image(image:AssetImage("assets/images/image.png"),fit: BoxFit.fill,),
-                //     ):
-                //     ListView.separated(
-                //         padding: EdgeInsets.only(top: 45),
-                //         itemBuilder: (context,index)
-                //         {
-                //           return BeneficiaryCard();
-                //         }, separatorBuilder: (context,index){
-                //       return SizedBox(height: 50,);
-                //     }, itemCount: listLength),
-                //   ),
-                // )
-              ]
-              [_currentPage],
-            ],
+                          width: screenWidth,
+                          child: state.session.scheduledSessions?.length == 0?
+                          Center(
+                            child: Image(image:AssetImage("assets/images/image.png"),fit: BoxFit.fill,),
+                          ):
+                          ListView.separated(
+                              padding: EdgeInsets.only(top: 45),
+                              itemBuilder: (context,index)
+                              {
+                                return BeneficiaryCard(session: state.session.scheduledSessions?[index].beneficiary,scheduledSessions: state.session.scheduledSessions?[index],);
+                              }, separatorBuilder: (context,index){
+                            return SizedBox(height: 50,);
+                          }, itemCount: state.session.scheduledSessions?.length??0),
+                        );
+                      } else {
+                        return Center(child: Text('noSpecialistsFound'.tr()));
+                      }
+                    },
+                  ),
+                  BlocBuilder<DoctorSessionCubit, DoctorSessionState>(
+                    builder: (context, state) {
+                      if (state is DoctorSessionLoading) {
+                        return CircularProgressIndicator(); // Show loading indicator
+                      } else if (state is DoctorSessionFailure) {
+                        return Text(state.error); // Display error message
+                      } else if (state is DoctorSessionSuccess) {
+                        return Container(
+                          height: 400,
+                          width: screenWidth,
+                          child: state.session.completedSessions?.length == 0?
+                          Center(
+                            child: Image(image:AssetImage("assets/images/image.png"),fit: BoxFit.fill,),
+                          ):
+                          ListView.separated(
+                              padding: EdgeInsets.only(top: 45),
+                              itemBuilder: (context,index)
+                              {
+                                return BeneficiaryCard(session: state.session.completedSessions?[index].beneficiary,completedSessions: state.session.completedSessions?[index],);
+                              }, separatorBuilder: (context,index){
+                            return SizedBox(height: 50,);
+                          }, itemCount: state.session.scheduledSessions?.length??0),
+                        );
+                      } else {
+                        return Center(child: Text('noSpecialistsFound'.tr()));
+                      }
+                    },
+                  )
+                ]
+                [_currentPage],
+              ],
+            ),
           ),
         );
       }

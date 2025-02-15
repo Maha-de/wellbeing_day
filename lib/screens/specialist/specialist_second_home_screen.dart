@@ -213,19 +213,19 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                         ],
                       ),
                       SizedBox(height:5),
-                      Expanded(
-                        child: Container(
-
-                          child: ListView.separated(
-                              padding: EdgeInsets.only(top: 45),
-                              itemBuilder: (context,index)
-                              {
-                                return BeneficiaryCard();
-                              }, separatorBuilder: (context,index){
-                            return SizedBox(height: 50,);
-                          }, itemCount: 2),
-                        ),
-                      )
+                      // Expanded(
+                      //   child: Container(
+                      //
+                      //     child: ListView.separated(
+                      //         padding: EdgeInsets.only(top: 45),
+                      //         itemBuilder: (context,index)
+                      //         {
+                      //           return BeneficiaryCard();
+                      //         }, separatorBuilder: (context,index){
+                      //       return SizedBox(height: 50,);
+                      //     }, itemCount: 2),
+                      //   ),
+                      // )
 
                     ],
                   ),

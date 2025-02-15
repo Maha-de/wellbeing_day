@@ -213,21 +213,21 @@ int listLength=0;
                       ],
                     ),
                       SizedBox(height:5),
-                      Expanded(
-                        child: Container(
-                        
-                          child: listLength==0?Center(
-                            child: Image(image:AssetImage("assets/images/image.png"),fit: BoxFit.fill,),
-                          ):ListView.separated(
-                              padding: EdgeInsets.only(top: 45),
-                              itemBuilder: (context,index)
-                          {
-                            return BeneficiaryCard();
-                          }, separatorBuilder: (context,index){
-                            return SizedBox(height: 50,);
-                          }, itemCount: listLength),
-                        ),
-                      )
+                      // Expanded(
+                      //   child: Container(
+                      //
+                      //     child: listLength==0?Center(
+                      //       child: Image(image:AssetImage("assets/images/image.png"),fit: BoxFit.fill,),
+                      //     ):ListView.separated(
+                      //         padding: EdgeInsets.only(top: 45),
+                      //         itemBuilder: (context,index)
+                      //     {
+                      //       return BeneficiaryCard();
+                      //     }, separatorBuilder: (context,index){
+                      //       return SizedBox(height: 50,);
+                      //     }, itemCount: listLength),
+                      //   ),
+                      // )
 
                     ],
                   ),

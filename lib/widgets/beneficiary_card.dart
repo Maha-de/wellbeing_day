@@ -2,12 +2,19 @@ import 'package:doctor/screens/specialist/specialist_free_consultation_screen.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../models/doctor_sessions_types_model.dart';
+
 class BeneficiaryCard extends StatelessWidget {
+  final Beneficiary? session;
+  EdSession? scheduledSessions;
+  EdSession? completedSessions;
+ BeneficiaryCard({super.key, required this.session,this.completedSessions,this.scheduledSessions});
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        width: Get.width * 0.9,
+        width: 325,
         height: 150,
         padding: EdgeInsets.all(15),
         decoration: BoxDecoration(
@@ -25,7 +32,7 @@ class BeneficiaryCard extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.center,
                     child: Text(
-                      'ميرفت مندور',
+                      session?.firstName??"",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
@@ -38,7 +45,10 @@ class BeneficiaryCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _buildInfoBox('تفاصيل الجلسه',(){Get.to(()=>SpecialistFreeConsultationScreen());}),
+                    _buildInfoBox('${scheduledSessions?.sessionDate == null
+                        ? '${completedSessions?.sessionDate?.day}/${completedSessions?.sessionDate?.month}/${completedSessions?.sessionDate?.year}'
+                        : '${scheduledSessions?.sessionDate?.day}/${scheduledSessions?.sessionDate?.month}/${scheduledSessions?.sessionDate?.year}'}'
+                        ,(){Get.to(()=>SpecialistFreeConsultationScreen());}),
                     _buildInfoBox('تفاصيل المستفيد',(){}),
                   ],
                 ),
@@ -73,9 +83,9 @@ class BeneficiaryCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 131,
+        width: 137,
         height: 40,
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(5),
@@ -83,7 +93,7 @@ class BeneficiaryCard extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: TextStyle(color: Colors.blue[800],fontSize: 16,fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.blue[800],fontSize: 14,fontWeight: FontWeight.bold),
           ),
         ),
       ),

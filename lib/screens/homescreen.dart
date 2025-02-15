@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:doctor/cubit/get_doctor_sessions_cubit/doctor_session_cubit.dart';
 import 'package:doctor/cubit/get_specialist/get_sepcialist_cubit.dart';
 import 'package:doctor/make_email/login.dart';
 import 'package:doctor/screens/group_therapy.dart';
@@ -46,7 +47,6 @@ class _HomeScreenState extends State<HomeScreen> {
     "magazine".tr()
   ];
   int selectedIndex = 0;
-
   final List<String> images = [
     'assets/images/family.png',
     'assets/images/familyy.png',
@@ -55,11 +55,13 @@ class _HomeScreenState extends State<HomeScreen> {
   PageController _pageController = PageController();
   late Timer _timer;
   late UserProfileCubit userProfileCubit;
+  late DoctorSessionCubit doctorSessionCubit;
 int currentIndex=1;
   @override
   void initState() {
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
+    doctorSessionCubit = BlocProvider.of<DoctorSessionCubit>(context);
     _loadUserProfile();
     _startAutoPageSwitch();
   }
@@ -67,7 +69,10 @@ int currentIndex=1;
   Future<void> _loadUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
+    // String dId= prefs.getString('doctorId') ?? "";
+    String dId= "67a4a7a716033e66a957deb6";
     userProfileCubit.getUserProfile(context, id);
+
   }
 
   void _startAutoPageSwitch() {
