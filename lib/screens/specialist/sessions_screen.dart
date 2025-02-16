@@ -109,7 +109,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
                     ),
                     child: Center(
                         child: Text(
-                          "جلساتي",
+                          "myAppointments".tr(),
                           style: TextStyle(fontSize: 20.sp,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,),
@@ -139,7 +139,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
                                   .shade300,
                             ),
                             child: Text(
-                              "الجلسات المكتملة",
+                              "completedSessions".tr(),
                               style: TextStyle(
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.bold,
@@ -159,7 +159,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
                                   .shade300,
                             ),
                             child: Text(
-                              "الجلسات القادمة",
+                              "nextSessions".tr(),
                               style: TextStyle(
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.bold,

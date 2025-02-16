@@ -729,7 +729,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                                       ),
                                                       filled: true,
                                                       fillColor: Colors.transparent,
-                                                      hintText: "يوم",
+                                                      hintText: "dayy".tr(),
                                                       hintStyle: TextStyle(
                                                         color: Colors.grey,
                                                         fontSize: 20,
