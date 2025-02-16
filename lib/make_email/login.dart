@@ -64,7 +64,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             );
-          }else if (state is LoginError) {
+          }
+          else if (state is LoginError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.error)),
             );
@@ -173,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                       fRad: "beneficiary".tr(),
                       sRad: "specialized".tr(),
                       onRoleSelected: (role) {
-                        if (role == "مستفيد") {
+                        if (role == "beneficiary".tr()) {
                           role = "beneficiary";
                         } else {
                           role = "specialized";
@@ -181,6 +182,7 @@ class _LoginPageState extends State<LoginPage> {
                         roleController.text = role;
                       },
                     ),
+
 
                     // buildTextField(
                     //   context,
@@ -291,13 +293,14 @@ class LoginCubit extends Cubit<LoginState> {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
+        print(role);
        if(role=="beneficiary")
        {
          var userId = data['user']['id'];
          final prefs = await SharedPreferences.getInstance();
          prefs.setString('userId', userId);
          prefs.setString('email', email);
-       }else
+       }else if(role=="specialized")
        {
          var userId =data['user']['id'];
          final prefs = await SharedPreferences.getInstance();
