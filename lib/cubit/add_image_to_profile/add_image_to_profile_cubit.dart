@@ -10,6 +10,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../api/end_points.dart';
 import '../../models/add_image_model.dart';
+import '../doctor_details_cubit/doctor_profile_cubit.dart';
 import '../user_profile_cubit/user_profile_cubit.dart';
 import 'add_image_to_profile_state.dart';
 
@@ -130,6 +131,7 @@ class AddImageToProfileCubit extends Cubit<AddImageToProfileState> {
 
       if (response.statusCode == 200) {
         await BlocProvider.of<UserProfileCubit>(context).getUserProfile(context, id);
+        await BlocProvider.of<DoctorProfileCubit>(context).getUserProfile(context, id);
         final addImageModel = AddImageModel.fromJson(response.data);
         emit(AddImageToProfileSuccess(addImageModel.message ?? "Image uploaded successfully!"));
         ScaffoldMessenger.of(context).showSnackBar(

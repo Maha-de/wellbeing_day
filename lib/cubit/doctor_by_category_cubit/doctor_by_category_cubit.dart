@@ -65,7 +65,7 @@ class DoctorByCategoryCubit extends Cubit<DoctorByCategoryState> {
         if (response.statusCode == 200) {
           final specialistModel = DoctorByCategoryModel.fromJson(response.data);
           specialists = specialistModel.specialists??[];
-
+            print(specialists);
            print("those are categories"+"{$specialists}");
           emit(DoctorByCategorySuccess("Profile loaded successfully", specialists));
         } else {

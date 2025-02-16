@@ -1,21 +1,13 @@
 import 'package:doctor/screens/specialist/specialist_free_consultation_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import '../models/doctor_session_model.dart';
 
-import '../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
-import '../cubit/get_beneficiary_sessions_cubit/beneficiary_session_cubit.dart';
-import '../cubit/get_doctor_sessions_types_cubit/doctor_session_types_cubit.dart';
-import '../cubit/update_user_cubit/update_user_cubit.dart';
-import '../cubit/user_profile_cubit/user_profile_cubit.dart';
-import '../models/doctor_sessions_types_model.dart';
-import '../screens/specialist/user_profile_screen.dart';
-
-class BeneficiaryCard extends StatelessWidget {
+class BeneficiaryCardHome extends StatelessWidget {
   final Beneficiary? session;
-  EdSession? scheduledSessions;
-  EdSession? completedSessions;
- BeneficiaryCard({super.key, required this.session,this.completedSessions,this.scheduledSessions});
+  Ion? instantSessions;
+  Ion? freeConsultationSessions;
+  BeneficiaryCardHome({super.key, required this.session,this.freeConsultationSessions,this.instantSessions});
 
   @override
   Widget build(BuildContext context) {
@@ -52,35 +44,9 @@ class BeneficiaryCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _buildInfoBox('${scheduledSessions?.sessionDate == null
-                        ? '${completedSessions?.sessionDate?.day}/${completedSessions?.sessionDate?.month}/${completedSessions?.sessionDate?.year}'
-                        : '${scheduledSessions?.sessionDate?.day}/${scheduledSessions?.sessionDate?.month}/${scheduledSessions?.sessionDate?.year}'}'
-                        ,(){Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MultiBlocProvider(
-                              providers: [
-                                BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
-                                BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),
-                                BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                              ],
-                              child: const SpecialistFreeConsultationScreen(),
-                            ),
-                          ),
-                        );}),
-                    _buildInfoBox('تفاصيل المستفيد',(){Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MultiBlocProvider(
-                          providers: [
-                            BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                            BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),
-                            BlocProvider<BeneficiarySessionCubit>(create: (_) => BeneficiarySessionCubit()),
-                          ],
-                          child:  UserProfileScreen(id:session?.id??"",),
-                        ),
-                      ),
-                    );}),
+                    _buildInfoBox("تفصايل الجلسه"
+                        ,(){Get.to(()=>SpecialistFreeConsultationScreen());}),
+                    _buildInfoBox('تفاصيل المستفيد',(){}),
                   ],
                 ),
               ],

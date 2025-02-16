@@ -1,4 +1,6 @@
+import 'package:doctor/cubit/get_doctor_sessions_cubit/doctor_session_cubit.dart';
 import 'package:doctor/screens/home_second_screen.dart';
+import 'package:doctor/screens/specialist/specialist_home_screen.dart';
 import 'package:doctor/screens/welcomescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +9,9 @@ import 'dart:async';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
+import '../cubit/get_doctor_sessions_types_cubit/doctor_session_types_cubit.dart';
+import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import 'homescreen.dart';
 
@@ -46,14 +51,31 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       prefs.containsKey("userId")?
       Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (context) => BlocProvider(
-              create: (_) => UserProfileCubit(),
-              child:HomeScreen()
-          ),
+          MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(
+              providers: [
+                BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                BlocProvider<DoctorSessionCubit>(create: (_) => DoctorSessionCubit()),
+              ],
+              child: const HomeScreen(),
+            ),
+
+
         ),
       )
-      :Navigator.pushReplacement(
+      :prefs.containsKey("doctorId")? Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
+              BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),
+              BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+            ],
+            child: const SpecialistHomeScreen(),
+          ),
+        ),
+      ):Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const WelcomeScreen()),
       );

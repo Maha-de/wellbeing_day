@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:doctor/cubit/get_doctor_sessions_types_cubit/doctor_session_types_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +8,9 @@ import 'package:http/http.dart' as http;
 import 'package:doctor/screens/homescreen.dart'; // Import HomeScreen
 import 'package:doctor/make_email/reset_password.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
 import '../cubit/forget_password_cubit/forget_password_cubit.dart';
+import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../screens/selectionpage.dart';
 import '../screens/specialist/specialist_home_screen.dart';
@@ -36,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
       create: (_) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
-          if (state is LoginSuccess) {
+          if (state is LoginSuccess && roleController.text=="beneficiary") {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -46,7 +49,22 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             );
-          } else if (state is LoginError) {
+          } else if(state is LoginSuccess && roleController.text=="specialized")
+          {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
+                    BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),
+                    BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                  ],
+                  child: const SpecialistHomeScreen(),
+                ),
+              ),
+            );
+          }else if (state is LoginError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.error)),
             );
@@ -273,9 +291,17 @@ class LoginCubit extends Cubit<LoginState> {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        var userId = data['user']['id'];
-        final prefs = await SharedPreferences.getInstance();
-        prefs.setString('userId', userId);
+       if(role=="beneficiary")
+       {
+         var userId = data['user']['id'];
+         final prefs = await SharedPreferences.getInstance();
+         prefs.setString('userId', userId);
+       }else
+       {
+         var userId =data['user']['id'];
+         final prefs = await SharedPreferences.getInstance();
+         prefs.setString('doctorId', userId);
+       }
 
         emit(LoginSuccess(message: 'تم تسجيل الدخول بنجاح'));
       } else {

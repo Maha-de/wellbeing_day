@@ -110,6 +110,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:doctor/models/Specialist.dart';
 import 'package:doctor/core/strings.dart';
 import 'package:doctor/errors/exceptions.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../api/end_points.dart';
 import '../../screens/specialist/repo/SpecialistRepository.dart';
 import 'doctor_sign_up_state.dart';
@@ -140,6 +141,8 @@ class SignUpSpecialistCubit extends Cubit<SignUpSpecialistState> {
       } else {
         var userId = data["specialist"]['_id'];
         if (response.statusCode == 200 || response.statusCode == 201) {
+          final prefs = await SharedPreferences.getInstance();
+          prefs.setString('doctorId', userId);
           log(response.data.toString());
           emit(SignUpSpecialistSuccess(
               message: SpSignUpSuccessMsg, userId: userId));

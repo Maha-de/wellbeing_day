@@ -340,8 +340,11 @@ import 'package:doctor/screens/specialist/specialist_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
 import '../../cubit/doctor_sign_up_cubit/doctor_sign_up_cubit.dart';
 import '../../cubit/doctor_sign_up_cubit/doctor_sign_up_state.dart';
+import '../../cubit/get_doctor_sessions_types_cubit/doctor_session_types_cubit.dart';
+import '../../cubit/update_user_cubit/update_user_cubit.dart';
 import '../../models/Specialist.dart';
 import '../../widgets/custom_snake_bar.dart';
 
@@ -399,7 +402,16 @@ class _SignUpAsDoctorThirdScreenState extends State<SignUpAsDoctorThirdScreen> {
   void navigateToHomeScreen(BuildContext context) {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const SpecialistHomeScreen()),
+      MaterialPageRoute(
+        builder: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
+            BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),
+            BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+          ],
+          child: const SpecialistHomeScreen(),
+        ),
+      ),
     );
   }
 
