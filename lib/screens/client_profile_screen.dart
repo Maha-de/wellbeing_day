@@ -126,13 +126,14 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      setState(() {
-                                        addImageToProfileCubit.pickImage(
-                                            context, userProfile.id ?? "");
+                                      setState(() async{
+                                        final prefs = await SharedPreferences.getInstance();
+                                        String? id=prefs.getString('userId');
+                                        addImageToProfileCubit.pickImage(context,id??"");
                                         BlocProvider.of<UserProfileCubit>(
                                                 context)
                                             .getUserProfile(context,
-                                                userProfile.id ?? "");
+                                                id ?? "");
                                       });
                                     },
                                     child: Container(
@@ -176,13 +177,14 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                                   ),
                                   IconButton(
                                     onPressed: () {
-                                      setState(() {
-                                        addImageToProfileCubit.pickImage(
-                                            context, userProfile.id ?? "");
+                                      setState(() async{
+                                        final prefs = await SharedPreferences.getInstance();
+                                        String? id=prefs.getString('userId');
+                                        addImageToProfileCubit.pickImage(context,id??"");
                                         BlocProvider.of<UserProfileCubit>(
                                                 context)
                                             .getUserProfile(context,
-                                                userProfile.id ?? "");
+                                                id ?? "");
                                       });
                                     },
                                     icon: Positioned(

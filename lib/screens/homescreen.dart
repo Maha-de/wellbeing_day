@@ -69,8 +69,6 @@ int currentIndex=1;
   Future<void> _loadUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
-    // String dId= prefs.getString('doctorId') ?? "";
-    String dId= "67a4a7a716033e66a957deb6";
     userProfileCubit.getUserProfile(context, id);
 
   }

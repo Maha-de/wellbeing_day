@@ -294,6 +294,7 @@ class LoginCubit extends Cubit<LoginState> {
          var userId = data['user']['id'];
          final prefs = await SharedPreferences.getInstance();
          prefs.setString('userId', userId);
+         prefs.setString('email', email);
        }else
        {
          var userId =data['user']['id'];

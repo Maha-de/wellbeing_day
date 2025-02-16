@@ -142,9 +142,11 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                                       children: [
                                         InkWell(
                                           onTap: (){
-                                            setState(() {
-                                              addImageToProfileCubit.pickImage(context,userProfile.id??"");
-                                              BlocProvider.of<UserProfileCubit>(context).getUserProfile(context, userProfile.id??"");
+                                            setState(() async{
+                                              final prefs = await SharedPreferences.getInstance();
+                                              String? id=prefs.getString('userId');
+                                              addImageToProfileCubit.pickImage(context,id??"");
+                                              BlocProvider.of<UserProfileCubit>(context).getUserProfile(context, id??"");
                                             });
                                           },
                                           child: Container(
@@ -177,9 +179,11 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                                         ),
                                         IconButton(
                                           onPressed: (){
-                                            setState(() {
-                                              addImageToProfileCubit.pickImage(context,userProfile.id??"");
-                                              BlocProvider.of<UserProfileCubit>(context).getUserProfile(context, userProfile.id??"");
+                                            setState(() async{
+                                              final prefs = await SharedPreferences.getInstance();
+                                              String? id=prefs.getString('userId');
+                                              addImageToProfileCubit.pickImage(context,id??"");
+                                              BlocProvider.of<UserProfileCubit>(context).getUserProfile(context, id??"");
                                             });
                                           },
                                           icon: Positioned(
@@ -657,8 +661,10 @@ class _ClientProfileDetailsState extends State<ClientProfileDetails> {
                                       userProfileCubit.genderController.text
                                           .trim(),
                                       id);
-                                  setState(() {
-                                    BlocProvider.of<UserProfileCubit>(context).getUserProfile(context, userProfile.id??"");
+                                  setState(() async{
+                                    final prefs = await SharedPreferences.getInstance();
+                                    String? id=prefs.getString('userId');
+                                    BlocProvider.of<UserProfileCubit>(context).getUserProfile(context, id??"");
                                   });
                                 },
                                 child: Container(

@@ -40,12 +40,12 @@ class UserProfileCubit extends Cubit<UserProfileState> {
         // Update controllers with data
         firstNameController.text = userData?.firstName ?? "";
         lastNameController.text = userData?.lastName ?? "";
-        emailController.text = userData?.email ?? "";
-        phoneController.text = userData?.phone ?? "";
+        // emailController.text = userData?.email ?? "";
+        // phoneController.text = userData?.phone ?? "";
         genderController.text = userData?.gender ?? "";
         nationalityController.text = userData?.nationality ?? "";
-        addressController.text = userData?.homeAddress ?? "";
-        regionController.text = userData?.region ?? "";
+        // addressController.text = userData?.homeAddress ?? "";
+        // regionController.text = userData?.region ?? "";
 
         emit(UserProfileSuccess("Profile loaded successfully", userProfileModel));
       } else {
