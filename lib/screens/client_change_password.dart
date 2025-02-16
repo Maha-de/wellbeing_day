@@ -344,10 +344,12 @@ class _ClientChangePasswordState extends State<ClientChangePassword> {
                     SizedBox(height: screenHeight* 0.09.h),
                     Center(
                       child: GestureDetector(
-                        onTap: (){
+                        onTap: ()async{
     if (formKey.currentState!.validate()) {
+      final prefs = await SharedPreferences.getInstance();
+      String? email=prefs.getString('email');
     BlocProvider.of<ResetPasswordCubit>(context)
-        .resetPasswordByEmail(context, userProfileCubit.userData?.email??"",
+        .resetPasswordByEmail(context, email??"",
     passwordController.text,"changePassword");
     passwordController.clear();
     confirmPasswordController.clear();

@@ -356,7 +356,7 @@ class SignUpCubit extends Cubit<SignupState> {
         var userId = data['newBeneficiary']['_id']; // Correct path for user ID
         final prefs = await SharedPreferences.getInstance();
         prefs.setString('userId', userId); // Store userId
-
+        prefs.setString('email', email);
         emit(SignupSuccess(message: 'تم تسجيل الدخول بنجاح'));
       } else {
         print("Response status: ${response.statusCode} + ${response.body}");

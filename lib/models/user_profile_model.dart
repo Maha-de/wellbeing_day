@@ -9,65 +9,49 @@ UserProfileModel userProfileModelFromJson(String str) => UserProfileModel.fromJs
 String userProfileModelToJson(UserProfileModel data) => json.encode(data.toJson());
 
 class UserProfileModel {
-  String? id;
   String? firstName;
   String? lastName;
-  String? email;
-  String? phone;
-  String? profession;
-  String? homeAddress;
   int? age;
-  String? region;
-  String? nationality;
   String? gender;
-  String? role;
+  String? nationality;
+  String? profession;
   String? imageUrl;
+  List<dynamic>? scheduledSessions;
+  List<dynamic>? completedSessions;
 
   UserProfileModel({
-    this.id,
     this.firstName,
     this.lastName,
-    this.email,
-    this.phone,
-    this.profession,
-    this.homeAddress,
     this.age,
-    this.region,
-    this.nationality,
     this.gender,
-    this.role,
+    this.nationality,
+    this.profession,
     this.imageUrl,
+    this.scheduledSessions,
+    this.completedSessions,
   });
 
   factory UserProfileModel.fromJson(Map<String, dynamic> json) => UserProfileModel(
-    id: json["_id"],
     firstName: json["firstName"],
     lastName: json["lastName"],
-    email: json["email"],
-    phone: json["phone"],
-    profession: json["profession"],
-    homeAddress: json["homeAddress"],
     age: json["age"],
-    region: json["region"],
-    nationality: json["nationality"],
     gender: json["gender"],
-    role: json["role"],
+    nationality: json["nationality"],
+    profession: json["profession"],
     imageUrl: json["imageUrl"],
+    scheduledSessions: json["scheduledSessions"] == null ? [] : List<dynamic>.from(json["scheduledSessions"]!.map((x) => x)),
+    completedSessions: json["completedSessions"] == null ? [] : List<dynamic>.from(json["completedSessions"]!.map((x) => x)),
   );
 
   Map<String, dynamic> toJson() => {
-    "_id": id,
     "firstName": firstName,
     "lastName": lastName,
-    "email": email,
-    "phone": phone,
-    "profession": profession,
-    "homeAddress": homeAddress,
     "age": age,
-    "region": region,
-    "nationality": nationality,
     "gender": gender,
-    "role": role,
+    "nationality": nationality,
+    "profession": profession,
     "imageUrl": imageUrl,
+    "scheduledSessions": scheduledSessions == null ? [] : List<dynamic>.from(scheduledSessions!.map((x) => x)),
+    "completedSessions": completedSessions == null ? [] : List<dynamic>.from(completedSessions!.map((x) => x)),
   };
 }
