@@ -1,4 +1,5 @@
 import 'package:doctor/screens/specialist/specialist_appointments_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -73,7 +74,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                "الرجاء تحميل صورة ملف شخصي",
+                "uploadImage".tr(),
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.black,
@@ -151,7 +152,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                 ],
               ),
               Text(
-                "${userProfile.specialist?.firstName}"+"دكتور ",
+                "${userProfile.specialist?.firstName}"+"doctor".tr(),
                 style: TextStyle(
                   fontSize: 20,
                   color: Color(0xff19649E),
@@ -162,7 +163,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "تحديد اللغه",
+                    "chooseLang".tr(),
                     style: TextStyle(
                       fontSize: 20,
                       color: Color(0xff19649E),
@@ -198,7 +199,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                               ),
                               filled: true,
                               fillColor: Colors.transparent,
-                              hintText: "تحديد اللغه",
+                              hintText: "chooseLang".tr(),
                               hintStyle: TextStyle(
                                 color: Colors.grey,
                                 fontSize: 20,
@@ -207,7 +208,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                             ),
                             style: TextStyle(color: Colors.black),
                             textAlign: TextAlign.right,
-                            textDirection: TextDirection.rtl,
+                            // textDirection: TextDirection.rtl,
                           ),
                         ),
                         Padding(
@@ -248,7 +249,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "تحديد اوقات العمل",
+                  "chooseWorkingHours".tr(),
                   style: TextStyle(
                     fontSize: 20,
                     color: Color(0xff19649E),
@@ -291,7 +292,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                                       ),
                                       filled: true,
                                       fillColor: Colors.transparent,
-                                      hintText: "يوم",
+                                      hintText: "dayy".tr(),
                                       hintStyle: TextStyle(
                                         color: Colors.grey,
                                         fontSize: 20,
@@ -300,7 +301,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                                     ),
                                     style: TextStyle(color: Colors.black),
                                     textAlign: TextAlign.center,
-                                    textDirection: TextDirection.rtl,
+                                    // textDirection: TextDirection.rtl,
                                   ),
                                 ),
                               ],
@@ -338,7 +339,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                                       ),
                                       filled: true,
                                       fillColor: Colors.transparent,
-                                      hintText: "ساعه",
+                                      hintText: "hour".tr(),
                                       hintStyle: TextStyle(
                                         color: Colors.grey,
                                         fontSize: 20,
@@ -347,7 +348,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                                     ),
                                     style: TextStyle(color: Colors.black),
                                     textAlign: TextAlign.center,
-                                    textDirection: TextDirection.rtl,
+                                    // textDirection: TextDirection.rtl,
                                   ),
                                 ),
                               ],
@@ -425,7 +426,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
             ),
           ),
           child: Text(
-            "تأكيد",
+            "confirm".tr(),
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -487,7 +488,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                                   ),
                                   filled: true,
                                   fillColor: Colors.transparent,
-                                  hintText: "يوم",
+                                  hintText: "dayy".tr(),
                                   hintStyle: TextStyle(
                                     color: Colors.grey,
                                     fontSize: 20,
@@ -496,7 +497,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                                 ),
                                 style: TextStyle(color: Colors.black),
                                 textAlign: TextAlign.center,
-                                textDirection: TextDirection.rtl,
+                                // textDirection: TextDirection.rtl,
                               ),
                             ),
                           ],
@@ -534,7 +535,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                                   ),
                                   filled: true,
                                   fillColor: Colors.transparent,
-                                  hintText: "ساعه",
+                                  hintText: "hour".tr(),
                                   hintStyle: TextStyle(
                                     color: Colors.grey,
                                     fontSize: 20,
@@ -543,7 +544,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                                 ),
                                 style: TextStyle(color: Colors.black),
                                 textAlign: TextAlign.center,
-                                textDirection: TextDirection.rtl,
+                                // textDirection: TextDirection.rtl,
                               ),
                             ),
                           ],

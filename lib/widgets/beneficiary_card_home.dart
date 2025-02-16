@@ -1,6 +1,7 @@
 import 'package:doctor/screens/specialist/specialist_free_consultation_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import '../models/doctor_session_model.dart';
 
 class BeneficiaryCardHome extends StatelessWidget {
@@ -44,9 +45,9 @@ class BeneficiaryCardHome extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _buildInfoBox("تفصايل الجلسه"
+                    _buildInfoBox("sessionDetails".tr()
                         ,(){Get.to(()=>SpecialistFreeConsultationScreen());}),
-                    _buildInfoBox('تفاصيل المستفيد',(){}),
+                    _buildInfoBox('userDetails'.tr(),(){}),
                   ],
                 ),
               ],

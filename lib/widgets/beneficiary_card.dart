@@ -1,7 +1,8 @@
 import 'package:doctor/screens/specialist/specialist_free_consultation_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 
 import '../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
 import '../cubit/get_beneficiary_sessions_cubit/beneficiary_session_cubit.dart';
@@ -68,7 +69,7 @@ class BeneficiaryCard extends StatelessWidget {
                             ),
                           ),
                         );}),
-                    _buildInfoBox('تفاصيل المستفيد',(){Navigator.push(
+                    _buildInfoBox('userDetails'.tr(),(){Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => MultiBlocProvider(

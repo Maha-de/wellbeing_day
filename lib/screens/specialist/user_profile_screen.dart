@@ -1,6 +1,7 @@
 import 'package:doctor/cubit/get_beneficiary_sessions_cubit/beneficiary_session_cubit.dart';
 import 'package:doctor/cubit/get_doctor_sessions_types_cubit/doctor_session_types_cubit.dart';
 import 'package:doctor/models/user_profile_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -78,9 +79,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     } else if (state is BeneficiarySessionFailure) {
                       return Text(state.error); // Display error message
                     } else if (state is BeneficiarySessionSuccess) {
-                      return benDetials(userProfile.firstName??""+ " "+"${userProfile.lastName??" "}","${userProfile.age}",userProfile.gender??"",userProfile.nationality??"",userProfile.profession??"",beneficiarySessionCubit.sessionData?.scheduledSessions?.map((session) => '${session.sessionDate?.day}/${session.sessionDate?.month}/${session.sessionDate?.year}' ?? '').toList() ?? ["لا يوجد جلسات مكتمله"],beneficiarySessionCubit.sessionData?.completedSessions?.map((session) => '${session.sessionDate?.day}/${session.sessionDate?.month}/${session.sessionDate?.year}' ?? '').toList() ?? ["لا يوجد جلسات مكتمله"]);
+                      return benDetials(userProfile.firstName??""+ " "+"${userProfile.lastName??" "}",
+                          "${userProfile.age}",userProfile.gender??"",userProfile.nationality??"",userProfile.profession??"",
+                          beneficiarySessionCubit.sessionData?.scheduledSessions?.map((session) =>
+                          '${session.sessionDate?.day}/${session.sessionDate?.month}/${session.sessionDate?.year}' ?? '').toList() ??
+                              ["noneSessions".tr()],beneficiarySessionCubit.sessionData?.completedSessions?.map((session) =>
+                          '${session.sessionDate?.day}/${session.sessionDate?.month}/${session.sessionDate?.year}' ?? '').toList() ?? ["noneSessions".tr()]);
                     } else {
-                      return Center(child: Text("لا يوجد جلسات مكتمله"));
+                      return Center(child: Text("noneSessions".tr()));
                     }
                   },
                 )
@@ -125,20 +131,20 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               height: 40,
             ),
             Text(
-              "تفاصيل المستفيد",
+              "userDetails".tr(),
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
-            infoRow("الاسم", name),
-            infoRow("العمر", age),
-            infoRow("الجنس", gender),
-            infoRow("الجنسية", nationality),
-            infoRow("المهنة", profession),
+            infoRow("name".tr(), name),
+            infoRow("age".tr(), age),
+            infoRow("gender".tr(), gender),
+            infoRow("nationality".tr(), nationality),
+            infoRow("profession".tr(), profession),
             SizedBox(
               height: 30,
             ),
             sessionSection(
-                schedule==[]?["لا يوجد جلسات مكتمله"]:schedule, complete==[]?["لا يوجد جلسات مكتمله"]:complete),
+                schedule==[]?["noneSessions".tr()]:schedule, complete==[]?["noneSessions".tr()]:complete),
           ],
         ),
       ),
@@ -192,7 +198,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               children: [
                 Center(
                   child: Text(
-                    'الجلسات القادمة',
+                    'nextSessions'.tr(),
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -202,7 +208,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 ),
                 SizedBox(height: 12),
                 Center(
-                  child: Text('الجلسات المكتملة',
+                  child: Text('completedSessions'.tr(),
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 ),
                 SizedBox(height: 8),
@@ -213,7 +219,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             ),
           );
         } else {
-          return Center(child: Text("لا يوجد جلسات مكتمله"));
+          return Center(child: Text("noneSessions".tr()));
         }
       },
     );

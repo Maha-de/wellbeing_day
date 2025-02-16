@@ -86,7 +86,7 @@ class _SpecialistInstantSessionScreenState extends State<SpecialistInstantSessio
                                     ),
                                     alignment: Alignment.center,
                                     child: Text(
-                                      "جلسه فوريه",
+                                      "instantSession".tr(),
                                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
                                     ),
                                   ),
@@ -97,7 +97,7 @@ class _SpecialistInstantSessionScreenState extends State<SpecialistInstantSessio
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Text(
-                                    "عمر",
+                                    "omar".tr(),
                                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xff19649E)),
                                   ),
                                 ),
@@ -110,7 +110,7 @@ class _SpecialistInstantSessionScreenState extends State<SpecialistInstantSessio
                                   textAlign:TextAlign.right,
                                   decoration: InputDecoration(
 
-                                    hintText: "مرحبًا، أشعر بحاجة ملحة للتحدث مع مختص نفسي في أقرب وقت ممكن.أواجه صعوبة في التعامل مع بعض المشاعر وأحتاج إلى جلسة فورية للحصول على الدعم والتوجيه. هل يمكنني حجز جلسة الآن؟وضغط نفسي شديد وأحتاج إلى التحدث مع أحد بشكل عاجل",
+                                    hintText: "instantSessionsDes".tr(),
                                     hintStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.black),
                                     filled: true,
                                     fillColor: Color(0xFFD5D5D5),
@@ -129,7 +129,7 @@ class _SpecialistInstantSessionScreenState extends State<SpecialistInstantSessio
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Text(
-                                    "شروط الجلسه",
+                                    "sessionTerms".tr(),
                                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xff1F78BC)),
                                   ),
                                 ),
@@ -143,7 +143,7 @@ class _SpecialistInstantSessionScreenState extends State<SpecialistInstantSessio
                                     children: [
                                       Icon(Icons.circle, size: 10, color: Colors.black),
                                       SizedBox(width: 5),
-                                      Text("تطلب الجلسه عند الضروره أو وجود وضع صعب"),
+                                      Text("term1Instant".tr()),
 
                                     ],
                                   ),
@@ -153,7 +153,7 @@ class _SpecialistInstantSessionScreenState extends State<SpecialistInstantSessio
                                     children: [
                                       Icon(Icons.circle, size: 10, color: Colors.black),
                                       SizedBox(width: 5),
-                                      Text("لا تطلب الجلسه عند حالات الإنتحار أو ايذاء الذات أو الآخرين"),
+                                      Text("term2Instant".tr()),
 
                                     ],
                                   ),
@@ -164,7 +164,7 @@ class _SpecialistInstantSessionScreenState extends State<SpecialistInstantSessio
 
                                       Icon(Icons.circle, size: 10, color: Colors.black),
                                       SizedBox(width: 5),
-                                      Text("يتم تحويلك إلي الأخصائي المتوفر لاجراء الجلسه"),
+                                      Text("term3Instant".tr()),
 
                                     ],
                                   ),
@@ -185,7 +185,7 @@ class _SpecialistInstantSessionScreenState extends State<SpecialistInstantSessio
                             ),
                             child: Center(
                               child: Text(
-                                'بدأ الجلسه',
+                                'startSession'.tr(),
                                 style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -203,7 +203,7 @@ class _SpecialistInstantSessionScreenState extends State<SpecialistInstantSessio
                             ),
                             child: Center(
                               child: Text(
-                                'ليس لدي مواعيد',
+                                'notHaveAppointment'.tr(),
                                 style: TextStyle(fontSize: 20, color: Color(0xff19649E), fontWeight: FontWeight.bold),
                               ),
                             ),

@@ -172,7 +172,7 @@ int listLength=0;
                             ),
                             child: Center(
                               child: Text(
-                                "جلسات فورية",
+                                "instantSessions".tr(),
                                 style: const TextStyle(
                                   fontSize: 18,
                                   color: Colors.white,
@@ -210,7 +210,7 @@ int listLength=0;
                             ),
                             child: Center(
                               child: Text(
-                                "إستشارات مجانيه",
+                                "freeConsultant".tr(),
                                 style: const TextStyle(
                                   fontSize: 18,
                                   color: Colors.white,

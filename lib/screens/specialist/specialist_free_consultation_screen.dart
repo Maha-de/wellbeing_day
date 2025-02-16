@@ -11,16 +11,16 @@ import '../../models/user_profile_model.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_bottom_nav_bar_specialist.dart';
 
-
-
 class SpecialistFreeConsultationScreen extends StatefulWidget {
   const SpecialistFreeConsultationScreen({super.key});
 
   @override
-  State<SpecialistFreeConsultationScreen> createState() => _SpecialistFreeConsultationScreenState();
+  State<SpecialistFreeConsultationScreen> createState() =>
+      _SpecialistFreeConsultationScreenState();
 }
 
-class _SpecialistFreeConsultationScreenState extends State<SpecialistFreeConsultationScreen> {
+class _SpecialistFreeConsultationScreenState
+    extends State<SpecialistFreeConsultationScreen> {
   late UserProfileCubit userProfileCubit;
 
   @override
@@ -54,11 +54,13 @@ class _SpecialistFreeConsultationScreenState extends State<SpecialistFreeConsult
                   body: Center(child: CircularProgressIndicator()),
                 );
               } else if (state is UserProfileFailure) {
-                return Center(child: Text("Error loading profile: ${state.error}"));
+                return Center(
+                    child: Text("Error loading profile: ${state.error}"));
               } else if (state is UserProfileSuccess) {
                 UserProfileModel userProfile = state.userProfile;
                 return Scaffold(
-                  bottomNavigationBar: SpecialistCustomBottomNavBar(currentIndex: 0),
+                  bottomNavigationBar:
+                      SpecialistCustomBottomNavBar(currentIndex: 0),
                   appBar: CustomAppBar(
                     userProfile: userProfile,
                     screenWidth: screenWidth,
@@ -68,26 +70,29 @@ class _SpecialistFreeConsultationScreenState extends State<SpecialistFreeConsult
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 15.0,top: 15),
+                          padding: const EdgeInsets.only(bottom: 15.0, top: 15),
                           child: Column(
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 15.0),
-
                                 child: Center(
                                   child: Container(
                                     width: 161,
                                     height: 40,
                                     decoration: BoxDecoration(
                                       color: Color(0xFF1F78BC),
-                                      borderRadius: BorderRadius.only(bottomRight: Radius.circular(20), topLeft: Radius.circular(20)),
+                                      borderRadius: BorderRadius.only(
+                                          bottomRight: Radius.circular(20),
+                                          topLeft: Radius.circular(20)),
                                     ),
                                     alignment: Alignment.center,
                                     child: Text(
-                                      "إستشاره مجانيه",
-                                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                                      "consultation".tr(),
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
                                     ),
                                   ),
                                 ),
@@ -97,28 +102,35 @@ class _SpecialistFreeConsultationScreenState extends State<SpecialistFreeConsult
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Text(
-                                    "عمر",
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xff19649E)),
+                                    "omar".tr(),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0xff19649E)),
                                   ),
                                 ),
                               ),
                               SizedBox(height: 5),
                               Container(
-                                width:screenWidth* 0.9,
+                                width: screenWidth * 0.9,
                                 height: 143,
                                 child: TextFormField(
-textAlign:TextAlign.right,
+                                  textAlign: TextAlign.right,
                                   decoration: InputDecoration(
-
-                                    hintText: "مرحبًا، أود الحصول على استشارة نفسية مجانية للتحدث عن بعض التحدياتالتي أواجهها مؤخرًا. أرغب في فهم مشاعري بشكل أفضل والتعرف على طرق للتعامل معها. هل يمكنكم مساعدتي في تحديد موعد للاستشارة؟",
-                                    hintStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.black),
+                                    hintText: "consultationDes".tr(),
+                                    hintStyle: TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black),
                                     filled: true,
                                     fillColor: Color(0xFFD5D5D5),
                                     border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(12)),
                                       borderSide: BorderSide.none,
                                     ),
-                                    contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 10, horizontal: 16),
                                   ),
                                   maxLines: 10,
                                 ),
@@ -129,8 +141,11 @@ textAlign:TextAlign.right,
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Text(
-                                    "شروط الجلسه",
-                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xff1F78BC)),
+                                    "sessionTerms".tr(),
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0xff1F78BC)),
                                   ),
                                 ),
                               ),
@@ -139,33 +154,29 @@ textAlign:TextAlign.right,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
-
                                     children: [
-                                      Icon(Icons.circle, size: 10, color: Colors.black),
+                                      Icon(Icons.circle,
+                                          size: 10, color: Colors.black),
                                       SizedBox(width: 5),
-                                      Text("ستكون مده الإستشاره 15 دقيقه"),
-
+                                      Text("term1".tr()),
                                     ],
                                   ),
                                   SizedBox(height: 5),
                                   Row(
-
                                     children: [
-                                      Icon(Icons.circle, size: 10, color: Colors.black),
+                                      Icon(Icons.circle,
+                                          size: 10, color: Colors.black),
                                       SizedBox(width: 5),
-                                      Text("عند الحاجه للتوجيه للعلاج او الأخصائي المناسب"),
-
+                                      Text("term2".tr()),
                                     ],
                                   ),
                                   SizedBox(height: 5),
                                   Row(
-
                                     children: [
-
-                                      Icon(Icons.circle, size: 10, color: Colors.black),
+                                      Icon(Icons.circle,
+                                          size: 10, color: Colors.black),
                                       SizedBox(width: 5),
-                                      Text("عند عدم وضوح الحاله النفسيه او الجسديه"),
-
+                                      Text("term3".tr()),
                                     ],
                                   ),
                                 ],
@@ -175,9 +186,9 @@ textAlign:TextAlign.right,
                           ),
                         ),
                         GestureDetector(
-                          onTap: (){},
+                          onTap: () {},
                           child: Container(
-                            width: screenWidth* 0.9,
+                            width: screenWidth * 0.9,
                             height: 48,
                             decoration: BoxDecoration(
                               color: Color(0xff19649E),
@@ -185,17 +196,20 @@ textAlign:TextAlign.right,
                             ),
                             child: Center(
                               child: Text(
-                                'تم الموافقه',
-                                style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+                                'approved'.tr(),
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
                         ),
                         SizedBox(height: 15),
                         GestureDetector(
-                          onTap: (){},
+                          onTap: () {},
                           child: Container(
-                            width: screenWidth* 0.9,
+                            width: screenWidth * 0.9,
                             height: 48,
                             decoration: BoxDecoration(
                               color: Color(0xffD5D5D5),
@@ -203,8 +217,11 @@ textAlign:TextAlign.right,
                             ),
                             child: Center(
                               child: Text(
-                                'ليس لدي مواعيد',
-                                style: TextStyle(fontSize: 20, color: Color(0xff19649E), fontWeight: FontWeight.bold),
+                                'notHaveAppointment'.tr(),
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Color(0xff19649E),
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
