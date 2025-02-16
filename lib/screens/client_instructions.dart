@@ -24,60 +24,62 @@ class _ClientInstructionsState extends State<ClientInstructions> {
           color: Color(0xff19649E),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(right: 15, left: 15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text("clientInstructions".tr(), style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
-            SizedBox(height: 0.5.h,),
-            Text("clientInstructionsPoints".tr(), maxLines: null,style: TextStyle(color: Colors.black, fontSize: 16, ),),
-            CheckboxListTile(
-              checkColor: Colors.white,
-              activeColor: Color(0xff19649E),
-              side: BorderSide(color: Color(0xff19649E), width: 2), // Change checkbox border color
-              title: Text("checkboxApproval1".tr(), textAlign: TextAlign.start, ), // RTL support
-              value: approval,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(right: 15, left: 15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text("clientInstructions".tr(), style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+              SizedBox(height: 0.5.h,),
+              Text("clientInstructionsPoints".tr(), maxLines: null,style: TextStyle(color: Colors.black, fontSize: 16, ),),
+              CheckboxListTile(
+                checkColor: Colors.white,
+                activeColor: Color(0xff19649E),
+                side: BorderSide(color: Color(0xff19649E), width: 2), // Change checkbox border color
+                title: Text("checkboxApproval1".tr(), textAlign: TextAlign.start, ), // RTL support
+                value: approval,
 
-              onChanged: (bool? value) {
-                setState(() {
-                  approval = value ?? false;
-                });
-              },
-              controlAffinity: ListTileControlAffinity.leading,
-            ),
-            Container(
-              width: 100.w,
-              height: 40.h,
-              child: ElevatedButton(
+                onChanged: (bool? value) {
+                  setState(() {
+                    approval = value ?? false;
+                  });
+                },
+                controlAffinity: ListTileControlAffinity.leading,
+              ),
+              Container(
+                width: 100.w,
+                height: 40.h,
+                child: ElevatedButton(
 
-                    onPressed: approval ? () {
-                      // Perform the action
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SignUpAsClient()),
-                      );
-                    } : null, // Disable the button if not checked
+                      onPressed: approval ? () {
+                        // Perform the action
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignUpAsClient()),
+                        );
+                      } : null, // Disable the button if not checked
 
 
-                style: ElevatedButton.styleFrom(
-                    // minimumSize: const Size(100, 40),
-                    backgroundColor: const Color(0xFF19649E),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10))),
-                  child: Center(
-                    child: Text(
-                      "start".tr(),
-                      style:  TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0.sp,
-                        fontWeight: FontWeight.bold,
+                  style: ElevatedButton.styleFrom(
+                      // minimumSize: const Size(100, 40),
+                      backgroundColor: const Color(0xFF19649E),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10))),
+                    child: Center(
+                      child: Text(
+                        "start".tr(),
+                        style:  TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-              ),
-            )
-          ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
 

@@ -235,7 +235,7 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Checkbox(
-                  activeColor: Colors.blue,
+                  activeColor: Color(0xff19649E),
                   value: entry.value,
                   onChanged: (newValue) {
                     setState(() {
