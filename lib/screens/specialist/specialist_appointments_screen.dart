@@ -150,7 +150,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                   ),
                   centerTitle: true,
                   title: Text(
-                    "مواعيدي",
+                    "appointments".tr(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: screenWidth * 0.06,
@@ -305,7 +305,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                                       ),
                                                       filled: true,
                                                       fillColor: Colors.transparent,
-                                                      hintText: "الأحد",
+                                                      hintText: "sunday".tr(),
                                                       hintStyle: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 16,
@@ -440,7 +440,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                                       ),
                                                       filled: true,
                                                       fillColor: Colors.transparent,
-                                                      hintText: "الاثنين",
+                                                      hintText: "monday".tr(),
                                                       hintStyle: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 16,
@@ -575,7 +575,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                                       ),
                                                       filled: true,
                                                       fillColor: Colors.transparent,
-                                                      hintText: "الثلاثاء",
+                                                      hintText: "tuesday".tr(),
                                                       hintStyle: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 16,
@@ -677,7 +677,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                 color: Color(0xff19649E)
                               ),
                               child: Center(
-                                child: Text("إضافة جلسه",
+                                child: Text("addSession".tr(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
@@ -776,7 +776,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                                       ),
                                                       filled: true,
                                                       fillColor: Colors.transparent,
-                                                      hintText: "ساعه",
+                                                      hintText: "hour".tr(),
                                                       hintStyle: TextStyle(
                                                         color: Colors.grey,
                                                         fontSize: 20,
@@ -848,7 +848,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                         ),
                       ),
                       child: Text(
-                        "تحديث",
+                        "update".tr(),
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -908,7 +908,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                   ),
                                   filled: true,
                                   fillColor: Colors.transparent,
-                                  hintText: "يوم",
+                                  hintText: "dayy".tr(),
                                   hintStyle: TextStyle(
                                     color: Colors.grey,
                                     fontSize: 20,
@@ -955,7 +955,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                   ),
                                   filled: true,
                                   fillColor: Colors.transparent,
-                                  hintText: "ساعه",
+                                  hintText: "hour".tr(),
                                   hintStyle: TextStyle(
                                     color: Colors.grey,
                                     fontSize: 20,

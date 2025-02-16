@@ -329,5 +329,9 @@
   "startSession": "Start Session",
   "notHaveAppointment": "Don't Have Appointments",
   "consultationDes": "Hello, I would like to have a free psychological consultation to talk about some challenges I have been facing recently. I would like to understand my feelings better and learn ways to deal with them. Can you help me schedule a consultation?",
-  "approved": "Approved"
+  "approved": "Approved",
+  "sunday": "Sunday",
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "addSession": "Add Session"
 }
