@@ -48,6 +48,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     // Navigate to the next screen after some time
     Timer(const Duration(seconds: 3), () async{
       final prefs = await SharedPreferences.getInstance();
+      print(prefs.containsKey("userId"));
+      print(prefs.containsKey("doctorId"));
       prefs.containsKey("userId")?
       Navigator.push(
         context,
@@ -55,7 +57,6 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
             builder: (context) => MultiBlocProvider(
               providers: [
                 BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                BlocProvider<DoctorSessionCubit>(create: (_) => DoctorSessionCubit()),
               ],
               child: const HomeScreen(),
             ),

@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'package:doctor/cubit/get_doctor_sessions_cubit/doctor_session_cubit.dart';
-import 'package:doctor/cubit/get_specialist/get_sepcialist_cubit.dart';
 import 'package:doctor/make_email/login.dart';
 import 'package:doctor/screens/group_therapy.dart';
 import 'package:doctor/screens/home_second_screen.dart';
@@ -69,6 +67,7 @@ int currentIndex=1;
   Future<void> _loadUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
+    print(id);
     userProfileCubit.getUserProfile(context, id);
 
   }

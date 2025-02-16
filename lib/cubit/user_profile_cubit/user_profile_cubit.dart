@@ -33,10 +33,10 @@ class UserProfileCubit extends Cubit<UserProfileState> {
 
       final response = await dio.get("/beneficiaries/beneficiary/$id");
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200||response.statusCode==201) {
         final userProfileModel = UserProfileModel.fromJson(response.data);
         userData = userProfileModel;
-
+        print(userData);
         // Update controllers with data
         firstNameController.text = userData?.firstName ?? "";
         lastNameController.text = userData?.lastName ?? "";
@@ -49,7 +49,8 @@ class UserProfileCubit extends Cubit<UserProfileState> {
 
         emit(UserProfileSuccess("Profile loaded successfully", userProfileModel));
       } else {
-        emit(UserProfileFailure("Error Fetching Data: ${response.data['message']}"));
+
+        emit(UserProfileFailure("Error Fetching Data: "));
       }
     } catch (e) {
       emit(UserProfileFailure("Error occurred while connecting to the API: $e"));
