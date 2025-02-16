@@ -217,16 +217,14 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Expanded(
-            child: Text(
-              category,
-              style: TextStyle(
-                color: Color(0xff19649E),
-                fontSize: 18.sp,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.right,
+          child: Text(
+            category,
+            style: TextStyle(
+              color: Color(0xff19649E),
+              fontSize: 18.sp,
+              fontWeight: FontWeight.bold,
             ),
+            textAlign: TextAlign.right,
           ),
         ),
         Column(

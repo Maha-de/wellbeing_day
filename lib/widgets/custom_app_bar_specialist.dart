@@ -95,13 +95,13 @@ class CustomAppBarSpecialist extends StatelessWidget implements PreferredSizeWid
                             SizedBox(width: screenWidth * 0.05.w),
                             _iconButton("assets/images/notification.png", () {
                               Future.microtask(() {
-                                // Ensures navigation happens correctly
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          Notificationsscreen()),
-                                );
+                                // // Ensures navigation happens correctly
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //       builder: (context) =>
+                                //           Notificationsscreen()),
+                                // );
                               });
                             })
                           ],

@@ -66,7 +66,7 @@ class _SignUpAsClientState extends State<SignUpAsClient> {
           child: Form(
             key: _formKey,
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.only(top: 30),
               child: BlocConsumer<SignUpCubit, SignupState>(
                 listener: (context, state) {
                   if (state is SignupSuccess) {
@@ -88,213 +88,216 @@ class _SignUpAsClientState extends State<SignUpAsClient> {
                 builder: (context, state) {
                   final cubit = context.read<SignUpCubit>();
 
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Center(
-                        child: Text(
-                          "discoverSpecialist".tr(),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 20.sp,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 16.h),
-                      CustomTextField(
-                        label: "firstName".tr(),
-                        suffixIcon: Icons.person,
-                        controller: firstNameController,
-                        validator: (value) =>
-                            value!.isEmpty ? "firstNameValidator".tr() : null,
-                      ),
-                      CustomTextField(
-                        label: "lastName".tr(),
-                        suffixIcon: Icons.family_restroom,
-                        controller: lastNameController,
-                        validator: (value) =>
-                            value!.isEmpty ? "lastNameValidator".tr() : null,
-                      ),
-                      CustomTextField(
-                        label: "email".tr(),
-                        suffixIcon: Icons.email,
-                        controller: emailController,
-                        keyboardType: TextInputType.emailAddress,
-                        validator: (value) =>
-                            value!.isEmpty ? "emailValidator".tr() : null,
-                      ),
-                      CustomTextField(
-                        label: "password".tr(),
-                        // suffixIcon: Icons.remove_red_eye_outlined,
-                        controller: passwordController,
-                        // obscureText: true,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "passwordValidator".tr();
-                          } else if (value.length < 8) {
-                            return "passwordLength".tr();
-                          }
-                          return null;
-                        },
-
-                        suffixIcon: obSecureText
-                            ? Icons.visibility_off_rounded
-                            : Icons.visibility_rounded,
-                        obscureText: obSecureText,
-                        onSuffixIconTap: (){
-                          setState(() {
-                            obSecureText = !obSecureText; // Toggle the obscure state
-                          });
-                        },
-
-                      ),
-                      CustomTextField(
-                        label: "phoneNumber".tr(),
-                        suffixIcon: Icons.phone_android,
-                        controller: phoneController,
-                        keyboardType: TextInputType.phone,
-                        validator: (value) =>
-                            value!.isEmpty ? "phoneNumberValidator".tr() : null,
-                      ),
-                      CustomTextField(
-                        label: "age".tr(),
-                        suffixIcon: Icons.cake,
-                        controller: ageController,
-                        keyboardType: TextInputType.number,
-                        validator: (value) {
-                          final age = int.tryParse(value!);
-                          return (age == null || age <= 18)
-                              ? "ageValidator".tr()
-                              : null;
-                        },
-                      ),
-                      Text("gender".tr(),
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            color: Color(0xff19649E),
-                            fontWeight: FontWeight.w500,
-                          )),
-                      SizedBox(height: 5.h),
-                      DropdownButtonFormField<String>(
-                        decoration: InputDecoration(
-                          labelText: "gender".tr(),
-                          border: const OutlineInputBorder(),
-                        ),
-                        value: selectedGender,
-                        items: ['male', 'female']
-                            .map((gender) => DropdownMenuItem(
-                                  value: gender,
-                                  child: Text(gender),
-                                ))
-                            .toList(),
-                        onChanged: (value) {
-                          selectedGender = value!;
-                        },
-                        // validator: (value) =>
-                        //     value == null ? "genderValidator".tr() : null,
-                      ),
-                      SizedBox(height: 10.h),
-                      CustomTextField(
-                        label: "nationality".tr(),
-                        suffixIcon: Icons.flag,
-                        controller: nationalityController,
-                        // validator: (value) =>
-                        // value!.isEmpty ? "nationalityValidator".tr() : null,
-                      ),
-                      CustomTextField(
-                        label: "homeAddress".tr(),
-                        suffixIcon: Icons.home,
-                        controller: addressController,
-                        // validator: (value) =>
-                        //     value!.isEmpty ? "homeAddressValidator".tr() : null,
-                      ),
-                      CustomTextField(
-                        label: "region".tr(),
-                        suffixIcon: Icons.location_on,
-                        controller: regionController,
-                        validator: (value) =>
-                            value!.isEmpty ? "regionValidator".tr() : null,
-                      ),
-                      CustomTextField(
-                        label: "profession".tr(),
-                        suffixIcon: Icons.work,
-                        controller: professionController,
-                        validator: (value) =>
-                            value!.isEmpty ? "professionValidator".tr() : null,
-                      ),
-                      SizedBox(height: 24.h),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            cubit.registerUser(
-                              firstName: firstNameController.text,
-                              lastName: lastNameController.text,
-                              email: emailController.text,
-                              password: passwordController.text,
-                              phone: phoneController.text,
-                              profession: professionController.text,
-                              homeAddress: addressController.text.isEmpty
-                                  ? " "
-                                  : addressController.text,
-                              age: int.tryParse(ageController.text) ?? 0,
-                              region: regionController.text,
-                              nationality: nationalityController.text.isEmpty
-                                  ? " "
-                                  : nationalityController.text,
-                              gender: selectedGender ?? "male",
-                            );
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xff19649E),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(31),
-                          ),
-                        ),
-                        child: state is SignupLoading
-                            ? const CircularProgressIndicator(
-                                color: Colors.white)
-                            : Text(
-                                "createAccount".tr(),
-                                style: TextStyle(
-                                  fontSize: 24.sp,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                      ),
-                      SizedBox(height: 10.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "alreadyHaveAnAccount".tr(),
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 30),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Center(
+                          child: Text(
+                            "discoverSpecialist".tr(),
+                            textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 16.sp,
+                              fontSize: 20.sp,
+                              color: Colors.black,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginPage()),
+                        ),
+                        SizedBox(height: 16.h),
+                        CustomTextField(
+                          label: "firstName".tr(),
+                          suffixIcon: Icons.person,
+                          controller: firstNameController,
+                          validator: (value) =>
+                              value!.isEmpty ? "firstNameValidator".tr() : null,
+                        ),
+                        CustomTextField(
+                          label: "lastName".tr(),
+                          suffixIcon: Icons.family_restroom,
+                          controller: lastNameController,
+                          validator: (value) =>
+                              value!.isEmpty ? "lastNameValidator".tr() : null,
+                        ),
+                        CustomTextField(
+                          label: "email".tr(),
+                          suffixIcon: Icons.email,
+                          controller: emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) =>
+                              value!.isEmpty ? "emailValidator".tr() : null,
+                        ),
+                        CustomTextField(
+                          label: "password".tr(),
+                          // suffixIcon: Icons.remove_red_eye_outlined,
+                          controller: passwordController,
+                          // obscureText: true,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "passwordValidator".tr();
+                            } else if (value.length < 8) {
+                              return "passwordLength".tr();
+                            }
+                            return null;
+                          },
+
+                          suffixIcon: obSecureText
+                              ? Icons.visibility_off_rounded
+                              : Icons.visibility_rounded,
+                          obscureText: obSecureText,
+                          onSuffixIconTap: (){
+                            setState(() {
+                              obSecureText = !obSecureText; // Toggle the obscure state
+                            });
+                          },
+
+                        ),
+                        CustomTextField(
+                          label: "phoneNumber".tr(),
+                          suffixIcon: Icons.phone_android,
+                          controller: phoneController,
+                          keyboardType: TextInputType.phone,
+                          validator: (value) =>
+                              value!.isEmpty ? "phoneNumberValidator".tr() : null,
+                        ),
+                        CustomTextField(
+                          label: "age".tr(),
+                          suffixIcon: Icons.cake,
+                          controller: ageController,
+                          keyboardType: TextInputType.number,
+                          validator: (value) {
+                            final age = int.tryParse(value!);
+                            return (age == null || age <= 18)
+                                ? "ageValidator".tr()
+                                : null;
+                          },
+                        ),
+                        Text("gender".tr(),
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              color: Color(0xff19649E),
+                              fontWeight: FontWeight.w500,
+                            )),
+                        SizedBox(height: 5.h),
+                        DropdownButtonFormField<String>(
+                          decoration: InputDecoration(
+                            labelText: "gender".tr(),
+                            border: const OutlineInputBorder(),
+                          ),
+                          value: selectedGender,
+                          items: ['male', 'female']
+                              .map((gender) => DropdownMenuItem(
+                                    value: gender,
+                                    child: Text(gender),
+                                  ))
+                              .toList(),
+                          onChanged: (value) {
+                            selectedGender = value!;
+                          },
+                          // validator: (value) =>
+                          //     value == null ? "genderValidator".tr() : null,
+                        ),
+                        SizedBox(height: 10.h),
+                        CustomTextField(
+                          label: "nationality".tr(),
+                          suffixIcon: Icons.flag,
+                          controller: nationalityController,
+                          // validator: (value) =>
+                          // value!.isEmpty ? "nationalityValidator".tr() : null,
+                        ),
+                        CustomTextField(
+                          label: "homeAddress".tr(),
+                          suffixIcon: Icons.home,
+                          controller: addressController,
+                          // validator: (value) =>
+                          //     value!.isEmpty ? "homeAddressValidator".tr() : null,
+                        ),
+                        CustomTextField(
+                          label: "region".tr(),
+                          suffixIcon: Icons.location_on,
+                          controller: regionController,
+                          validator: (value) =>
+                              value!.isEmpty ? "regionValidator".tr() : null,
+                        ),
+                        CustomTextField(
+                          label: "profession".tr(),
+                          suffixIcon: Icons.work,
+                          controller: professionController,
+                          validator: (value) =>
+                              value!.isEmpty ? "professionValidator".tr() : null,
+                        ),
+                        SizedBox(height: 24.h),
+                        ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              cubit.registerUser(
+                                firstName: firstNameController.text,
+                                lastName: lastNameController.text,
+                                email: emailController.text,
+                                password: passwordController.text,
+                                phone: phoneController.text,
+                                profession: professionController.text,
+                                homeAddress: addressController.text.isEmpty
+                                    ? " "
+                                    : addressController.text,
+                                age: int.tryParse(ageController.text) ?? 0,
+                                region: regionController.text,
+                                nationality: nationalityController.text.isEmpty
+                                    ? " "
+                                    : nationalityController.text,
+                                gender: selectedGender ?? "male",
                               );
-                            },
-                            child: Text(
-                              "signIn".tr(),
-                              style: const TextStyle(
-                                color: Color(0xff19649E),
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xff19649E),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(31),
+                            ),
+                          ),
+                          child: state is SignupLoading
+                              ? const CircularProgressIndicator(
+                                  color: Colors.white)
+                              : Text(
+                                  "createAccount".tr(),
+                                  style: TextStyle(
+                                    fontSize: 24.sp,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                        ),
+                        SizedBox(height: 10.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "alreadyHaveAnAccount".tr(),
+                              style: TextStyle(
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                            TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginPage()),
+                                );
+                              },
+                              child: Text(
+                                "signIn".tr(),
+                                style: const TextStyle(
+                                  color: Color(0xff19649E),
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   );
                 },
               ),

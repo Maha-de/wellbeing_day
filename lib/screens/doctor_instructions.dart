@@ -27,7 +27,7 @@ class _DoctorInstructionsState extends State<DoctorInstructions> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(right: 15, left: 15),
+          padding: const EdgeInsets.only(right: 15, left: 15, bottom: 30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [

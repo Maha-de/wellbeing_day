@@ -45,7 +45,7 @@ class _NotificationsscreenState extends State<Notificationsscreen> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(top: 15.0),
+          padding: const EdgeInsets.only(top: 30),
           child: Column(
             children: [
               SizedBox(height: 20.h),
