@@ -64,6 +64,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
             } else if (state is DoctorProfileSuccess) {
               DoctorByIdModel userProfile = state.doctorProfile;
               return Scaffold(
+                backgroundColor: Colors.white,
     body: SafeArea(
       maintainBottomViewPadding: true,
       top: true,
@@ -207,7 +208,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                               ),
                             ),
                             style: TextStyle(color: Colors.black),
-                            textAlign: TextAlign.right,
+                            textAlign: TextAlign.start,
                             // textDirection: TextDirection.rtl,
                           ),
                         ),
