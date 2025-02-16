@@ -28,10 +28,10 @@ class _LoginPageState extends State<LoginPage> {
 
   final TextEditingController roleController = TextEditingController();
 
+  bool _isObscure1 = true;
 
   @override
   Widget build(BuildContext context) {
-    bool _isObscure1 = true;
     return BlocProvider(
       create: (_) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginState>(
@@ -120,7 +120,9 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () {
                   setState(() {
                     _isObscure1 = !_isObscure1;
+
                   });
+
                 },
               ),
                       isPassword: _isObscure1,

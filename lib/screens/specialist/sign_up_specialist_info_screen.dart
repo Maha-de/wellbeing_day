@@ -14,6 +14,7 @@ import '../../api/dio_consumer.dart';
 import '../../api/user_repository.dart';
 import '../../core/validators.dart';
 import '../../cubit/doctor_sign_up_cubit/doctor_sign_up_cubit.dart';
+import '../../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../../models/Specialist.dart';
 import '../../widgets/custom_snake_bar.dart';
 import '../../widgets/custom_upload_file.dart';
@@ -28,6 +29,8 @@ class SignUpAsDoctorFirstScreen extends StatefulWidget {
 
 class _SignUpAsDoctorFirstScreenState extends State<SignUpAsDoctorFirstScreen> {
   bool isSubmitted = false;
+  bool obSecureText = true;
+  bool obSecureText1 = true;
 
   GlobalKey<FormState> signUpFormKey = GlobalKey();
   late PlatformFile cvFile;
@@ -137,7 +140,16 @@ class _SignUpAsDoctorFirstScreenState extends State<SignUpAsDoctorFirstScreen> {
                     validator: (value) => isSubmitted
                         ? validatePassword(value, "password".tr())
                         : null,
-                    suffixIcon: Icons.remove_red_eye,
+
+                    suffixIcon: obSecureText
+                        ? Icons.visibility_off_rounded
+                        : Icons.visibility_rounded,
+                    obscureText: obSecureText,
+                    onSuffixIconTap: (){
+                      setState(() {
+                        obSecureText = !obSecureText; // Toggle the obscure state
+                      });
+                    },
                   ),
                   CustomTextField(
                     label: "confirmPassword".tr(),
@@ -152,7 +164,16 @@ class _SignUpAsDoctorFirstScreenState extends State<SignUpAsDoctorFirstScreen> {
                                 .passwordController
                                 .text)
                         : null,
-                    suffixIcon: Icons.remove_red_eye,
+                    suffixIcon: obSecureText1
+                        ? Icons.visibility_off_rounded
+                        : Icons.visibility_rounded,
+                    obscureText: obSecureText1,
+                    onSuffixIconTap: (){
+                      setState(() {
+                        obSecureText1 = !obSecureText1; // Toggle the obscure state
+                      });
+                    },
+
                   ),
                   CustomTextField(
                     keyboardType: TextInputType.number,

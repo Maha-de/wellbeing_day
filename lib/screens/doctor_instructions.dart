@@ -51,13 +51,15 @@ class _DoctorInstructionsState extends State<DoctorInstructions> {
               width: 100.w,
               height: 40.h,
               child: ElevatedButton(
-                onPressed: (){
 
+                onPressed: approval ? () {
+                  // Perform the action
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => SignUpAsDoctorFirstScreen()),
                   );
-                },
+                } : null, // Disable the button if not checked
+
                 style: ElevatedButton.styleFrom(
                   // minimumSize: const Size(100, 40),
                     backgroundColor: const Color(0xFF19649E),

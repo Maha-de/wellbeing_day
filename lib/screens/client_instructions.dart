@@ -50,13 +50,16 @@ class _ClientInstructionsState extends State<ClientInstructions> {
               width: 100.w,
               height: 40.h,
               child: ElevatedButton(
-                  onPressed: (){
 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SignUpAsClient()),
-                    );
-                  },
+                    onPressed: approval ? () {
+                      // Perform the action
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SignUpAsClient()),
+                      );
+                    } : null, // Disable the button if not checked
+
+
                 style: ElevatedButton.styleFrom(
                     // minimumSize: const Size(100, 40),
                     backgroundColor: const Color(0xFF19649E),

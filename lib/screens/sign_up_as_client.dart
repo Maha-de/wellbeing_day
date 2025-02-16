@@ -14,23 +14,40 @@ import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../make_email/login.dart';
 
 // صفحة تسجيل المستخدم
-class SignUpAsClient extends StatelessWidget {
+class SignUpAsClient extends StatefulWidget {
   SignUpAsClient({super.key});
 
+  @override
+  State<SignUpAsClient> createState() => _SignUpAsClientState();
+}
+
+class _SignUpAsClientState extends State<SignUpAsClient> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   final TextEditingController firstNameController = TextEditingController();
+
   final TextEditingController lastNameController = TextEditingController();
+
   final TextEditingController emailController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
+
   final TextEditingController phoneController = TextEditingController();
+
   final TextEditingController ageController = TextEditingController();
+
   final TextEditingController nationalityController = TextEditingController();
+
   final TextEditingController addressController = TextEditingController();
+
   final TextEditingController regionController = TextEditingController();
+
   final TextEditingController professionController = TextEditingController();
 
   // متغير لتحديد الجنس
   String? selectedGender;
+
+  bool obSecureText = true;
 
   // حفظ اسم المستخدم في SharedPreferences
   Future<void> _saveUserName(String firstName) async {
@@ -110,9 +127,9 @@ class SignUpAsClient extends StatelessWidget {
                       ),
                       CustomTextField(
                         label: "password".tr(),
-                        suffixIcon: Icons.remove_red_eye_outlined,
+                        // suffixIcon: Icons.remove_red_eye_outlined,
                         controller: passwordController,
-                        obscureText: true,
+                        // obscureText: true,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "passwordValidator".tr();
@@ -121,6 +138,17 @@ class SignUpAsClient extends StatelessWidget {
                           }
                           return null;
                         },
+
+                        suffixIcon: obSecureText
+                            ? Icons.visibility_off_rounded
+                            : Icons.visibility_rounded,
+                        obscureText: obSecureText,
+                        onSuffixIconTap: (){
+                          setState(() {
+                            obSecureText = !obSecureText; // Toggle the obscure state
+                          });
+                        },
+
                       ),
                       CustomTextField(
                         label: "phoneNumber".tr(),

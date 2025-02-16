@@ -1,4 +1,5 @@
 import 'package:doctor/screens/secondpage.dart';
+import 'package:doctor/screens/selectionpage.dart';
 import 'package:doctor/screens/specialist/sessions_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class WelcomeScreen extends StatelessWidget {
                 alignment: Alignment.topRight,
                 child: TextButton(
                   onPressed: () {
-                    // Navigator.push(context, MaterialPageRoute(builder: (context) => const SessionsScreen()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const SelectionPage()));
 
                   },
                   child: Text('skip'.tr(),

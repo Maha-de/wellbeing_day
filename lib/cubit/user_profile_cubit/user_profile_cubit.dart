@@ -12,6 +12,7 @@ class UserProfileCubit extends Cubit<UserProfileState> {
 
   UserProfileModel? userData;
 
+
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final emailController = TextEditingController();
@@ -55,7 +56,6 @@ class UserProfileCubit extends Cubit<UserProfileState> {
       emit(UserProfileFailure("Error occurred while connecting to the API: $e"));
     }
   }
-
 
 
 }
