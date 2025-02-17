@@ -31,7 +31,7 @@ class AppDef extends StatelessWidget {
           SizedBox(height: 16.h),
           Text(
             'featured_services'.tr(),
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
           ),
           SizedBox(height: 8.h),
           Text(

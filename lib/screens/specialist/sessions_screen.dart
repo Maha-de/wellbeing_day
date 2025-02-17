@@ -31,12 +31,9 @@ class SessionsScreen extends StatefulWidget {
 }
 
 class _SessionsScreenState extends State<SessionsScreen> {
-
-
   int _currentPage = 0;
   final int totalPages = 2;
   int listLength = 2;
-
 
   late DoctorProfileCubit userProfileCubit;
   late DoctorSessionCubit doctorSessionCubit;
@@ -53,7 +50,6 @@ class _SessionsScreenState extends State<SessionsScreen> {
     userProfileCubit = BlocProvider.of<DoctorProfileCubit>(context);
     doctorSessionCubit = BlocProvider.of<DoctorSessionCubit>(context);
     _loadUserProfile();
-
   }
 
   Future<void> _loadUserProfile() async {
@@ -71,184 +67,212 @@ class _SessionsScreenState extends State<SessionsScreen> {
     return BlocProvider(
         create: (_) => userProfileCubit,
         child: BlocBuilder<DoctorProfileCubit, DoctorProfileState>(
-        builder: (context, state)
-    {
-      if (state is DoctorProfileLoading) {
-        return const Scaffold(
-          body: Center(child: CircularProgressIndicator()),
-        );
-      } else if (state is DoctorProfileFailure) {
-        return Center(child: Text("Error loading profile: ${state.error}"));
-      } else if (state is DoctorProfileSuccess) {
-        DoctorByIdModel userProfile = state.doctorProfile;
+            builder: (context, state) {
+          if (state is DoctorProfileLoading) {
+            return const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            );
+          } else if (state is DoctorProfileFailure) {
+            return Center(child: Text("Error loading profile: ${state.error}"));
+          } else if (state is DoctorProfileSuccess) {
+            DoctorByIdModel userProfile = state.doctorProfile;
 
-        return Scaffold(
-          backgroundColor: Colors.white,
-          bottomNavigationBar: const SpecialistCustomBottomNavBar(
-            currentIndex: 1,),
-          appBar: CustomAppBarSpecialist(
-              userProfile: userProfile.specialist,
-
-              screenWidth: screenWidth, screenHeight: screenHeight),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: 30.h,),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                    height: 50.h,
-                    width: 250.w,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      color: Color(0xFF19649E),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        bottomRight: Radius.circular(30),
+            return Scaffold(
+              backgroundColor: Colors.white,
+              bottomNavigationBar: const SpecialistCustomBottomNavBar(
+                currentIndex: 1,
+              ),
+              appBar: CustomAppBarSpecialist(
+                  userProfile: userProfile.specialist,
+                  screenWidth: screenWidth,
+                  screenHeight: screenHeight),
+              body: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Container(
+                        height: 50.h,
+                        width: 250.w,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          color: Color(0xFF19649E),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(30),
+                            bottomRight: Radius.circular(30),
+                          ),
+                        ),
+                        child: Center(
+                            child: Text(
+                          "myAppointments".tr(),
+                          style: TextStyle(
+                            fontSize: 20.sp,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )),
                       ),
                     ),
-                    child: Center(
-                        child: Text(
-                          "myAppointments".tr(),
-                          style: TextStyle(fontSize: 20.sp,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,),
-                        )),
-                  ),
-                ),
-                SizedBox(height: 10.h,),
-            
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(25, 0, 25, 5),
-                  child: Column(
-                    children: [
-                      NavigationBar(
-                        backgroundColor: Colors.transparent,
-                        height: 50.h,
-                        destinations: [
-            
-            
-                          TextButton(
-                            onPressed: () {
-                              _onItemTapped(1);
-                            },
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.zero,
-                              backgroundColor:
-                              _currentPage == 1 ? Color(0xFF19649E) : Colors.grey
-                                  .shade300,
-                            ),
-                            child: Text(
-                              "completedSessions".tr(),
-                              style: TextStyle(
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 5),
+                      child: Column(
+                        children: [
+                          NavigationBar(
+                            backgroundColor: Colors.transparent,
+                            height: 50.h,
+                            destinations: [
+                              TextButton(
+                                onPressed: () {
+                                  _onItemTapped(1);
+                                },
+                                style: TextButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                  backgroundColor: _currentPage == 1
+                                      ? Color(0xFF19649E)
+                                      : Colors.grey.shade300,
+                                ),
+                                child: Text(
+                                  "completedSessions".tr(),
+                                  style: TextStyle(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-            
-                          TextButton(
-                            onPressed: () {
-                              _onItemTapped(0);
-                            },
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.zero,
-                              backgroundColor:
-                              _currentPage == 0 ? Color(0xFF19649E) : Colors.grey
-                                  .shade300,
-                            ),
-                            child: Text(
-                              "nextSessions".tr(),
-                              style: TextStyle(
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                              TextButton(
+                                onPressed: () {
+                                  _onItemTapped(0);
+                                },
+                                style: TextButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                  backgroundColor: _currentPage == 0
+                                      ? Color(0xFF19649E)
+                                      : Colors.grey.shade300,
+                                ),
+                                child: Text(
+                                  "nextSessions".tr(),
+                                  style: TextStyle(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
+                            // selectedIndex: _currentPage,
+                            // onDestinationSelected: _onItemTapped,
                           ),
-            
                         ],
-                        // selectedIndex: _currentPage,
-                        // onDestinationSelected: _onItemTapped,
                       ),
-                    ],
-                  ),
+                    ),
+                    <Widget>[
+                      SizedBox(height: 5.h),
+                      BlocBuilder<DoctorSessionCubit, DoctorSessionState>(
+                        builder: (context, state) {
+                          if (state is DoctorSessionLoading) {
+                            return CircularProgressIndicator(); // Show loading indicator
+                          } else if (state is DoctorSessionFailure) {
+                            return Text(state.error); // Display error message
+                          } else if (state is DoctorSessionSuccess) {
+                            return Container(
+                              height: 400,
+                              width: screenWidth,
+                              child:
+                                  state.session.scheduledSessions?.length == 0
+                                      ? Center(
+                                          child: Image(
+                                            image: AssetImage(
+                                                "assets/images/image.png"),
+                                            fit: BoxFit.fill,
+                                          ),
+                                        )
+                                      : ListView.separated(
+                                          padding: EdgeInsets.only(top: 45),
+                                          itemBuilder: (context, index) {
+                                            return BeneficiaryCard(
+                                              session: state
+                                                  .session
+                                                  .scheduledSessions?[index]
+                                                  .beneficiary,
+                                              scheduledSessions: state.session
+                                                  .scheduledSessions?[index],
+                                            );
+                                          },
+                                          separatorBuilder: (context, index) {
+                                            return SizedBox(
+                                              height: 50.h,
+                                            );
+                                          },
+                                          itemCount: state.session
+                                                  .scheduledSessions?.length ??
+                                              0),
+                            );
+                          } else {
+                            return Center(
+                                child: Text('noSpecialistsFound'.tr()));
+                          }
+                        },
+                      ),
+                      BlocBuilder<DoctorSessionCubit, DoctorSessionState>(
+                        builder: (context, state) {
+                          if (state is DoctorSessionLoading) {
+                            return CircularProgressIndicator(); // Show loading indicator
+                          } else if (state is DoctorSessionFailure) {
+                            return Text(state.error); // Display error message
+                          } else if (state is DoctorSessionSuccess) {
+                            return Container(
+                              height: 400.h,
+                              width: screenWidth,
+                              child:
+                                  state.session.completedSessions?.length == 0
+                                      ? Center(
+                                          child: Image(
+                                            image: AssetImage(
+                                                "assets/images/image.png"),
+                                            fit: BoxFit.fill,
+                                          ),
+                                        )
+                                      : ListView.separated(
+                                          padding: EdgeInsets.only(top: 45),
+                                          itemBuilder: (context, index) {
+                                            return BeneficiaryCard(
+                                              session: state
+                                                  .session
+                                                  .completedSessions?[index]
+                                                  .beneficiary,
+                                              completedSessions: state.session
+                                                  .completedSessions?[index],
+                                            );
+                                          },
+                                          separatorBuilder: (context, index) {
+                                            return SizedBox(
+                                              height: 50.h,
+                                            );
+                                          },
+                                          itemCount: state.session
+                                                  .scheduledSessions?.length ??
+                                              0),
+                            );
+                          } else {
+                            return Center(
+                                child: Text('noSpecialistsFound'.tr()));
+                          }
+                        },
+                      )
+                    ][_currentPage],
+                  ],
                 ),
-            
-                <Widget>[
-            
-                  SizedBox(height: 5),
-            
-            
-            
-                  BlocBuilder<DoctorSessionCubit, DoctorSessionState>(
-                    builder: (context, state) {
-                      if (state is DoctorSessionLoading) {
-                        return CircularProgressIndicator(); // Show loading indicator
-                      } else if (state is DoctorSessionFailure) {
-                        return Text(state.error); // Display error message
-                      } else if (state is DoctorSessionSuccess) {
-                        return Container(
-                          height: 400,
-
-                          width: screenWidth,
-                          child: state.session.scheduledSessions?.length == 0?
-                          Center(
-                            child: Image(image:AssetImage("assets/images/image.png"),fit: BoxFit.fill,),
-                          ):
-                          ListView.separated(
-                              padding: EdgeInsets.only(top: 45),
-                              itemBuilder: (context,index)
-                              {
-                                return BeneficiaryCard(session: state.session.scheduledSessions?[index].beneficiary,scheduledSessions: state.session.scheduledSessions?[index],);
-                              }, separatorBuilder: (context,index){
-                            return SizedBox(height: 50,);
-                          }, itemCount: state.session.scheduledSessions?.length??0),
-                        );
-                      } else {
-                        return Center(child: Text('noSpecialistsFound'.tr()));
-                      }
-                    },
-                  ),
-                  BlocBuilder<DoctorSessionCubit, DoctorSessionState>(
-                    builder: (context, state) {
-                      if (state is DoctorSessionLoading) {
-                        return CircularProgressIndicator(); // Show loading indicator
-                      } else if (state is DoctorSessionFailure) {
-                        return Text(state.error); // Display error message
-                      } else if (state is DoctorSessionSuccess) {
-                        return Container(
-                          height: 400,
-                          width: screenWidth,
-                          child: state.session.completedSessions?.length == 0?
-                          Center(
-                            child: Image(image:AssetImage("assets/images/image.png"),fit: BoxFit.fill,),
-                          ):
-                          ListView.separated(
-                              padding: EdgeInsets.only(top: 45),
-                              itemBuilder: (context,index)
-                              {
-                                return BeneficiaryCard(session: state.session.completedSessions?[index].beneficiary,completedSessions: state.session.completedSessions?[index],);
-                              }, separatorBuilder: (context,index){
-                            return SizedBox(height: 50,);
-                          }, itemCount: state.session.scheduledSessions?.length??0),
-                        );
-                      } else {
-                        return Center(child: Text('noSpecialistsFound'.tr()));
-                      }
-                    },
-                  )
-                ]
-                [_currentPage],
-              ],
-            ),
-          ),
-        );
-      }
-      return Container(); // Default return in case no state matches
-    }
-        )
-    );
+              ),
+            );
+          }
+          return Container(); // Default return in case no state matches
+        }));
   }
 }

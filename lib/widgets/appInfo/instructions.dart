@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class InstructionTab extends StatelessWidget {
   const InstructionTab({
@@ -11,18 +12,20 @@ class InstructionTab extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          SizedBox(height: 8),
+          SizedBox(height: 8.h),
           SelectableText.rich(
             TextSpan(
-              style: TextStyle(fontSize: 16, color: Colors.black, height: 2),
+              style:
+                  TextStyle(fontSize: 16.sp, color: Colors.black, height: 2.h),
               children: [
                 TextSpan(
                   text: "${"importantInstructions".tr()}\n",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 23.sp),
                 ),
                 TextSpan(
                   text: "${"client_registration".tr()}\n",
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: 16.sp),
                 ),
                 TextSpan(
                   text: "${"therapeutic_relationship".tr()}\n",
@@ -46,15 +49,18 @@ class InstructionTab extends StatelessWidget {
 // '''),
                 TextSpan(
                   text: "recommendationsForSpecialists".tr(),
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 23.sp),
                 ),
                 TextSpan(
                   text: "recommendation".tr(),
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
                 ),
                 TextSpan(
                   text: "${"specialist_account_creation".tr()}\n",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
                 ),
                 TextSpan(
                   text: "${"professional_requirements".tr()}\n",
@@ -76,7 +82,8 @@ class InstructionTab extends StatelessWidget {
                 ),
                 TextSpan(
                   text: "${"some_notes".tr()}\n",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 23.sp),
                 ),
                 TextSpan(
                   text: "${"platform_usage_restriction".tr()}\n",
@@ -117,7 +124,7 @@ class InstructionTab extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 8),
+          SizedBox(height: 8.h),
         ],
       ),
     );

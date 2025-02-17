@@ -21,28 +21,32 @@ class FqaTab extends StatelessWidget {
               children: [
                 TextSpan(
                   text: "${"session_booking_method".tr()}\n",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
                 ),
                 TextSpan(
                   text: "${"session_booking_details".tr()}\n\n",
                 ),
                 TextSpan(
                   text: "${"why_online_session".tr()}\n",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
                 ),
                 TextSpan(
                   text: "${"why_online_session_details".tr()}\n\n",
                 ),
                 TextSpan(
                   text: "${"sessions_needed".tr()}\n",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
                 ),
                 TextSpan(
                   text: "${"sessions_needed_details".tr()}\n\n",
                 ),
                 TextSpan(
                   text: "${"how_is_info_handled".tr()}\n",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
                 ),
                 TextSpan(
                   text: "${"how_is_info_handled_details".tr()}\n\n",
@@ -52,7 +56,8 @@ class FqaTab extends StatelessWidget {
                 ),
                 TextSpan(
                   text: "${"what_to_expect_from_consultation".tr()}\n",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
                 ),
                 TextSpan(
                   text:
@@ -60,7 +65,8 @@ class FqaTab extends StatelessWidget {
                 ),
                 TextSpan(
                   text: "${"what_if_late".tr()}\n",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
                 ),
                 TextSpan(
                   text: "${"what_if_late_details".tr()}\n",
