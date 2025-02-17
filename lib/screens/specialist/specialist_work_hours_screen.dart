@@ -1,10 +1,10 @@
 import 'package:doctor/screens/specialist/specialist_appointments_screen.dart';
+import 'package:doctor/screens/specialist/specialist_home_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
 import '../../cubit/doctor_details_cubit/doctor_profile_state.dart';
@@ -153,7 +153,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                 ],
               ),
               Text(
-                "${userProfile.specialist?.firstName}"+"doctor".tr(),
+                "${userProfile.specialist?.firstName} "+"doctor".tr(),
                 style: TextStyle(
                   fontSize: 20,
                   color: Color(0xff19649E),
@@ -408,11 +408,11 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
               MaterialPageRoute(
                 builder: (context) => MultiBlocProvider(
                   providers: [
-                    BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                    BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                    BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
+                    BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),
                     BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                   ],
-                  child:  SpecialistAppointmentsScreen(),
+                  child: SpecialistHomeScreen(),
                 ),
 
               ),

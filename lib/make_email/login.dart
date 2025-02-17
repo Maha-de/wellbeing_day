@@ -54,6 +54,7 @@ class _LoginPageState extends State<LoginPage> {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
+                settings: RouteSettings(arguments: 'fromLogin'),
                 builder: (context) => MultiBlocProvider(
                   providers: [
                     BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),

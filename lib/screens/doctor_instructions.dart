@@ -31,9 +31,9 @@ class _DoctorInstructionsState extends State<DoctorInstructions> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("doctorInstructions".tr(), style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+              Text("doctorInstructions".tr(), style: TextStyle(color: Colors.black, fontSize: 20.sp, fontWeight: FontWeight.bold),),
               SizedBox(height: 0.5.h,),
-              Text("doctorInstructionsPoints".tr(), maxLines: null,style: TextStyle(color: Colors.black, fontSize: 16, ),),
+              Text("doctorInstructionsPoints".tr(), maxLines: null,style: TextStyle(color: Colors.black, fontSize: 16.sp, height: 2.h),),
               CheckboxListTile(
                 checkColor: Colors.white,
                 activeColor: Color(0xff19649E),

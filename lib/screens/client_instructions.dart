@@ -30,9 +30,9 @@ class _ClientInstructionsState extends State<ClientInstructions> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("clientInstructions".tr(), style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+              Text("clientInstructions".tr(), style: TextStyle(color: Colors.black, fontSize: 20.sp, fontWeight: FontWeight.bold),),
               SizedBox(height: 0.5.h,),
-              Text("clientInstructionsPoints".tr(), maxLines: null,style: TextStyle(color: Colors.black, fontSize: 16, ),),
+              Text("clientInstructionsPoints".tr(), maxLines: null,style: TextStyle(color: Colors.black, fontSize: 16.sp, height: 2.h),),
               CheckboxListTile(
                 checkColor: Colors.white,
                 activeColor: Color(0xff19649E),

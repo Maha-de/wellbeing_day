@@ -23,7 +23,7 @@ class DoctorInstructions2 extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("instructionDoctor2".tr(), maxLines: null,style: TextStyle(color: Colors.black, fontSize: 16,),),
+              Text("instructionDoctor2".tr(), maxLines: null,style: TextStyle(color: Colors.black, fontSize: 16.sp, height: 2.h),),
 
               SizedBox(height: 30.h,),
               SizedBox(

@@ -8,7 +8,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
 import '../../cubit/doctor_details_cubit/doctor_profile_state.dart';
@@ -19,6 +18,7 @@ import '../../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../../cubit/user_profile_cubit/user_profile_state.dart';
 import '../../models/Doctor_id_model.dart';
 import '../../models/user_profile_model.dart';
+import '../doctor_change_language.dart';
 
 
 class SpecialistSettingsScreen extends StatefulWidget {
@@ -104,6 +104,7 @@ class _SpecialistSettingsScreenState extends State<SpecialistSettingsScreen> {
 
   late DoctorProfileCubit userProfileCubit;
   late AddImageToProfileCubit addImageToProfileCubit;
+
   @override
   void initState() {
     super.initState();
@@ -303,7 +304,7 @@ class _SpecialistSettingsScreenState extends State<SpecialistSettingsScreen> {
                                     BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                                     BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),
                                   ],
-                                  child: const SpecialistWorkHoursScreen(),
+                                  child: const DoctorChangeLanguage(),
                                 ),
                               ),
                             );

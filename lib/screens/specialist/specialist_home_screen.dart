@@ -1,14 +1,10 @@
 import 'dart:async';
-import 'package:doctor/screens/home_second_screen.dart';
-import 'package:doctor/screens/problem_solving_screen.dart';
-import 'package:doctor/screens/psychological_disorders_screen.dart';
-import 'package:doctor/screens/psychological_prevention_screen.dart';
-import 'package:doctor/screens/rehabilitation_screen.dart';
 import 'package:doctor/screens/specialist/specialist_second_home_screen.dart';
-import 'package:doctor/screens/therapeutic_programs_screen.dart';
+import 'package:doctor/screens/specialist/specialist_work_hours_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
@@ -16,21 +12,11 @@ import '../../cubit/doctor_details_cubit/doctor_profile_state.dart';
 import '../../cubit/get_doctor_sessions_types_cubit/doctor_session_types_cubit.dart';
 import '../../cubit/get_doctor_sessions_types_cubit/doctor_session_types_state.dart';
 import '../../cubit/update_user_cubit/update_user_cubit.dart';
-import '../../cubit/user_profile_cubit/user_profile_cubit.dart';
-import '../../cubit/user_profile_cubit/user_profile_state.dart';
 import '../../models/Doctor_id_model.dart';
-import '../../models/user_profile_model.dart';
-import '../../widgets/beneficiary_card.dart';
 import '../../widgets/beneficiary_card_home.dart';
-import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_app_bar_specialist.dart';
-import '../../widgets/custom_bottom_nav_bar.dart';
 import '../../widgets/custom_bottom_nav_bar_specialist.dart';
-import '../childrens_disorder_screen.dart';
-import '../free_consultation_screen.dart';
-import '../home_third_screen.dart';
-import '../homescreen.dart';
-import '../instant_session_screen.dart';
+
 
 
 class SpecialistHomeScreen extends StatefulWidget {
@@ -54,13 +40,39 @@ int listLength=0;
   late DoctorProfileCubit userProfileCubit;
   late DoctorSessionTypesCubit sessionTypesCubit;
   bool isFirstButtonActive = true;
+  bool _hasShownDialog = false; // Flag to track if the dialog has been shown
+
+
   @override
   void initState() {
     super.initState();
+    // // Show the popup dialog when the page is initialized
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   _showPopup(context);
+    // });
+    // Check if the dialog has been shown before
+    _checkIfDialogShown();
     userProfileCubit = BlocProvider.of<DoctorProfileCubit>(context);
     sessionTypesCubit = BlocProvider.of<DoctorSessionTypesCubit>(context);
     _loadUserProfile();
     _startAutoPageSwitch();
+  }
+
+  Future<void> _checkIfDialogShown() async {
+    final prefs = await SharedPreferences.getInstance();
+    _hasShownDialog = prefs.getBool('hasShownDialog') ?? false;
+
+    // Check if the user navigated from the login page
+    bool fromLoginPage = ModalRoute.of(context)?.settings.arguments == 'fromLogin';
+
+    if (!_hasShownDialog && fromLoginPage) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _showPopup(context);
+      });
+
+      // Save that the popup has been shown
+      prefs.setBool('hasShownDialog', true);
+    }
   }
 
   Future<void> _loadUserProfile() async {
@@ -264,5 +276,64 @@ int listLength=0;
           )),
     );
   }
+
+  void _showPopup(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false, // Prevents dismissing by tapping outside
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          title: Text('completeDetails'.tr()),
+          actions: <Widget>[
+            Center(
+              child: Container(
+                width: 100.w,
+                height: 40.h,
+                decoration: BoxDecoration(
+                  color: const Color(0xff19649E),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF19649E),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10))),
+                  child: Text('go'.tr(),
+                    style:  TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.0.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  onPressed: () {
+                    // Navigate to the next page when the button is pressed
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MultiBlocProvider(
+                          providers: [
+                            BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
+                            BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                            BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                            BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),
+                          ],
+                          child: const SpecialistWorkHoursScreen(),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+
+          ],
+        );
+      },
+    );
+  }
+
 }
+
+
 

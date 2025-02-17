@@ -247,7 +247,7 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 10.h,
           ),
           Container(
             height: 60.h,

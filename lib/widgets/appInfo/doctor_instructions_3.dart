@@ -22,13 +22,13 @@ class DoctorInstructions3 extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("instructionDoctor3title1".tr(), style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+              Text("instructionDoctor3title1".tr(), style: TextStyle(color: Colors.black, fontSize: 20.sp, fontWeight: FontWeight.bold),),
               SizedBox(height: 0.5.h,),
-              Text("instructionDoctor3".tr(), maxLines: null,style: TextStyle(color: Colors.black, fontSize: 16, ),),
+              Text("instructionDoctor3".tr(), maxLines: null,style: TextStyle(color: Colors.black, fontSize: 16.sp, height: 2.h),),
               SizedBox(height: 20.h,),
-              Text("instructionDoctor3title2".tr(), style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+              Text("instructionDoctor3title2".tr(), style: TextStyle(color: Colors.black, fontSize: 20.sp, fontWeight: FontWeight.bold),),
               SizedBox(height: 0.5.h,),
-              Text("instructionDoctor33".tr(), maxLines: null,style: TextStyle(color: Colors.black, fontSize: 16, ),),
+              Text("instructionDoctor33".tr(), maxLines: null,style: TextStyle(color: Colors.black, fontSize: 16.sp, height: 2.h),),
 
             ],
           ),
