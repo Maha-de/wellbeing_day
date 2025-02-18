@@ -47,7 +47,7 @@ class GetSpecialistCubit extends Cubit<GetSpecialistState> {
           ),
         );
 
-        final response = await dio.get("/specialist/getSpecialists");
+        final response = await dio.get("/specialist/getAll");
 
         if (response.statusCode == 201) {
           final specialistModel = SpecialistModel.fromJson(response.data);

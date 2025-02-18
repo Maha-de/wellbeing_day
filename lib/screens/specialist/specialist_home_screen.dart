@@ -46,10 +46,6 @@ int listLength=0;
   @override
   void initState() {
     super.initState();
-    // // Show the popup dialog when the page is initialized
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   _showPopup(context);
-    // });
     // Check if the dialog has been shown before
     _checkIfDialogShown();
     userProfileCubit = BlocProvider.of<DoctorProfileCubit>(context);
@@ -63,7 +59,7 @@ int listLength=0;
     _hasShownDialog = prefs.getBool('hasShownDialog') ?? false;
 
     // Check if the user navigated from the login page
-    bool fromLoginPage = ModalRoute.of(context)?.settings.arguments == 'fromLogin';
+    bool fromLoginPage = ModalRoute.of(context)?.settings.arguments == 'fromSignup';
 
     if (!_hasShownDialog && fromLoginPage) {
       WidgetsBinding.instance.addPostFrameCallback((_) {

@@ -145,7 +145,6 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
               return Scaffold(
                 backgroundColor: Colors.white,
                 appBar: AppBar(
-                  leading: IconButton(onPressed: (){}, icon: Icon(Icons.keyboard_backspace,size: 25,)),
                   backgroundColor: const Color(0xff19649E),
                   iconTheme: const IconThemeData(
                     color: Colors.white,

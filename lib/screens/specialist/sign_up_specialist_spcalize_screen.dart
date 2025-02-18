@@ -403,6 +403,7 @@ class _SignUpAsDoctorThirdScreenState extends State<SignUpAsDoctorThirdScreen> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
+        settings: RouteSettings(arguments: 'fromSignup'),
         builder: (context) => MultiBlocProvider(
           providers: [
             BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
