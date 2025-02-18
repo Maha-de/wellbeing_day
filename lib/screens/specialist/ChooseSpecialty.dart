@@ -56,7 +56,7 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
       'SportsSystem'.tr(): false,
       'HealthCare'.tr(): false,
       'examinations'.tr(): false,
-    }
+    },
   };
 
   final List<String> rightColumnCategories = [
@@ -102,8 +102,12 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: rightColumnCategories
-                            .map((category) =>
-                                buildCategory(category, _categories[category]!))
+                            .map(
+                              (category) => buildCategory(
+                                category,
+                                _categories[category]!,
+                              ),
+                            )
                             .toList(),
                       ),
                     ),
@@ -112,8 +116,12 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: leftColumnCategories
-                            .map((category) =>
-                                buildCategory(category, _categories[category]!))
+                            .map(
+                              (category) => buildCategory(
+                                category,
+                                _categories[category]!,
+                              ),
+                            )
                             .toList(),
                       ),
                     ),
@@ -171,9 +179,7 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              SizedBox(
-                width: 10,
-              ),
+              SizedBox(width: 10),
               InkWell(
                 onTap: () {
                   Navigator.push(
@@ -208,7 +214,7 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
       });
     });
 
-    return selectedCategories.join('; ');
+    return 'mentalHealth: ["${selectedCategories.join(',')}"]';
   }
 
   Widget buildCategory(String category, Map<String, bool> subcategories) {
