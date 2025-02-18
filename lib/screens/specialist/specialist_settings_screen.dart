@@ -1,4 +1,5 @@
 import 'package:doctor/cubit/delete_account_cubit/delete_account_cubit.dart';
+import 'package:doctor/cubit/delete_doctor_account_cubit/delete_doctor_account_cubit.dart';
 import 'package:doctor/screens/change_language.dart';
 import 'package:doctor/screens/client_change_password.dart';
 import 'package:doctor/screens/specialist/specialist_appointments_screen.dart';
@@ -410,7 +411,7 @@ class _SpecialistSettingsScreenState extends State<SpecialistSettingsScreen> {
                             showDeleteAccountBottomSheet( context, ()async{
                               final prefs = await SharedPreferences.getInstance();
                               String id = prefs.getString('doctorId') ?? "";
-                              BlocProvider.of<DeleteAccountCubit>(context).deleteAccount(context, id);
+                              BlocProvider.of<DeleteDoctorAccountCubit>(context).deleteAccount(context, id);
                             });
                           },
                           child: Container(
