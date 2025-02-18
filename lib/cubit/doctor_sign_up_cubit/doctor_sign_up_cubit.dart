@@ -128,6 +128,40 @@ class SignUpSpecialistCubit extends Cubit<SignUpSpecialistState> {
 
   SignUpSpecialistCubit() : super(SignUpSpecialistInitial());
 
+  // Future<void> signUp(Specialist doctor) async {
+  //   emit(SignUpSpecialistLoading(message: SpSignUpLoadingMsg));
+  //   log("Sign-up is loading...");
+  //
+  //   try {
+  //     // Call the sign-up function from the repository
+  //     Response response = await specialistRepository.signUpSpecialist(doctor);
+  //     var data = response.data;
+  //     if (data["errors"] != null) {
+  //       emit(SignUpSpecialistFailure(errMessage: data["errors"][0]['msg']));
+  //     } else {
+  //       var userId = data['specialist']['_id'];
+  //       if (response.statusCode == 200 || response.statusCode == 201) {
+  //         final prefs = await SharedPreferences.getInstance();
+  //         prefs.setString('doctorId', userId);
+  //         log(response.data.toString());
+  //         emit(SignUpSpecialistSuccess(
+  //             message: SpSignUpSuccessMsg, userId: userId));
+  //
+  //         log(response.statusMessage!);
+  //       } else {
+  //         emit(SignUpSpecialistFailure(
+  //             errMessage: SpSignUpErrorMsg +
+  //                 " " +
+  //                 handleFailureResponse(response.data)));
+  //         log("Failure: ${response.statusCode} - ${response.data}");
+  //       }
+  //     }
+  //   } on ServerException catch (e) {
+  //     log(e.errModel.message!);
+  //     emit(SignUpSpecialistFailure(errMessage: e.errModel.message!));
+  //   }
+  // }
+
   Future<void> signUp(Specialist doctor) async {
     emit(SignUpSpecialistLoading(message: SpSignUpLoadingMsg));
     log("Sign-up is loading...");
@@ -136,31 +170,45 @@ class SignUpSpecialistCubit extends Cubit<SignUpSpecialistState> {
       // Call the sign-up function from the repository
       Response response = await specialistRepository.signUpSpecialist(doctor);
       var data = response.data;
+
+      // Check for errors in the response
       if (data["errors"] != null) {
         emit(SignUpSpecialistFailure(errMessage: data["errors"][0]['msg']));
-      } else {
-        var userId = data["specialist"]['_id'];
-        if (response.statusCode == 200 || response.statusCode == 201) {
-          final prefs = await SharedPreferences.getInstance();
-          prefs.setString('doctorId', userId);
-          log(response.data.toString());
-          emit(SignUpSpecialistSuccess(
-              message: SpSignUpSuccessMsg, userId: userId));
+        return; // Exit early if there are errors
+      }
 
-          log(response.statusMessage!);
-        } else {
-          emit(SignUpSpecialistFailure(
-              errMessage: SpSignUpErrorMsg +
-                  " " +
-                  handleFailureResponse(response.data)));
-          log("Failure: ${response.statusCode} - ${response.data}");
-        }
+      // Extract userId from the response
+      var userId = data['specialist']['_id'];
+
+      // Check for successful response status
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        // Store the doctorId in shared preferences
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('doctorId', userId);
+
+        log(response.data.toString());
+        emit(SignUpSpecialistSuccess(
+            message: SpSignUpSuccessMsg, userId: userId));
+        log(response.statusMessage!);
+      } else {
+        // Handle unexpected response status
+        emit(SignUpSpecialistFailure(
+            errMessage: SpSignUpErrorMsg +
+                " " +
+                handleFailureResponse(response.data)));
+        log("Failure: ${response.statusCode} - ${response.data}");
       }
     } on ServerException catch (e) {
+      // Handle server exceptions
       log(e.errModel.message!);
       emit(SignUpSpecialistFailure(errMessage: e.errModel.message!));
+    } catch (e) {
+      // Handle any other exceptions
+      log("Unexpected error: $e");
+      emit(SignUpSpecialistFailure(errMessage: "An unexpected error occurred."));
     }
   }
+
 }
 
 String handleFailureResponse(Map<String, dynamic> errorResponse) {

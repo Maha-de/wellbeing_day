@@ -340,6 +340,7 @@ import 'package:doctor/screens/specialist/specialist_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
 import '../../cubit/doctor_sign_up_cubit/doctor_sign_up_cubit.dart';
 import '../../cubit/doctor_sign_up_cubit/doctor_sign_up_state.dart';
@@ -360,6 +361,27 @@ class SignUpAsDoctorThirdScreen extends StatefulWidget {
 }
 
 class _SignUpAsDoctorThirdScreenState extends State<SignUpAsDoctorThirdScreen> {
+
+  Future<void> _navigateToHome() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('fromRegister', true); // Set flag
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        settings: RouteSettings(arguments: 'fromRegister'),
+        builder: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
+            BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),
+            BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+          ],
+          child: const SpecialistHomeScreen(),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -370,7 +392,7 @@ class _SignUpAsDoctorThirdScreenState extends State<SignUpAsDoctorThirdScreen> {
             if (state is SignUpSpecialistFailure) {
               showErrorSnackBar(context, state.errMessage);
             } else if (state is SignUpSpecialistSuccess) {
-              navigateToHomeScreen(context);
+              _navigateToHome();
             }
           },
           child: BlocBuilder<SignUpSpecialistCubit, SignUpSpecialistState>(
@@ -403,7 +425,7 @@ class _SignUpAsDoctorThirdScreenState extends State<SignUpAsDoctorThirdScreen> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        settings: RouteSettings(arguments: 'fromSignup'),
+        settings: RouteSettings(arguments: 'fromRegister'),
         builder: (context) => MultiBlocProvider(
           providers: [
             BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),

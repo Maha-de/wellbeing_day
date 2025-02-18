@@ -40,36 +40,34 @@ int listLength=0;
   late DoctorProfileCubit userProfileCubit;
   late DoctorSessionTypesCubit sessionTypesCubit;
   bool isFirstButtonActive = true;
-  bool _hasShownDialog = false; // Flag to track if the dialog has been shown
 
 
   @override
   void initState() {
     super.initState();
     // Check if the dialog has been shown before
-    _checkIfDialogShown();
+    _checkIfNavigatedFromRegister();
     userProfileCubit = BlocProvider.of<DoctorProfileCubit>(context);
     sessionTypesCubit = BlocProvider.of<DoctorSessionTypesCubit>(context);
     _loadUserProfile();
     _startAutoPageSwitch();
   }
 
-  Future<void> _checkIfDialogShown() async {
+
+  Future<void> _checkIfNavigatedFromRegister() async {
     final prefs = await SharedPreferences.getInstance();
-    _hasShownDialog = prefs.getBool('hasShownDialog') ?? false;
+    bool fromRegister = prefs.getBool('fromRegister') ?? false;
 
-    // Check if the user navigated from the login page
-    bool fromLoginPage = ModalRoute.of(context)?.settings.arguments == 'fromSignup';
-
-    if (!_hasShownDialog && fromLoginPage) {
+    if (fromRegister) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _showPopup(context);
       });
 
-      // Save that the popup has been shown
-      prefs.setBool('hasShownDialog', true);
+      // Reset the flag so the popup doesn't appear again
+      await prefs.setBool('fromRegister', false);
     }
   }
+
 
   Future<void> _loadUserProfile() async {
     final prefs = await SharedPreferences.getInstance();

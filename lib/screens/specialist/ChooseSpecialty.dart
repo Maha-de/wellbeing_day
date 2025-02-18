@@ -133,7 +133,7 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
           SizedBox(height: 32.h),
           InkWell(
             onTap: () {
-              String selectedSpecialities = getSelectedSpecialities();
+              String selectedSpecialities = getSelectedSpecialities('');
               if (selectedSpecialities.isEmpty) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   customSnackBar(
@@ -203,19 +203,38 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
     );
   }
 
-  String getSelectedSpecialities() {
+  String getSelectedSpecialities(String categoryName) {
     List<String> selectedCategories = [];
 
+    // Iterate through the categories and their subcategories
     _categories.forEach((category, subcategories) {
-      subcategories.forEach((subcategory, isSelected) {
-        if (isSelected) {
-          selectedCategories.add(subcategory);
-        }
-      });
+      if (category == categoryName) {
+        subcategories.forEach((subcategory, isSelected) {
+          // If the subcategory is selected, add it to the list
+          if (isSelected) {
+            selectedCategories.add(subcategory);
+          }
+        });
+      }
     });
 
-    return 'mentalHealth: ["${selectedCategories.join(',')}"]';
+    // Format the selected categories into the desired string format
+    return '$categoryName: [${selectedCategories.map((subcategory) => '"$subcategory"').join(', ')}]';
   }
+
+  // String getSelectedSpecialities() {
+  //   List<String> selectedCategories = [];
+  //
+  //   _categories.forEach((category, subcategories) {
+  //     subcategories.forEach((subcategory, isSelected) {
+  //       if (isSelected) {
+  //         selectedCategories.add(subcategory);
+  //       }
+  //     });
+  //   });
+  //
+  //   return 'mentalHealth: ["${selectedCategories.join(',')}"]';
+  // }
 
   Widget buildCategory(String category, Map<String, bool> subcategories) {
     return Column(
