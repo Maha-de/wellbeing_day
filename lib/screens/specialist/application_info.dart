@@ -13,6 +13,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import '../../widgets/appInfo/doctor_instructions_1.dart';
+import '../../widgets/custom_bottom_nav_bar_specialist.dart';
 
 class ApplicationInfoDoctor extends StatefulWidget {
   const ApplicationInfoDoctor({super.key});
@@ -75,7 +76,7 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      bottomNavigationBar: const CustomBottomNavBar(
+      bottomNavigationBar: const SpecialistCustomBottomNavBar(
         currentIndex: 2,
       ),
       body: Column(
