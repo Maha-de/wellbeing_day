@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
@@ -36,7 +37,7 @@ class SpecialistCustomBottomNavBar extends StatelessWidget {
       items: [
         BottomNavigationBarItem(
           icon: SizedBox(
-            height: 27, // Adjust icon size
+            height: 27.h, // Adjust icon size
             child:
             Image.asset(
               "assets/images/meteor-icons_home.png",
@@ -44,7 +45,7 @@ class SpecialistCustomBottomNavBar extends StatelessWidget {
             ),
           ),
           activeIcon: SizedBox(
-            height: 27, // Active icon size adjustment
+            height: 27.h, // Active icon size adjustment
             child: Image.asset(
               "assets/images/meteor-icons_home.png",
               color: currentIndex == 0 ? Colors.white : Colors.black,
@@ -56,14 +57,14 @@ class SpecialistCustomBottomNavBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: SizedBox(
-            height: 27,
+            height: 27.h,
             child: Image.asset(
               "assets/images/teenyicons_appointments-outline.png",
               fit: BoxFit.fill,
             ),
           ),
           activeIcon: SizedBox(
-            height: 27,
+            height: 27.h,
             child: Image.asset(
               "assets/images/teenyicons_appointments-outline-active.png",
               fit: BoxFit.fill,
@@ -73,15 +74,15 @@ class SpecialistCustomBottomNavBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: SizedBox(
-            height: 25, // Adjust icon size
+            height: 25.h, // Adjust icon size
             child: Image.asset(
               "assets/images/material-symbols_help-clinic-outline-rounded.png",
               fit: BoxFit.fill,
             ),
           ),
           activeIcon: SizedBox(
-            height: 25,
-            width: 50,
+            height: 25.h,
+            width: 50.w,
             child: Image.asset(
               "assets/images/material-symbols_help-clinic-outline-rounded_Active.png",
               fit: BoxFit.fill,

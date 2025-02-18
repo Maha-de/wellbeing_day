@@ -11,6 +11,7 @@ import 'package:doctor/widgets/custom_app_bar_specialist.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
@@ -93,8 +94,8 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width.w;
+    double screenHeight = MediaQuery.of(context).size.height.h;
 
     return WillPopScope(
       onWillPop: () async {
@@ -122,11 +123,12 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                   bottomNavigationBar:const SpecialistCustomBottomNavBar(currentIndex: 0,),
                   body: Column(
                     children: [
-                      SizedBox(height: 5),
+                      SizedBox(height: 5.h),
 
                       // Image Slider
                       SizedBox(
-                        height: screenHeight * 0.18,
+                        height: 145.h,
+                        width: 343.w,
                         child: PageView.builder(
                           controller: _pageController,
                           itemCount: images.length,
@@ -138,7 +140,7 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                           },
                         ),
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: 5.h),
 
                       // Buttons
                       Row(
@@ -164,8 +166,8 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                               );
                             },
                             child: Container(
-                              width: MediaQuery.of(context).size.width * 0.46,
-                              height: 35,
+                              width: 170.w,
+                              height: 40.h,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: isFirstButtonActive ? const Color(0xff1F78BC) : Colors.grey,
@@ -173,8 +175,8 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                               child: Center(
                                 child: Text(
                                   "instantSessions".tr(),
-                                  style: const TextStyle(
-                                    fontSize: 18,
+                                  style:  TextStyle(
+                                    fontSize: 18.sp,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -202,8 +204,8 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                               );
                             },
                             child: Container(
-                              width: MediaQuery.of(context).size.width * 0.45,
-                              height: 35,
+                              width: 170.w,
+                              height: 40.h,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: isFirstButtonActive ? Colors.grey : const Color(0xff1F78BC),
@@ -211,8 +213,8 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                               child: Center(
                                 child: Text(
                                   "freeConsultant".tr(),
-                                  style: const TextStyle(
-                                    fontSize: 18,
+                                  style:  TextStyle(
+                                    fontSize: 18.sp,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -222,7 +224,7 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                           ),
                         ],
                       ),
-                      SizedBox(height:5),
+                      SizedBox(height:5.h),
                       BlocBuilder<DoctorSessionTypesCubit, DoctorSessionTypesState>(
                         builder: (context, state) {
                           if (state is DoctorSessionTypesLoading) {
@@ -232,9 +234,9 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                           } else if (state is DoctorSessionTypesSuccess) {
                             return Center(
                               child: Container(
-                                margin: EdgeInsets.only(top: 15),
-                                height: 281,
-                                width: screenWidth,
+                                margin: EdgeInsets.only(top: 5),
+                                height: 301.h,
+                                width:325.w,
                                 child: state.session.freeConsultations?.length == 0?
                                 Center(
                                   child: Image(image:AssetImage("assets/images/image.png"),fit: BoxFit.fill,),
@@ -245,7 +247,7 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                                     {
                                       return BeneficiaryCardHome(session: state.session.freeConsultations?[index].beneficiary,);
                                     }, separatorBuilder: (context,index){
-                                  return SizedBox(height: 50,);
+                                  return SizedBox(height: 50.h,);
                                 }, itemCount: state.session.freeConsultations?.length??0),
                               ),
                             );

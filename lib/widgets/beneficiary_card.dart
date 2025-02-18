@@ -28,7 +28,7 @@ class BeneficiaryCard extends StatelessWidget {
     return Center(
       child: Container(
         width: 325.w,
-        height: 150.h,
+        height: 185.h,
         padding: EdgeInsets.all(15),
         decoration: BoxDecoration(
           color: Color(0xff19649E),

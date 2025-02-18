@@ -40,8 +40,8 @@ class _SpecialistChangePasswordState extends State<SpecialistChangePassword> {
   }
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width.w;
+    double screenHeight = MediaQuery.of(context).size.height.h;
     return BlocProvider(
         create: (_) => userProfileCubit,  // Use the same cubit instance
         child: BlocBuilder<DoctorProfileCubit, DoctorProfileState>(

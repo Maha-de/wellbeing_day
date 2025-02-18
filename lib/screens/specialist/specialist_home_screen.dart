@@ -105,8 +105,8 @@ int listLength=0;
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width.w;
+    double screenHeight = MediaQuery.of(context).size.height.h;
 
     return WillPopScope(
       onWillPop: () async {
@@ -134,11 +134,12 @@ int listLength=0;
                   bottomNavigationBar:const SpecialistCustomBottomNavBar(currentIndex: 0,),
                   body: Column(
                     children: [
-                      SizedBox(height: 5),
+                      SizedBox(height: 5.h),
 
                       // Image Slider
                       SizedBox(
-                        height: screenHeight * 0.18,
+                        height: 145.h,
+                        width: 343.w,
                         child: PageView.builder(
                           controller: _pageController,
                           itemCount: images.length,
@@ -150,7 +151,7 @@ int listLength=0;
                           },
                         ),
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: 5.h),
 
                       // Buttons
                     Row(
@@ -176,8 +177,8 @@ int listLength=0;
                             );
                           },
                           child: Container(
-                            width: MediaQuery.of(context).size.width * 0.46,
-                            height: 35,
+                            width: 170.w,
+                            height: 40.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: isFirstButtonActive ? const Color(0xff1F78BC) : Colors.grey,
@@ -185,8 +186,8 @@ int listLength=0;
                             child: Center(
                               child: Text(
                                 "instantSessions".tr(),
-                                style: const TextStyle(
-                                  fontSize: 18,
+                                style:  TextStyle(
+                                  fontSize: 18.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -214,8 +215,8 @@ int listLength=0;
                             );
                           },
                           child: Container(
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            height: 35,
+                            width: 170.w,
+                            height: 40.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: isFirstButtonActive ? Colors.grey : const Color(0xff1F78BC),
@@ -223,8 +224,8 @@ int listLength=0;
                             child: Center(
                               child: Text(
                                 "freeConsultant".tr(),
-                                style: const TextStyle(
-                                  fontSize: 18,
+                                style:  TextStyle(
+                                  fontSize: 18.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -234,7 +235,7 @@ int listLength=0;
                         ),
                       ],
                     ),
-                      SizedBox(height:5),
+                      SizedBox(height:5.h),
                       BlocBuilder<DoctorSessionTypesCubit, DoctorSessionTypesState>(
                         builder: (context, state) {
                           if (state is DoctorSessionTypesLoading) {
@@ -245,7 +246,7 @@ int listLength=0;
                             return Center(
                               child: Container(
                                 margin: EdgeInsets.only(top: 15),
-                                height: 281,
+                                height: 301.h,
                                 width: screenWidth,
                                 child: state.session.instantSessions?.length == 0?
                                 Center(
@@ -257,7 +258,7 @@ int listLength=0;
                                     {
                                       return BeneficiaryCardHome(session: state.session.instantSessions?[index].beneficiary,);
                                     }, separatorBuilder: (context,index){
-                                  return SizedBox(height: 50,);
+                                  return SizedBox(height: 50.h,);
                                 }, itemCount: state.session.instantSessions?.length??0),
                               ),
                             );

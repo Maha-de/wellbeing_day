@@ -7,6 +7,7 @@ import 'package:doctor/screens/specialist/specialist_work_hours_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
@@ -49,13 +50,13 @@ class _SpecialistSettingsScreenState extends State<SpecialistSettingsScreen> {
                 "confirmDeleteAccount".tr(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 24.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 16.h),
               Divider(thickness: 1, color: Color(0xff19649E)),
-              SizedBox(height: 16),
+              SizedBox(height: 16.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -73,7 +74,7 @@ class _SpecialistSettingsScreenState extends State<SpecialistSettingsScreen> {
                     },
                     child: Text(
                       "dismiss".tr(),
-                      style: TextStyle(color: Color(0xff19649E),fontSize: 20,fontWeight: FontWeight.w600),
+                      style: TextStyle(color: Color(0xff19649E),fontSize: 20.sp,fontWeight: FontWeight.w600),
                     ),
                   ),
                   ElevatedButton(
@@ -89,7 +90,7 @@ class _SpecialistSettingsScreenState extends State<SpecialistSettingsScreen> {
                     },
                     child: Text(
                       "confirm".tr(),
-                      style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w600),
+                      style: TextStyle(color: Colors.white,fontSize: 20.sp,fontWeight: FontWeight.w600),
                     ),
                   ),
                 ],
@@ -127,8 +128,8 @@ class _SpecialistSettingsScreenState extends State<SpecialistSettingsScreen> {
     List<String> actions = ["changeLanguage".tr(), "passwordManager".tr()];
 
     // MediaQuery for responsive sizing
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width.w;
+    double screenHeight = MediaQuery.of(context).size.height.h;
 
     return BlocProvider(
         create: (_) => userProfileCubit,  // Use the same cubit instance
@@ -153,7 +154,7 @@ class _SpecialistSettingsScreenState extends State<SpecialistSettingsScreen> {
                     "settings".tr(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: screenWidth * 0.06,
+                      fontSize: 20.sp,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
@@ -168,7 +169,7 @@ class _SpecialistSettingsScreenState extends State<SpecialistSettingsScreen> {
                           clipBehavior: Clip.none,
                           children: [
                             Container(
-                              height: screenHeight * 0.22,  // Adjust height proportionally
+                              height: screenHeight * 0.2,  // Adjust height proportionally
                               decoration: BoxDecoration(
                                 color: Color(0xff19649E),
                                 borderRadius: BorderRadius.only(
@@ -222,9 +223,9 @@ class _SpecialistSettingsScreenState extends State<SpecialistSettingsScreen> {
 
                                         },
                                         child: Container(
-                                          height: screenWidth * 0.3,
+                                          height: 127.h,
                                           // Adjust size proportionally
-                                          width: screenWidth * 0.3,
+                                          width: 127.w,
                                           decoration: BoxDecoration(
                                             color: Colors.white,
                                             borderRadius:
@@ -273,7 +274,7 @@ class _SpecialistSettingsScreenState extends State<SpecialistSettingsScreen> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 35),
+                        SizedBox(height: 35.h),
                         Positioned(
                           left: screenWidth * 0.35, // Adjust for better centering
                           top: -100,
@@ -281,7 +282,7 @@ class _SpecialistSettingsScreenState extends State<SpecialistSettingsScreen> {
                             "${userProfileCubit.userData?.specialist?.firstName}",
                             style: TextStyle(
                               fontWeight: FontWeight.w800,
-                              fontSize: screenWidth * 0.06,
+                              fontSize: 20.sp,
                               // Adjust size based on screen width
                               color: Color(0xff19649E),
                             ),
@@ -289,6 +290,7 @@ class _SpecialistSettingsScreenState extends State<SpecialistSettingsScreen> {
                         ),
                       ],
                     ),
+                    SizedBox(height: 20.h,),
                     Column(
                       children: [
                         GestureDetector(
@@ -326,7 +328,7 @@ class _SpecialistSettingsScreenState extends State<SpecialistSettingsScreen> {
                                         "changeLanguage".tr(),
                                         style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: screenWidth * 0.05,
+                                          fontSize: 20.sp,
                                           // Adjust text size
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -335,15 +337,14 @@ class _SpecialistSettingsScreenState extends State<SpecialistSettingsScreen> {
                                     Icon(
                                       Icons.arrow_forward,
                                       color: Color(0xff19649E),
-                                      size: screenWidth *
-                                          0.08, // Adjust icon size proportionally
+                                      size: 25, // Adjust icon size proportionally
                                     ),
                                   ],
                                 ),
                                 Container(
-                                  margin: EdgeInsets.only(top: 15, left: 12),
-                                  width: screenWidth * 0.85,
-                                  height: 2,
+                                  margin: EdgeInsets.only(top: 10, left: 12),
+                                  width: 320.w,
+                                  height: 2.h,
                                   color: Color(0xff19649E),
                                 ),
                               ],
@@ -381,7 +382,7 @@ class _SpecialistSettingsScreenState extends State<SpecialistSettingsScreen> {
                                         "changePassword".tr(),
                                         style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: screenWidth * 0.05,
+                                          fontSize: 20.sp,
                                           // Adjust text size
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -390,15 +391,14 @@ class _SpecialistSettingsScreenState extends State<SpecialistSettingsScreen> {
                                     Icon(
                                       Icons.arrow_forward,
                                       color: Color(0xff19649E),
-                                      size: screenWidth *
-                                          0.08, // Adjust icon size proportionally
+                                      size: 25, // Adjust icon size proportionally
                                     ),
                                   ],
                                 ),
                                 Container(
-                                  margin: EdgeInsets.only(top: 15, left: 12),
-                                  width: screenWidth * 0.85,
-                                  height: 2,
+                                  margin: EdgeInsets.only(top: 10, left: 12),
+                                  width: 320.w,
+                                  height: 2.h,
                                   color: Color(0xff19649E),
                                 ),
                               ],
@@ -428,7 +428,7 @@ class _SpecialistSettingsScreenState extends State<SpecialistSettingsScreen> {
                                         "deleteAccount".tr(),
                                         style: TextStyle(
                                           color: Colors.redAccent,
-                                          fontSize: screenWidth * 0.05,
+                                          fontSize: 20.sp,
                                           // Adjust text size
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -437,15 +437,14 @@ class _SpecialistSettingsScreenState extends State<SpecialistSettingsScreen> {
                                     Icon(
                                       Icons.arrow_forward,
                                       color: Colors.redAccent,
-                                      size: screenWidth *
-                                          0.08, // Adjust icon size proportionally
+                                      size: 25, // Adjust icon size proportionally
                                     ),
                                   ],
                                 ),
                                 Container(
-                                  margin: EdgeInsets.only(top: 15, left: 12),
-                                  width: screenWidth * 0.85,
-                                  height: 2,
+                                  margin: EdgeInsets.only(top: 10, left: 12),
+                                  width: 320.w,
+                                  height: 2.h,
                                   color: Colors.redAccent,
                                 ),
                               ],

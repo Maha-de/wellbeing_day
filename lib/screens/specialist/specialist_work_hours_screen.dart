@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
@@ -48,8 +49,8 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width.w;
+    double screenHeight = MediaQuery.of(context).size.height.h;
 
     return BlocProvider(
         create: (_) => userProfileCubit,
@@ -77,7 +78,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
               Text(
                 "uploadImage".tr(),
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 20.sp,
                   color: Colors.black,
                   fontWeight: FontWeight.w500,
                 ),
@@ -94,9 +95,9 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                     //
                     // },
                     child: Container(
-                      height:140,
+                      height:140.h,
                       // Adjust size proportionally
-                      width: 140,
+                      width: 140.w,
                       decoration: BoxDecoration(
 
                       ),
@@ -139,8 +140,8 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                       bottom: 10,
                       left: 10,
                       child: Container(
-                        width: 41.67,
-                        height: 41.67,
+                        width: 41.67.w,
+                        height: 41.67.h,
                         child: CircleAvatar(
                           radius: 16,
                           backgroundColor: Color(0xff19649E),
@@ -155,7 +156,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
               Text(
                 "${userProfile.specialist?.firstName} "+"doctor".tr(),
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 20.sp,
                   color: Color(0xff19649E),
                   fontWeight: FontWeight.bold,
                 ),
@@ -166,15 +167,15 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                   Text(
                     "chooseLang".tr(),
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 20.sp,
                       color: Color(0xff19649E),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 7,),
+                  SizedBox(height: 7.h,),
                   Container(
-                    width: screenWidth * 0.85,
-                    height: 48,
+                    width: 327.w,
+                    height: 48.h,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(11),
                       color: Colors.white,
@@ -193,7 +194,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                         Expanded(
                           child: TextFormField(
                             decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                              contentPadding: EdgeInsets.symmetric(horizontal: 12),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(11),
                                 borderSide: BorderSide.none,
@@ -203,7 +204,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                               hintText: "chooseLang".tr(),
                               hintStyle: TextStyle(
                                 color: Colors.grey,
-                                fontSize: 20,
+                                fontSize: 20.sp,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -213,7 +214,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 18),
+                          padding: const EdgeInsets.only(right: 10),
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
@@ -222,8 +223,8 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                               });
                             },
                             child: Container(
-                              width: 27,
-                              height: 28,
+                              width: 27.w,
+                              height: 28.h,
                               decoration: BoxDecoration(
                                 color: Color(0xff19649E),
                                 borderRadius: BorderRadius.circular(4),
@@ -242,7 +243,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: 30.h,),
               // Display the dynamically added day containers
               Container(
             width: screenWidth * 0.85,
@@ -252,12 +253,12 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                 Text(
                   "chooseWorkingHours".tr(),
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 20.sp,
                     color: Color(0xff19649E),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 7,),
+                SizedBox(height: 7.h,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -265,8 +266,8 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                       children: [
                         Center(
                           child: Container(
-                            width: 133,
-                            height: 40,
+                            width: 131.w,
+                            height: 40.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               color: Colors.white,
@@ -296,7 +297,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                                       hintText: "dayy".tr(),
                                       hintStyle: TextStyle(
                                         color: Colors.grey,
-                                        fontSize: 20,
+                                        fontSize: 20.sp,
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),
@@ -309,11 +310,11 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(width: 10),
+                        SizedBox(width: 10.w),
                         Center(
                           child: Container(
-                            width: 133,
-                            height: 40,
+                            width: 131.w,
+                            height: 40.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               color: Colors.white,
@@ -343,7 +344,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                                       hintText: "hour".tr(),
                                       hintStyle: TextStyle(
                                         color: Colors.grey,
-                                        fontSize: 20,
+                                        fontSize: 20.sp,
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),
@@ -362,12 +363,12 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                       onTap: () {
                         setState(() {
                           // Add a new day container when tapped
-                          dayContainers.add(buildDayContainer(screenWidth));
+                          dayContainers.add(buildDayContainer(326.w));
                         });
                       },
                       child: Container(
-                        width: 27,
-                        height: 40,
+                        width: 27.w,
+                        height: 40.h,
                         decoration: BoxDecoration(
                           color: Color(0xff19649E),
                           borderRadius: BorderRadius.circular(4),
@@ -385,7 +386,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
               ],
             ),
           ),
-              SizedBox(height: 10,),
+              SizedBox(height: 10.h,),
               Column(
                 children: dayContainers,
               ),
@@ -397,10 +398,10 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
       ),
     ),
     bottomNavigationBar: Padding(
-      padding: const EdgeInsets.only(bottom: 20.0,right: 20,left: 20), // Adds space below the button
+      padding: EdgeInsets.only(bottom: 20.0.h,right: 20.w,left: 20.w), // Adds space below the button
       child: Container(
-        width: screenWidth * 0.85, // Keeps the width consistent
-        height: 45, // Reduced height to make the button smaller
+        width: 333.w, // Keeps the width consistent
+        height: 48.h, // Reduced height to make the button smaller
         child: ElevatedButton(
           onPressed: () {
             Navigator.pushAndRemoveUntil(
@@ -428,8 +429,8 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
           ),
           child: Text(
             "confirm".tr(),
-            style: const TextStyle(
-              fontSize: 20,
+            style:  TextStyle(
+              fontSize: 20.sp,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
@@ -450,7 +451,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
     return Padding(
       padding: const EdgeInsets.only(top: 10.0,bottom: 10),
       child: Container(
-        width: screenWidth * 0.85,
+        width: screenWidth ,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -461,8 +462,8 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                   children: [
                     Center(
                       child: Container(
-                        width: 133,
-                        height: 40,
+                        width: 131,
+                        height: 40.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: Colors.white,
@@ -492,7 +493,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                                   hintText: "dayy".tr(),
                                   hintStyle: TextStyle(
                                     color: Colors.grey,
-                                    fontSize: 20,
+                                    fontSize: 20.sp,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -508,8 +509,8 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                     SizedBox(width: 10),
                     Center(
                       child: Container(
-                        width: 133,
-                        height: 40,
+                        width: 131,
+                        height: 40.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: Colors.white,
@@ -539,7 +540,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                                   hintText: "hour".tr(),
                                   hintStyle: TextStyle(
                                     color: Colors.grey,
-                                    fontSize: 20,
+                                    fontSize: 20.sp,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -562,8 +563,8 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                     });
                   },
                   child: Container(
-                    width: 27,
-                    height: 40,
+                    width: 27.w,
+                    height: 40.h,
                     decoration: BoxDecoration(
                       color: Color(0xff19649E),
                       borderRadius: BorderRadius.circular(4),

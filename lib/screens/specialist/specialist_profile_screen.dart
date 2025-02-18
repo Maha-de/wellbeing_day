@@ -10,6 +10,7 @@ import 'package:doctor/screens/splashscreen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
@@ -57,8 +58,8 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
       "signOut".tr()
     ];
 
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width.w;
+    double screenHeight = MediaQuery.of(context).size.height.h;
 
     return BlocProvider(
         create: (_) => doctorProfileCubit, // Use the same cubit instance
@@ -95,7 +96,7 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
                       children: [
                         Container(
                           height: screenHeight *
-                              0.22, // Adjust height proportionally
+                              0.2, // Adjust height proportionally
                           decoration: BoxDecoration(
                             color: Color(0xff19649E),
                             borderRadius: BorderRadius.only(
@@ -139,9 +140,9 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
                                       });
                                     },
                                     child: Container(
-                                      height: screenWidth * 0.3,
+                                      height: 126.h,
                                       // Adjust size proportionally
-                                      width: screenWidth * 0.3,
+                                      width: 126.w,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius:
@@ -206,26 +207,26 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 35),
+                    SizedBox(height: 35.h),
                     Positioned(
-                      left: screenWidth * 0.35, // Adjust for better centering
+                      left: screenWidth * 0.35.w, // Adjust for better centering
                       top: -100,
                       child: Text(
                         "${doctorProfileCubit.firstNameController.text}",
                         style: TextStyle(
                           fontWeight: FontWeight.w800,
-                          fontSize: screenWidth *
-                              0.06, // Adjust size based on screen width
+                          fontSize: 20.sp, // Adjust size based on screen width
                           color: Color(0xff19649E),
                         ),
                       ),
                     ),
+                    SizedBox(height: 5.h,),
                     Center(
                       child: Container(
                         margin: const EdgeInsets.only(
-                            top: 5, left: 15, right: 15, bottom: 15),
-                        height: screenHeight *
-                            0.46, // Adjust height proportionally
+                            top: 5, left: 5, right: 5, bottom: 5),
+                        height: 293.h,
+                        width: 343.w,// Adjust height proportionally
                         child: ListView.builder(
                           // physics: NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
@@ -298,7 +299,7 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
                               },
                               child: Container(
                                 margin: EdgeInsets.only(
-                                    bottom: 5, top: 15, left: 5, right: 5),
+                                    bottom: 5, top: 10, left: 5, right: 5),
                                 child: Column(
                                   children: [
                                     Row(
@@ -306,13 +307,12 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
                                       MainAxisAlignment.spaceBetween,
                                       children: [
                                         Padding(
-                                          padding: EdgeInsets.only(top: 15.0),
+                                          padding: EdgeInsets.only(top: 10.0),
                                           child: Text(
                                             actions[index],
                                             style: TextStyle(
                                               color: Colors.black,
-                                              fontSize: screenWidth *
-                                                  0.05, // Adjust text size
+                                              fontSize: 20.sp, // Adjust text size
                                               fontWeight: FontWeight.w600,
                                             ),
                                           ),
@@ -320,16 +320,15 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
                                         Icon(
                                           Icons.arrow_forward,
                                           color: Color(0xff19649E),
-                                          size: screenWidth *
-                                              0.08, // Adjust icon size proportionally
+                                          size: 25, // Adjust icon size proportionally
                                         ),
                                       ],
                                     ),
                                     Container(
                                       margin:
                                       EdgeInsets.only(top: 15, left: 12),
-                                      width: screenWidth * 0.85,
-                                      height: 2,
+                                      width: 320.w,
+                                      height: 2.h,
                                       color: Color(0xff19649E),
                                     ),
                                   ],

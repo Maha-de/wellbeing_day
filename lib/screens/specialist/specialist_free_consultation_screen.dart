@@ -2,6 +2,7 @@ import 'package:doctor/widgets/custom_bottom_nav_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,8 +39,8 @@ class _SpecialistFreeConsultationScreenState
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width.w;
+    double screenHeight = MediaQuery.of(context).size.height.h;
     return WillPopScope(
       onWillPop: () async {
         // Return false to disable the back button
@@ -78,8 +79,8 @@ class _SpecialistFreeConsultationScreenState
                                 padding: const EdgeInsets.only(bottom: 15.0),
                                 child: Center(
                                   child: Container(
-                                    width: 161,
-                                    height: 40,
+                                    width: 161.w,
+                                    height: 40.h,
                                     decoration: BoxDecoration(
                                       color: Color(0xFF1F78BC),
                                       borderRadius: BorderRadius.only(
@@ -90,7 +91,7 @@ class _SpecialistFreeConsultationScreenState
                                     child: Text(
                                       "consultation".tr(),
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 20.sp,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white),
                                     ),
@@ -98,28 +99,28 @@ class _SpecialistFreeConsultationScreenState
                                 ),
                               ),
                               Container(
-                                width: screenWidth * 0.9,
+                                width: screenWidth * 0.9.w,
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Text(
                                     "omar".tr(),
                                     style: TextStyle(
-                                        fontSize: 16,
+                                        fontSize: 16.sp,
                                         fontWeight: FontWeight.bold,
                                         color: Color(0xff19649E)),
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 5),
+                              SizedBox(height: 5.h),
                               Container(
-                                width: screenWidth * 0.9,
-                                height: 143,
+                                width: 343.w,
+                                height: 143.h,
                                 child: TextFormField(
                                   textAlign: TextAlign.right,
                                   decoration: InputDecoration(
                                     hintText: "consultationDes".tr(),
                                     hintStyle: TextStyle(
-                                        fontSize: 10,
+                                        fontSize: 10.sp,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black),
                                     filled: true,
@@ -135,7 +136,7 @@ class _SpecialistFreeConsultationScreenState
                                   maxLines: 10,
                                 ),
                               ),
-                              SizedBox(height: 15),
+                              SizedBox(height: 15.h),
                               Container(
                                 width: screenWidth * 0.9,
                                 child: Align(
@@ -143,13 +144,13 @@ class _SpecialistFreeConsultationScreenState
                                   child: Text(
                                     "sessionTerms".tr(),
                                     style: TextStyle(
-                                        fontSize: 20,
+                                        fontSize: 20.sp,
                                         fontWeight: FontWeight.bold,
                                         color: Color(0xff1F78BC)),
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 7),
+                              SizedBox(height: 7.h),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -157,39 +158,39 @@ class _SpecialistFreeConsultationScreenState
                                     children: [
                                       Icon(Icons.circle,
                                           size: 10, color: Colors.black),
-                                      SizedBox(width: 5),
+                                      SizedBox(width: 5.w),
                                       Text("term1".tr()),
                                     ],
                                   ),
-                                  SizedBox(height: 5),
+                                  SizedBox(height: 5.h),
                                   Row(
                                     children: [
                                       Icon(Icons.circle,
                                           size: 10, color: Colors.black),
-                                      SizedBox(width: 5),
+                                      SizedBox(width: 5.w),
                                       Text("term2".tr()),
                                     ],
                                   ),
-                                  SizedBox(height: 5),
+                                  SizedBox(height: 5.h),
                                   Row(
                                     children: [
                                       Icon(Icons.circle,
                                           size: 10, color: Colors.black),
-                                      SizedBox(width: 5),
+                                      SizedBox(width: 5.w),
                                       Text("term3".tr()),
                                     ],
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 15),
+                              SizedBox(height: 15.h),
                             ],
                           ),
                         ),
                         GestureDetector(
                           onTap: () {},
                           child: Container(
-                            width: screenWidth * 0.9,
-                            height: 48,
+                            width: 333.w,
+                            height: 48.h,
                             decoration: BoxDecoration(
                               color: Color(0xff19649E),
                               borderRadius: BorderRadius.circular(10),
@@ -198,19 +199,19 @@ class _SpecialistFreeConsultationScreenState
                               child: Text(
                                 'approved'.tr(),
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 20.sp,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(height: 15),
+                        SizedBox(height: 15.h),
                         GestureDetector(
                           onTap: () {},
                           child: Container(
-                            width: screenWidth * 0.9,
-                            height: 48,
+                            width: 333.w,
+                            height: 48.h,
                             decoration: BoxDecoration(
                               color: Color(0xffD5D5D5),
                               borderRadius: BorderRadius.circular(10),
@@ -219,7 +220,7 @@ class _SpecialistFreeConsultationScreenState
                               child: Text(
                                 'notHaveAppointment'.tr(),
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 20.sp,
                                     color: Color(0xff19649E),
                                     fontWeight: FontWeight.bold),
                               ),

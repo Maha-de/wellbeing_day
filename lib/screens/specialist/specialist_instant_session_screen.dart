@@ -2,6 +2,7 @@ import 'package:doctor/widgets/custom_bottom_nav_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,8 +39,8 @@ class _SpecialistInstantSessionScreenState extends State<SpecialistInstantSessio
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width.w;
+    double screenHeight = MediaQuery.of(context).size.height.h;
     return WillPopScope(
       onWillPop: () async {
         // Return false to disable the back button
@@ -78,8 +79,8 @@ class _SpecialistInstantSessionScreenState extends State<SpecialistInstantSessio
 
                                 child: Center(
                                   child: Container(
-                                    width: 161,
-                                    height: 40,
+                                    width: 161.w,
+                                    height: 40.h,
                                     decoration: BoxDecoration(
                                       color: Color(0xFF1F78BC),
                                       borderRadius: BorderRadius.only(bottomRight: Radius.circular(20), topLeft: Radius.circular(20)),
@@ -87,31 +88,31 @@ class _SpecialistInstantSessionScreenState extends State<SpecialistInstantSessio
                                     alignment: Alignment.center,
                                     child: Text(
                                       "instantSession".tr(),
-                                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                                      style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Colors.white),
                                     ),
                                   ),
                                 ),
                               ),
                               Container(
-                                width: screenWidth * 0.9,
+                                width: screenWidth * 0.9.w,
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Text(
                                     "omar".tr(),
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xff19649E)),
+                                    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Color(0xff19649E)),
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 5),
+                              SizedBox(height: 5.h),
                               Container(
-                                width:screenWidth* 0.9,
-                                height: 143,
+                                width:343.w,
+                                height: 143.h,
                                 child: TextFormField(
                                   textAlign:TextAlign.right,
                                   decoration: InputDecoration(
 
                                     hintText: "instantSessionsDes".tr(),
-                                    hintStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.black),
+                                    hintStyle: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold, color: Colors.black),
                                     filled: true,
                                     fillColor: Color(0xFFD5D5D5),
                                     border: OutlineInputBorder(
@@ -123,18 +124,18 @@ class _SpecialistInstantSessionScreenState extends State<SpecialistInstantSessio
                                   maxLines: 10,
                                 ),
                               ),
-                              SizedBox(height: 15),
+                              SizedBox(height: 15.h),
                               Container(
-                                width: screenWidth * 0.9,
+                                width: screenWidth * 0.9.w,
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Text(
                                     "sessionTerms".tr(),
-                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xff1F78BC)),
+                                    style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff1F78BC)),
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 7),
+                              SizedBox(height: 7.h),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -142,43 +143,43 @@ class _SpecialistInstantSessionScreenState extends State<SpecialistInstantSessio
 
                                     children: [
                                       Icon(Icons.circle, size: 10, color: Colors.black),
-                                      SizedBox(width: 5),
+                                      SizedBox(width: 5.w),
                                       Text("term1Instant".tr()),
 
                                     ],
                                   ),
-                                  SizedBox(height: 5),
+                                  SizedBox(height: 5.h),
                                   Row(
 
                                     children: [
                                       Icon(Icons.circle, size: 10, color: Colors.black),
-                                      SizedBox(width: 5),
+                                      SizedBox(width: 5.w),
                                       Text("term2Instant".tr()),
 
                                     ],
                                   ),
-                                  SizedBox(height: 5),
+                                  SizedBox(height: 5.h),
                                   Row(
 
                                     children: [
 
                                       Icon(Icons.circle, size: 10, color: Colors.black),
-                                      SizedBox(width: 5),
+                                      SizedBox(width: 5.w),
                                       Text("term3Instant".tr()),
 
                                     ],
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 15),
+                              SizedBox(height: 15.h),
                             ],
                           ),
                         ),
                         GestureDetector(
                           onTap: (){},
                           child: Container(
-                            width: screenWidth* 0.9,
-                            height: 48,
+                            width: 336.w,
+                            height: 48.h,
                             decoration: BoxDecoration(
                               color: Color(0xff19649E),
                               borderRadius: BorderRadius.circular(10),
@@ -186,17 +187,17 @@ class _SpecialistInstantSessionScreenState extends State<SpecialistInstantSessio
                             child: Center(
                               child: Text(
                                 'startSession'.tr(),
-                                style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+                                style: TextStyle(fontSize: 20.sp, color: Colors.white, fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(height: 15),
+                        SizedBox(height: 15.h),
                         GestureDetector(
                           onTap: (){},
                           child: Container(
-                            width: screenWidth* 0.9,
-                            height: 48,
+                            width: 336.w,
+                            height: 48.h,
                             decoration: BoxDecoration(
                               color: Color(0xffD5D5D5),
                               borderRadius: BorderRadius.circular(10),
@@ -204,7 +205,7 @@ class _SpecialistInstantSessionScreenState extends State<SpecialistInstantSessio
                             child: Center(
                               child: Text(
                                 'notHaveAppointment'.tr(),
-                                style: TextStyle(fontSize: 20, color: Color(0xff19649E), fontWeight: FontWeight.bold),
+                                style: TextStyle(fontSize: 20.sp, color: Color(0xff19649E), fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),

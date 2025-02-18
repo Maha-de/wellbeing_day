@@ -4,6 +4,7 @@ import 'package:doctor/screens/client_change_password.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
@@ -46,13 +47,14 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                 "confirmDeleteAccount".tr(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 24.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 16.h),
               Divider(thickness: 1, color: Color(0xff19649E)),
-              SizedBox(height: 16),
+
+              SizedBox(height: 16.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -70,7 +72,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                     },
                     child: Text(
                       "dismiss".tr(),
-                      style: TextStyle(color: Color(0xff19649E),fontSize: 20,fontWeight: FontWeight.w600),
+                      style: TextStyle(color: Color(0xff19649E),fontSize: 20.sp,fontWeight: FontWeight.w600),
                     ),
                   ),
                   ElevatedButton(
@@ -86,7 +88,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                     },
                     child: Text(
                       "confirm".tr(),
-                      style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w600),
+                      style: TextStyle(color: Colors.white,fontSize: 20.sp,fontWeight: FontWeight.w600),
                     ),
                   ),
                 ],
@@ -124,8 +126,8 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
     List<String> actions = ["changeLanguage".tr(), "passwordManager".tr()];
 
     // MediaQuery for responsive sizing
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width.w;
+    double screenHeight = MediaQuery.of(context).size.height.h;
 
     return BlocProvider(
         create: (_) => userProfileCubit,  // Use the same cubit instance
@@ -153,7 +155,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                     "appointments".tr(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: screenWidth * 0.06,
+                      fontSize: 20.sp,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
@@ -169,7 +171,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                             clipBehavior: Clip.none,
                             children: [
                               Container(
-                                height: screenHeight * 0.22,  // Adjust height proportionally
+                                height: screenHeight * 0.22.h,  // Adjust height proportionally
                                 decoration: BoxDecoration(
                                   color: Color(0xff19649E),
                                   borderRadius: BorderRadius.only(
@@ -197,9 +199,9 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                   
                                           },
                                           child: Container(
-                                            height: screenWidth * 0.3,
+                                            height: 126.h,
                                             // Adjust size proportionally
-                                            width: screenWidth * 0.3,
+                                            width: 126.w,
                                             decoration: BoxDecoration(
                                               color: Colors.white,
                                               borderRadius:
@@ -248,28 +250,28 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                               ),
                             ],
                           ),
-                          SizedBox(height: 35),
+                          SizedBox(height: 35.h),
                           Positioned(
-                            left: screenWidth * 0.35, // Adjust for better centering
+                            left: screenWidth * 0.35.w, // Adjust for better centering
                             top: -100,
                             child: Text(
                               "${userProfileCubit.userData?.specialist?.firstName}",
                               style: TextStyle(
                                 fontWeight: FontWeight.w800,
-                                fontSize: screenWidth * 0.06,
+                                fontSize: 20.sp,
                                 // Adjust size based on screen width
                                 color: Color(0xff19649E),
                               ),
                             ),
                           ),
-                          SizedBox(height: 35),
+                          SizedBox(height: 35.h),
                           Container(
-                            width: screenWidth * 0.85,
+                            width: screenWidth * 0.85.w,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                           
-                                SizedBox(height: 7,),
+                                SizedBox(height: 7.h,),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
@@ -277,8 +279,8 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                       children: [
                                         Center(
                                           child: Container(
-                                            width: 133,
-                                            height: 40,
+                                            width: 133.w,
+                                            height: 40.h,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(5),
                                               color: Colors.white,
@@ -308,7 +310,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                                       hintText: "sunday".tr(),
                                                       hintStyle: TextStyle(
                                                         color: Colors.black,
-                                                        fontSize: 16,
+                                                        fontSize: 16.sp,
                                                         fontWeight: FontWeight.bold,
                                                       ),
                                                     ),
@@ -321,11 +323,11 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                             ),
                                           ),
                                         ),
-                                        SizedBox(width: 10),
+                                        SizedBox(width: 10.w),
                                         Center(
                                           child: Container(
-                                            width: 133,
-                                            height: 40,
+                                            width: 133.w,
+                                            height: 40.h,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(5),
                                               color: Colors.white,
@@ -355,7 +357,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                                       hintText: "2.30Am",
                                                       hintStyle: TextStyle(
                                                         // color: Colors.black,
-                                                        fontSize: 16,
+                                                        fontSize: 16.sp,
                                                         fontWeight: FontWeight.bold,
                                                       ),
                                                     ),
@@ -378,8 +380,8 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                         });
                                       },
                                       child: Container(
-                                        width: 27,
-                                        height: 40,
+                                        width: 27.w,
+                                        height: 40.h,
                                         decoration: BoxDecoration(
                                           color: Color(0xff19649E),
                                           borderRadius: BorderRadius.circular(4),
@@ -397,14 +399,14 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                               ],
                             ),
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: 20.h),
                           Container(
-                            width: screenWidth * 0.85,
+                            width: screenWidth * 0.85.w,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                           
-                                SizedBox(height: 7,),
+                                SizedBox(height: 7.h,),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
@@ -412,8 +414,8 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                       children: [
                                         Center(
                                           child: Container(
-                                            width: 133,
-                                            height: 40,
+                                            width: 133.w,
+                                            height: 40.h,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(5),
                                               color: Colors.white,
@@ -443,7 +445,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                                       hintText: "monday".tr(),
                                                       hintStyle: TextStyle(
                                                         color: Colors.black,
-                                                        fontSize: 16,
+                                                        fontSize: 16.sp,
                                                         fontWeight: FontWeight.bold,
                                                       ),
                                                     ),
@@ -456,11 +458,11 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                             ),
                                           ),
                                         ),
-                                        SizedBox(width: 10),
+                                        SizedBox(width: 10.w),
                                         Center(
                                           child: Container(
-                                            width: 133,
-                                            height: 40,
+                                            width: 133.w,
+                                            height: 40.h,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(5),
                                               color: Colors.white,
@@ -490,7 +492,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                                       hintText: "5.00PM",
                                                       hintStyle: TextStyle(
                                                         // color: Colors.black,
-                                                        fontSize: 16,
+                                                        fontSize: 16.sp,
                                                         fontWeight: FontWeight.bold,
                                                       ),
                                                     ),
@@ -513,8 +515,8 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                         });
                                       },
                                       child: Container(
-                                        width: 27,
-                                        height: 40,
+                                        width: 27.w,
+                                        height: 40.h,
                                         decoration: BoxDecoration(
                                           color: Color(0xff19649E),
                                           borderRadius: BorderRadius.circular(4),
@@ -532,14 +534,14 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                               ],
                             ),
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: 20.h),
                           Container(
-                            width: screenWidth * 0.85,
+                            width: screenWidth * 0.85.w,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                           
-                                SizedBox(height: 7,),
+                                SizedBox(height: 7.h,),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
@@ -547,8 +549,8 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                       children: [
                                         Center(
                                           child: Container(
-                                            width: 133,
-                                            height: 40,
+                                            width: 133.w,
+                                            height: 40.h,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(5),
                                               color: Colors.white,
@@ -578,7 +580,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                                       hintText: "tuesday".tr(),
                                                       hintStyle: TextStyle(
                                                         color: Colors.black,
-                                                        fontSize: 16,
+                                                        fontSize: 16.sp,
                                                         fontWeight: FontWeight.bold,
                                                       ),
                                                     ),
@@ -591,11 +593,11 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                             ),
                                           ),
                                         ),
-                                        SizedBox(width: 10),
+                                        SizedBox(width: 10.w),
                                         Center(
                                           child: Container(
-                                            width: 133,
-                                            height: 40,
+                                            width: 133.w,
+                                            height: 40.h,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(5),
                                               color: Colors.white,
@@ -625,7 +627,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                                       hintText: "3.45Am",
                                                       hintStyle: TextStyle(
                                                         // color: Colors.black,
-                                                        fontSize: 16,
+                                                        fontSize: 16.sp,
                                                         fontWeight: FontWeight.bold,
                                                       ),
                                                     ),
@@ -648,8 +650,8 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                         });
                                       },
                                       child: Container(
-                                        width: 27,
-                                        height: 40,
+                                        width: 27.w,
+                                        height: 40.h,
                                         decoration: BoxDecoration(
                                           color: Color(0xff19649E),
                                           borderRadius: BorderRadius.circular(4),
@@ -667,11 +669,11 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                               ],
                             ),
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: 20.h),
                           Center(
                             child: Container(
-                              width: 138,
-                              height: 38,
+                              width: 138.w,
+                              height: 38.h,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(25),
                                 color: Color(0xff19649E)
@@ -680,20 +682,20 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                 child: Text("addSession".tr(),
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 20,
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.w700
                                 ),),
                               ),
                             ),
                           ),
-                          SizedBox(height: 10,),
+                          SizedBox(height: 10.h,),
                           Container(
-                            width: screenWidth * 0.85,
+                            width: screenWidth * 0.85.w,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                           
-                                SizedBox(height: 7,),
+                                SizedBox(height: 7.h,),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
@@ -701,8 +703,8 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                       children: [
                                         Center(
                                           child: Container(
-                                            width: 133,
-                                            height: 40,
+                                            width: 133.w,
+                                            height: 40.h,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(5),
                                               color: Colors.white,
@@ -732,7 +734,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                                       hintText: "dayy".tr(),
                                                       hintStyle: TextStyle(
                                                         color: Colors.grey,
-                                                        fontSize: 20,
+                                                        fontSize: 20.sp,
                                                         fontWeight: FontWeight.w500,
                                                       ),
                                                     ),
@@ -745,11 +747,11 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                             ),
                                           ),
                                         ),
-                                        SizedBox(width: 10),
+                                        SizedBox(width: 10.w),
                                         Center(
                                           child: Container(
-                                            width: 133,
-                                            height: 40,
+                                            width: 133.w,
+                                            height: 40.h,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(5),
                                               color: Colors.white,
@@ -779,7 +781,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                                       hintText: "hour".tr(),
                                                       hintStyle: TextStyle(
                                                         color: Colors.grey,
-                                                        fontSize: 20,
+                                                        fontSize: 20.sp,
                                                         fontWeight: FontWeight.w500,
                                                       ),
                                                     ),
@@ -798,12 +800,12 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                       onTap: () {
                                         setState(() {
                                           // Add a new day container when tapped
-                                          dayContainers.add(buildDayContainer(screenWidth));
+                                          dayContainers.add(buildDayContainer(326.w));
                                         });
                                       },
                                       child: Container(
-                                        width: 27,
-                                        height: 40,
+                                        width: 27.w,
+                                        height: 40.h,
                                         decoration: BoxDecoration(
                                           color: Color(0xff19649E),
                                           borderRadius: BorderRadius.circular(4),
@@ -821,7 +823,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                               ],
                             ),
                           ),
-                          SizedBox(height: 10,),
+                          SizedBox(height: 10.h,),
                           Column(
                             children: dayContainers,
                           ),
@@ -832,16 +834,16 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                   ),
                 ),
                 bottomNavigationBar: Padding(
-                  padding: const EdgeInsets.only(bottom: 20.0,right: 20,left: 20), // Adds space below the button
+                  padding:  EdgeInsets.only(bottom: 20.0.h,right: 20.w,left: 20.w), // Adds space below the button
                   child: Container(
-                    width: screenWidth * 0.85, // Keeps the width consistent
-                    height: 45, // Reduced height to make the button smaller
+                    width: 327.w, // Keeps the width consistent
+                    height: 48.h, // Reduced height to make the button smaller
                     child: ElevatedButton(
                       onPressed: () {
                         // Add your confirmation logic here
                       },
                       style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(700, 45), // Adjusted minimum size to match the new height
+                        minimumSize:  Size(700, 45.h), // Adjusted minimum size to match the new height
                         backgroundColor: const Color(0xFF19649E),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -849,8 +851,8 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                       ),
                       child: Text(
                         "update".tr(),
-                        style: const TextStyle(
-                          fontSize: 20,
+                        style: TextStyle(
+                          fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
@@ -869,7 +871,7 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
     return Padding(
       padding: const EdgeInsets.only(top: 10.0,bottom: 10),
       child: Container(
-        width: screenWidth * 0.85,
+        width: screenWidth ,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -880,8 +882,8 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                   children: [
                     Center(
                       child: Container(
-                        width: 133,
-                        height: 40,
+                        width: 131,
+                        height: 40.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: Colors.white,
@@ -911,13 +913,13 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                   hintText: "dayy".tr(),
                                   hintStyle: TextStyle(
                                     color: Colors.grey,
-                                    fontSize: 20,
+                                    fontSize: 20.sp,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
                                 style: TextStyle(color: Colors.black),
                                 textAlign: TextAlign.center,
-
+                                // textDirection: TextDirection.rtl,
                               ),
                             ),
                           ],
@@ -927,8 +929,8 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                     SizedBox(width: 10),
                     Center(
                       child: Container(
-                        width: 133,
-                        height: 40,
+                        width: 131,
+                        height: 40.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: Colors.white,
@@ -958,13 +960,13 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                                   hintText: "hour".tr(),
                                   hintStyle: TextStyle(
                                     color: Colors.grey,
-                                    fontSize: 20,
+                                    fontSize: 20.sp,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
                                 style: TextStyle(color: Colors.black),
                                 textAlign: TextAlign.center,
-
+                                // textDirection: TextDirection.rtl,
                               ),
                             ),
                           ],
@@ -981,8 +983,8 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
                     });
                   },
                   child: Container(
-                    width: 27,
-                    height: 40,
+                    width: 27.w,
+                    height: 40.h,
                     decoration: BoxDecoration(
                       color: Color(0xff19649E),
                       borderRadius: BorderRadius.circular(4),
@@ -1001,5 +1003,5 @@ class _SpecialistAppointmentsScreenState extends State<SpecialistAppointmentsScr
         ),
       ),
     );
-  }
-}
+  }}
+

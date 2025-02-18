@@ -1,6 +1,7 @@
 import 'package:doctor/screens/specialist/specialist_free_consultation_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart' hide Trans;
 import '../models/doctor_session_model.dart';
 
@@ -14,8 +15,8 @@ class BeneficiaryCardHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        width: 325,
-        height: 150,
+        width: 325.w,
+        height: 185.h,
         padding: EdgeInsets.all(15),
         decoration: BoxDecoration(
           color: Color(0xff19649E),
@@ -35,13 +36,13 @@ class BeneficiaryCardHome extends StatelessWidget {
                       session?.firstName??"",
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20,
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ),
-                SizedBox(height: 38),
+                SizedBox(height: 38.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -56,8 +57,8 @@ class BeneficiaryCardHome extends StatelessWidget {
               right: 0,
               top: -55,
               child:Container(
-                width: 118,
-                height: 118,
+                width: 166.w,
+                height: 116.h,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle, // يجعل الكونتينر دائريًا
                   border: Border.all(color: Colors.transparent, width: 2),
@@ -81,8 +82,8 @@ class BeneficiaryCardHome extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 137,
-        height: 40,
+        width: 137.w,
+        height: 40.h,
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -91,7 +92,7 @@ class BeneficiaryCardHome extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: TextStyle(color: Colors.blue[800],fontSize: 14,fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.blue[800],fontSize: 14.sp,fontWeight: FontWeight.bold),
           ),
         ),
       ),
