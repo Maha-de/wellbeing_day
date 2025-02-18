@@ -15,8 +15,8 @@ class BeneficiaryCardHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        width: 325.w,
-        height: 185.h,
+        width: 344.w,
+        height: 153.h,
         padding: EdgeInsets.all(15),
         decoration: BoxDecoration(
           color: Color(0xff19649E),

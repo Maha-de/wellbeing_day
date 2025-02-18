@@ -224,7 +224,7 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                           ),
                         ],
                       ),
-                      SizedBox(height:5.h),
+                      SizedBox(height:50.h),
                       BlocBuilder<DoctorSessionTypesCubit, DoctorSessionTypesState>(
                         builder: (context, state) {
                           if (state is DoctorSessionTypesLoading) {
@@ -234,15 +234,13 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                           } else if (state is DoctorSessionTypesSuccess) {
                             return Center(
                               child: Container(
-                                margin: EdgeInsets.only(top: 5),
-                                height: 301.h,
-                                width:325.w,
+                                height: 250.h,
+                                width:344.w,
                                 child: state.session.freeConsultations?.length == 0?
                                 Center(
                                   child: Image(image:AssetImage("assets/images/image.png"),fit: BoxFit.fill,),
                                 ):
                                 ListView.separated(
-                                    padding: EdgeInsets.only(top: 45),
                                     itemBuilder: (context,index)
                                     {
                                       return BeneficiaryCardHome(session: state.session.freeConsultations?[index].beneficiary,);

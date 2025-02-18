@@ -235,7 +235,7 @@ int listLength=0;
                         ),
                       ],
                     ),
-                      SizedBox(height:5.h),
+                      SizedBox(height:50.h),
                       BlocBuilder<DoctorSessionTypesCubit, DoctorSessionTypesState>(
                         builder: (context, state) {
                           if (state is DoctorSessionTypesLoading) {
@@ -245,15 +245,14 @@ int listLength=0;
                           } else if (state is DoctorSessionTypesSuccess) {
                             return Center(
                               child: Container(
-                                margin: EdgeInsets.only(top: 15),
-                                height: 301.h,
-                                width: screenWidth,
+                                height: 250.h,
+                                width: 344,
                                 child: state.session.instantSessions?.length == 0?
                                 Center(
                                   child: Image(image:AssetImage("assets/images/image.png"),fit: BoxFit.fill,),
                                 ):
                                 ListView.separated(
-                                    padding: EdgeInsets.only(top: 45),
+
                                     itemBuilder: (context,index)
                                     {
                                       return BeneficiaryCardHome(session: state.session.instantSessions?[index].beneficiary,);
