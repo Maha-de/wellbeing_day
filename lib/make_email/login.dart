@@ -17,7 +17,6 @@ import '../screens/specialist/specialist_home_screen.dart';
 import '../widgets/custom_radio_button.dart';
 
 class LoginPage extends StatefulWidget {
-
   LoginPage({super.key});
 
   @override
@@ -39,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
       create: (_) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
-          if (state is LoginSuccess && roleController.text=="beneficiary") {
+          if (state is LoginSuccess && roleController.text == "beneficiary") {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -49,23 +48,25 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             );
-          } else if(state is LoginSuccess && roleController.text=="specialized")
-          {
+          } else if (state is LoginSuccess &&
+              roleController.text == "specialized") {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                 builder: (context) => MultiBlocProvider(
                   providers: [
-                    BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
-                    BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),
-                    BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                    BlocProvider<DoctorProfileCubit>(
+                        create: (_) => DoctorProfileCubit()),
+                    BlocProvider<DoctorSessionTypesCubit>(
+                        create: (_) => DoctorSessionTypesCubit()),
+                    BlocProvider<UpdateUserCubit>(
+                        create: (_) => UpdateUserCubit()),
                   ],
                   child: const SpecialistHomeScreen(),
                 ),
               ),
             );
-          }
-          else if (state is LoginError) {
+          } else if (state is LoginError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.error)),
             );
@@ -84,15 +85,15 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                     SizedBox(height: 50.h),
+                    SizedBox(height: 50.h),
                     Text(
                       "welcomeBack".tr(),
-                      style:  TextStyle(
+                      style: TextStyle(
                         fontSize: 24.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                     SizedBox(height: 20.h),
+                    SizedBox(height: 20.h),
                     Center(
                       child: Column(
                         children: [
@@ -100,14 +101,14 @@ class _LoginPageState extends State<LoginPage> {
                             'assets/images/img.png',
                             height: 150.h,
                           ),
-                           Text(
+                          Text(
                             'Wellbeing Day',
                             style: TextStyle(
                               fontSize: 22.sp,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                           Text(
+                          Text(
                             'THERAPY. RELAX. MAGAZINE',
                             style: TextStyle(
                               fontSize: 14.sp,
@@ -117,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                     ),
-                     SizedBox(height: 30.h),
+                    SizedBox(height: 30.h),
                     buildTextField(
                       isPassword: false,
                       context,
@@ -125,25 +126,23 @@ class _LoginPageState extends State<LoginPage> {
                       icon: Icon(Icons.email_outlined),
                       controller: emailController,
                     ),
-                     SizedBox(height: 16.h),
+                    SizedBox(height: 16.h),
                     buildTextField(
                       context,
                       label: "password".tr(),
-                      icon:  IconButton(
-                    icon: Icon(
-                    _isObscure1
-                    ? Icons.visibility_off_rounded
-                      : Icons.visibility_rounded,
-                      color: Colors.grey,
-                    ),
-                onPressed: () {
-                  setState(() {
-                    _isObscure1 = !_isObscure1;
-
-                  });
-
-                },
-              ),
+                      icon: IconButton(
+                        icon: Icon(
+                          _isObscure1
+                              ? Icons.visibility_off_rounded
+                              : Icons.visibility_rounded,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isObscure1 = !_isObscure1;
+                          });
+                        },
+                      ),
                       isPassword: _isObscure1,
                       controller: passwordController,
                     ),
@@ -183,14 +182,13 @@ class _LoginPageState extends State<LoginPage> {
                       },
                     ),
 
-
                     // buildTextField(
                     //   context,
                     //   label: "role".tr(),
                     //   icon: Icons.person,
                     //   controller: roleController,
                     // ),
-                     SizedBox(height: 30.h),
+                    SizedBox(height: 30.h),
                     ElevatedButton(
                       onPressed: () {
                         final email = emailController.text;
@@ -207,34 +205,35 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       child: Text(
                         "signIn".tr(),
-                        style:  TextStyle(
+                        style: TextStyle(
                             fontSize: 18.sp,
                             fontWeight: FontWeight.w700,
                             color: Colors.white),
                       ),
                     ),
-                     SizedBox(height: 16.h),
+                    SizedBox(height: 16.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-
                         Text(
                           "notHaveAccount".tr(),
-                          style:  TextStyle(
+                          style: TextStyle(
                             fontSize: 16.sp,
                             color: Colors.black,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-
                         TextButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> const SelectionPage()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const SelectionPage()));
                           },
-                          child:
-                          Text(
+                          child: Text(
                             "createAccount".tr(),
-                            style:  TextStyle(
+                            style: TextStyle(
                               fontSize: 16.sp,
                               color: Color(0xff19649E),
                               fontWeight: FontWeight.w700,
@@ -255,9 +254,9 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget buildTextField(BuildContext context,
       {required String label,
-        required Widget icon,
-        required bool isPassword ,
-        required TextEditingController controller}) {
+      required Widget icon,
+      required bool isPassword,
+      required TextEditingController controller}) {
     return TextField(
       controller: controller,
       obscureText: isPassword,
@@ -294,18 +293,18 @@ class LoginCubit extends Cubit<LoginState> {
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         print(role);
-       if(role=="beneficiary")
-       {
-         var userId = data['user']['id'];
-         final prefs = await SharedPreferences.getInstance();
-         prefs.setString('userId', userId);
-         prefs.setString('email', email);
-       }else if(role=="specialized")
-       {
-         var userId =data['user']['id'];
-         final prefs = await SharedPreferences.getInstance();
-         prefs.setString('doctorId', userId);
-       }
+        if (role == "beneficiary") {
+          var userId = data['user']['id'];
+          final prefs = await SharedPreferences.getInstance();
+          prefs.setString('userId', userId);
+          prefs.setString('email', email);
+          prefs.setString('role', "0");
+        } else if (role == "specialized") {
+          var userId = data['user']['id'];
+          final prefs = await SharedPreferences.getInstance();
+          prefs.setString('doctorId', userId);
+          prefs.setString('role', "1");
+        }
 
         emit(LoginSuccess(message: 'تم تسجيل الدخول بنجاح'));
       } else {

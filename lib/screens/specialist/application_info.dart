@@ -46,7 +46,6 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
     "instructions".tr(),
   ];
 
-
   void openWhatsApp() async {
     String message = Uri.encodeComponent("contactMssgForWhats".tr());
     String whatsappUrl = "https://wa.me/${contactNumber}?text=$message";
@@ -70,7 +69,6 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
       throw 'Could not open Gmail';
     }
   }
-
 
   @override
   Widget build(BuildContext context) {

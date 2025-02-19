@@ -1,7 +1,9 @@
-import 'dart:math';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:doctor/models/notification_model.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:intl/intl.dart';
 
 import '../../../api/end_points.dart';
 import '../../../errors/error_model.dart';
@@ -90,60 +92,139 @@ class SpecialistRepository {
     }
     throw Exception('Unexpected error occurred (network connection)');
   }
-}
 
-void handleDioExceptions(DioException e) {
-  if (e.response != null) {
-    final responseData = e.response!.data;
-    final statusCode = e.response!.statusCode;
-
-    if (statusCode != null) {
-      throw ServerException(
-        errModel: ResponseModel.fromJson(responseData as Map<String, dynamic>),
+  Future<List<NotificationModel>> getDoctorSessions(String id) async {
+    try {
+      Response response = await dio.get(
+        dio.options.baseUrl + EndPoint.getSpecialistSessions(id),
       );
+
+      final List<dynamic> instantSessions =
+          response.data['instantSessions'] ?? [];
+      final List<dynamic> freeConsultations =
+          response.data['freeConsultations'] ?? [];
+      final List<dynamic> combinedSessions = [
+        ...instantSessions,
+        ...freeConsultations
+      ];
+
+      final todaySessions = combinedSessions.where((session) {
+        final String? sessionDate = session['sessionDate'] as String?;
+        return sessionDate != null;
+      }).map((session) {
+        return NotificationModel(
+          id: session["_id"] ?? '',
+          notificationType: session['sessionType'] as String? ?? '',
+          date: DateFormat('yyyy/MM/dd - HH:mm')
+              .format(DateTime.parse(session['sessionDate'])),
+        );
+      }).toList();
+
+      return todaySessions;
+    } on DioException catch (e) {
+      try {
+        handleDioExceptions(e);
+      } on ServerException catch (serverException) {
+        throw Exception(serverException.errModel.message);
+      }
     }
+
+    // Fallback in case something unexpected happens
+    throw Exception('Unexpected error occurred (network connection)');
   }
 
-  // Handle cases with no response
-  switch (e.type) {
-    case DioExceptionType.connectionTimeout:
-    case DioExceptionType.sendTimeout:
-    case DioExceptionType.receiveTimeout:
-    case DioExceptionType.connectionError:
-      throw ServerException(
-        errModel: ResponseModel(
-          code: 'TIMEOUT',
-          message:
-              'Connection timed out. Please try again later.  افحص الاتصال بالانترنت \n مشكلة في الشبكة',
-        ),
+  Future<List<NotificationModel>> getBenficSessions(String id) async {
+    try {
+      Response response = await dio.get(
+        dio.options.baseUrl + EndPoint.getBenificSessions(id),
       );
-    case DioExceptionType.cancel:
-      throw ServerException(
-        errModel: ResponseModel(
-          code: 'CANCELLED',
-          message: 'Request was cancelled. تم الغاء الطلب',
-        ),
-      );
-    case DioExceptionType.badResponse:
-      throw ServerException(
-        errModel: ResponseModel(
-          code: 'BAD_RESPONSE',
-          message: 'An error occurred while processing the request. حدثت مشكلة',
-        ),
-      );
-    case DioExceptionType.unknown:
-      throw ServerException(
-        errModel: ResponseModel(
-          code: 'UNKNOWN',
-          message: 'An unknown error occurred. Please try again. حطأ غير معروف',
-        ),
-      );
-    case DioExceptionType.badCertificate:
-      throw ServerException(
-        errModel: ResponseModel(
-          code: 'BAD_CERTIFICATE',
-          message: 'Invalid server certificate.',
-        ),
-      );
+
+      final List<dynamic> scheduledSessions =
+          response.data['scheduledSessions'] ?? [];
+
+      final todaySessions = scheduledSessions.where((session) {
+        final String? sessionDate = session['sessionDate'] as String?;
+        return sessionDate != null;
+      }).map((session) {
+        return NotificationModel(
+          id: session["_id"] ?? '',
+          notificationType: session['sessionType'] as String? ?? '',
+          date: DateFormat('yyyy/MM/dd - HH:mm')
+              .format(DateTime.parse(session['sessionDate'])),
+        );
+      }).toList();
+
+      return todaySessions;
+    } on DioException catch (e) {
+      print("+++++++++++++++++++++++++++");
+      print("here");
+      try {
+        handleDioExceptions(e);
+      } on ServerException catch (serverException) {
+        throw Exception(serverException.errModel.message);
+      }
+    }
+
+    // Fallback in case something unexpected happens
+    throw Exception('Unexpected error occurred (network connection)');
+  }
+
+  void handleDioExceptions(DioException e) {
+    if (e.response != null) {
+      final responseData = e.response!.data;
+      final statusCode = e.response!.statusCode;
+
+      if (statusCode != null) {
+        throw ServerException(
+          errModel:
+              ResponseModel.fromJson(responseData as Map<String, dynamic>),
+        );
+      }
+    }
+
+    // Handle cases with no response
+    switch (e.type) {
+      case DioExceptionType.connectionTimeout:
+      case DioExceptionType.sendTimeout:
+      case DioExceptionType.receiveTimeout:
+      case DioExceptionType.connectionError:
+        throw ServerException(
+          errModel: ResponseModel(
+            code: 'TIMEOUT',
+            message:
+                'Connection timed out. Please try again later.  افحص الاتصال بالانترنت \n مشكلة في الشبكة',
+          ),
+        );
+      case DioExceptionType.cancel:
+        throw ServerException(
+          errModel: ResponseModel(
+            code: 'CANCELLED',
+            message: 'Request was cancelled. تم الغاء الطلب',
+          ),
+        );
+      case DioExceptionType.badResponse:
+        throw ServerException(
+          errModel: ResponseModel(
+            code: 'BAD_RESPONSE',
+            message:
+                'An error occurred while processing the request. حدثت مشكلة',
+          ),
+        );
+      case DioExceptionType.unknown:
+        throw ServerException(
+          errModel: ResponseModel(
+            code: 'UNKNOWN',
+            message:
+                'An unknown error occurred. Please try again. حطأ غير معروف',
+          ),
+        );
+      case DioExceptionType.badCertificate:
+        throw ServerException(
+          errModel: ResponseModel(
+            code: 'BAD_CERTIFICATE',
+            message: 'Invalid server certificate.',
+          ),
+        );
+    }
   }
 }

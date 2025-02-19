@@ -6,9 +6,14 @@ class EndPoint {
   static String signUpSpecialist = "/specialist/register";
   static String getSpecialist = "/specialist/getByCategory";
   static String getAllSpecialist = "/specialist/getSpecialists";
-  // static String getUserDataEndPoint(id) {
-  //   return "user/get-user/$id";
-  // }
+
+  static String getSpecialistSessions(String id) {
+    return "/sessions/specialist/$id";
+  }
+
+  static String getBenificSessions(String id) {
+    return "/sessions/beneficiary/$id";
+  }
 }
 
 class ApiKey {

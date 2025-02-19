@@ -1,11 +1,14 @@
+import 'package:doctor/cubit/user_notification_cubit.dart/user_notification_cubit.dart';
 import 'package:doctor/models/Doctor_id_model.dart';
 import 'package:doctor/screens/notificationsScreen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../models/user_profile_model.dart';
 
-class CustomAppBarSpecialist extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBarSpecialist extends StatelessWidget
+    implements PreferredSizeWidget {
   final Specialist? userProfile;
   final double screenWidth;
   final double screenHeight;
@@ -52,11 +55,11 @@ class CustomAppBarSpecialist extends StatelessWidget implements PreferredSizeWid
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(50),
                         child: userProfile?.imageUrl == "" ||
-                            userProfile?.imageUrl == null
+                                userProfile?.imageUrl == null
                             ? Image.asset("assets/images/profile.jpg",
-                            fit: BoxFit.fill)
+                                fit: BoxFit.fill)
                             : Image.network(userProfile?.imageUrl ?? "",
-                            fit: BoxFit.fill),
+                                fit: BoxFit.fill),
                       ),
                     ),
                     Padding(
@@ -95,13 +98,16 @@ class CustomAppBarSpecialist extends StatelessWidget implements PreferredSizeWid
                             SizedBox(width: screenWidth * 0.05.w),
                             _iconButton("assets/images/notification.png", () {
                               Future.microtask(() {
-                                // // Ensures navigation happens correctly
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //       builder: (context) =>
-                                //           Notificationsscreen()),
-                                // );
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        BlocProvider<UserNotificationCubit>(
+                                      create: (_) => UserNotificationCubit(),
+                                      child: Notificationsscreen(),
+                                    ),
+                                  ),
+                                );
                               });
                             })
                           ],
@@ -111,7 +117,7 @@ class CustomAppBarSpecialist extends StatelessWidget implements PreferredSizeWid
                         children: [
                           Padding(
                             padding:
-                            EdgeInsets.only(bottom: screenHeight * 0.005.h),
+                                EdgeInsets.only(bottom: screenHeight * 0.005.h),
                             child: Text(
                               "contactUs".tr(),
                               style: TextStyle(
@@ -126,7 +132,7 @@ class CustomAppBarSpecialist extends StatelessWidget implements PreferredSizeWid
                             children: [
                               _iconButton(
                                   "assets/images/fa-brands_twitter-square.png",
-                                      () {}),
+                                  () {}),
                               SizedBox(width: screenWidth * 0.01.w),
                               _iconButton(
                                   "assets/images/uil_facebook.png", () {}),
