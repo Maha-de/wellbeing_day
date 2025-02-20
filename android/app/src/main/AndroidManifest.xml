@@ -8,6 +8,27 @@
 
 
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    
+    <queries>
+    <!--  SMS support -->
+    <intent>
+        <action android:name="android.intent.action.VIEW" />
+        <data android:scheme="sms" />
+    </intent>
+    <!-- Icall support -->
+    <intent>
+        <action android:name="android.intent.action.VIEW" />
+        <data android:scheme="tel" />
+    </intent>
+    <!--  launch mode support -->
+    <intent>
+        <action android:name="android.intent.action.VIEW" />
+        <data android:scheme="whatsapp" />
+    </intent>
+    <intent>
+        <action android:name="android.support.customtabs.action.CustomTabsService" />
+    </intent>
+    </queries>
 
     <application
         android:requestLegacyExternalStorage="true"
