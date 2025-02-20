@@ -162,7 +162,7 @@ class Specialist {
   String bio;
   String sessionPrice;
   String sessionDuration;
-  String specialties;
+  List<String> specialties;
   int yearOfExperience;
   String phone;
 
@@ -213,7 +213,7 @@ class Specialist {
     this.certificates,
     this.ministryLicense,
     this.associationMembership,
-  }) : specialties = '';
+  }) : specialties = [];
 
   // From JSON
   factory Specialist.fromJson(Map<String, dynamic> json) {
