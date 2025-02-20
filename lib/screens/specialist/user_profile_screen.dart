@@ -4,6 +4,7 @@ import 'package:doctor/models/user_profile_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
@@ -63,93 +64,103 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             } else if (state is UserProfileSuccess) {
               UserProfileModel? userProfile = state.userProfile;
               return Scaffold(
+                appBar: AppBar(
+                  backgroundColor: const Color(0xff19649E),
+                  iconTheme: const IconThemeData(
+                    color: Colors.white,
+                  ),
+                ),
                 body: SingleChildScrollView(
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    alignment: Alignment.center,
+                  child: Column(
                     children: [
-                      CoverWidget(profileHeight: profileH),
-                      Positioned(
-                          top: topText + profileH / 6,
-                          left: 0,
-                          right: 0,
-                          child: BlocBuilder<BeneficiarySessionCubit,
-                              BeneficiarySessionState>(
-                            builder: (context, state) {
-                              if (state is BeneficiarySessionLoading) {
-                                return CircularProgressIndicator(); // Show loading indicator
-                              } else if (state is BeneficiarySessionFailure) {
-                                return Text(
-                                    state.error); // Display error message
-                              } else if (state is BeneficiarySessionSuccess) {
-                                return benDetials(
-                                    userProfile.firstName ??
-                                        "" +
-                                            " " +
-                                            "${userProfile.lastName ?? " "}",
-                                    "${userProfile.age}",
-                                    userProfile.gender ?? "",
-                                    userProfile.nationality ?? "",
-                                    userProfile.profession ?? "",
-                                    beneficiarySessionCubit
-                                            .sessionData?.scheduledSessions
-                                            ?.map((session) =>
-                                                '${session.sessionDate?.day}/${session.sessionDate?.month}/${session.sessionDate?.year}' ??
-                                                '')
-                                            .toList() ??
-                                        ["noneSessions".tr()],
-                                    beneficiarySessionCubit
-                                            .sessionData?.completedSessions
-                                            ?.map((session) =>
-                                                '${session.sessionDate?.day}/${session.sessionDate?.month}/${session.sessionDate?.year}' ??
-                                                '')
-                                            .toList() ??
-                                        ["noneSessions".tr()]);
-                              } else {
-                                return Center(child: Text("noneSessions".tr()));
-                              }
-                            },
-                          )),
-                      // Positioned(
-                      //   top: topText,
-                      //   left: MediaQuery.of(context).size.width / 2 -
-                      //       (profileH + 150),
-                      //   right: 0,
-                      //   child: namedTextWidget(
-                      //       "${userProfile.firstName ?? " "}" +
-                      //           "${userProfile.lastName}",
-                      //       userProfile.profession ?? ""),
-                      // ),
-                      // Positioned(
-                      //   top: top,
-                      //   left: MediaQuery.of(context).size.width / 3 +
-                      //       profileH / 2,
-                      //   child:
-                      //       profilePage(profileH, userProfile.imageUrl ?? ""),
+                      Stack(
+                        clipBehavior: Clip.none,
+                        alignment: Alignment.center,
+                        children: [
+                          CoverWidget(profileHeight: profileH),
+                          Positioned(
+                              top: topText + profileH / 6,
+                              left: 0,
+                              right: 0,
+                              child: BlocBuilder<BeneficiarySessionCubit,
+                                  BeneficiarySessionState>(
+                                builder: (context, state) {
+                                  if (state is BeneficiarySessionLoading) {
+                                    return CircularProgressIndicator(); // Show loading indicator
+                                  } else if (state is BeneficiarySessionFailure) {
+                                    return Text(
+                                        state.error); // Display error message
+                                  } else if (state is BeneficiarySessionSuccess) {
+                                    return benDetials(
+                                        userProfile.firstName ??
+                                            "" +
+                                                " " +
+                                                "${userProfile.lastName ?? " "}",
+                                        "${userProfile.age}",
+                                        userProfile.gender ?? "",
+                                        userProfile.nationality ?? "",
+                                        userProfile.profession ?? "",
+                                        beneficiarySessionCubit
+                                                .sessionData?.scheduledSessions
+                                                ?.map((session) =>
+                                                    '${session.sessionDate?.day}/${session.sessionDate?.month}/${session.sessionDate?.year}' ??
+                                                    '')
+                                                .toList() ??
+                                            ["noneSessions".tr()],
+                                        beneficiarySessionCubit
+                                                .sessionData?.completedSessions
+                                                ?.map((session) =>
+                                                    '${session.sessionDate?.day}/${session.sessionDate?.month}/${session.sessionDate?.year}' ??
+                                                    '')
+                                                .toList() ??
+                                            ["noneSessions".tr()]);
+                                  } else {
+                                    return Center(child: Text("noneSessions".tr()));
+                                  }
+                                },
+                              )),
+                          // Positioned(
+                          //   top: topText,
+                          //   left: MediaQuery.of(context).size.width / 2 -
+                          //       (profileH + 150),
+                          //   right: 0,
+                          //   child: namedTextWidget(
+                          //       "${userProfile.firstName ?? " "}" +
+                          //           "${userProfile.lastName}",
+                          //       userProfile.profession ?? ""),
+                          // ),
+                          // Positioned(
+                          //   top: top,
+                          //   left: MediaQuery.of(context).size.width / 3 +
+                          //       profileH / 2,
+                          //   child:
+                          //       profilePage(profileH, userProfile.imageUrl ?? ""),
 
-                      // ),
-                      Positioned(
-                        top: top,
-                        left: !isEnglish
-                            ? MediaQuery.of(context).size.width / 3 -
-                                (profileH / 2)
-                            : MediaQuery.of(context).size.width / 3 +
-                                (profileH / 2),
-                        child:
-                            profilePage(profileH, userProfile.imageUrl ?? ""),
-                      ),
-                      Positioned(
-                        top: topText,
-                        left: !isEnglish
-                            ? MediaQuery.of(context).size.width / 2 +
-                                (profileH - 150)
-                            : MediaQuery.of(context).size.width / 2 -
-                                (profileH + 150),
-                        // right: 0,
-                        child: namedTextWidget(
-                            "${userProfile.firstName ?? " "}" +
-                                "${userProfile.lastName}",
-                            userProfile.profession ?? ""),
+                          // ),
+                          Positioned(
+                            top: top,
+                            left: !isEnglish
+                                ? MediaQuery.of(context).size.width / 3 -
+                                    (profileH / 2)
+                                : MediaQuery.of(context).size.width / 3 +
+                                    (profileH / 2),
+                            child:
+                                profilePage(profileH, userProfile.imageUrl ?? ""),
+                          ),
+                          Positioned(
+                            top: topText,
+                            left: !isEnglish
+                                ? MediaQuery.of(context).size.width / 2 +
+                                    (profileH - 150)
+                                : MediaQuery.of(context).size.width / 2 -
+                                    (profileH + 150),
+                            // right: 0,
+                            child: namedTextWidget(
+                                "${userProfile.firstName ?? " "}" +
+                                    "${userProfile.lastName}",
+                                userProfile.profession ?? ""),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -164,38 +175,42 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
 Widget benDetials(String name, String age, String gender, String nationality,
     String profession, List<String> schedule, List<String> complete) {
-  return Container(
-    padding: EdgeInsets.all(16),
-    decoration: const BoxDecoration(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(50),
-        topRight: Radius.circular(50),
+  return SingleChildScrollView(
+    child: Container(
+      padding: EdgeInsets.all(16),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(50),
+          topRight: Radius.circular(50),
+        ),
+        color: Colors.white,
       ),
-      color: Colors.white,
-    ),
-    child: SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 40,
-          ),
-          Text(
-            "userDetails".tr(),
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 10),
-          infoRow("name".tr(), name),
-          infoRow("age".tr(), age),
-          infoRow("gender".tr(), gender),
-          infoRow("nationality".tr(), nationality),
-          infoRow("profession".tr(), profession),
-          SizedBox(
-            height: 30,
-          ),
-          sessionSection(schedule == [] ? ["noneSessions".tr()] : schedule,
-              complete == [] ? ["noneSessions".tr()] : complete),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 85.h,
+            ),
+            Center(
+              child: Text(
+                "userDetails".tr(),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(height: 10),
+            infoRow("name".tr(), name),
+            infoRow("age".tr(), age),
+            infoRow("gender".tr(), gender),
+            infoRow("nationality".tr(), nationality),
+            infoRow("profession".tr(), profession),
+            SizedBox(
+              height: 30,
+            ),
+            sessionSection(schedule == [] ? ["noneSessions".tr()] : schedule,
+                complete == [] ? ["noneSessions".tr()] : complete),
+          ],
+        ),
       ),
     ),
   );

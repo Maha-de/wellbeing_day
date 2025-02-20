@@ -140,7 +140,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
                                 child: Text(
                                   "completedSessions".tr(),
                                   style: TextStyle(
-                                    fontSize: isEnglish ? 17.sp : 20.sp,
+                                    fontSize: 17.sp,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                   ),
@@ -159,7 +159,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
                                 child: Text(
                                   "nextSessions".tr(),
                                   style: TextStyle(
-                                    fontSize: isEnglish ? 17.sp : 20.sp,
+                                    fontSize: 17.sp,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                   ),
