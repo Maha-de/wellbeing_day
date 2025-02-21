@@ -1,4 +1,5 @@
 import 'package:doctor/cubit/delete_account_cubit/delete_account_cubit.dart';
+import 'package:doctor/cubit/up_comming_session_beneficiary/up_comming_cubit.dart';
 import 'package:doctor/cubit/update_user_cubit/update_user_cubit.dart';
 import 'package:doctor/screens/client_profile_details.dart';
 import 'package:doctor/screens/payment_methods_profile.dart';
@@ -278,6 +279,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                                         BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
                                         BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
                                         BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                        BlocProvider<UpCommingCubit>(create: (_) => UpCommingCubit()),
                                       ],
                                   child: AppointmentsSection())));
                                   // Navigator.push(

@@ -1,4 +1,3 @@
-import 'package:doctor/api/end_points.dart';
 import 'package:doctor/cubit/doctor_details_cubit/doctor_profile_state.dart';
 import 'package:doctor/models/Doctor_id_model.dart';
 import 'package:doctor/screens/sign_up_as_client.dart';
@@ -12,10 +11,8 @@ import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
 import '../make_email/login.dart';
 import '../models/doctor_by_category_model.dart';
-import '../models/user_profile_model.dart';
 import '../widgets/doctor_details_info.dart';
 import 'appointment_screen.dart';
-import '../models/specialist_model.dart'as s;
 
 
 class DoctorDetails extends StatefulWidget {
@@ -61,17 +58,10 @@ class _DoctorDetailsState extends State<DoctorDetails> {
     String id = prefs.getString('userId') ?? "";
     userProfileCubit.getUserProfile(context, id);
     doctorProfileCubit.getUserProfile(context,widget.doctorID);
+    print(doctorProfileCubit.userData?.specialist?.availableSlots);
   }
 
-  final List<String> timeSlots = [
-    '09:00 AM',
-    '10:00 AM',
-    '11:00 AM',
-    '01:00 PM',
-    '02:00 PM',
-    '03:00 PM',
-    '04:00 PM',
-  ];
+
 
   final List<String> daySlots = [
     'السبت',
@@ -96,14 +86,6 @@ class _DoctorDetailsState extends State<DoctorDetails> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
-    double screenHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
     bool isEnglish = Localizations
         .localeOf(context)
         .languageCode == 'en';
@@ -162,7 +144,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                                   child: Padding(
                                     padding: const EdgeInsets.fromLTRB(
                                         20, 120, 20, 10),
-                                    child: Container(
+                                    child: SizedBox(
                                       width: 120.w,
                                       child: Text(
                                         (doctor.specialist?.firstName ?? "") + (doctor.specialist?.lastName ?? "")
@@ -235,44 +217,44 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                                     child: Row(
                                       children: [
 
+
                                         Wrap(
                                           spacing: 10,
-                                          children: timeSlots.map((time) {
+                                          children: doctor.specialist?.availableSlots?.map((timeString) {
+                                            // تحويل النص إلى DateTime
+                                            DateTime time = DateTime.parse(timeString);
+
+                                            // تنسيق الوقت فقط بدون التاريخ
+                                            String formattedTime = DateFormat('hh:mm a').format(time);
+
                                             return TextButton(
                                               onPressed: () {
                                                 setState(() {
-                                                  _selectedTime =
-                                                      time; // Update the selected time
+                                                  _selectedTime = timeString; // تخزين النص الأصلي لضمان التوافق
                                                 });
                                               },
                                               style: TextButton.styleFrom(
                                                 minimumSize: Size(110, 50),
-                                                // Set minimum size for the button
                                                 shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius
-                                                      .circular(
-                                                      20), // Change this value for more or less rounding
+                                                  borderRadius: BorderRadius.circular(20),
                                                 ),
-                                                foregroundColor: Colors.grey
-                                                    .shade300,
-                                                backgroundColor: _selectedTime ==
-                                                    time
+                                                foregroundColor: Colors.grey.shade300,
+                                                backgroundColor: _selectedTime == timeString
                                                     ? const Color(0xFF19649E)
-                                                    : Colors.grey
-                                                    .shade300, // Text color
+                                                    : Colors.grey.shade300,
                                               ),
-                                              child: Text(time,
+                                              child: Text(
+                                                formattedTime, // عرض الوقت فقط
                                                 style: TextStyle(
                                                   fontSize: 18.sp,
                                                   fontWeight: FontWeight.bold,
-                                                  color: _selectedTime == time
-                                                      ? Colors
-                                                      .white
-                                                      : Colors.black,
-                                                ),),
+                                                  color: _selectedTime == timeString ? Colors.white : Colors.black,
+                                                ),
+                                              ),
                                             );
-                                          }).toList(),
+                                          }).toList()??[],
                                         ),
+
 
                                       ],
                                     ),
@@ -287,7 +269,6 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                                     scrollDirection: Axis.horizontal,
 
                                     child: Row(
-                                      spacing: 10,
                                       children:
                                       (isEnglish ? daySlotsEnglish : daySlots).map((
                                           day) {
@@ -389,7 +370,6 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                       ),
                     );
                   } else if (userProfileState is UserProfileSuccess && doctorProfileState is DoctorProfileSuccess) {
-                    UserProfileModel userProfile = userProfileState.userProfile;
                     DoctorByIdModel doctor = doctorProfileState.doctorProfile;
                     print(doctor);
               return Scaffold(
@@ -430,11 +410,11 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                               child: Padding(
                                 padding: const EdgeInsets.fromLTRB(
                                     20, 120, 20, 10),
-                                child: Container(
+                                child: SizedBox(
                                   width: 120.w,
                                   child: Text(
 
-                                    (doctor.specialist?.firstName ?? "") + (doctor.specialist?.lastName ?? "")
+                                    (doctor.specialist?.firstName ?? "") +" "+ (doctor.specialist?.lastName ?? "")
                                     ,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
@@ -459,8 +439,18 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                                         topRight: Radius.circular(60.0),
                                       )
                                   ),
-                                  child: Image.asset('assets/images/doctor.png',
-                                      fit: BoxFit.contain),
+                                  child: doctor.specialist?.imageUrl ==
+                                      "" ||
+                                      doctor.specialist?.imageUrl ==
+                                          null
+                                      ? Image.asset('assets/images/doctor.png',
+                                      fit: BoxFit.contain)
+                                      : Image.network(
+                                    doctor.specialist?.imageUrl ??
+                                        "", // رابط الصورة
+                                    fit: BoxFit
+                                        .contain, // ملء الصورة
+                                  )
                                 ),
                               ),
                             ),
@@ -473,7 +463,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              DoctorInfo(text: "${doctor.specialist?.sessionPrice??" "}",),
+                              DoctorInfo(text: "session price:${doctor.specialist?.sessionPrice??" "}",),
                               SizedBox(height: 6.h),
                               Text(doctor.specialist?.bio??"", style: TextStyle(
                                 fontSize: 18.sp,
@@ -489,7 +479,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                               SizedBox(height: 6.h),
                               DoctorInfo(text: 'availableVideo'.tr(),),
                               SizedBox(height: 6.h),
-                              DoctorInfo(text: "${doctor.specialist?.yearsExperience??0}",),
+                              DoctorInfo(text: "Years of Experience: "+"${doctor.specialist?.yearsExperience??0}",),
                               SizedBox(height: 6.h),
                               DoctorInfo(text: 'languageExample'.tr(),),
                               SizedBox(height: 10.h),
@@ -504,43 +494,57 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                                 child: Row(
                                   children: [
 
+
                                     Wrap(
                                       spacing: 10,
-                                      children: timeSlots.map((time) {
-                                        return TextButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              _selectedTime =
-                                                  time; // Update the selected time
-                                            });
-                                          },
-                                          style: TextButton.styleFrom(
-                                            minimumSize: Size(110, 50),
-                                            // Set minimum size for the button
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius
-                                                  .circular(
-                                                  20), // Change this value for more or less rounding
+                                      children: doctor.specialist?.availableSlots?.map((timeString) {
+                                        if (timeString == null) return SizedBox();
+
+                                        try {
+                                          // تنظيف النص من "T" وأي مسافات زائدة
+                                          String cleanedTimeString = timeString.replaceAll("T", "").trim();
+
+                                          // استخراج الجزء الخاص بالوقت فقط
+                                          RegExp regex = RegExp(r"(\d{1,2}:\d{2} (AM|PM))");
+                                          Match? match = regex.firstMatch(cleanedTimeString);
+
+                                          if (match == null) {
+                                            print("❌ فشل استخراج الوقت من: $timeString");
+                                            return SizedBox();
+                                          }
+
+                                          String formattedTime = match.group(0)!; // الوقت فقط
+
+                                          return TextButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                _selectedTime = timeString;
+                                              });
+                                            },
+                                            style: TextButton.styleFrom(
+                                              minimumSize: Size(110, 50),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(20),
+                                              ),
+                                              foregroundColor: Colors.grey.shade300,
+                                              backgroundColor: _selectedTime == timeString
+                                                  ? const Color(0xFF19649E)
+                                                  : Colors.grey.shade300,
                                             ),
-                                            foregroundColor: Colors.grey
-                                                .shade300,
-                                            backgroundColor: _selectedTime ==
-                                                time
-                                                ? const Color(0xFF19649E)
-                                                : Colors.grey
-                                                .shade300, // Text color
-                                          ),
-                                          child: Text(time,
-                                            style: TextStyle(
-                                              fontSize: 18.sp,
-                                              fontWeight: FontWeight.bold,
-                                              color: _selectedTime == time
-                                                  ? Colors
-                                                  .white
-                                                  : Colors.black,
-                                            ),),
-                                        );
-                                      }).toList(),
+                                            child: Text(
+                                              formattedTime, // عرض الوقت فقط مع AM/PM
+                                              style: TextStyle(
+                                                fontSize: 18.sp,
+                                                fontWeight: FontWeight.bold,
+                                                color: _selectedTime == timeString ? Colors.white : Colors.black,
+                                              ),
+                                            ),
+                                          );
+                                        } catch (e) {
+                                          print("❌ خطأ في معالجة الوقت: $timeString - $e");
+                                          return SizedBox();
+                                        }
+                                      }).toList() ?? [],
                                     ),
 
                                   ],
@@ -555,42 +559,73 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                               SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
 
-                                child: Row(
-                                  spacing: 10,
-                                  children:
-                                  (isEnglish ? daySlotsEnglish : daySlots).map((
-                                      day) {
-                                    return TextButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          _selectedDay =
-                                              day; // Update the selected time
-                                        });
-                                      },
-                                      style: TextButton.styleFrom(
-                                        minimumSize: Size(110, 50),
-                                        // Set minimum size for the button
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                              20), // Change this value for more or less rounding
+                                child:
+                                Row(
+                                  children: doctor.specialist?.availableSlots?.map((dayString) {
+                                    if (dayString == null) return SizedBox();
+
+                                    try {
+                                      // تنظيف النص من أي حرف "T" زائد والمسافات غير الضرورية
+                                      String cleanedDayString = dayString.replaceAll("T", " ").trim();
+
+                                      // قائمة بالتنسيقات الممكنة
+                                      List<String> possibleFormats = [
+                                        "yyyy-MM-dd HH:mm",      // 2025-07-10 18:00
+                                        "yyyy-MM-dd hh:mm a",    // 2025-07-10 08:00 AM
+                                        "yyyy-MM-dd'T'HH:mm",    // 2025-07-10T18:00
+                                        "yyyy-MM-dd'T'hh:mm a",  // 2025-07-10T08:00 AM
+                                      ];
+
+                                      DateTime? parsedDate; // يجب أن يكون قابلاً للإسناد بـ null
+
+                                      for (String format in possibleFormats) {
+                                        try {
+                                          parsedDate = DateFormat(format).parse(cleanedDayString);
+                                          break; // إذا تم التحليل بنجاح، نخرج من الحلقة
+                                        } catch (e) {
+                                          continue; // جرب التنسيق التالي
+                                        }
+                                      }
+
+                                      // لو لم يتم التحليل بنجاح، اطبع تحذيرًا وأعد زرًا فارغًا
+                                      if (parsedDate == null) {
+                                        print("❌ فشل تحليل التاريخ: $dayString");
+                                        return SizedBox();
+                                      }
+
+                                      // استخراج اليوم من الأسبوع (Sunday, Monday,...)
+                                      String dayOfWeek = DateFormat('EEEE').format(parsedDate);
+
+                                      return TextButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            _selectedDay = dayString;
+                                          });
+                                        },
+                                        style: TextButton.styleFrom(
+                                          minimumSize: Size(110, 50),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                          ),
+                                          foregroundColor: Colors.grey.shade300,
+                                          backgroundColor: _selectedDay == dayString
+                                              ? const Color(0xFF19649E)
+                                              : Colors.grey.shade300,
                                         ),
-                                        foregroundColor: Colors.grey.shade300,
-                                        backgroundColor: _selectedDay == day
-                                            ? const Color(0xFF19649E)
-                                            : Colors.grey
-                                            .shade300, // Text color
-                                      ),
-                                      child: Text(day,
-                                        // textDirection: TextDirection.ltr,
-                                        style: TextStyle(
-                                          fontSize: 18.sp,
-                                          fontWeight: FontWeight.bold,
-                                          color: _selectedDay == day
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),),
-                                    );
-                                  }).toList(),
+                                        child: Text(
+                                          dayOfWeek, // عرض اليوم فقط
+                                          style: TextStyle(
+                                            fontSize: 18.sp,
+                                            fontWeight: FontWeight.bold,
+                                            color: _selectedDay == dayString ? Colors.white : Colors.black,
+                                          ),
+                                        ),
+                                      );
+                                    } catch (e) {
+                                      print("❌ خطأ غير متوقع عند تحليل التاريخ: $dayString - $e");
+                                      return SizedBox();
+                                    }
+                                  }).toList() ?? [],
                                 ),
                               ),
                               SizedBox(height: 50.h,),

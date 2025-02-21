@@ -15,7 +15,7 @@ class GetSpecialistCubit extends Cubit<GetSpecialistState> {
 
   final UserRepository userRepository;
 
-  List<Specialist> specialists = [];
+  List<Item> specialists = [];
 
 
 
@@ -49,9 +49,9 @@ class GetSpecialistCubit extends Cubit<GetSpecialistState> {
 
         final response = await dio.get("/specialist/getAll");
 
-        if (response.statusCode == 201) {
+        if (response.statusCode == 201||response.statusCode == 200) {
           final specialistModel = SpecialistModel.fromJson(response.data);
-          specialists = specialistModel.specialists??[];
+          specialists = specialistModel.items??[];
 
 
           emit(SpecialistSuccess("Profile loaded successfully", specialists));
