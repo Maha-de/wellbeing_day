@@ -27,6 +27,7 @@ import 'childrens_disorder_screen.dart';
 import 'client_profile_screen.dart';
 import 'first_home_page.dart';
 import 'free_consultation_screen.dart';
+import 'guidanceAndInstructions.dart';
 import 'home_third_screen.dart';
 import 'instant_session_screen.dart';
 
@@ -571,6 +572,7 @@ int currentIndex=1;
                                   Row(
                                     children: [
 
+
                                       GestureDetector(
                                         onTap: (){
                                           if(label== "diagnoseAndMotivation"){  Navigator.push(
@@ -584,6 +586,22 @@ int currentIndex=1;
                                                   BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
                                                 ],
                                                 child: const ProblemSolvingScreen(category: 'mentalHealth', subCategory: "تشخيص و تحفيز"),
+                                              ),
+
+                                            ),
+
+                                          );}
+                                          else if(label=="guidanceAndInstructions"){  Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => MultiBlocProvider(
+                                                providers: [
+                                                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                                  BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                                  BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                                  BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
+                                                ],
+                                                child: const Guidance_instructions(category: 'mentalHealth', subCategory: "إرشادات وتوجيه"),
                                               ),
 
                                             ),
@@ -961,6 +979,7 @@ int currentIndex=1;
 
                                       );}
 
+
                                       else if(label=="groupTherapy"){
 
                                         Navigator.push(
@@ -1055,6 +1074,22 @@ int currentIndex=1;
                                                   BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
                                                 ],
                                                 child: const ProblemSolvingScreen(category: 'mentalHealth', subCategory: "تشخيص و تحفيز"),
+                                              ),
+
+                                            ),
+
+                                          );}
+                                          else if(label=="guidanceAndInstructions"){  Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => MultiBlocProvider(
+                                                providers: [
+                                                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                                  BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                                  BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                                  BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
+                                                ],
+                                                child: const Guidance_instructions(category: 'mentalHealth', subCategory: "إرشادات وتوجيه"),
                                               ),
 
                                             ),

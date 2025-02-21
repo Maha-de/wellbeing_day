@@ -490,29 +490,49 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                     ),
                                   ),
                                   SizedBox(width: 4.w,),
-                                  Container(
-                                    width: 100.w,
-                                    height: 68.h,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: Color(0xff69B7F3),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.2),
-                                          spreadRadius: 2,
-                                          blurRadius: 4,
-                                          offset: Offset(0, 2),
-                                        ),
-                                      ],
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        textAlign: TextAlign.center,
-                                        "SportsSystem".tr(),
-                                        style: TextStyle(
-                                          fontSize: 16.sp,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
+                                  GestureDetector(
+                                    onTap: (){
+    // Navigator.push(
+    // context,
+    // MaterialPageRoute(
+    // builder: (context) => MultiBlocProvider(
+    // providers: [
+    // BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+    // BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+    // BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+    // BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
+    // ],
+    // child: const ProblemSolvingScreen(category: 'mentalHealth', subCategory: "تشخيص و تحفيز"),
+    // ),
+    //
+    // ),
+    //
+    // );}
+                                    },
+                                    child: Container(
+                                      width: 100.w,
+                                      height: 68.h,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: Color(0xff69B7F3),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withOpacity(0.2),
+                                            spreadRadius: 2,
+                                            blurRadius: 4,
+                                            offset: Offset(0, 2),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          textAlign: TextAlign.center,
+                                          "SportsSystem".tr(),
+                                          style: TextStyle(
+                                            fontSize: 16.sp,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                     ),

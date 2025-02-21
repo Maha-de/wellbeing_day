@@ -250,7 +250,7 @@ class _GroupTherapyState extends State<GroupTherapy> {
                       builder: (context) {
                         return AlertDialog(
                           title: Text("registered".tr()),
-                          content: Text("سيتم تسجيل اسمك على لائحة الانتظار\nعند اكتمال العدد سيتم التواصل معك لتحديد موعد"),
+                          content: Text("groupNote".tr()),
                           actions: [
                             TextButton(
                               onPressed: () {
