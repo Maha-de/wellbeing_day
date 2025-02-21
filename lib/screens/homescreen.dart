@@ -972,7 +972,7 @@ int currentIndex=1;
                                               BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
 
                                             ],
-                                            child: const PsychologicalDisordersScreen(category: 'mentalHealth', subCategory: "اضرابات نقسيه",),
+                                            child: const PsychologicalDisordersScreen(category: 'mentalHealth', subCategory: "اضطرابات نقسية",),
                                           ),
 
                                         ),
@@ -1073,7 +1073,7 @@ int currentIndex=1;
                                                   BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                                                   BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
                                                 ],
-                                                child: const ProblemSolvingScreen(category: 'mentalHealth', subCategory: "تشخيص و تحفيز"),
+                                                child: const ProblemSolvingScreen(category: 'mentalHealth', subCategory: "حل مشكلات"),
                                               ),
 
                                             ),
@@ -1089,7 +1089,7 @@ int currentIndex=1;
                                                   BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                                                   BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
                                                 ],
-                                                child: const Guidance_instructions(category: 'mentalHealth', subCategory: "إرشادات وتوجيه"),
+                                                child: const Guidance_instructions(category: 'mentalHealth', subCategory: "إرشاد وتوجيه"),
                                               ),
 
                                             ),
@@ -1105,7 +1105,7 @@ int currentIndex=1;
                                                   BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                                                   BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
                                                 ],
-                                                child: const ChildrensDisorderScreen(category: 'mentalHealth', subCategory: "اضرابات اطفال"),
+                                                child: const ChildrensDisorderScreen(category: 'mentalHealth', subCategory: "اضطرابات الأطفال"),
                                               ),
 
                                             ),
@@ -1173,7 +1173,7 @@ int currentIndex=1;
                                               BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                                               BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
                                             ],
-                                            child: const RehabilitationScreen(category: 'mentalHealth', subCategory: "اعدة تاهيل ودعم"),
+                                            child: const RehabilitationScreen(category: 'mentalHealth', subCategory: "اعادة تاهيل ودعم"),
                                           ),
 
                                         ),
@@ -1189,7 +1189,7 @@ int currentIndex=1;
                                               BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                                               BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
                                             ],
-                                            child: const PsychologicalPreventionScreen(category: 'mentalHealth', subCategory: "وقاية ومتابعة نقسيه"),
+                                            child: const PsychologicalPreventionScreen(category: 'mentalHealth', subCategory: "وقاية ومتابعة نقسية"),
                                           ),
 
                                         ),

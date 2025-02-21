@@ -56,10 +56,6 @@ class DoctorByCategoryCubit extends Cubit<DoctorByCategoryState> {
                 "category": [category],
                 "subcategory": [subcategory]
 
-
-
-
-
             });
 
         if (response.statusCode == 200) {

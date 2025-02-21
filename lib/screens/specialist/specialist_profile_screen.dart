@@ -6,6 +6,7 @@ import 'package:doctor/screens/settings_screen.dart';
 import 'package:doctor/screens/specialist/specialist_appointments_screen.dart';
 import 'package:doctor/screens/specialist/specialist_profile_details_screen.dart';
 import 'package:doctor/screens/specialist/specialist_settings_screen.dart';
+import 'package:doctor/screens/specialist/specialist_work_hours_screen.dart';
 import 'package:doctor/screens/splashscreen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
 import '../../cubit/doctor_details_cubit/doctor_profile_state.dart';
+import '../../cubit/get_doctor_sessions_types_cubit/doctor_session_types_cubit.dart';
 import '../../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../../cubit/user_profile_cubit/user_profile_state.dart';
 import '../../models/user_profile_model.dart';
@@ -277,9 +279,10 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
                                         providers: [
                                           BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
                                           BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                          BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),
                                           BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                                         ],
-                                        child: const SpecialistAppointmentsScreen(),
+                                        child: const SpecialistWorkHoursScreen(),
                                       ),
                                     ),
                                   );

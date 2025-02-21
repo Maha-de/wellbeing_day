@@ -242,7 +242,8 @@ class _SpecialistSettingsScreenState extends State<SpecialistSettingsScreen> {
                                               ),
                                               child: ClipRRect(
                                                 borderRadius: BorderRadius.circular(50), // زاوية الإطار
-                                                child: userProfile.specialist?.imageUrl==""||userProfile.specialist?.imageUrl==null?Image.asset("assets/images/profile.jpg",fit: BoxFit.fill,):Image.network(
+                                                child: userProfile.specialist?.imageUrl==""||userProfile.specialist?.imageUrl==null?
+                                                Image.asset("assets/images/profile.jpg",fit: BoxFit.fill,):Image.network(
                                                   userProfile.specialist?.imageUrl ?? "", // رابط الصورة
                                                   fit: BoxFit.fill, // ملء الصورة
                                                 ),
