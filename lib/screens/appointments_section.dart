@@ -6,6 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../cubit/get_specialist/get_sepcialist_cubit.dart';
 import '../cubit/get_specialist/get_specialist_state.dart';
+import '../cubit/up_comming_session_beneficiary/up_comming_cubit.dart';
+import '../cubit/up_comming_session_beneficiary/up_comming_state.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
 import '../models/user_profile_model.dart';
@@ -28,7 +30,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
   final int totalPages = 3;
 
   late UserProfileCubit userProfileCubit;
-
+  late UpCommingCubit upCommingCubit;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -40,6 +42,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
   void initState() {
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
+    upCommingCubit=  BlocProvider.of<UpCommingCubit>(context);
     _loadUserProfile();
 
   }
@@ -47,6 +50,8 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
   Future<void> _loadUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
+    String token=prefs.getString('token') ?? "";
+    upCommingCubit.UpComming(id, token);
     userProfileCubit.getUserProfile(context, id);
   }
 
@@ -240,82 +245,27 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
               ),
               <Widget>[
 
+
                 Column(
                   children: [
-
-
                     Padding(
                       padding: const EdgeInsets.only(right: 15, left: 15),
-                      child:  BlocBuilder<GetSpecialistCubit, GetSpecialistState>(
+                      child:  BlocBuilder<UpCommingCubit, UpCommingState>(
                         builder: (context, state) {
-                          if (state is SpecialistLoading) {
+                          if (state is UpCommingLoading) {
                             return CircularProgressIndicator(); // Show loading indicator
-                          } else if (state is SpecialistFailure) {
+                          } else if (state is UpCommingFailure) {
                             return Text(state.errMessage); // Display error message
-                          } else if (state is SpecialistSuccess) {
+                          } else if (state is UpCommingSuccess) {
                             return Container(
                               height: 360.h,
-                              child: ListView.builder(
-                                itemCount: state.specialists.length,
+                              child: ListView.separated(
+                                separatorBuilder: (context,index){
+                                  return SizedBox(height: 12.h,);
+                                },
+                                itemCount: state.doctors.length,
                                 itemBuilder: (context, index) {
-                                  return Container(
-                                    height: 329.h,
-                                   decoration: BoxDecoration(
-                                     color: Colors.white,
-                                     borderRadius: BorderRadius.circular(20)
-                                   ),
-                                    
-                                    child: Column(
-                                      children: [
-                                        DoctorCard(specialistModel: state.specialists[index], doctorID: state.specialists[index].id??"",),
-                                        Container(
-
-                                          color: Colors.white,
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Container(
-                                                width:160.w,
-                                                height:40.h,
-                                                decoration: BoxDecoration(
-                                                    color: Color(0xFF19649E),
-                                                    borderRadius: BorderRadius.circular(20)
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    "reschedule".tr(),
-                                                    style: TextStyle(
-                                                        fontSize: 18.sp,
-                                                        fontWeight: FontWeight.bold,
-                                                        color: Colors.white),
-                                                  ),
-                                                ),
-
-                                              ),
-                                              Container(
-                                                width:160.w,
-                                                height:40.h,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFF19649E),
-                                                  borderRadius: BorderRadius.circular(20)
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    "cancelAppointment".tr(),
-                                                    style: TextStyle(
-                                                        fontSize: isEnglish ? 17.sp : 20.sp,
-                                                        fontWeight: FontWeight.bold,
-                                                        color: Colors.white),
-                                                  ),
-                                                ),
-
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
+                                  return DoctorCard(sessionDoctor: state.doctors[index].specialist, doctorID: state.doctors[index].specialist?.id??"",);
                                 },
                               ),
                             );
@@ -342,13 +292,66 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                           } else if (state is SpecialistSuccess) {
                             return Container(
                               height: 360.h,
-                              child: ListView.separated(
-                                separatorBuilder: (context,index){
-                                  return SizedBox(height: 12.h,);
-                                },
+                              child: ListView.builder(
                                 itemCount: state.specialists.length,
                                 itemBuilder: (context, index) {
-                                  return DoctorCard(specialistModel: state.specialists[index], doctorID: state.specialists[index].id??"",);
+                                  return Container(
+                                    height: 329.h,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20)
+                                    ),
+
+                                    child: Column(
+                                      children: [
+                                        DoctorCard(specialistModel: state.specialists[index], doctorID: state.specialists[index].id??"",),
+                                        Container(
+                                          color: Colors.white,
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Container(
+                                                width:160.w,
+                                                height:40.h,
+                                                decoration: BoxDecoration(
+                                                    color: Color(0xFF19649E),
+                                                    borderRadius: BorderRadius.circular(20)
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    "reschedule".tr(),
+                                                    style: TextStyle(
+                                                        fontSize: 18.sp,
+                                                        fontWeight: FontWeight.bold,
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+
+                                              ),
+                                              Container(
+                                                width:160.w,
+                                                height:40.h,
+                                                decoration: BoxDecoration(
+                                                    color: Color(0xFF19649E),
+                                                    borderRadius: BorderRadius.circular(20)
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    "cancelAppointment".tr(),
+                                                    style: TextStyle(
+                                                        fontSize: isEnglish ? 17.sp : 20.sp,
+                                                        fontWeight: FontWeight.bold,
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
                                 },
                               ),
                             );

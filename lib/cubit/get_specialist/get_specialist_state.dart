@@ -16,7 +16,7 @@ class SpecialistLoading extends GetSpecialistState {}
 // Success state
 class SpecialistSuccess extends GetSpecialistState {
   final String message;
-  final List<Specialist> specialists;
+  final List<Item> specialists;
 
   SpecialistSuccess(this.message, this.specialists);
 

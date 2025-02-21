@@ -10,26 +10,38 @@ String specialistModelToJson(SpecialistModel data) => json.encode(data.toJson())
 
 class SpecialistModel {
   String? message;
-  List<Specialist>? specialists;
+  List<Item>? items;
+  int? totalPages;
+  int? totalItems;
+  int? page;
 
   SpecialistModel({
     this.message,
-    this.specialists,
+    this.items,
+    this.totalPages,
+    this.totalItems,
+    this.page,
   });
 
   factory SpecialistModel.fromJson(Map<String, dynamic> json) => SpecialistModel(
     message: json["message"],
-    specialists: json["specialists"] == null ? [] : List<Specialist>.from(json["specialists"]!.map((x) => Specialist.fromJson(x))),
+    items: json["items"] == null ? [] : List<Item>.from(json["items"]!.map((x) => Item.fromJson(x))),
+    totalPages: json["totalPages"],
+    totalItems: json["totalItems"],
+    page: json["page"],
   );
 
   Map<String, dynamic> toJson() => {
     "message": message,
-    "specialists": specialists == null ? [] : List<dynamic>.from(specialists!.map((x) => x.toJson())),
+    "items": items == null ? [] : List<dynamic>.from(items!.map((x) => x.toJson())),
+    "totalPages": totalPages,
+    "totalItems": totalItems,
+    "page": page,
   };
 }
 
-class Specialist {
-  dynamic files;
+class Item {
+  Files? files;
   Specialties? specialties;
   String? id;
   String? firstName;
@@ -47,9 +59,12 @@ class Specialist {
   int? sessionDuration;
   int? v;
   List<String>? availableSlots;
-  String? idOrPassword;
+  bool? isAvailable;
+  bool? isConfirmed;
+  List<String>? sessions;
+  String? imageUrl;
 
-  Specialist({
+  Item({
     this.files,
     this.specialties,
     this.id,
@@ -68,11 +83,14 @@ class Specialist {
     this.sessionDuration,
     this.v,
     this.availableSlots,
-    this.idOrPassword,
+    this.isAvailable,
+    this.isConfirmed,
+    this.sessions,
+    this.imageUrl,
   });
 
-  factory Specialist.fromJson(Map<String, dynamic> json) => Specialist(
-    files: json["files"],
+  factory Item.fromJson(Map<String, dynamic> json) => Item(
+    files: json["files"] == null ? null : Files.fromJson(json["files"]),
     specialties: json["specialties"] == null ? null : Specialties.fromJson(json["specialties"]),
     id: json["_id"],
     firstName: json["firstName"],
@@ -90,11 +108,14 @@ class Specialist {
     sessionDuration: json["sessionDuration"],
     v: json["__v"],
     availableSlots: json["availableSlots"] == null ? [] : List<String>.from(json["availableSlots"]!.map((x) => x)),
-    idOrPassword: json["idOrPassword"],
+    isAvailable: json["isAvailable"],
+    isConfirmed: json["isConfirmed"],
+    sessions: json["sessions"] == null ? [] : List<String>.from(json["sessions"]!.map((x) => x)),
+    imageUrl: json["imageUrl"],
   );
 
   Map<String, dynamic> toJson() => {
-    "files": files,
+    "files": files?.toJson(),
     "specialties": specialties?.toJson(),
     "_id": id,
     "firstName": firstName,
@@ -112,88 +133,69 @@ class Specialist {
     "sessionDuration": sessionDuration,
     "__v": v,
     "availableSlots": availableSlots == null ? [] : List<dynamic>.from(availableSlots!.map((x) => x)),
-    "idOrPassword": idOrPassword,
+    "isAvailable": isAvailable,
+    "isConfirmed": isConfirmed,
+    "sessions": sessions == null ? [] : List<dynamic>.from(sessions!.map((x) => x)),
+    "imageUrl": imageUrl,
   };
 }
 
-class FileElement {
-  String? idOrPassport;
-  String? id;
-
-  FileElement({
-    this.idOrPassport,
-    this.id,
-  });
-
-  factory FileElement.fromJson(Map<String, dynamic> json) => FileElement(
-    idOrPassport: json["idOrPassport"],
-    id: json["_id"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "idOrPassport": idOrPassport,
-    "_id": id,
-  };
-}
-
-class FilesClass {
-  List<String>? certificates;
+class Files {
   String? idOrPassport;
   String? resume;
+  List<String>? certificates;
   String? ministryLicense;
   String? associationMembership;
 
-  FilesClass({
-    this.certificates,
+  Files({
     this.idOrPassport,
     this.resume,
+    this.certificates,
     this.ministryLicense,
     this.associationMembership,
   });
 
-  factory FilesClass.fromJson(Map<String, dynamic> json) => FilesClass(
-    certificates: json["certificates"] == null ? [] : List<String>.from(json["certificates"]!.map((x) => x)),
+  factory Files.fromJson(Map<String, dynamic> json) => Files(
     idOrPassport: json["idOrPassport"],
     resume: json["resume"],
+    certificates: json["certificates"] == null ? [] : List<String>.from(json["certificates"]!.map((x) => x)),
     ministryLicense: json["ministryLicense"],
     associationMembership: json["associationMembership"],
   );
 
   Map<String, dynamic> toJson() => {
-    "certificates": certificates == null ? [] : List<dynamic>.from(certificates!.map((x) => x)),
     "idOrPassport": idOrPassport,
     "resume": resume,
+    "certificates": certificates == null ? [] : List<dynamic>.from(certificates!.map((x) => x)),
     "ministryLicense": ministryLicense,
     "associationMembership": associationMembership,
   };
 }
 
 class Specialties {
-  List<String>? psychologicalDisorders;
-  List<dynamic>? mentalHealth;
+  List<String>? mentalHealth;
   List<String>? physicalHealth;
-  List<String>? skillDevelopment;
+  List<dynamic>? psychologicalDisorders;
+  List<dynamic>? skillDevelopment;
 
   Specialties({
-    this.psychologicalDisorders,
     this.mentalHealth,
     this.physicalHealth,
+    this.psychologicalDisorders,
     this.skillDevelopment,
   });
 
   factory Specialties.fromJson(Map<String, dynamic> json) => Specialties(
-    psychologicalDisorders: json["psychologicalDisorders"] == null ? [] : List<String>.from(json["psychologicalDisorders"]!.map((x) => x)),
-    mentalHealth: json["mentalHealth"] == null ? [] : List<dynamic>.from(json["mentalHealth"]!.map((x) => x)),
+    mentalHealth: json["mentalHealth"] == null ? [] : List<String>.from(json["mentalHealth"]!.map((x) => x)),
     physicalHealth: json["physicalHealth"] == null ? [] : List<String>.from(json["physicalHealth"]!.map((x) => x)),
-    skillDevelopment: json["skillDevelopment"] == null ? [] : List<String>.from(json["skillDevelopment"]!.map((x) => x)),
+    psychologicalDisorders: json["psychologicalDisorders"] == null ? [] : List<dynamic>.from(json["psychologicalDisorders"]!.map((x) => x)),
+    skillDevelopment: json["skillDevelopment"] == null ? [] : List<dynamic>.from(json["skillDevelopment"]!.map((x) => x)),
   );
 
   Map<String, dynamic> toJson() => {
-    "psychologicalDisorders": psychologicalDisorders == null ? [] : List<dynamic>.from(psychologicalDisorders!.map((x) => x)),
     "mentalHealth": mentalHealth == null ? [] : List<dynamic>.from(mentalHealth!.map((x) => x)),
     "physicalHealth": physicalHealth == null ? [] : List<dynamic>.from(physicalHealth!.map((x) => x)),
+    "psychologicalDisorders": psychologicalDisorders == null ? [] : List<dynamic>.from(psychologicalDisorders!.map((x) => x)),
     "skillDevelopment": skillDevelopment == null ? [] : List<dynamic>.from(skillDevelopment!.map((x) => x)),
   };
 }
-
-

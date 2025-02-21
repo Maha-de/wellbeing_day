@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../api/end_points.dart';
+import '../../models/beneficiaries_sessions_model.dart';
 import '../../models/beneficiary_session_model.dart';
 import '../../models/doctor_session_model.dart';
 import '../../models/user_profile_model.dart';
@@ -14,7 +15,7 @@ import 'beneficiary_session_state.dart';
 
 class BeneficiarySessionCubit extends Cubit<BeneficiarySessionState> {
   BeneficiarySessionCubit() : super(BeneficiarySessionInitial());
-  BeneficiarySessionModel? sessionData;
+  BeneficiarySessionsModel? sessionData;
   Future<void> getDoctorSessionsTypes(BuildContext context,String id) async {
     emit(BeneficiarySessionLoading());
     try {
@@ -28,7 +29,7 @@ class BeneficiarySessionCubit extends Cubit<BeneficiarySessionState> {
       final response = await dio.get("/sessions/beneficiary/$id");
 
       if (response.statusCode == 200) {
-        final userProfileModel = BeneficiarySessionModel.fromJson(response.data);
+        final userProfileModel = BeneficiarySessionsModel.fromJson(response.data);
         sessionData = userProfileModel;
         print("sessions1: ${sessionData}");
         print("sessions2: ${sessionData?.scheduledSessions}");

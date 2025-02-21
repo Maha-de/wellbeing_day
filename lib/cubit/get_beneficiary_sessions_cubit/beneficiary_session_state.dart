@@ -1,9 +1,5 @@
-import 'package:doctor/models/beneficiary_session_model.dart';
 import 'package:equatable/equatable.dart';
-
-import '../../models/doctor_session_model.dart';
-import '../../models/doctor_sessions_types_model.dart';
-import '../../models/user_profile_model.dart';
+import '../../models/beneficiaries_sessions_model.dart';
 
 abstract class BeneficiarySessionState extends Equatable {
   @override
@@ -17,7 +13,7 @@ class BeneficiarySessionLoading extends BeneficiarySessionState {}
 class BeneficiarySessionSuccess extends BeneficiarySessionState {
   final String message;
   // final DoctorSessionsTypesModel session;
-  final BeneficiarySessionModel session;
+  final BeneficiarySessionsModel session;
   BeneficiarySessionSuccess(this.message, this.session);
 
   @override
