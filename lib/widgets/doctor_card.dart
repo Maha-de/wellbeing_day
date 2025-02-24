@@ -244,3 +244,5 @@ class DoctorCard extends StatelessWidget {
     return Image.asset('assets/images/doctor.png', fit: BoxFit.cover);
   }
 }
+
+

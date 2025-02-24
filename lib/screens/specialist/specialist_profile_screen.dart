@@ -22,6 +22,7 @@ import '../../cubit/user_profile_cubit/user_profile_state.dart';
 import '../../models/user_profile_model.dart';
 import '../../widgets/custom_bottom_nav_bar_specialist.dart';
 import '../appointments_section.dart';
+import '../cubit/available_slots_cubit.dart';
 
 class SpecialistProfileScreen extends StatefulWidget {
   const SpecialistProfileScreen({super.key});
@@ -33,6 +34,8 @@ class SpecialistProfileScreen extends StatefulWidget {
 class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
   late DoctorProfileCubit doctorProfileCubit;
   late AddImageToProfileCubit addImageToProfileCubit;
+  final availableSlotsCubit = AvailableSlotsCubit();
+
   @override
   void initState() {
     super.initState();
@@ -277,6 +280,7 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
                                     MaterialPageRoute(
                                       builder: (context) => MultiBlocProvider(
                                         providers: [
+                                          BlocProvider.value(value: availableSlotsCubit), // Use .value instead of create
                                           BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
                                           BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
                                           BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),

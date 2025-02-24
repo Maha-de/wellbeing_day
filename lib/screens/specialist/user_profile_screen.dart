@@ -91,29 +91,31 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                     return Text(
                                         state.error); // Display error message
                                   } else if (state is BeneficiarySessionSuccess) {
-                                    return benDetials(
-                                        userProfile.firstName ??
-                                            "" +
-                                                " " +
-                                                "${userProfile.lastName ?? " "}",
-                                        "${userProfile.age}",
-                                        userProfile.gender ?? "",
-                                        userProfile.nationality ?? "",
-                                        userProfile.profession ?? "",
-                                        beneficiarySessionCubit
-                                                .sessionData?.scheduledSessions
-                                                ?.map((session) =>
-                                                    '${session.sessionDate?.day}/${session.sessionDate?.month}/${session.sessionDate?.year}' ??
-                                                    '')
-                                                .toList() ??
-                                            ["noneSessions".tr()],
-                                        beneficiarySessionCubit
-                                                .sessionData?.completedSessions
-                                                ?.map((session) =>
-                                                    '${session.sessionDate?.day}/${session.sessionDate?.month}/${session.sessionDate?.year}' ??
-                                                    '')
-                                                .toList() ??
-                                            ["noneSessions".tr()]);
+                                    return SingleChildScrollView(
+                                      child: benDetials(
+                                          userProfile.firstName ??
+                                              "" +
+                                                  " " +
+                                                  "${userProfile.lastName ?? " "}",
+                                          "${userProfile.age}",
+                                          userProfile.gender ?? "",
+                                          userProfile.nationality ?? "",
+                                          userProfile.profession ?? "",
+                                          beneficiarySessionCubit
+                                              .sessionData?.scheduledSessions
+                                              ?.map((session) =>
+                                          '${session.sessionDate?.day}/${session.sessionDate?.month}/${session.sessionDate?.year}' ??
+                                              '')
+                                              .toList() ??
+                                              ["noneSessions".tr()],
+                                          beneficiarySessionCubit
+                                              .sessionData?.completedSessions
+                                              ?.map((session) =>
+                                          '${session.sessionDate?.day}/${session.sessionDate?.month}/${session.sessionDate?.year}' ??
+                                              '')
+                                              .toList() ??
+                                              ["noneSessions".tr()]),
+                                    );
                                   } else {
                                     return Center(child: Text("noneSessions".tr()));
                                   }
@@ -248,40 +250,42 @@ Widget sessionSection(List<String> future_dates, List<String> completed_dates) {
       } else if (state is BeneficiarySessionFailure) {
         return Text(state.error); // Display error message
       } else if (state is BeneficiarySessionSuccess) {
-        return Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Color(0xff19649E),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
+        return SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Color(0xff19649E),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
             ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Text(
-                  'nextSessions'.tr(),
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Text(
+                    'nextSessions'.tr(),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              SizedBox(height: 8),
-              Column(
-                children: future_dates.map((date) => sessionBox(date)).toList(),
-              ),
-              SizedBox(height: 12),
-              Center(
-                child: Text('completedSessions'.tr(),
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              ),
-              SizedBox(height: 8),
-              Column(
-                children:
-                    completed_dates.map((date) => sessionBox(date)).toList(),
-              ),
-            ],
+                SizedBox(height: 8),
+                Column(
+                  children: future_dates.map((date) => sessionBox(date)).toList(),
+                ),
+                SizedBox(height: 12),
+                Center(
+                  child: Text('completedSessions'.tr(),
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                ),
+                SizedBox(height: 8),
+                Column(
+                  children:
+                      completed_dates.map((date) => sessionBox(date)).toList(),
+                ),
+              ],
+            ),
           ),
         );
       } else {
