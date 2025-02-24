@@ -98,15 +98,5 @@ class AvailableSlotsCubit extends Cubit<AvailableSlotsState> {
     }
   }
 
-  Future<void> removeSlot(String id, String slotToRemove) async {
-    emit(AvailableSlotsLoading());
-    try {
-      final dio = Dio();
-      await dio.put('https://scopey.onrender.com/api/specialist/removeSlots/$id', data: {'date': slotToRemove});
-      fetchAvailableSlots(id);
-    } catch (e) {
-      emit(AvailableSlotsError("Error removing slot: $e"));
-    }
-  }
 
 }
