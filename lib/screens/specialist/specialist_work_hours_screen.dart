@@ -30,8 +30,16 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
   late DoctorSessionTypesCubit sessionTypesCubit;
   late AddImageToProfileCubit addImageToProfileCubit;
   AvailableSlotsCubit? availableSlotsCubit;
-  String selectedLanguage = "English"; // Get the selected language
 
+  final TextEditingController _languageController = TextEditingController();
+
+  @override
+  void dispose() {
+    _languageController.dispose();
+    super.dispose();
+  }
+
+  // String selectedLanguage = "English";
 
   DateTime _selectedDay = DateTime.now();
   TimeOfDay _selectedTime = TimeOfDay.now();
@@ -207,8 +215,8 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                                                   userProfile.specialist
                                                           ?.imageUrl ??
                                                       "", // رابط الصورة
-                                                  fit: BoxFit
-                                                      .fill, // ملء الصورة
+                                                  fit:
+                                                      BoxFit.fill, // ملء الصورة
                                                 ),
                                         ),
                                       ),
@@ -289,6 +297,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                                       children: [
                                         Expanded(
                                           child: TextFormField(
+                                            controller: _languageController,
                                             decoration: InputDecoration(
                                               contentPadding:
                                                   EdgeInsets.symmetric(
@@ -318,11 +327,19 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                                               const EdgeInsets.only(right: 10),
                                           child: GestureDetector(
                                             onTap: () {
-                                              setState(() {
-
-                                                _updateLanguage(selectedLanguage);
-
-                                              });
+                                              String enteredLanguage =
+                                                  _languageController.text;
+                                              if (enteredLanguage.isNotEmpty) {
+                                                _updateLanguage(
+                                                    enteredLanguage);
+                                              } else {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  SnackBar(
+                                                      content: Text(
+                                                          'Please enter a language')),
+                                                );
+                                              }
                                             },
                                             child: Container(
                                               width: 27.w,
@@ -443,20 +460,21 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                             ),
-                                            child:
-                                            ListTile(
+                                            child: ListTile(
                                               leading: IconButton(
-                                                icon: Icon(Icons.delete, color: Colors.red),
+                                                icon: Icon(Icons.delete,
+                                                    color: Colors.red),
                                                 onPressed: () {
                                                   _deleteAppointment(
                                                       // state.availableSlots[index]
-                                                  );
+                                                      );
                                                 },
                                               ),
                                               title: Center(
                                                 child: Text(formatSlot(
-                                                    DateTime.parse(state
-                                                        .availableSlots[index]))),
+                                                    DateTime.parse(
+                                                        state.availableSlots[
+                                                            index]))),
                                               ),
                                             ),
                                           );
@@ -673,7 +691,8 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
       } else {
         // Handle error response
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to update language: ${response.data}')),
+          SnackBar(
+              content: Text('Failed to update language: ${response.data}')),
         );
       }
     } catch (e) {
@@ -687,9 +706,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
       dateCubit.loadComplete();
     }
   }
-
 }
-
 
 class ApiService {
   final Dio _dio = Dio();
@@ -708,7 +725,8 @@ class ApiService {
 
   Future<Response> deleteData(String id, Map<String, dynamic> data) async {
     try {
-      final response = await _dio.delete( // Use PUT for deleting a slot that is already created.
+      final response = await _dio.delete(
+        // Use PUT for deleting a slot that is already created.
         'https://scopey.onrender.com/api/specialist/deleteSlots/$id',
         data: jsonEncode(data),
       );
@@ -720,7 +738,8 @@ class ApiService {
 
   Future<Response> updateLang(String id, Map<String, dynamic> data) async {
     try {
-      final response = await _dio.patch( // Use PUT for deleting a slot that is already created.
+      final response = await _dio.patch(
+        // Use PUT for deleting a slot that is already created.
         'https://scopey.onrender.com/api/specialist/updateLanguage/$id',
         data: jsonEncode(data),
       );
@@ -729,7 +748,6 @@ class ApiService {
       throw e;
     }
   }
-
 }
 
 class DateState {
@@ -783,4 +801,3 @@ class DateCubit extends Cubit<DateState> {
     emit(state.copyWith(errorMessage: message, isLoading: false));
   }
 }
-
