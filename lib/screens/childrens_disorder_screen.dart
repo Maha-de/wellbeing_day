@@ -1,16 +1,12 @@
 import 'package:doctor/screens/sign_up_as_client.dart';
-import 'package:doctor/widgets/custom_app_bar.dart';
 import 'package:doctor/widgets/custom_bottom_nav_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../cubit/doctor_by_category_cubit/doctor_by_category_cubit.dart';
 import '../cubit/doctor_by_category_cubit/doctor_by_category_state.dart';
-import '../cubit/get_specialist/get_sepcialist_cubit.dart';
-import '../cubit/get_specialist/get_specialist_state.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
 import '../make_email/login.dart';

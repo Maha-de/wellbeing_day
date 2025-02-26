@@ -446,7 +446,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                                         "Loaded slots: ${state.availableSlots}");
                                     if (state.availableSlots.isEmpty) {
                                       return Center(
-                                          child: Text("No available slots"));
+                                          child: Text("No available appointments"));
                                     }
                                     return Container(
                                       color: Colors.white,
@@ -464,10 +464,9 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                                               leading: IconButton(
                                                 icon: Icon(Icons.delete,
                                                     color: Colors.red),
-                                                onPressed: () {
-                                                  _deleteAppointment(
-                                                      // state.availableSlots[index]
-                                                      );
+                                                onPressed: () async {
+                                                  _deleteAppointment(state.availableSlots[index]);
+
                                                 },
                                               ),
                                               title: Center(
@@ -489,7 +488,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                                   } else {
                                     print("No data available state.");
                                     return Center(
-                                        child: Text("No data available"));
+                                        child: Text("No appointments yet"));
                                   }
                                 },
                               )
@@ -508,7 +507,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                       height: 48.h, // Reduced height to make the button smaller
                       child: ElevatedButton(
                         onPressed: () {
-                          _bookAppointment(); // Call the method to book the appointment
+                          _bookAppointment();
 
                           Navigator.pushAndRemoveUntil(
                             context,
@@ -530,7 +529,6 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(700, 45),
-                          // Adjusted minimum size to match the new height
                           backgroundColor: const Color(0xFF19649E),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -548,7 +546,7 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                     ),
                   ));
             }
-            return Container(); // Default return in case no state matches
+            return Container();
           },
         ));
   }
@@ -568,7 +566,6 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
     String id = prefs.getString('doctorId') ?? "";
 
     try {
-      // Show loading indicator
       dateCubit.loadInProgress();
 
       print('Sending to API: ${{
@@ -576,7 +573,6 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
         'doctorId': id,
       }}');
 
-      // Call the API to book the appointment
       final response = await apiService.postData(id, {
         'date': combinedDateTime,
       });
@@ -584,23 +580,18 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
       print('API Response Code: ${response.statusCode}');
       print('API Response Body: ${response.data}');
 
-      // Handle the response
       if (response.statusCode == 200) {
-        // Appointment booked successfully
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Appointment booked successfully!')),
         );
-        // Optionally navigate to another screen or reset the form
       } else {
-        // Handle error response
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
               content: Text('Failed to book appointment: ${response.data}')),
         );
       }
     } catch (e) {
-      // Handle exceptions
-      print('API Error: $e'); // Print errors to the terminal
+      print('API Error: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),
       );
@@ -610,62 +601,51 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
     }
   }
 
-  Future<void> _deleteAppointment() async {
-    final String? combinedDateTime = _combineDateTime();
-
+  Future<void> _deleteAppointment(String slotToRemove) async {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('doctorId') ?? "";
 
     try {
-      // Show loading indicator
       dateCubit.loadInProgress();
 
       print('Sending delete request to API: ${{
-        'date': combinedDateTime,
+        'date': slotToRemove,
         'doctorId': id,
       }}');
 
-      // Call the API to delete the appointment
       final response = await apiService.deleteData(id, {
-        'date': combinedDateTime,
+        'date': slotToRemove,
       });
 
       print('API Response Code: ${response.statusCode}');
       print('API Response Body: ${response.data}');
 
-      // Handle the response
       if (response.statusCode == 200) {
-        // Appointment deleted successfully
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Slot deleted successfully!')),
+          SnackBar(content: Text('Appointment deleted successfully!')),
         );
-        // Optionally navigate to another screen or reset the form
       } else {
-        // Handle error response
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to delete slot: ${response.data}')),
+          SnackBar(content: Text('Failed to delete appointment: ${response.data}')),
         );
       }
     } catch (e) {
-      // Handle exceptions
-      print('API Error: $e'); // Print errors to the terminal
+      print('API Error: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),
       );
     } finally {
-      // Hide loading indicator
       dateCubit.loadComplete();
     }
   }
 
+
   Future<void> _updateLanguage(String language) async {
-    final String? combinedDateTime = _combineDateTime();
 
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('doctorId') ?? "";
 
     try {
-      // Show loading indicator
       dateCubit.loadInProgress();
 
       print('Sending delete request to API: ${{
@@ -673,7 +653,6 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
         'doctorId': id,
       }}');
 
-      // Call the API to delete the appointment
       final response = await apiService.updateLang(id, {
         'language': language,
       });
@@ -689,20 +668,17 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
         );
         // Optionally navigate to another screen or reset the form
       } else {
-        // Handle error response
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
               content: Text('Failed to update language: ${response.data}')),
         );
       }
     } catch (e) {
-      // Handle exceptions
-      print('API Error: $e'); // Print errors to the terminal
+      print('API Error: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),
       );
     } finally {
-      // Hide loading indicator
       dateCubit.loadComplete();
     }
   }
@@ -715,7 +691,20 @@ class ApiService {
     try {
       final response = await _dio.post(
         'https://scopey.onrender.com/api/specialist/addSlots/$id', // Use correct API endpoint
-        data: jsonEncode(data), // Ensure JSON encoding
+        data: jsonEncode(data),
+      );
+      return response;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+
+  Future<Response> updateLang(String id, Map<String, dynamic> data) async {
+    try {
+      final response = await _dio.patch(
+        'https://scopey.onrender.com/api/specialist/updateLanguage/$id',
+        data: jsonEncode(data),
       );
       return response;
     } catch (e) {
@@ -726,7 +715,6 @@ class ApiService {
   Future<Response> deleteData(String id, Map<String, dynamic> data) async {
     try {
       final response = await _dio.delete(
-        // Use PUT for deleting a slot that is already created.
         'https://scopey.onrender.com/api/specialist/deleteSlots/$id',
         data: jsonEncode(data),
       );
@@ -736,18 +724,6 @@ class ApiService {
     }
   }
 
-  Future<Response> updateLang(String id, Map<String, dynamic> data) async {
-    try {
-      final response = await _dio.patch(
-        // Use PUT for deleting a slot that is already created.
-        'https://scopey.onrender.com/api/specialist/updateLanguage/$id',
-        data: jsonEncode(data),
-      );
-      return response;
-    } catch (e) {
-      throw e;
-    }
-  }
 }
 
 class DateState {

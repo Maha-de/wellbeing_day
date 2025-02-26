@@ -337,7 +337,6 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                                   ),
 
                                 ),
-
                               );
                             },child: _buildDisorderButton("personalityDisorder".tr())),
                           ],

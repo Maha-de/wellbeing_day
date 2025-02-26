@@ -503,8 +503,8 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                                 DoctorByCategoryCubit()),
                                       ],
                                       child: const HealthCare(
-                                          category: '',
-                                          subCategory: ''),
+                                          category: 'physicalHealth',
+                                          subCategory: 'عناية صحية'),
                                     ),
                               ),
                             );
@@ -634,8 +634,8 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                                             DoctorByCategoryCubit()),
                                                   ],
                                                   child: const DietSystem(
-                                                      category: '',
-                                                      subCategory: ''),
+                                                      category: 'physicalHealth',
+                                                      subCategory: 'نظام غذائي'),
                                                 ),
                                           ),
                                         );
@@ -695,8 +695,8 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                                         DoctorByCategoryCubit()),
                                               ],
                                               child: Examination(
-                                                  category: '',
-                                                  subCategory: ''),
+                                                  category: 'physicalHealth',
+                                                  subCategory: 'فحوص دورية'),
                                             ),
                                       ),
                                     );
@@ -967,8 +967,8 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                                 DoctorByCategoryCubit()),
                                       ],
                                       child: const HealthCare(
-                                          category: '',
-                                          subCategory: ''),
+                                          category: 'physicalHealth',
+                                          subCategory: 'عناية صحية'),
                                     ),
                               ),
                             );
@@ -1098,8 +1098,8 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                                             DoctorByCategoryCubit()),
                                                   ],
                                                   child: const DietSystem(
-                                                      category: '',
-                                                      subCategory: ''),
+                                                      category: 'physicalHealth',
+                                                      subCategory: 'نظام غذائي'),
                                                 ),
                                           ),
                                         );
@@ -1159,8 +1159,8 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                                         DoctorByCategoryCubit()),
                                               ],
                                               child: Examination(
-                                                  category: '',
-                                                  subCategory: ''),
+                                                  category: 'physicalHealth',
+                                                  subCategory: 'فحوص دورية'),
                                             ),
                                       ),
                                     );

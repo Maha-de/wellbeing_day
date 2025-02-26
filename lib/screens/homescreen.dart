@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../cubit/doctor_by_category_cubit/doctor_by_category_cubit.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
@@ -24,7 +23,6 @@ import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_bottom_nav_bar.dart';
 import 'applicationInfo.dart';
 import 'childrens_disorder_screen.dart';
-import 'client_profile_screen.dart';
 import 'first_home_page.dart';
 import 'free_consultation_screen.dart';
 import 'guidanceAndInstructions.dart';
@@ -484,7 +482,7 @@ int currentIndex=1;
                                                 BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
 
                                               ],
-                                              child: const PsychologicalDisordersScreen(category: 'mentalHealth', subCategory: "اضرابات نقسيه",),
+                                              child: const PsychologicalDisordersScreen(category: 'mentalHealth', subCategory: "اضطرابات نفسية",),
                                             ),
 
                                           ),
@@ -585,7 +583,7 @@ int currentIndex=1;
                                                   BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                                                   BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
                                                 ],
-                                                child: const ProblemSolvingScreen(category: 'mentalHealth', subCategory: "تشخيص و تحفيز"),
+                                                child: const ProblemSolvingScreen(category: 'mentalHealth', subCategory: "حل مشكلات"),
                                               ),
 
                                             ),
@@ -601,7 +599,7 @@ int currentIndex=1;
                                                   BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                                                   BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
                                                 ],
-                                                child: const Guidance_instructions(category: 'mentalHealth', subCategory: "إرشادات وتوجيه"),
+                                                child: const Guidance_instructions(category: 'mentalHealth', subCategory: "ارشاد وتوجيه"),
                                               ),
 
                                             ),
@@ -617,7 +615,7 @@ int currentIndex=1;
                                                   BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                                                   BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
                                                 ],
-                                                child: const ChildrensDisorderScreen(category: 'mentalHealth', subCategory: "اضرابات اطفال"),
+                                                child: const ChildrensDisorderScreen(category: 'mentalHealth', subCategory: "اضطرابات الأطفال"),
                                               ),
 
                                             ),
@@ -685,7 +683,7 @@ int currentIndex=1;
                                               BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                                               BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
                                             ],
-                                            child: const RehabilitationScreen(category: 'mentalHealth', subCategory: "اعدة تاهيل ودعم"),
+                                            child: const RehabilitationScreen(category: 'mentalHealth', subCategory: "اعادة تأهيل ودعم"),
                                           ),
 
                                         ),
@@ -701,7 +699,7 @@ int currentIndex=1;
                                               BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                                               BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
                                             ],
-                                            child: const PsychologicalPreventionScreen(category: 'mentalHealth', subCategory: "وقاية ومتابعة نقسيه"),
+                                            child: const PsychologicalPreventionScreen(category: 'mentalHealth', subCategory: "وقاية ومتابعة نفسية"),
                                           ),
 
                                         ),
@@ -1089,7 +1087,7 @@ int currentIndex=1;
                                                   BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                                                   BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
                                                 ],
-                                                child: const Guidance_instructions(category: 'mentalHealth', subCategory: "إرشاد وتوجيه"),
+                                                child: const Guidance_instructions(category: 'mentalHealth', subCategory: "ارشاد وتوجيه"),
                                               ),
 
                                             ),
@@ -1173,7 +1171,7 @@ int currentIndex=1;
                                               BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                                               BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
                                             ],
-                                            child: const RehabilitationScreen(category: 'mentalHealth', subCategory: "اعادة تاهيل ودعم"),
+                                            child: const RehabilitationScreen(category: 'mentalHealth', subCategory: "اعادة تأهيل ودعم"),
                                           ),
 
                                         ),

@@ -2,6 +2,15 @@ import 'dart:async';
 import 'package:doctor/screens/home_second_screen.dart';
 import 'package:doctor/screens/homescreen.dart';
 import 'package:doctor/screens/sign_up_as_client.dart';
+import 'package:doctor/screens/skill_development/achieving_balance.dart';
+import 'package:doctor/screens/skill_development/achieving_goals.dart';
+import 'package:doctor/screens/skill_development/achieving_success.dart';
+import 'package:doctor/screens/skill_development/dialectical_strategies.dart';
+import 'package:doctor/screens/skill_development/effective_relationships.dart';
+import 'package:doctor/screens/skill_development/emotional_control.dart';
+import 'package:doctor/screens/skill_development/improving_trust.dart';
+import 'package:doctor/screens/skill_development/relaxation.dart';
+import 'package:doctor/screens/skill_development/stress_management.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +18,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
+import '../cubit/doctor_by_category_cubit/doctor_by_category_cubit.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
@@ -16,6 +26,7 @@ import '../make_email/login.dart';
 import '../models/user_profile_model.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_bottom_nav_bar.dart';
+import '../widgets/skill_development_widget.dart';
 import 'applicationInfo.dart';
 import 'client_profile_screen.dart';
 import 'first_home_page.dart';
@@ -403,7 +414,6 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                             ],
                             child: const InstantSessionScreen(),
                           ),
-
                         ),
                             (route) => false,
                       );
@@ -439,173 +449,42 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Container(
-                            width: 100.w,
-                            height: 68.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Color(0xff69B7F3),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: Text( textAlign: TextAlign.center,
-                                "emotionalControl".tr(),
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width:100.w,
-                            height: 68.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Color(0xff69B7F3),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: Text(
-                                textAlign: TextAlign.center,
-                                "stressManagement".tr(),
-                                style: TextStyle(
 
-                                  fontSize: 16.sp,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
+                          SkillDevelopmentWidget(
+                            text: "emotionalControl".tr(),
+                            navigateToPage: const EmotionalControl(category: 'skillsDevelopment', subCategory: 'ضبط المشاعر',),
                           ),
-                          Container(
-                            width: 100.w,
-                            height: 68.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Color(0xff69B7F3),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: Text(
-                                "relax".tr(),
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
+
+                          SkillDevelopmentWidget(
+                            text: "stressManagement".tr(),
+                            navigateToPage: const StressManagement(category: 'skillsDevelopment', subCategory: 'تحمل الضغوط',),
                           ),
+
+                          SkillDevelopmentWidget(
+                            text: "relax".tr(),
+                            navigateToPage: const Relaxation(category: 'skillsDevelopment', subCategory: 'الاسترخاء',),
+                          ),
+
                         ],
                       ),
                       SizedBox(height: 20.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Container(
-                            width: 100.h,
-                            height: 68.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Color(0xff69B7F3),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: Text(
-                                textAlign: TextAlign.center,
-                                "achievingBalance".tr(),
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 100.w,
-                            height: 68.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Color(0xff69B7F3),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: Text(
-                                textAlign: TextAlign.center,
-                                "effectiveRelationships".tr(),
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 100.w,
-                            height: 68.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Color(0xff69B7F3),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: Text(
 
-                                "dialecticalStrategies".tr(),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
+                          SkillDevelopmentWidget(
+                            text: "achievingBalance".tr(),
+                            navigateToPage: const AchievingBalance(category: 'skillsDevelopment', subCategory: 'تحقيق التوازن',),
+                          ),
+
+                          SkillDevelopmentWidget(
+                            text: "effectiveRelationships".tr(),
+                            navigateToPage: const EffectiveRelationships(category: 'skillsDevelopment', subCategory: 'العلاقات الفعالة',),
+                          ),
+
+                          SkillDevelopmentWidget(
+                            text: "dialecticalStrategies".tr(),
+                            navigateToPage: const DialecticalStrategies(category: 'skillsDevelopment', subCategory: 'استراجيات جدلية حل',),
                           ),
                         ],
                       ),
@@ -613,87 +492,20 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Container(
-                            width: 100.w,
-                            height: 68.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Color(0xff69B7F3),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: Text(
-                                "achievingSuccess".tr(),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
 
-                                  fontSize: 16.sp,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
+                          SkillDevelopmentWidget(
+                            text: "achievingSuccess".tr(),
+                            navigateToPage: const AchievingSuccess(category: 'skillsDevelopment', subCategory: 'تحقيق النجاح',),
                           ),
-                          Container(
-                            width: 100.w,
-                            height: 68.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Color(0xff69B7F3),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: Text(
-                                textAlign: TextAlign.center,
-                                "achievingGoals".tr(),
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
+
+                          SkillDevelopmentWidget(
+                            text: "achievingGoals".tr(),
+                            navigateToPage: const AchievingGoals(category: 'skillsDevelopment', subCategory: 'تحقيق الأهداف',),
                           ),
-                          Container(
-                            width: 100.w,
-                            height: 68.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Color(0xff69B7F3),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: Text(
-                                textAlign: TextAlign.center,
-                                "improvingTrust".tr(),
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
+
+                          SkillDevelopmentWidget(
+                            text: "improvingTrust".tr(),
+                            navigateToPage: const ImprovingTrust(category: 'skillsDevelopment', subCategory: 'تحسين الثقة',),
                           ),
                         ],
                       ),
@@ -896,264 +708,69 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                       child: Column(
                         children: [
                           Row(
+
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Container(
-                                width: 100.w,
-                                height: 68.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Color(0xff69B7F3),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 2,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Center(
-                                  child: Text( textAlign: TextAlign.center,
-                                    "emotionalControl".tr(),
-                                    style: TextStyle(
-                                      fontSize: 16.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width:100.w,
-                                height: 68.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Color(0xff69B7F3),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 2,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    textAlign: TextAlign.center,
-                                    "stressManagement".tr(),
-                                    style: TextStyle(
 
-                                      fontSize: 16.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
+                              SkillDevelopmentWidget(
+                                  text: "emotionalControl".tr(),
+                                navigateToPage: const EmotionalControl(category: 'skillsDevelopment', subCategory: 'ضبط المشاعر',),
                               ),
-                              Container(
-                                width: 100.w,
-                                height: 68.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Color(0xff69B7F3),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 2,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "relax".tr(),
-                                    style: TextStyle(
-                                      fontSize: 16.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
+
+                              SkillDevelopmentWidget(
+                                text: "stressManagement".tr(),
+                                navigateToPage: const StressManagement(category: 'skillsDevelopment', subCategory: 'تحمل الضغوط',),
                               ),
+
+                              SkillDevelopmentWidget(
+                                text: "relax".tr(),
+                                navigateToPage: const Relaxation(category: 'skillsDevelopment', subCategory: 'الاسترخاء',),
+                              ),
+
                             ],
                           ),
                           SizedBox(height: 20.h),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Container(
-                                width: 100.h,
-                                height: 68.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Color(0xff69B7F3),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 2,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    textAlign: TextAlign.center,
-                                    "achievingBalance".tr(),
-                                    style: TextStyle(
-                                      fontSize: 16.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: 100.w,
-                                height: 68.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Color(0xff69B7F3),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 2,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    textAlign: TextAlign.center,
-                                    "effectiveRelationships".tr(),
-                                    style: TextStyle(
-                                      fontSize: 16.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: 100.w,
-                                height: 68.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Color(0xff69B7F3),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 2,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Center(
-                                  child: Text(
 
-                                    "dialecticalStrategies".tr(),
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 16.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
+                              SkillDevelopmentWidget(
+                                text: "achievingBalance".tr(),
+                                navigateToPage: const AchievingBalance(category: 'skillsDevelopment', subCategory: 'تحقيق التوازن',),
                               ),
+
+                              SkillDevelopmentWidget(
+                                text: "effectiveRelationships".tr(),
+                                navigateToPage: const EffectiveRelationships(category: 'skillsDevelopment', subCategory: 'العلاقات الفعالة',),
+                              ),
+
+                              SkillDevelopmentWidget(
+                                text: "dialecticalStrategies".tr(),
+                                navigateToPage: const DialecticalStrategies(category: 'skillsDevelopment', subCategory: 'استراجيات جدلية حل',),
+                              ),
+
                             ],
                           ),
                           SizedBox(height:20.h),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Container(
-                                width: 100.w,
-                                height: 68.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Color(0xff69B7F3),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 2,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "achievingSuccess".tr(),
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
 
-                                      fontSize: 16.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
+                              SkillDevelopmentWidget(
+                                text: "achievingSuccess".tr(),
+                                navigateToPage: const AchievingSuccess(category: 'skillsDevelopment', subCategory: 'تحقيق النجاح',),
                               ),
-                              Container(
-                                width: 100.w,
-                                height: 68.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Color(0xff69B7F3),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 2,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    textAlign: TextAlign.center,
-                                    "achievingGoals".tr(),
-                                    style: TextStyle(
-                                      fontSize: 16.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
+
+                              SkillDevelopmentWidget(
+                                text: "achievingGoals".tr(),
+                                navigateToPage: const AchievingGoals(category: 'skillsDevelopment', subCategory: 'تحقيق الأهداف',),
                               ),
-                              Container(
-                                width: 100.w,
-                                height: 68.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Color(0xff69B7F3),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 2,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    textAlign: TextAlign.center,
-                                    "improvingTrust".tr(),
-                                    style: TextStyle(
-                                      fontSize: 16.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
+
+                              SkillDevelopmentWidget(
+                                text: "improvingTrust".tr(),
+                                navigateToPage: const ImprovingTrust(category: 'skillsDevelopment', subCategory: 'تحسين الثقة',),
                               ),
+
                             ],
                           ),
                         ],
