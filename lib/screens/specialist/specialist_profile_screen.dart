@@ -280,7 +280,7 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
                                     MaterialPageRoute(
                                       builder: (context) => MultiBlocProvider(
                                         providers: [
-                                          BlocProvider.value(value: availableSlotsCubit), // Use .value instead of create
+                                          BlocProvider.value(value: availableSlotsCubit),
                                           BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
                                           BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
                                           BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),

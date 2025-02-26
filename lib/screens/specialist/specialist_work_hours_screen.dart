@@ -1,8 +1,5 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
-import 'package:doctor/api/end_points.dart';
-import 'package:doctor/screens/specialist/specialist_appointments_screen.dart';
 import 'package:doctor/screens/specialist/specialist_home_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -33,6 +30,8 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
   late DoctorSessionTypesCubit sessionTypesCubit;
   late AddImageToProfileCubit addImageToProfileCubit;
   AvailableSlotsCubit? availableSlotsCubit;
+  String selectedLanguage = "English"; // Get the selected language
+
 
   DateTime _selectedDay = DateTime.now();
   TimeOfDay _selectedTime = TimeOfDay.now();
@@ -320,7 +319,9 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                                           child: GestureDetector(
                                             onTap: () {
                                               setState(() {
-                                                // Add a new day container when tapped
+
+                                                _updateLanguage(selectedLanguage);
+
                                               });
                                             },
                                             child: Container(
@@ -639,6 +640,54 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
     }
   }
 
+  Future<void> _updateLanguage(String language) async {
+    final String? combinedDateTime = _combineDateTime();
+
+    final prefs = await SharedPreferences.getInstance();
+    String id = prefs.getString('doctorId') ?? "";
+
+    try {
+      // Show loading indicator
+      dateCubit.loadInProgress();
+
+      print('Sending delete request to API: ${{
+        'language': language,
+        'doctorId': id,
+      }}');
+
+      // Call the API to delete the appointment
+      final response = await apiService.updateLang(id, {
+        'language': language,
+      });
+
+      print('API Response Code: ${response.statusCode}');
+      print('API Response Body: ${response.data}');
+
+      // Handle the response
+      if (response.statusCode == 200) {
+        // Appointment deleted successfully
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Updated language successfully!')),
+        );
+        // Optionally navigate to another screen or reset the form
+      } else {
+        // Handle error response
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to update language: ${response.data}')),
+        );
+      }
+    } catch (e) {
+      // Handle exceptions
+      print('API Error: $e'); // Print errors to the terminal
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+    } finally {
+      // Hide loading indicator
+      dateCubit.loadComplete();
+    }
+  }
+
 }
 
 
@@ -661,6 +710,18 @@ class ApiService {
     try {
       final response = await _dio.delete( // Use PUT for deleting a slot that is already created.
         'https://scopey.onrender.com/api/specialist/deleteSlots/$id',
+        data: jsonEncode(data),
+      );
+      return response;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<Response> updateLang(String id, Map<String, dynamic> data) async {
+    try {
+      final response = await _dio.patch( // Use PUT for deleting a slot that is already created.
+        'https://scopey.onrender.com/api/specialist/updateLanguage/$id',
         data: jsonEncode(data),
       );
       return response;

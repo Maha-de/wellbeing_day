@@ -190,13 +190,13 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                                   SizedBox(height: 6.h),
                                   Text(doctor.specialist?.bio??"", style: TextStyle(
                                     fontSize: 18.sp,
-                                    color: Color(0xff19649E),
+                                    color: Colors.black,
                                     fontWeight: FontWeight.bold,),),
-                                  SizedBox(height: 6.h),
-                                  Text("doctorExample".tr(), style: TextStyle(
-                                      fontSize: 18.sp,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),),
+                                  // SizedBox(height: 6.h),
+                                  // Text("doctorExample".tr(), style: TextStyle(
+                                  //     fontSize: 18.sp,
+                                  //     color: Colors.black,
+                                  //     fontWeight: FontWeight.bold),),
                                   SizedBox(height: 6.h),
                                   DoctorInfo(text: 'typeExample'.tr(),),
                                   SizedBox(height: 6.h),
