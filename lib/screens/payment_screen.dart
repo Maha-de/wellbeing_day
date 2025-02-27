@@ -8,7 +8,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'add_credit_card_screen.dart';
 
 class PaymentScreen extends StatelessWidget {
-  const PaymentScreen({super.key});
+  final DateTime confirmedUserDateTimel;
+  const PaymentScreen({super.key, required this.confirmedUserDateTimel});
+
   void openWhatsApp(String paymentWay) async {
     String message = Uri.encodeComponent("anotherPayWays".tr() + paymentWay);
     String whatsappUrl = "https://wa.me/${contactNumber}?text=$message";
@@ -29,6 +31,7 @@ class PaymentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(confirmedUserDateTimel);
     final double screenWidth = MediaQuery.of(context).size.width.w;
     final double screenHeight = MediaQuery.of(context).size.height.h;
     return Scaffold(
