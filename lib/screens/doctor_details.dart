@@ -634,7 +634,13 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                                   onPressed: () {
                                     Navigator.push(context, MaterialPageRoute(
                                         builder: (
-                                            context) => const AppointmentScreen()));
+                                            context) => AppointmentScreen(availableSlots: doctor
+                                            .specialist ==
+                                            null
+                                            ? []
+                                            : doctor.specialist!
+                                            .availableSlots ??
+                                            [],)));
                                   },
                                   style: ElevatedButton.styleFrom(
                                       minimumSize: const Size(350, 50),
