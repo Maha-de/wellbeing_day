@@ -16,9 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
-import '../cubit/doctor_by_category_cubit/doctor_by_category_cubit.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
@@ -28,7 +26,6 @@ import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_bottom_nav_bar.dart';
 import '../widgets/skill_development_widget.dart';
 import 'applicationInfo.dart';
-import 'client_profile_screen.dart';
 import 'first_home_page.dart';
 import 'free_consultation_screen.dart';
 import 'instant_session_screen.dart';
@@ -452,17 +449,17 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
 
                           SkillDevelopmentWidget(
                             text: "emotionalControl".tr(),
-                            navigateToPage: const EmotionalControl(category: 'skillsDevelopment', subCategory: 'ضبط المشاعر',),
+                            navigateToPage: const EmotionalControl(category: 'skillDevelopment', subCategory: 'ضبط المشاعر',),
                           ),
 
                           SkillDevelopmentWidget(
                             text: "stressManagement".tr(),
-                            navigateToPage: const StressManagement(category: 'skillsDevelopment', subCategory: 'تحمل الضغوط',),
+                            navigateToPage: const StressManagement(category: 'skillDevelopment', subCategory: 'تحمل الضغوط',),
                           ),
 
                           SkillDevelopmentWidget(
                             text: "relax".tr(),
-                            navigateToPage: const Relaxation(category: 'skillsDevelopment', subCategory: 'الاسترخاء',),
+                            navigateToPage: const Relaxation(category: 'skillDevelopment', subCategory: 'الاسترخاء',),
                           ),
 
                         ],
@@ -474,17 +471,17 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
 
                           SkillDevelopmentWidget(
                             text: "achievingBalance".tr(),
-                            navigateToPage: const AchievingBalance(category: 'skillsDevelopment', subCategory: 'تحقيق التوازن',),
+                            navigateToPage: const AchievingBalance(category: 'skillDevelopment', subCategory: 'تحقيق التوازن',),
                           ),
 
                           SkillDevelopmentWidget(
                             text: "effectiveRelationships".tr(),
-                            navigateToPage: const EffectiveRelationships(category: 'skillsDevelopment', subCategory: 'العلاقات الفعالة',),
+                            navigateToPage: const EffectiveRelationships(category: 'skillDevelopment', subCategory: 'اضطراب الصدمة',),
                           ),
 
                           SkillDevelopmentWidget(
                             text: "dialecticalStrategies".tr(),
-                            navigateToPage: const DialecticalStrategies(category: 'skillsDevelopment', subCategory: 'استراجيات جدلية حل',),
+                            navigateToPage: const DialecticalStrategies(category: 'skillDevelopment', subCategory: 'استراجيات جدلية حل',),
                           ),
                         ],
                       ),
@@ -495,17 +492,17 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
 
                           SkillDevelopmentWidget(
                             text: "achievingSuccess".tr(),
-                            navigateToPage: const AchievingSuccess(category: 'skillsDevelopment', subCategory: 'تحقيق النجاح',),
+                            navigateToPage: const AchievingSuccess(category: 'skillDevelopment', subCategory: 'تحقيق النجاح',),
                           ),
 
                           SkillDevelopmentWidget(
                             text: "achievingGoals".tr(),
-                            navigateToPage: const AchievingGoals(category: 'skillsDevelopment', subCategory: 'تحقيق الأهداف',),
+                            navigateToPage: const AchievingGoals(category: 'skillDevelopment', subCategory: 'تحقيق الأهداف',),
                           ),
 
                           SkillDevelopmentWidget(
                             text: "improvingTrust".tr(),
-                            navigateToPage: const ImprovingTrust(category: 'skillsDevelopment', subCategory: 'تحسين الثقة',),
+                            navigateToPage: const ImprovingTrust(category: 'skillDevelopment', subCategory: 'تحسين الثقة',),
                           ),
                         ],
                       ),
@@ -714,17 +711,17 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
 
                               SkillDevelopmentWidget(
                                   text: "emotionalControl".tr(),
-                                navigateToPage: const EmotionalControl(category: 'skillsDevelopment', subCategory: 'ضبط المشاعر',),
+                                navigateToPage: const EmotionalControl(category: 'skillDevelopment', subCategory: 'ضبط المشاعر',),
                               ),
 
                               SkillDevelopmentWidget(
                                 text: "stressManagement".tr(),
-                                navigateToPage: const StressManagement(category: 'skillsDevelopment', subCategory: 'تحمل الضغوط',),
+                                navigateToPage: const StressManagement(category: 'skillDevelopment', subCategory: 'تحمل الضغوط',),
                               ),
 
                               SkillDevelopmentWidget(
                                 text: "relax".tr(),
-                                navigateToPage: const Relaxation(category: 'skillsDevelopment', subCategory: 'الاسترخاء',),
+                                navigateToPage: const Relaxation(category: 'skillDevelopment', subCategory: 'الاسترخاء',),
                               ),
 
                             ],
@@ -736,17 +733,17 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
 
                               SkillDevelopmentWidget(
                                 text: "achievingBalance".tr(),
-                                navigateToPage: const AchievingBalance(category: 'skillsDevelopment', subCategory: 'تحقيق التوازن',),
+                                navigateToPage: const AchievingBalance(category: 'skillDevelopment', subCategory: 'تحقيق التوازن',),
                               ),
 
                               SkillDevelopmentWidget(
                                 text: "effectiveRelationships".tr(),
-                                navigateToPage: const EffectiveRelationships(category: 'skillsDevelopment', subCategory: 'العلاقات الفعالة',),
+                                navigateToPage: const EffectiveRelationships(category: 'skillDevelopment', subCategory: 'اضطراب الصدمة',),
                               ),
 
                               SkillDevelopmentWidget(
                                 text: "dialecticalStrategies".tr(),
-                                navigateToPage: const DialecticalStrategies(category: 'skillsDevelopment', subCategory: 'استراجيات جدلية حل',),
+                                navigateToPage: const DialecticalStrategies(category: 'skillDevelopment', subCategory: 'استراجيات جدلية حل',),
                               ),
 
                             ],
@@ -758,17 +755,17 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
 
                               SkillDevelopmentWidget(
                                 text: "achievingSuccess".tr(),
-                                navigateToPage: const AchievingSuccess(category: 'skillsDevelopment', subCategory: 'تحقيق النجاح',),
+                                navigateToPage: const AchievingSuccess(category: 'skillDevelopment', subCategory: 'تحقيق النجاح',),
                               ),
 
                               SkillDevelopmentWidget(
                                 text: "achievingGoals".tr(),
-                                navigateToPage: const AchievingGoals(category: 'skillsDevelopment', subCategory: 'تحقيق الأهداف',),
+                                navigateToPage: const AchievingGoals(category: 'skillDevelopment', subCategory: 'تحقيق الأهداف',),
                               ),
 
                               SkillDevelopmentWidget(
                                 text: "improvingTrust".tr(),
-                                navigateToPage: const ImprovingTrust(category: 'skillsDevelopment', subCategory: 'تحسين الثقة',),
+                                navigateToPage: const ImprovingTrust(category: 'skillDevelopment', subCategory: 'تحسين الثقة',),
                               ),
 
                             ],

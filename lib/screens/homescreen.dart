@@ -599,7 +599,7 @@ int currentIndex=1;
                                                   BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                                                   BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
                                                 ],
-                                                child: const Guidance_instructions(category: 'mentalHealth', subCategory: "ارشاد وتوجيه"),
+                                                child: const Guidance_instructions(category: 'mentalHealth', subCategory: "إرشاد وتوجيه"),
                                               ),
 
                                             ),
@@ -970,7 +970,7 @@ int currentIndex=1;
                                               BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
 
                                             ],
-                                            child: const PsychologicalDisordersScreen(category: 'mentalHealth', subCategory: "اضطرابات نقسية",),
+                                            child: const PsychologicalDisordersScreen(category: 'mentalHealth', subCategory: "اضطرابات نفسية",),
                                           ),
 
                                         ),
@@ -1087,7 +1087,7 @@ int currentIndex=1;
                                                   BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                                                   BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
                                                 ],
-                                                child: const Guidance_instructions(category: 'mentalHealth', subCategory: "ارشاد وتوجيه"),
+                                                child: const Guidance_instructions(category: 'mentalHealth', subCategory: "إرشاد وتوجيه"),
                                               ),
 
                                             ),
@@ -1187,7 +1187,7 @@ int currentIndex=1;
                                               BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                                               BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
                                             ],
-                                            child: const PsychologicalPreventionScreen(category: 'mentalHealth', subCategory: "وقاية ومتابعة نقسية"),
+                                            child: const PsychologicalPreventionScreen(category: 'mentalHealth', subCategory: "وقاية ومتابعة نفسية"),
                                           ),
 
                                         ),

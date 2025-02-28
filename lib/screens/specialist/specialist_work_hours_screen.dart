@@ -30,6 +30,8 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
   late DoctorSessionTypesCubit sessionTypesCubit;
   late AddImageToProfileCubit addImageToProfileCubit;
   AvailableSlotsCubit? availableSlotsCubit;
+  AvailableLanguageCubit? availableLanguageCubit;
+
 
   final TextEditingController _languageController = TextEditingController();
 
@@ -45,6 +47,8 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
   TimeOfDay _selectedTime = TimeOfDay.now();
 
   List<DateTime> availableSlots = [];
+  List<String> availableLanguage = [];
+
 
   @override
   void initState() {
@@ -82,6 +86,10 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
       availableSlotsCubit = BlocProvider.of<AvailableSlotsCubit>(context);
       _loadAvailableSlots();
     }
+    if (availableLanguageCubit == null) {
+      availableLanguageCubit = BlocProvider.of<AvailableLanguageCubit>(context);
+      _loadAvailableLanguage();
+    }
   }
 
   void _loadAvailableSlots() {
@@ -91,6 +99,16 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
       availableSlotsCubit!.fetchAvailableSlots(id);
     });
   }
+
+  void _loadAvailableLanguage() {
+    final prefs = SharedPreferences.getInstance();
+    prefs.then((value) {
+      String id = value.getString('doctorId') ?? "";
+      availableLanguageCubit!.fetchLanguage(id);
+    });
+  }
+
+
 
   String? _combineDateTime() {
     if (_selectedDay == null) {
@@ -262,109 +280,167 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "chooseLang".tr(),
-                                    style: TextStyle(
-                                      fontSize: 20.sp,
-                                      color: Color(0xff19649E),
-                                      fontWeight: FontWeight.bold,
+                              Container(
+                                width: screenWidth * 0.85,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "chooseLang".tr(),
+                                      style: TextStyle(
+                                        fontSize: 20.sp,
+                                        color: Color(0xff19649E),
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 7.h,
-                                  ),
-                                  Container(
-                                    width: 327.w,
-                                    height: 48.h,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(11),
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.3),
-                                          spreadRadius: 2,
-                                          blurRadius: 5,
-                                          offset: Offset(0, 2),
-                                        ),
-                                      ],
+                                    SizedBox(
+                                      height: 7.h,
                                     ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Expanded(
-                                          child: TextFormField(
-                                            controller: _languageController,
-                                            decoration: InputDecoration(
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                      horizontal: 12),
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(11),
-                                                borderSide: BorderSide.none,
+                                    Container(
+                                      width: 327.w,
+                                      height: 48.h,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(11),
+                                        color: Colors.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.3),
+                                            spreadRadius: 2,
+                                            blurRadius: 5,
+                                            offset: Offset(0, 2),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Expanded(
+                                            child: TextFormField(
+                                              controller: _languageController,
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        horizontal: 12),
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(11),
+                                                  borderSide: BorderSide.none,
+                                                ),
+                                                filled: true,
+                                                fillColor: Colors.transparent,
+                                                hintText: "chooseLang".tr(),
+                                                hintStyle: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 20.sp,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
                                               ),
-                                              filled: true,
-                                              fillColor: Colors.transparent,
-                                              hintText: "chooseLang".tr(),
-                                              hintStyle: TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 20.sp,
-                                                fontWeight: FontWeight.w500,
+                                              style:
+                                                  TextStyle(color: Colors.black),
+                                              textAlign: TextAlign.start,
+                                              // textDirection: TextDirection.rtl,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(right: 10),
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                String enteredLanguage =
+                                                    _languageController.text;
+                                                if (enteredLanguage.isNotEmpty) {
+                                                  _updateLanguage(
+                                                      enteredLanguage);
+                                                } else {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    SnackBar(
+                                                        content: Text(
+                                                            'Please enter a language')),
+                                                  );
+                                                }
+                                              },
+                                              child: Container(
+                                                width: 27.w,
+                                                height: 28.h,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xff19649E),
+                                                  borderRadius:
+                                                      BorderRadius.circular(4),
+                                                ),
+                                                alignment: Alignment.center,
+                                                child: Icon(
+                                                  Icons.add,
+                                                  color: Colors.white,
+                                                  size: 15,
+                                                ),
                                               ),
                                             ),
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                            textAlign: TextAlign.start,
-                                            // textDirection: TextDirection.rtl,
                                           ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 10),
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              String enteredLanguage =
-                                                  _languageController.text;
-                                              if (enteredLanguage.isNotEmpty) {
-                                                _updateLanguage(
-                                                    enteredLanguage);
-                                              } else {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                      content: Text(
-                                                          'Please enter a language')),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                    BlocBuilder<AvailableLanguageCubit,
+                                        AvailableLanguageState>(
+                                      builder: (context, state) {
+                                        if (state is AvailableLanguageLoading) {
+                                          return Center(
+                                              child: CircularProgressIndicator());
+                                        } else if (state is AvailableLanguageLoaded) {
+                                          print(
+                                              "AvailableLanguageLoaded state received.");
+                                          print(
+                                              "Loaded language: ${state.availableLanguage}");
+                                          if (state.availableLanguage.isEmpty) {
+                                            return Center(
+                                                child: Text("No language added yet"));
+                                          }
+                                          return Container(
+                                            color: Colors.white,
+                                            height: screenHeight * 0.15.h,
+                                            child: ListView.builder(
+                                              itemCount: state.availableLanguage.length,
+                                              itemBuilder: (context, index) {
+                                                return Card(
+                                                  color: Colors.grey.shade300,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    BorderRadius.circular(10),
+                                                  ),
+                                                  child: ListTile(
+                                                    title: Center(
+                                                      child: Text(
+                                                              state.availableLanguage[
+                                                              index],
+                                                    ),
+                                                  ),
+                                                  )
                                                 );
-                                              }
-                                            },
-                                            child: Container(
-                                              width: 27.w,
-                                              height: 28.h,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xff19649E),
-                                                borderRadius:
-                                                    BorderRadius.circular(4),
-                                              ),
-                                              alignment: Alignment.center,
-                                              child: Icon(
-                                                Icons.add,
-                                                color: Colors.white,
-                                                size: 15,
-                                              ),
+                                              },
                                             ),
-                                          ),
-                                        ),
-                                      ],
+                                          );
+                                        } else if (state is AvailableLanguageError) {
+                                          print(
+                                              "AvailableLanguageError state received: ${state.message}");
+                                          return Center(
+                                              child: Text("Error: ${state.message}"));
+                                        } else {
+                                          print("No data available state.");
+                                          return Center(
+                                              child: Text("No language added yet"));
+                                        }
+                                      },
                                     ),
-                                  ),
-                                ],
+
+                                  ],
+                                ),
                               ),
                               SizedBox(
-                                height: 30.h,
+                                height: 10.h,
                               ),
                               // Display the dynamically added day containers
                               Container(

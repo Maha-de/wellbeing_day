@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../cubit/doctor_by_category_cubit/doctor_by_category_cubit.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
@@ -20,7 +19,6 @@ import '../models/user_profile_model.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_bottom_nav_bar.dart';
 import 'applicationInfo.dart';
-import 'client_profile_screen.dart';
 import 'first_home_page.dart';
 import 'free_consultation_screen.dart';
 import 'home_third_screen.dart';

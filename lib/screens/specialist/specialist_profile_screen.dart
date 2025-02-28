@@ -35,6 +35,8 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
   late DoctorProfileCubit doctorProfileCubit;
   late AddImageToProfileCubit addImageToProfileCubit;
   final availableSlotsCubit = AvailableSlotsCubit();
+  final availableLanguageCubit = AvailableLanguageCubit();
+
 
   @override
   void initState() {
@@ -281,6 +283,7 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
                                       builder: (context) => MultiBlocProvider(
                                         providers: [
                                           BlocProvider.value(value: availableSlotsCubit),
+                                          BlocProvider.value(value: availableLanguageCubit),
                                           BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
                                           BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
                                           BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),

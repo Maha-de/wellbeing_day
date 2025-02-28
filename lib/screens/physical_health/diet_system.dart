@@ -338,7 +338,7 @@ class _DietSystemState extends State<DietSystem> {
                                 return Text(state.errMessage); // Display error message
                               } else if (state is DoctorByCategorySuccess) {
                                 return Container(
-                                  height: screenHeight*0.63.h,
+                                  height: screenHeight,
                                   child: ListView.builder(
                                     itemCount: state.specialists.length,
                                     itemBuilder: (context, index) {
