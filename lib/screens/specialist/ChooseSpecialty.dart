@@ -133,7 +133,8 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
           SizedBox(height: 32.h),
           InkWell(
             onTap: () {
-              List<String> selectedSpecialties = getSelectedSpecialties();
+              Map<String, List<String>> selectedSpecialties =
+                  getSelectedSpecialties();
               if (selectedSpecialties.isEmpty) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   customSnackBar(
@@ -204,46 +205,16 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
     );
   }
 
-  // String getSelectedSpecialities(String categoryName) {
-  //   List<String> selectedCategories = [];
-  //
-  //   // Iterate through the categories and their subcategories
-  //   _categories.forEach((category, subcategories) {
-  //     if (category == categoryName) {
-  //       subcategories.forEach((subcategory, isSelected) {
-  //         // If the subcategory is selected, add it to the list
-  //         if (isSelected) {
-  //           selectedCategories.add(subcategory);
-  //         }
-  //       });
-  //     }
-  //   });
-  //
-  //   // Format the selected categories into the desired string format
-  //   return '$categoryName: [${selectedCategories.map((subcategory) => '"$subcategory"').join(', ')}]';
-  // }
-
-  // String getSelectedSpecialities() {
-  //   List<String> selectedCategories = [];
-  //
-  //   _categories.forEach((category, subcategories) {
-  //     subcategories.forEach((subcategory, isSelected) {
-  //       if (isSelected) {
-  //         selectedCategories.add(subcategory);
-  //       }
-  //     });
-  //   });
-  //
-  //   return 'mentalHealth: ["${selectedCategories.join(',')}"]';
-  // }
-
-  List<String> getSelectedSpecialties() {
-    List<String> selectedSpecialties = [];
+  Map<String, List<String>> getSelectedSpecialties() {
+    Map<String, List<String>> selectedSpecialties = {};
 
     _categories.forEach((category, subcategories) {
       subcategories.forEach((subcategory, isSelected) {
         if (isSelected) {
-          selectedSpecialties.add(subcategory);
+          if (selectedSpecialties[category] == null) {
+            selectedSpecialties[category] = [];
+          }
+          selectedSpecialties[category]!.add(subcategory);
         }
       });
     });
