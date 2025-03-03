@@ -14,6 +14,7 @@ import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../cubit/doctor_by_category_cubit/doctor_by_category_cubit.dart';
 import '../cubit/doctor_by_category_cubit/doctor_by_category_state.dart';
 import '../cubit/get_specialist/get_specialist_state.dart';
+import '../cubit/programs/anxiety_cubit.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
@@ -37,6 +38,8 @@ class PsychologicalDisordersScreen extends StatefulWidget {
 class _PsychologicalDisordersScreenState extends State<PsychologicalDisordersScreen> {
   late UserProfileCubit userProfileCubit;
   late DoctorByCategoryCubit doctorByCategoryCubit;
+  final programCubit = ProgramCubit();
+
 
   @override
   void initState() {
@@ -281,6 +284,8 @@ class _PsychologicalDisordersScreenState extends State<PsychologicalDisordersScr
                                         BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
                                         BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
                                         BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                        BlocProvider.value(value: programCubit),
+
                                       ],
                                       child:
                                       const AnxietyScreen(),
@@ -453,6 +458,8 @@ class _PsychologicalDisordersScreenState extends State<PsychologicalDisordersScr
                                             BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
                                             BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
                                             BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                            BlocProvider.value(value: programCubit),
+
                                           ],
                                           child:
                                           const AnxietyScreen(),

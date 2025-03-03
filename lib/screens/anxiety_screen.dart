@@ -6,12 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
+import '../cubit/programs/anxiety_cubit.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
 import '../make_email/login.dart';
+import '../models/programs_model.dart';
 import '../models/user_profile_model.dart';
 import 'applicationInfo.dart';
 import 'first_home_page.dart';
@@ -27,10 +28,15 @@ class AnxietyScreen extends StatefulWidget {
 class _AnxietyScreenState extends State<AnxietyScreen> {
   late UserProfileCubit userProfileCubit;
 
+  late ProgramCubit programCubit;
+
   @override
   void initState() {
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
+
+    programCubit = BlocProvider.of<ProgramCubit>(context);
+
     _loadUserProfile();
     WidgetsBinding.instance.addPostFrameCallback((_) {});
   }
@@ -122,33 +128,46 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                           ),
                         ),
                         SizedBox(height: screenHeight.h * 0.01.h),
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                spreadRadius: 1,
-                                blurRadius: 5,
-                                offset: Offset(0, 3),
-                              ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            initialValue: "depPlanDesc".tr(),
-                            maxLines:
-                                null, // Allows the field to expand for multiline input
-                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                        BlocBuilder<ProgramCubit, ProgramState>(
+                          builder: (context, state) {
+                             if (state is ProgramLoading) {
+                              return Center(child: CircularProgressIndicator());
+                            } else if (state is ProgramLoaded) {
+                               ProgramsModel program = state.programDetails;
 
-                            decoration: const InputDecoration(
-                              alignLabelWithHint: true,
-                              border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets
-                                  .zero, // Matches the original padding
-                            ),
-                          ),
+                               return Container(
+                                   padding: const EdgeInsets.symmetric(vertical: 10),
+                                   decoration: BoxDecoration(
+                                     color: Colors.white,
+                                     borderRadius: BorderRadius.circular(10),
+                                     boxShadow: [
+                                       BoxShadow(
+                                         color: Colors.grey.withOpacity(0.3),
+                                         spreadRadius: 1,
+                                         blurRadius: 5,
+                                         offset: Offset(0, 3),
+                                       ),
+                                     ],
+                                   ),
+                                   child: Text(program.program.importance));
+
+                              //   ListView.builder(
+                              //   itemCount: state.programs.length,
+                              //   itemBuilder: (context, index) {
+                              //     final program = state.programs[index];
+                              //     return ListTile(
+                              //       title: Text(program.name),
+                              //       subtitle: Text(program.importance),
+                              //       // ... other program details
+                              //     );
+                              //   },
+                              // );
+                            } else if (state is ProgramError) {
+                              return Center(child: Text('Error: ${state.error}'));
+                            } else {
+                              return Container(); // Handle other states if needed.
+                            }
+                          },
                         ),
 
                         SizedBox(height: screenHeight.h * 0.03.h),
@@ -640,34 +659,75 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                           ),
                         ),
                         SizedBox(height: screenHeight.h * 0.01.h),
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                spreadRadius: 1,
-                                blurRadius: 5,
-                                offset: Offset(0, 3),
-                              ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            initialValue: "depPlanDesc".tr(),
-                            maxLines:
-                                null, // Allows the field to expand for multiline input
-                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                        BlocBuilder<ProgramCubit, ProgramState>(
+                          builder: (context, state) {
+                            if (state is ProgramLoading) {
+                              return Center(child: CircularProgressIndicator());
+                            } else if (state is ProgramLoaded) {
+                              ProgramsModel program = state.programDetails;
 
-                            decoration: const InputDecoration(
-                              alignLabelWithHint: true,
-                              border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets
-                                  .zero, // Matches the original padding
-                            ),
-                          ),
+                              return Container(
+                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.3),
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
+                                        offset: Offset(0, 3),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Text(program.program.importance));
+
+                              //   ListView.builder(
+                              //   itemCount: state.programs.length,
+                              //   itemBuilder: (context, index) {
+                              //     final program = state.programs[index];
+                              //     return ListTile(
+                              //       title: Text(program.name),
+                              //       subtitle: Text(program.importance),
+                              //       // ... other program details
+                              //     );
+                              //   },
+                              // );
+                            } else if (state is ProgramError) {
+                              return Center(child: Text('Error: ${state.error}'));
+                            } else {
+                              return Container(); // Handle other states if needed.
+                            }
+                          },
                         ),
+                        // Container(
+                        //   padding: const EdgeInsets.symmetric(vertical: 10),
+                        //   decoration: BoxDecoration(
+                        //     color: Colors.white,
+                        //     borderRadius: BorderRadius.circular(10),
+                        //     boxShadow: [
+                        //       BoxShadow(
+                        //         color: Colors.grey.withOpacity(0.3),
+                        //         spreadRadius: 1,
+                        //         blurRadius: 5,
+                        //         offset: Offset(0, 3),
+                        //       ),
+                        //     ],
+                        //   ),
+                        //   child: TextFormField(
+                        //     initialValue: "depPlanDesc".tr(),
+                        //     maxLines:
+                        //         null, // Allows the field to expand for multiline input
+                        //     style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                        //
+                        //     decoration: const InputDecoration(
+                        //       alignLabelWithHint: true,
+                        //       border: InputBorder.none, // Removes the underline
+                        //       contentPadding: EdgeInsets
+                        //           .zero, // Matches the original padding
+                        //     ),
+                        //   ),
+                        // ),
 
                         SizedBox(height: screenHeight.h * 0.03.h),
                         // "الخطة / العلاج" Section

@@ -14,6 +14,7 @@ import '../cubit/doctor_by_category_cubit/doctor_by_category_cubit.dart';
 import '../cubit/doctor_by_category_cubit/doctor_by_category_state.dart';
 import '../cubit/get_specialist/get_sepcialist_cubit.dart';
 import '../cubit/get_specialist/get_specialist_state.dart';
+import '../cubit/programs/anxiety_cubit.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
@@ -38,6 +39,9 @@ class TherapeuticProgramsScreen extends StatefulWidget {
 class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
   late UserProfileCubit userProfileCubit;
   late DoctorByCategoryCubit doctorByCategoryCubit;
+
+  final programCubit = ProgramCubit();
+
 
   @override
   void initState() {
@@ -289,6 +293,8 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                                   builder: (context) =>
                                       MultiBlocProvider(
                                         providers: [
+                                          // BlocProvider<ProgramCubit>(create: (_) => ProgramCubit()),
+                                          BlocProvider.value(value: programCubit),
                                           BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
                                           BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
                                           BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
@@ -462,6 +468,8 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                                       BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
                                       BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
                                       BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                      BlocProvider.value(value: programCubit),
+
                                     ],
                                     child:
                                     const AnxietyScreen(),
