@@ -22,7 +22,8 @@ import 'first_home_page.dart';
 import 'homescreen.dart';
 
 class SpecialistsScreen extends StatefulWidget {
-  const SpecialistsScreen({super.key});
+  final String?description;
+  const SpecialistsScreen({super.key, this.description});
 
   @override
   State<SpecialistsScreen> createState() => _SpecialistsScreenState();
@@ -30,17 +31,20 @@ class SpecialistsScreen extends StatefulWidget {
 
 class _SpecialistsScreenState extends State<SpecialistsScreen> {
   late UserProfileCubit userProfileCubit;
+  late GetSpecialistCubit getSpecialistCubit;
 
   @override
   void initState() {
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
+    getSpecialistCubit = BlocProvider.of<GetSpecialistCubit>(context);
     _loadUserProfile();
   }
   int currentIndex=1;
   Future<void> _loadUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
+    getSpecialistCubit.fetchSpecialists();
     userProfileCubit.getUserProfile(context, id);
   }
 
@@ -271,7 +275,7 @@ class _SpecialistsScreenState extends State<SpecialistsScreen> {
               ),
             );
           } else if (state is UserProfileSuccess) {
-            UserProfileModel userProfile = state.userProfile;
+
             return Scaffold(
               bottomNavigationBar: CustomBottomNavBar(currentIndex: 1),
               appBar: AppBar(
@@ -315,17 +319,17 @@ class _SpecialistsScreenState extends State<SpecialistsScreen> {
                           if (state is SpecialistLoading) {
                             return CircularProgressIndicator(); // Show loading indicator
                           } else if (state is SpecialistFailure) {
+                            print(state.errMessage);
                             return Text(state.errMessage); // Display error message
                           } else if (state is SpecialistSuccess) {
-                            return Expanded(
-                              child: Container(
-                                
-                                child: ListView.builder(
-                                  itemCount: state.specialists.length,
-                                  itemBuilder: (context, index) {
-                                    return DoctorCard(specialistModel: state.specialists[index], doctorID: state.specialists[index].id??"",);
-                                  },
-                                ),
+                            print(state.message);
+                            return Container(
+                              height: 589.h,
+                              child: ListView.builder(
+                                itemCount: state.specialists.length,
+                                itemBuilder: (context, index) {
+                                  return DoctorCard(specialistModel: state.specialists[index], doctorID: state.specialists[index].id??"",);
+                                },
                               ),
                             );
                           } else {

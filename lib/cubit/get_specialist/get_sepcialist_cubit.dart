@@ -2,23 +2,14 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../api/end_points.dart';
-import '../../api/user_repository.dart';
 import '../../models/specialist_model.dart';
 import 'get_specialist_state.dart';
 
 
 
 class GetSpecialistCubit extends Cubit<GetSpecialistState> {
-
-  GetSpecialistCubit(this.userRepository) : super(GetSpecialistInitial());
-
-
-  final UserRepository userRepository;
-
-  List<Item> specialists = [];
-
-
-
+  GetSpecialistCubit() : super(GetSpecialistInitial());
+  List<Specialists> specialists = [];
   TextEditingController firstNameController = TextEditingController();
     TextEditingController lastNameController = TextEditingController();
     TextEditingController emailController = TextEditingController();
@@ -34,10 +25,7 @@ class GetSpecialistCubit extends Cubit<GetSpecialistState> {
     TextEditingController session_time_Controller = TextEditingController();
     TextEditingController session_price_Controller = TextEditingController();
 
-    
-
   Future<void> fetchSpecialists() async {
-
       emit(SpecialistLoading());
       try {
         final dio = Dio(
@@ -46,19 +34,19 @@ class GetSpecialistCubit extends Cubit<GetSpecialistState> {
             validateStatus: (status) => status != null && status < 500,
           ),
         );
-
         final response = await dio.get("/specialist/getAll");
-
-        if (response.statusCode == 201||response.statusCode == 200) {
-          final specialistModel = SpecialistModel.fromJson(response.data);
+        if ( response.statusCode == 200) {
+          print(response.data);
+          print("sss");
+          final specialistModel = SpecialistsResponse.fromJson(response.data);
+          print(specialistModel);
           specialists = specialistModel.items??[];
-
-
           emit(SpecialistSuccess("Profile loaded successfully", specialists));
         } else {
           emit(SpecialistFailure("Error Fetching Data: ${response.data['message']}", errMessage: "Error Fetching Data: ${response.data['message']}"));
         }
       } catch (e) {
+        print(e);
         emit(SpecialistFailure("Error occurred while connecting to the API: $e", errMessage: "Error occurred while connecting to the API: $e"));
       }
   }

@@ -11,12 +11,16 @@ import 'package:doctor/screens/skill_development/emotional_control.dart';
 import 'package:doctor/screens/skill_development/improving_trust.dart';
 import 'package:doctor/screens/skill_development/relaxation.dart';
 import 'package:doctor/screens/skill_development/stress_management.dart';
+import 'package:doctor/screens/sub_category_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
+import '../cubit/doctor_by_category_cubit/doctor_by_category_cubit.dart';
+import '../cubit/get_sub_categories_cubit/get_sub_categories_cubit.dart';
+import '../cubit/get_sub_categories_cubit/get_sub_categories_state.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
@@ -55,11 +59,13 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
   PageController _pageController = PageController();
   late Timer _timer;
   late UserProfileCubit userProfileCubit;
+  late SubCategoriesCubit subCategoriesCubit;
 
   @override
   void initState() {
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
+    subCategoriesCubit= BlocProvider.of<SubCategoriesCubit>(context);
     _loadUserProfile();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _startAutoPageSwitch();
@@ -69,6 +75,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
   Future<void> _loadUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
+    subCategoriesCubit.fetchSubCategories(context, "skillDevelopment");
     userProfileCubit.getUserProfile(context, id);
   }
 
@@ -309,11 +316,15 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                           Navigator.push(
                             context,
                             PageRouteBuilder(
-                              pageBuilder: (context, animation, secondaryAnimation) =>
-                                  BlocProvider(
-                                    create: (_) => UserProfileCubit(),
-                                    child: page,
-                                  ),
+                              pageBuilder: (context, animation, secondaryAnimation) => MultiBlocProvider(
+                                providers: [
+                                  BlocProvider(create: (_) => UserProfileCubit()),
+                                  BlocProvider(create: (_) => DoctorByCategoryCubit()),
+                                  BlocProvider(create: (_) => SubCategoriesCubit()),
+                                ],
+
+                                child: page,
+                              ),
                               transitionDuration: const Duration(milliseconds: 1),
                             ),
                           );
@@ -438,75 +449,103 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
               ),
               SizedBox(height: screenHeight * 0.01.h),
               Center(
-                child: Container(
-                  width: 354,
-                  height: 268,
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-
-                          SkillDevelopmentWidget(
-                            text: "emotionalControl".tr(),
-                            navigateToPage: const EmotionalControl(category: 'skillDevelopment', subCategory: 'ضبط المشاعر',),
+                child: SizedBox(
+                  width: 338.w,
+                  height: 252.h,
+                  child: BlocBuilder<SubCategoriesCubit, SubCategoriesState>(
+                    builder: (context, state) {
+                      if (state is SubCategoriesLoading) {
+                        return CircularProgressIndicator(); // Show loading indicator
+                      } else if (state is SubCategoriesFailure) {
+                        return Text(state.errMessage); // Display error message
+                      } else if (state is SubCategoriesSuccess) {
+                        return GridView.builder(
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3, // 3 عناصر في كل صف
+                            crossAxisSpacing: 8,
+                            mainAxisSpacing: 8,
+                            childAspectRatio: 1.4,
                           ),
+                          itemCount: subCategoriesCubit.categories.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
 
-                          SkillDevelopmentWidget(
-                            text: "stressManagement".tr(),
-                            navigateToPage: const StressManagement(category: 'skillDevelopment', subCategory: 'تحمل الضغوط',),
-                          ),
 
-                          SkillDevelopmentWidget(
-                            text: "relax".tr(),
-                            navigateToPage: const Relaxation(category: 'skillDevelopment', subCategory: 'الاسترخاء',),
-                          ),
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        MultiBlocProvider(
+                                          providers: [
+                                            BlocProvider<
+                                                UserProfileCubit>(
+                                                create: (_) =>
+                                                    UserProfileCubit()),
+                                            BlocProvider<
+                                                AddImageToProfileCubit>(
+                                                create: (_) =>
+                                                    AddImageToProfileCubit()),
+                                            BlocProvider<
+                                                UpdateUserCubit>(
+                                                create: (_) =>
+                                                    UpdateUserCubit()),
+                                            BlocProvider<
+                                                DoctorByCategoryCubit>(
+                                                create: (_) =>
+                                                    DoctorByCategoryCubit()),
+                                            BlocProvider<
+                                                SubCategoriesCubit>(
+                                                create: (_) =>
+                                                    SubCategoriesCubit()),
+                                          ],
+                                          child: SubCategoryScreen(
+                                            category: 'skillDevelopment',
+                                            subCategory: subCategoriesCubit
+                                                .categories[index] ??
+                                                "",),
+                                        ),
 
-                        ],
-                      ),
-                      SizedBox(height: 20.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
+                                  ),
 
-                          SkillDevelopmentWidget(
-                            text: "achievingBalance".tr(),
-                            navigateToPage: const AchievingBalance(category: 'skillDevelopment', subCategory: 'تحقيق التوازن',),
-                          ),
-
-                          SkillDevelopmentWidget(
-                            text: "effectiveRelationships".tr(),
-                            navigateToPage: const EffectiveRelationships(category: 'skillDevelopment', subCategory: 'اضطراب الصدمة',),
-                          ),
-
-                          SkillDevelopmentWidget(
-                            text: "dialecticalStrategies".tr(),
-                            navigateToPage: const DialecticalStrategies(category: 'skillDevelopment', subCategory: 'استراجيات جدلية حل',),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height:20.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-
-                          SkillDevelopmentWidget(
-                            text: "achievingSuccess".tr(),
-                            navigateToPage: const AchievingSuccess(category: 'skillDevelopment', subCategory: 'تحقيق النجاح',),
-                          ),
-
-                          SkillDevelopmentWidget(
-                            text: "achievingGoals".tr(),
-                            navigateToPage: const AchievingGoals(category: 'skillDevelopment', subCategory: 'تحقيق الأهداف',),
-                          ),
-
-                          SkillDevelopmentWidget(
-                            text: "improvingTrust".tr(),
-                            navigateToPage: const ImprovingTrust(category: 'skillDevelopment', subCategory: 'تحسين الثقة',),
-                          ),
-                        ],
-                      ),
-                    ],
+                                );
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: subCategoriesCubit.categories[index]=="Problem Solving"||subCategoriesCubit.categories[index]=="حل مشكلات"?Border.all(
+                                      color: Color(0xff19649E),
+                                      width: 3.5
+                                  ):null,
+                                  color: const Color(0xff69B7F3),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.2),
+                                      spreadRadius: 2,
+                                      blurRadius: 4,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    subCategoriesCubit.categories[index] ?? "",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        return Center(child: Text('noSpecialistsFound'.tr()));
+                      }
+                    },
                   ),
                 ),
               ),
@@ -569,11 +608,15 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                               Navigator.push(
                                 context,
                                 PageRouteBuilder(
-                                  pageBuilder: (context, animation, secondaryAnimation) =>
-                                      BlocProvider(
-                                        create: (_) => UserProfileCubit(),
-                                        child: page,
-                                      ),
+                                  pageBuilder: (context, animation, secondaryAnimation) => MultiBlocProvider(
+                                    providers: [
+                                      BlocProvider(create: (_) => UserProfileCubit()),
+                                      BlocProvider(create: (_) => DoctorByCategoryCubit()),
+                                      BlocProvider(create: (_) => SubCategoriesCubit()),
+                                    ],
+
+                                    child: page,
+                                  ),
                                   transitionDuration: const Duration(milliseconds: 1),
                                 ),
                               );
@@ -699,78 +742,103 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                   ),
                   SizedBox(height: 15.h),
                   Center(
-                    child: Container(
-                      width: 354,
-                      height: 268,
-                      child: Column(
-                        children: [
-                          Row(
-
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-
-                              SkillDevelopmentWidget(
-                                  text: "emotionalControl".tr(),
-                                navigateToPage: const EmotionalControl(category: 'skillDevelopment', subCategory: 'ضبط المشاعر',),
+                    child: SizedBox(
+                      width: 338.w,
+                      height: 252.h,
+                      child: BlocBuilder<SubCategoriesCubit, SubCategoriesState>(
+                        builder: (context, state) {
+                          if (state is SubCategoriesLoading) {
+                            return CircularProgressIndicator(); // Show loading indicator
+                          } else if (state is SubCategoriesFailure) {
+                            return Text(state.errMessage); // Display error message
+                          } else if (state is SubCategoriesSuccess) {
+                            return GridView.builder(
+                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3, // 3 عناصر في كل صف
+                                crossAxisSpacing: 8,
+                                mainAxisSpacing: 8,
+                                childAspectRatio: 1.4,
                               ),
+                              itemCount: subCategoriesCubit.categories.length,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () {
 
-                              SkillDevelopmentWidget(
-                                text: "stressManagement".tr(),
-                                navigateToPage: const StressManagement(category: 'skillDevelopment', subCategory: 'تحمل الضغوط',),
-                              ),
 
-                              SkillDevelopmentWidget(
-                                text: "relax".tr(),
-                                navigateToPage: const Relaxation(category: 'skillDevelopment', subCategory: 'الاسترخاء',),
-                              ),
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            MultiBlocProvider(
+                                              providers: [
+                                                BlocProvider<
+                                                    UserProfileCubit>(
+                                                    create: (_) =>
+                                                        UserProfileCubit()),
+                                                BlocProvider<
+                                                    AddImageToProfileCubit>(
+                                                    create: (_) =>
+                                                        AddImageToProfileCubit()),
+                                                BlocProvider<
+                                                    UpdateUserCubit>(
+                                                    create: (_) =>
+                                                        UpdateUserCubit()),
+                                                BlocProvider<
+                                                    DoctorByCategoryCubit>(
+                                                    create: (_) =>
+                                                        DoctorByCategoryCubit()),
+                                                BlocProvider<
+                                                    SubCategoriesCubit>(
+                                                    create: (_) =>
+                                                        SubCategoriesCubit()),
+                                              ],
+                                              child: SubCategoryScreen(
+                                                category: 'skillDevelopment',
+                                                subCategory: subCategoriesCubit
+                                                    .categories[index] ??
+                                                    "",),
+                                            ),
 
-                            ],
-                          ),
-                          SizedBox(height: 20.h),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
+                                      ),
 
-                              SkillDevelopmentWidget(
-                                text: "achievingBalance".tr(),
-                                navigateToPage: const AchievingBalance(category: 'skillDevelopment', subCategory: 'تحقيق التوازن',),
-                              ),
-
-                              SkillDevelopmentWidget(
-                                text: "effectiveRelationships".tr(),
-                                navigateToPage: const EffectiveRelationships(category: 'skillDevelopment', subCategory: 'اضطراب الصدمة',),
-                              ),
-
-                              SkillDevelopmentWidget(
-                                text: "dialecticalStrategies".tr(),
-                                navigateToPage: const DialecticalStrategies(category: 'skillDevelopment', subCategory: 'استراجيات جدلية حل',),
-                              ),
-
-                            ],
-                          ),
-                          SizedBox(height:20.h),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-
-                              SkillDevelopmentWidget(
-                                text: "achievingSuccess".tr(),
-                                navigateToPage: const AchievingSuccess(category: 'skillDevelopment', subCategory: 'تحقيق النجاح',),
-                              ),
-
-                              SkillDevelopmentWidget(
-                                text: "achievingGoals".tr(),
-                                navigateToPage: const AchievingGoals(category: 'skillDevelopment', subCategory: 'تحقيق الأهداف',),
-                              ),
-
-                              SkillDevelopmentWidget(
-                                text: "improvingTrust".tr(),
-                                navigateToPage: const ImprovingTrust(category: 'skillDevelopment', subCategory: 'تحسين الثقة',),
-                              ),
-
-                            ],
-                          ),
-                        ],
+                                    );
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: subCategoriesCubit.categories[index]=="Problem Solving"||subCategoriesCubit.categories[index]=="حل مشكلات"?Border.all(
+                                          color: Color(0xff19649E),
+                                          width: 3.5
+                                      ):null,
+                                      color: const Color(0xff69B7F3),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 2,
+                                          blurRadius: 4,
+                                          offset: const Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        subCategoriesCubit.categories[index] ?? "",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          } else {
+                            return Center(child: Text('noSpecialistsFound'.tr()));
+                          }
+                        },
                       ),
                     ),
                   ),

@@ -1,4 +1,5 @@
 import 'package:doctor/cubit/get_doctor_sessions_cubit/doctor_session_cubit.dart';
+import 'package:doctor/cubit/get_sub_categories_cubit/get_sub_categories_cubit.dart';
 import 'package:doctor/screens/home_second_screen.dart';
 import 'package:doctor/screens/specialist/specialist_home_screen.dart';
 import 'package:doctor/screens/welcomescreen.dart';
@@ -57,13 +58,12 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
             builder: (context) => MultiBlocProvider(
               providers: [
                 BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
+                BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
               ],
               child: const HomeScreen(),
             ),
-
-
-        ),
-      )
+          ))
       :prefs.containsKey("doctorId")? Navigator.pushReplacement(
         context,
         MaterialPageRoute(

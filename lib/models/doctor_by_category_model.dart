@@ -45,6 +45,7 @@ class Specialists {
   int? yearsExperience;
   int? sessionDuration;
   int? v;
+  final String? imageUrl;
   List<String>? availableSlots;
 
   Specialists({
@@ -64,6 +65,7 @@ class Specialists {
     this.yearsExperience,
     this.sessionDuration,
     this.v,
+    this.imageUrl,
     this.availableSlots,
   });
 
@@ -84,6 +86,7 @@ class Specialists {
     yearsExperience: json["yearsExperience"],
     sessionDuration: json["sessionDuration"],
     v: json["__v"],
+    imageUrl: json['imageUrl'],
     availableSlots: json["availableSlots"] == null ? [] : List<String>.from(json["availableSlots"]!.map((x) => x)),
   );
 

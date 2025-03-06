@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import '../../models/doctor_by_category_model.dart';
-import '../../models/specialist_model.dart';
+
 
 // Base state class
 abstract class DoctorByCategoryState extends Equatable {

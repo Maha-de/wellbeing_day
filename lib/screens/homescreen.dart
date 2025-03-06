@@ -7,6 +7,7 @@ import 'package:doctor/screens/psychological_disorders_screen.dart';
 import 'package:doctor/screens/psychological_prevention_screen.dart';
 import 'package:doctor/screens/rehabilitation_screen.dart';
 import 'package:doctor/screens/sign_up_as_client.dart';
+import 'package:doctor/screens/sub_category_screen.dart';
 import 'package:doctor/screens/therapeutic_programs_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../cubit/doctor_by_category_cubit/doctor_by_category_cubit.dart';
+import '../cubit/get_sub_categories_cubit/get_sub_categories_cubit.dart';
+import '../cubit/get_sub_categories_cubit/get_sub_categories_state.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
@@ -37,6 +40,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late SubCategoriesCubit subCategoriesCubit;
   List<String> categories = [
     "mentalHealth".tr(),
     "physicalHealth".tr(),
@@ -58,7 +62,7 @@ int currentIndex=1;
   void initState() {
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
-
+   subCategoriesCubit=BlocProvider.of<SubCategoriesCubit>(context);
     _loadUserProfile();
     _startAutoPageSwitch();
   }
@@ -67,6 +71,7 @@ int currentIndex=1;
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
     print(id);
+    subCategoriesCubit.fetchSubCategories(context,"mentalHealth");
     userProfileCubit.getUserProfile(context, id);
 
   }
@@ -315,7 +320,9 @@ int currentIndex=1;
                                       providers: [
                                         BlocProvider(create: (_) => UserProfileCubit()),
                                         BlocProvider(create: (_) => DoctorByCategoryCubit()),
+                                        BlocProvider(create: (_) => SubCategoriesCubit()),
                                       ],
+
                                       child: page,
                                     ),
                                     transitionDuration: const Duration(milliseconds: 1),
@@ -452,296 +459,367 @@ int currentIndex=1;
                     ),
                     SizedBox(height: 15.h),
                     Center(
-                      child: Container(
+                      child: SizedBox(
                         width: 338.w,
                         height: 252.h,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                for (var label in [
-                                  "therapeuticPrograms",
-                                  "groupTherapy",
-                                  "psychologicalDisorders"
-                                ])
-                                  GestureDetector(
-                                    onTap: (){
+                        child: BlocBuilder<SubCategoriesCubit, SubCategoriesState>(
+                          builder: (context, state) {
+                            if (state is SubCategoriesLoading) {
+                              return CircularProgressIndicator(); // Show loading indicator
+                            } else if (state is SubCategoriesFailure) {
+                              return Text(state.errMessage); // Display error message
+                            } else if (state is SubCategoriesSuccess) {
+                              return GridView.builder(
+                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3, // 3 items per row
+                                  crossAxisSpacing: 8, // spacing between columns
+                                  mainAxisSpacing: 8, // spacing between rows
+                                  childAspectRatio: 1, // aspect ratio of the grid items
+                                ),
+                                itemCount: subCategoriesCubit.categories.length, // total number of items
+                                itemBuilder: (context, index) {
+                                  return  GestureDetector(
+                                                  onTap: (){
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) => MultiBlocProvider(
+                                                          providers: [
+                                                            BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                                            BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                                            BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                                            BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
+                                                            BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
 
-                                      if(label=="psychologicalDisorders"){
+                                                          ],
+                                                          child: SubCategoryScreen(category: 'mentalHealth', subCategory: subCategoriesCubit.categories[index]??"",),
+                                                        ),
 
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => MultiBlocProvider(
-                                              providers: [
-                                                BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                                BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                                BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                                BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
+                                                      ),
 
-                                              ],
-                                              child: const PsychologicalDisordersScreen(category: 'mentalHealth', subCategory: "اضطرابات نفسية",),
-                                            ),
-
-                                          ),
-
-                                        );}
-
-                                      else if(label=="groupTherapy"){
-
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => MultiBlocProvider(
-                                              providers: [
-                                                BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                                BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                                BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                                BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
-                                              ],
-                                              child: const GroupTherapy(),
-                                            ),
-
-                                          ),
-
-                                        );
-                                      }
-                                      else if(label=="therapeuticPrograms"){
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => MultiBlocProvider(
-                                              providers: [
-                                                BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                                BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                                BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                                BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
-                                              ],
-                                              child: const TherapeuticProgramsScreen(category: 'mentalHealth', subCategory: "برامج علاجية"),
-                                            ),
-
-                                          ),
-
-                                        );
-                                      }
-
-                                    },
-                                    child: Container(
-                                      width: 100.w,
-                                      height: 68.h,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: const Color(0xff69B7F3),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.black.withOpacity(0.2),
-                                            spreadRadius: 2,
-                                            blurRadius: 4,
-                                            offset: const Offset(0, 2),
-                                          ),
-                                        ],
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          label.tr(),
-                                          textAlign: TextAlign.center,
-                                          style:  TextStyle(
-                                            fontSize: 16.sp,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                              ],
-                            ),
-                            SizedBox(height: 16.h),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                for (var label in [
-                                  "guidanceAndInstructions",
-                                  "diagnoseAndMotivation",
-                                  "childrenDisorder"
-                                ])
-                                  Row(
-                                    children: [
-
-
-                                      GestureDetector(
-                                        onTap: (){
-                                          if(label== "diagnoseAndMotivation"){  Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => MultiBlocProvider(
-                                                providers: [
-                                                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                                  BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                                  BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                                  BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
-                                                ],
-                                                child: const ProblemSolvingScreen(category: 'mentalHealth', subCategory: "حل مشكلات"),
-                                              ),
-
-                                            ),
-
-                                          );}
-                                          else if(label=="guidanceAndInstructions"){  Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => MultiBlocProvider(
-                                                providers: [
-                                                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                                  BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                                  BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                                  BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
-                                                ],
-                                                child: const Guidance_instructions(category: 'mentalHealth', subCategory: "إرشاد وتوجيه"),
-                                              ),
-
-                                            ),
-
-                                          );}
-                                          else if(label=="childrenDisorder"){  Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => MultiBlocProvider(
-                                                providers: [
-                                                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                                  BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                                  BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                                  BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
-                                                ],
-                                                child: const ChildrensDisorderScreen(category: 'mentalHealth', subCategory: "اضطرابات الأطفال"),
-                                              ),
-
-                                            ),
-
-                                          );}
-
-                                        },
-                                        child: Container(
-
-                                          width: 100.w,
-                                          height: 73.h,
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: label=="diagnoseAndMotivation" ?
-                                                Color(0xff19649E) : Colors.transparent , width: 4),
-
-                                            borderRadius: BorderRadius.circular(20),
-                                            color: const Color(0xff69B7F3),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.black.withOpacity(0.2),
-                                                spreadRadius: 2,
-                                                blurRadius: 4,
-                                                offset: const Offset(0, 2),
-                                              ),
-                                            ],
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              label.tr(),
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontSize: 16.sp,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 2.5.w,
-                                      )
-                                    ],
-                                  ),
-                              ],
-                            ),
-                            SizedBox(height: 16.h),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                for (var label in [
-                                  "PsychologicalPreventionAndFollowUp",
-                                  "rehabilitation"
-                                ])
-                                  GestureDetector(
-                                    onTap: (){
-                                      if(label=="rehabilitation"){  Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => MultiBlocProvider(
-                                            providers: [
-                                              BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                              BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                              BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                              BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
-                                            ],
-                                            child: const RehabilitationScreen(category: 'mentalHealth', subCategory: "اعادة تأهيل ودعم"),
-                                          ),
-
-                                        ),
-
-                                      );}
-                                      else if(label=="PsychologicalPreventionAndFollowUp"){  Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => MultiBlocProvider(
-                                            providers: [
-                                              BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                              BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                              BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                              BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
-                                            ],
-                                            child: const PsychologicalPreventionScreen(category: 'mentalHealth', subCategory: "وقاية ومتابعة نفسية"),
-                                          ),
-
-                                        ),
-
-                                      );}
-
-                                    },
-                                    child: Container(
-                                      width: 120.w,
-                                      height: 73.h,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: const Color(0xff69B7F3),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.black.withOpacity(0.2),
-                                            spreadRadius: 2,
-                                            blurRadius: 4,
-                                            offset: const Offset(0, 2),
-                                          ),
-                                        ],
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          label.tr(),
-                                          textAlign: TextAlign.center,
-                                          style:  TextStyle(
-                                            fontSize: 16.sp,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                              ],
-                            ),
-                          ],
+                                                    );
+                                                  },
+                                                  child: Container(
+                                                    width: 100.w,
+                                                    height: 68.h,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(20),
+                                                      color: const Color(0xff69B7F3),
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: Colors.black.withOpacity(0.2),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 4,
+                                                          offset: const Offset(0, 2),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                   subCategoriesCubit.categories[index]??"",
+                                                        textAlign: TextAlign.center,
+                                                        style:  TextStyle(
+                                                          fontSize: 16.sp,
+                                                          color: Colors.white,
+                                                          fontWeight: FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                },
+                              );
+                            } else {
+                              return Center(child: Text('noSpecialistsFound'.tr()));
+                            }
+                          },
                         ),
                       ),
                     )
-
+                    // Column(
+                    //   crossAxisAlignment: CrossAxisAlignment.center,
+                    //   children: [
+                    //     Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //       children: [
+                    //         for (var label in [
+                    //           "therapeuticPrograms",
+                    //           "groupTherapy",
+                    //           "psychologicalDisorders"
+                    //         ])
+                    //           GestureDetector(
+                    //             onTap: (){
+                    //
+                    //               if(label=="psychologicalDisorders"){
+                    //
+                    //                 Navigator.push(
+                    //                   context,
+                    //                   MaterialPageRoute(
+                    //                     builder: (context) => MultiBlocProvider(
+                    //                       providers: [
+                    //                         BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                    //                         BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                    //                         BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                    //                         BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
+                    //
+                    //                       ],
+                    //                       child: const PsychologicalDisordersScreen(category: 'mentalHealth', subCategory: "اضطرابات نفسية",),
+                    //                     ),
+                    //
+                    //                   ),
+                    //
+                    //                 );}
+                    //
+                    //               else if(label=="groupTherapy"){
+                    //
+                    //                 Navigator.push(
+                    //                   context,
+                    //                   MaterialPageRoute(
+                    //                     builder: (context) => MultiBlocProvider(
+                    //                       providers: [
+                    //                         BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                    //                         BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                    //                         BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                    //                         BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
+                    //                       ],
+                    //                       child: const GroupTherapy(),
+                    //                     ),
+                    //
+                    //                   ),
+                    //
+                    //                 );
+                    //               }
+                    //               else if(label=="therapeuticPrograms"){
+                    //                 Navigator.push(
+                    //                   context,
+                    //                   MaterialPageRoute(
+                    //                     builder: (context) => MultiBlocProvider(
+                    //                       providers: [
+                    //                         BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                    //                         BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                    //                         BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                    //                         BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
+                    //                       ],
+                    //                       child: const TherapeuticProgramsScreen(category: 'mentalHealth', subCategory: "برامج علاجية"),
+                    //                     ),
+                    //
+                    //                   ),
+                    //
+                    //                 );
+                    //               }
+                    //
+                    //             },
+                    //             child: Container(
+                    //               width: 100.w,
+                    //               height: 68.h,
+                    //               decoration: BoxDecoration(
+                    //                 borderRadius: BorderRadius.circular(20),
+                    //                 color: const Color(0xff69B7F3),
+                    //                 boxShadow: [
+                    //                   BoxShadow(
+                    //                     color: Colors.black.withOpacity(0.2),
+                    //                     spreadRadius: 2,
+                    //                     blurRadius: 4,
+                    //                     offset: const Offset(0, 2),
+                    //                   ),
+                    //                 ],
+                    //               ),
+                    //               child: Center(
+                    //                 child: Text(
+                    //                   label.tr(),
+                    //                   textAlign: TextAlign.center,
+                    //                   style:  TextStyle(
+                    //                     fontSize: 16.sp,
+                    //                     color: Colors.white,
+                    //                     fontWeight: FontWeight.bold,
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //           ),
+                    //       ],
+                    //     ),
+                    //     SizedBox(height: 16.h),
+                    //     Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       children: [
+                    //         for (var label in [
+                    //           "guidanceAndInstructions",
+                    //           "diagnoseAndMotivation",
+                    //           "childrenDisorder"
+                    //         ])
+                    //           Row(
+                    //             children: [
+                    //
+                    //
+                    //               GestureDetector(
+                    //                 onTap: (){
+                    //                   if(label== "diagnoseAndMotivation".tr()){  Navigator.push(
+                    //                     context,
+                    //                     MaterialPageRoute(
+                    //                       builder: (context) => MultiBlocProvider(
+                    //                         providers: [
+                    //                           BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                    //                           BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                    //                           BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                    //                           BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
+                    //                         ],
+                    //                         child:  ProblemSolvingScreen(category: 'mentalHealth', subCategory: "حل مشكلات", category1:"diagnoseAndMotivation".tr(),),
+                    //                       ),
+                    //
+                    //                     ),
+                    //
+                    //                   );}
+                    //                   else if(label=="guidanceAndInstructions"){  Navigator.push(
+                    //                     context,
+                    //                     MaterialPageRoute(
+                    //                       builder: (context) => MultiBlocProvider(
+                    //                         providers: [
+                    //                           BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                    //                           BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                    //                           BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                    //                           BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
+                    //                         ],
+                    //                         child: const Guidance_instructions(category: 'mentalHealth', subCategory: "إرشاد وتوجيه"),
+                    //                       ),
+                    //
+                    //                     ),
+                    //
+                    //                   );}
+                    //                   else if(label=="childrenDisorder"){  Navigator.push(
+                    //                     context,
+                    //                     MaterialPageRoute(
+                    //                       builder: (context) => MultiBlocProvider(
+                    //                         providers: [
+                    //                           BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                    //                           BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                    //                           BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                    //                           BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
+                    //                         ],
+                    //                         child: const ChildrensDisorderScreen(category: 'mentalHealth', subCategory: "اضطرابات الأطفال"),
+                    //                       ),
+                    //
+                    //                     ),
+                    //
+                    //                   );}
+                    //
+                    //                 },
+                    //                 child: Container(
+                    //
+                    //                   width: 100.w,
+                    //                   height: 73.h,
+                    //                   decoration: BoxDecoration(
+                    //                     border: Border.all(
+                    //                         color: label=="diagnoseAndMotivation" ?
+                    //                         Color(0xff19649E) : Colors.transparent , width: 4),
+                    //
+                    //                     borderRadius: BorderRadius.circular(20),
+                    //                     color: const Color(0xff69B7F3),
+                    //                     boxShadow: [
+                    //                       BoxShadow(
+                    //                         color: Colors.black.withOpacity(0.2),
+                    //                         spreadRadius: 2,
+                    //                         blurRadius: 4,
+                    //                         offset: const Offset(0, 2),
+                    //                       ),
+                    //                     ],
+                    //                   ),
+                    //                   child: Center(
+                    //                     child: Text(
+                    //                       label.tr(),
+                    //                       textAlign: TextAlign.center,
+                    //                       style: TextStyle(
+                    //                         fontSize: 16.sp,
+                    //                         color: Colors.white,
+                    //                         fontWeight: FontWeight.bold,
+                    //                       ),
+                    //                     ),
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //               SizedBox(
+                    //                 width: 2.5.w,
+                    //               )
+                    //             ],
+                    //           ),
+                    //       ],
+                    //     ),
+                    //     SizedBox(height: 16.h),
+                    //     Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //       children: [
+                    //         for (var label in [
+                    //           "PsychologicalPreventionAndFollowUp",
+                    //           "rehabilitation"
+                    //         ])
+                    //           GestureDetector(
+                    //             onTap: (){
+                    //               if(label=="rehabilitation"){  Navigator.push(
+                    //                 context,
+                    //                 MaterialPageRoute(
+                    //                   builder: (context) => MultiBlocProvider(
+                    //                     providers: [
+                    //                       BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                    //                       BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                    //                       BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                    //                       BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
+                    //                     ],
+                    //                     child: const RehabilitationScreen(category: 'mentalHealth', subCategory: "اعادة تأهيل ودعم"),
+                    //                   ),
+                    //
+                    //                 ),
+                    //
+                    //               );}
+                    //               else if(label=="PsychologicalPreventionAndFollowUp"){  Navigator.push(
+                    //                 context,
+                    //                 MaterialPageRoute(
+                    //                   builder: (context) => MultiBlocProvider(
+                    //                     providers: [
+                    //                       BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                    //                       BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                    //                       BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                    //                       BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
+                    //                     ],
+                    //                     child: const PsychologicalPreventionScreen(category: 'mentalHealth', subCategory: "وقاية ومتابعة نفسية"),
+                    //                   ),
+                    //
+                    //                 ),
+                    //
+                    //               );}
+                    //
+                    //             },
+                    //             child: Container(
+                    //               width: 120.w,
+                    //               height: 73.h,
+                    //               decoration: BoxDecoration(
+                    //                 borderRadius: BorderRadius.circular(20),
+                    //                 color: const Color(0xff69B7F3),
+                    //                 boxShadow: [
+                    //                   BoxShadow(
+                    //                     color: Colors.black.withOpacity(0.2),
+                    //                     spreadRadius: 2,
+                    //                     blurRadius: 4,
+                    //                     offset: const Offset(0, 2),
+                    //                   ),
+                    //                 ],
+                    //               ),
+                    //               child: Center(
+                    //                 child: Text(
+                    //                   label.tr(),
+                    //                   textAlign: TextAlign.center,
+                    //                   style:  TextStyle(
+                    //                     fontSize: 16.sp,
+                    //                     color: Colors.white,
+                    //                     fontWeight: FontWeight.bold,
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //           ),
+                    //       ],
+                    //     ),
+                    //   ],
+                    // )
                   ],
                 ),
               );
@@ -803,7 +881,9 @@ int currentIndex=1;
                                       providers: [
                                         BlocProvider(create: (_) => UserProfileCubit()),
                                         BlocProvider(create: (_) => DoctorByCategoryCubit()),
+                                        BlocProvider(create: (_) => SubCategoriesCubit()),
                                       ],
+
                                       child: page,
                                     ),
                                     transitionDuration: const Duration(milliseconds: 1),
@@ -940,88 +1020,109 @@ int currentIndex=1;
                     ),
                     SizedBox(height: 15.h),
                     Center(
-                      child: Container(
+                      child: SizedBox(
                         width: 338.w,
                         height: 252.h,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                for (var label in [
-                                  "therapeuticPrograms",
-                                  "groupTherapy",
-                                  "psychologicalDisorders"
-                                ])
-                                  GestureDetector(
-                                    onTap: (){
-
-                                      if(label=="psychologicalDisorders"){
-
-                                        Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => MultiBlocProvider(
-                                            providers: [
-                                              BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                              BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                              BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                              BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
-
-                                            ],
-                                            child: const PsychologicalDisordersScreen(category: 'mentalHealth', subCategory: "اضطرابات نفسية",),
-                                          ),
-
-                                        ),
-
-                                      );}
-
-
-                                      else if(label=="groupTherapy"){
-
+                        child: BlocBuilder<SubCategoriesCubit, SubCategoriesState>(
+                          builder: (context, state) {
+                            if (state is SubCategoriesLoading) {
+                              return CircularProgressIndicator(); // Show loading indicator
+                            } else if (state is SubCategoriesFailure) {
+                              return Text(state.errMessage); // Display error message
+                            } else if (state is SubCategoriesSuccess) {
+                              return GridView.builder(
+                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3, // 3 عناصر في كل صف
+                                  crossAxisSpacing: 8,
+                                  mainAxisSpacing: 8,
+                                  childAspectRatio: 1.4,
+                                ),
+                                itemCount: subCategoriesCubit.categories.length,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      if(subCategoriesCubit.categories[index]=="Group Therapy"|| subCategoriesCubit.categories[index]=="علاج جماعي")
+                                      {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => MultiBlocProvider(
-                                              providers: [
-                                                BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                                BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                                BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                                BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
-                                              ],
-                                              child: const GroupTherapy(),
-                                            ),
+                                            builder: (context) =>
+                                                MultiBlocProvider(
+                                                  providers: [
+                                                    BlocProvider<
+                                                        UserProfileCubit>(
+                                                        create: (_) =>
+                                                            UserProfileCubit()),
+                                                    BlocProvider<
+                                                        AddImageToProfileCubit>(
+                                                        create: (_) =>
+                                                            AddImageToProfileCubit()),
+                                                    BlocProvider<
+                                                        UpdateUserCubit>(
+                                                        create: (_) =>
+                                                            UpdateUserCubit()),
+                                                    BlocProvider<
+                                                        DoctorByCategoryCubit>(
+                                                        create: (_) =>
+                                                            DoctorByCategoryCubit()),
+                                                    BlocProvider<
+                                                        SubCategoriesCubit>(
+                                                        create: (_) =>
+                                                            SubCategoriesCubit()),
+                                                  ],
+                                                  child: GroupTherapy(),
+                                                ),
 
                                           ),
 
                                         );
                                       }
-                                      else if(label=="therapeuticPrograms"){
+                                      else {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => MultiBlocProvider(
-                                              providers: [
-                                                BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                                BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                                BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                                BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
-                                              ],
-                                              child: const TherapeuticProgramsScreen(category: 'mentalHealth', subCategory: "برامج علاجية"),
-                                            ),
+                                            builder: (context) =>
+                                                MultiBlocProvider(
+                                                  providers: [
+                                                    BlocProvider<
+                                                        UserProfileCubit>(
+                                                        create: (_) =>
+                                                            UserProfileCubit()),
+                                                    BlocProvider<
+                                                        AddImageToProfileCubit>(
+                                                        create: (_) =>
+                                                            AddImageToProfileCubit()),
+                                                    BlocProvider<
+                                                        UpdateUserCubit>(
+                                                        create: (_) =>
+                                                            UpdateUserCubit()),
+                                                    BlocProvider<
+                                                        DoctorByCategoryCubit>(
+                                                        create: (_) =>
+                                                            DoctorByCategoryCubit()),
+                                                    BlocProvider<
+                                                        SubCategoriesCubit>(
+                                                        create: (_) =>
+                                                            SubCategoriesCubit()),
+                                                  ],
+                                                  child: SubCategoryScreen(
+                                                    category: 'mentalHealth',
+                                                    subCategory: subCategoriesCubit
+                                                        .categories[index] ??
+                                                        "",),
+                                                ),
 
                                           ),
 
                                         );
-                                      }
-
-                                    },
+                                      }},
                                     child: Container(
-                                      width: 100.w,
-                                      height: 68.h,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
+                                        border: subCategoriesCubit.categories[index]=="Problem Solving"||subCategoriesCubit.categories[index]=="حل مشكلات"?Border.all(
+                                          color: Color(0xff19649E),
+                                          width: 3.5
+                                        ):null,
                                         color: const Color(0xff69B7F3),
                                         boxShadow: [
                                           BoxShadow(
@@ -1034,198 +1135,23 @@ int currentIndex=1;
                                       ),
                                       child: Center(
                                         child: Text(
-                                          label.tr(),
+                                          subCategoriesCubit.categories[index] ?? "",
                                           textAlign: TextAlign.center,
-                                          style:  TextStyle(
-                                            fontSize: 16.sp,
+                                          style: TextStyle(
+                                            fontSize: 16,
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                              ],
-                            ),
-                            SizedBox(height: 16.h),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                for (var label in [
-                                  "guidanceAndInstructions",
-                                  "diagnoseAndMotivation",
-                                  "childrenDisorder"
-                                ])
-                                  Row(
-                                    children: [
-
-                                      GestureDetector(
-                                        onTap: (){
-                                          if(label== "diagnoseAndMotivation"){  Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => MultiBlocProvider(
-                                                providers: [
-                                                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                                  BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                                  BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                                  BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
-                                                ],
-                                                child: const ProblemSolvingScreen(category: 'mentalHealth', subCategory: "حل مشكلات"),
-                                              ),
-
-                                            ),
-
-                                          );}
-                                          else if(label=="guidanceAndInstructions"){  Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => MultiBlocProvider(
-                                                providers: [
-                                                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                                  BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                                  BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                                  BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
-                                                ],
-                                                child: const Guidance_instructions(category: 'mentalHealth', subCategory: "إرشاد وتوجيه"),
-                                              ),
-
-                                            ),
-
-                                          );}
-                                          else if(label=="childrenDisorder"){  Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => MultiBlocProvider(
-                                                providers: [
-                                                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                                  BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                                  BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                                  BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
-                                                ],
-                                                child: const ChildrensDisorderScreen(category: 'mentalHealth', subCategory: "اضطرابات الأطفال"),
-                                              ),
-
-                                            ),
-
-                                          );}
-
-                                        },
-                                        child: Container(
-
-                                          width: 100.w,
-                                          height: 73.h,
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: label=="diagnoseAndMotivation" ?
-                                                Color(0xff19649E) : Colors.transparent , width: 4),
-
-                                            borderRadius: BorderRadius.circular(20),
-                                            color: const Color(0xff69B7F3),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.black.withOpacity(0.2),
-                                                spreadRadius: 2,
-                                                blurRadius: 4,
-                                                offset: const Offset(0, 2),
-                                              ),
-                                            ],
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              label.tr(),
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontSize: 16.sp,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 2.5.w,
-                                      )
-                                    ],
-                                  ),
-                              ],
-                            ),
-                            SizedBox(height: 16.h),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                for (var label in [
-                                  "PsychologicalPreventionAndFollowUp",
-                                  "rehabilitation"
-                                ])
-                                  GestureDetector(
-                                    onTap: (){
-                                      if(label=="rehabilitation"){  Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => MultiBlocProvider(
-                                            providers: [
-                                              BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                              BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                              BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                              BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
-                                            ],
-                                            child: const RehabilitationScreen(category: 'mentalHealth', subCategory: "اعادة تأهيل ودعم"),
-                                          ),
-
-                                        ),
-
-                                      );}
-                                      else if(label=="PsychologicalPreventionAndFollowUp"){  Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => MultiBlocProvider(
-                                            providers: [
-                                              BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                              BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                              BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                              BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
-                                            ],
-                                            child: const PsychologicalPreventionScreen(category: 'mentalHealth', subCategory: "وقاية ومتابعة نفسية"),
-                                          ),
-
-                                        ),
-
-                                      );}
-
-                                    },
-                                    child: Container(
-                                      width: 120.w,
-                                      height: 73.h,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: const Color(0xff69B7F3),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.black.withOpacity(0.2),
-                                            spreadRadius: 2,
-                                            blurRadius: 4,
-                                            offset: const Offset(0, 2),
-                                          ),
-                                        ],
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          label.tr(),
-                                          textAlign: TextAlign.center,
-                                          style:  TextStyle(
-                                            fontSize: 16.sp,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                              ],
-                            ),
-                          ],
+                                  );
+                                },
+                              );
+                            } else {
+                              return Center(child: Text('noSpecialistsFound'.tr()));
+                            }
+                          },
                         ),
                       ),
                     )

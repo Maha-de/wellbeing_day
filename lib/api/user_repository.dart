@@ -11,7 +11,7 @@ class UserRepository {
 
   UserRepository({required this.api});
 
-  Future<Either<String, List<Item>>> getSpecialists() async {
+  Future<Either<String, List<Specialists>>> getSpecialists() async {
     try {
       // Make your API call here to fetch the list of specialists
       final response = await api.get(
@@ -21,7 +21,7 @@ class UserRepository {
 
       if (response['message'] =="Specialists fetched successfully." ) {
         // Parse the entire response to get the list of specialists
-        SpecialistModel specialistModel = SpecialistModel.fromJson(response);
+        SpecialistsResponse specialistModel = SpecialistsResponse.fromJson(response);
 
         // Return the list of specialists from the parsed response
         return Right(specialistModel.items ?? []);

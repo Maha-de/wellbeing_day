@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../api/end_points.dart';
 import '../../api/user_repository.dart';
 import '../../models/doctor_by_category_model.dart';
-import '../../models/specialist_model.dart';
 import 'doctor_by_category_state.dart';
 
 

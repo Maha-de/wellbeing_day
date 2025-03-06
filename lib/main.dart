@@ -38,7 +38,7 @@ Future<void> main() async {
             create: (context) => UserProfileCubit(),
           ),
           BlocProvider(
-            create: (context) => GetSpecialistCubit(UserRepository(api: DioConsumer(dio: Dio()))),
+            create: (context) => GetSpecialistCubit(),
           ),
         ],
         child: const MyApp(),

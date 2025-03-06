@@ -8,10 +8,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../models/Doctor_id_model.dart';
 import '../models/doctor_by_category_model.dart';
-import '../models/specialist_model.dart';
+import '../models/specialist_model.dart' as s;
 
 class DoctorCard extends StatelessWidget {
-  final Item? specialistModel;
+  final s.Specialists? specialistModel;
   final Specialists? specialists;
   final String  doctorID;
   final Specialist? sessionDoctor;
@@ -99,7 +99,9 @@ class DoctorCard extends StatelessWidget {
                            SizedBox(height: 15.h),
                           buildInfoRow("assets/images/heart.png",
                               "speciality".tr() + "${(specialists?.specialties?.mentalHealth?.isNotEmpty ?? false)
-                                  ? specialists?.specialties?.mentalHealth?.join(", ") : "notAvailable".tr()}"),
+                                  ? specialists?.specialties?.mentalHealth?.join(", ") : (sessionDoctor?.specialties?.mentalHealth?.isNotEmpty ?? false)
+                                  ? sessionDoctor?.specialties?.mentalHealth?.join(", ") :(specialistModel?.specialties?.mentalHealth?.isNotEmpty ?? false)
+                                  ? specialistModel?.specialties?.mentalHealth?.join(", ") :"notAvailable".tr()}"),
                            SizedBox(height: 4.h),
                           buildInfoRow("assets/images/PhoneCall.png",
                               'availableVideo'.tr()),
@@ -216,7 +218,7 @@ class DoctorCard extends StatelessWidget {
     );
   }
   Widget _getImageWidget() {
-    String? imageUrl = sessionDoctor?.imageUrl;
+    String? imageUrl = sessionDoctor?.imageUrl??specialistModel?.imageUrl??specialists?.imageUrl;
 
     if (imageUrl != null && imageUrl.isNotEmpty) {
       return Image.network(
