@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../cubit/get_sub_categories_cubit/get_sub_categories_cubit.dart';
+import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../make_email/login.dart';
 import 'client_instructions.dart';
@@ -102,14 +104,18 @@ class SelectionPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BlocProvider(
-                        create: (_) => UserProfileCubit(),
-                        child: const HomeScreen(),
-                      ),
-                    ),
-                  );
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MultiBlocProvider(
+                          providers: [
+                            BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                            BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
+                            BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                            BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
+                          ],
+                          child: const HomeScreen(),
+                        ),
+                      ));
                 },
                 style: ElevatedButton.styleFrom(
 

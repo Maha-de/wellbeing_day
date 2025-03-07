@@ -248,14 +248,18 @@ int currentIndex=1;
                       case 1:
 
                         Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BlocProvider(
-                              create: (_) => UserProfileCubit(),
-                              child: const HomeScreen(),
-                            ),
-                          ),
-                        );
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MultiBlocProvider(
+                                providers: [
+                                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                  BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
+                                  BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                  BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
+                                ],
+                                child: const HomeScreen(),
+                              ),
+                            ));
                         break;
                       case 2:
 
@@ -474,7 +478,7 @@ int currentIndex=1;
                                   crossAxisCount: 3, // 3 items per row
                                   crossAxisSpacing: 8, // spacing between columns
                                   mainAxisSpacing: 8, // spacing between rows
-                                  childAspectRatio: 1, // aspect ratio of the grid items
+                                  childAspectRatio: 1.5, // aspect ratio of the grid items
                                 ),
                                 itemCount: subCategoriesCubit.categories.length, // total number of items
                                 itemBuilder: (context, index) {

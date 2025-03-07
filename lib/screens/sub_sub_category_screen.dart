@@ -1,9 +1,7 @@
 import 'package:doctor/cubit/get_specialist/get_sepcialist_cubit.dart';
-import 'package:doctor/cubit/get_sub_sub_catrgory_cubit/get_sub_sub_category_cubit.dart';
 import 'package:doctor/screens/anxiety_screen.dart';
 import 'package:doctor/screens/personality_disorder_screen.dart';
 import 'package:doctor/screens/sign_up_as_client.dart';
-import 'package:doctor/screens/sub_sub_category_screen.dart';
 import 'package:doctor/widgets/custom_app_bar.dart';
 import 'package:doctor/widgets/custom_bottom_nav_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -18,6 +16,8 @@ import '../cubit/doctor_by_category_cubit/doctor_by_category_state.dart';
 import '../cubit/get_specialist/get_specialist_state.dart';
 import '../cubit/get_sub_categories_cubit/get_sub_categories_cubit.dart';
 import '../cubit/get_sub_categories_cubit/get_sub_categories_state.dart';
+import '../cubit/get_sub_sub_catrgory_cubit/get_sub_sub_category_cubit.dart';
+import '../cubit/get_sub_sub_catrgory_cubit/get_sub_sub_category_state.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
@@ -29,26 +29,28 @@ import 'depression_screen.dart';
 import 'first_home_page.dart';
 import 'homescreen.dart';
 
-class SubCategoryScreen extends StatefulWidget {
-  final String category;
+class SubSubCategoryScreen extends StatefulWidget {
   final String subCategory;
-  const SubCategoryScreen({super.key, required this.category, required this.subCategory});
+  final String Category;
+  const SubSubCategoryScreen({super.key,required this.Category,  required this.subCategory});
 
   @override
-  State<SubCategoryScreen> createState() => _SubCategoryScreenState();
+  State<SubSubCategoryScreen> createState() => _SubSubCategoryScreenState();
 }
 
-class _SubCategoryScreenState extends State<SubCategoryScreen> {
+class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
   late UserProfileCubit userProfileCubit;
   late DoctorByCategoryCubit doctorByCategoryCubit;
-  late SubCategoriesCubit subCategoriesCubit;
+  late SubSubCategoriesCubit subSubCategoriesCubit;
 
   @override
   void initState() {
     super.initState();
+    print(widget.subCategory);
+
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
     doctorByCategoryCubit = BlocProvider.of<DoctorByCategoryCubit>(context);
-    subCategoriesCubit= BlocProvider.of<SubCategoriesCubit>(context);
+    subSubCategoriesCubit= BlocProvider.of<SubSubCategoriesCubit>(context);
     _loadUserProfile();
   }
   int currentIndex=1;
@@ -56,8 +58,8 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
     userProfileCubit.getUserProfile(context, id);
-    subCategoriesCubit.fetchSubCategories(context,widget.category);
-    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.category,widget.subCategory);
+    subSubCategoriesCubit.fetchSubCategories(context,widget.subCategory);
+    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.Category,widget.subCategory);
   }
 
   @override
@@ -261,14 +263,14 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                         child: SizedBox(
                           width: 338.w,
                           height: 252.h,
-                          child: BlocBuilder<SubCategoriesCubit, SubCategoriesState>(
+                          child: BlocBuilder<SubSubCategoriesCubit, SubSubCategoriesState>(
                             builder: (context, state) {
-                              if (state is SubCategoriesLoading) {
+                              if (state is SubSubCategoriesLoading) {
                                 return CircularProgressIndicator(); // Show loading indicator
-                              } else if (state is SubCategoriesFailure) {
-                                return Text(state.errMessage); // Display error message
-                              } else if (state is SubCategoriesSuccess) {
-                                List<String>subs=state.subCategories?.firstWhere((sub) => sub.name==widget.subCategory ).subcategory??[];
+                              } else if (state is SubSubCategoriesFailure) {
+                                return Text(""); // Display error message
+                              } else if (state is SubSubCategoriesSuccess) {
+                                List<String?>subs=state.subCategories;
                                 return GridView.builder(
                                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 3, // 3 items per row
@@ -280,24 +282,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                                   itemBuilder: (context, index) {
                                     return  GestureDetector(
                                       onTap: (){
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => MultiBlocProvider(
-                                              providers: [
-                                                BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                                BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                                BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                                BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
-                                                BlocProvider<SubSubCategoriesCubit>(create: (_) => SubSubCategoriesCubit()),
 
-                                              ],
-                                              child: SubSubCategoryScreen(Category: 'mentalHealth', subCategory: subs[index]??"",),
-                                            ),
-
-                                          ),
-
-                                        );
                                       },
                                       child: Container(
                                         width: 100.w,
@@ -316,7 +301,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                                         ),
                                         child: Center(
                                           child: Text(
-                                            subs[index],
+                                            subs[index]??"",
                                             textAlign: TextAlign.center,
                                             style:  TextStyle(
                                               fontSize: 16.sp,
@@ -511,43 +496,26 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                         child: SizedBox(
                           width: 338.w,
                           height: 252.h,
-                          child: BlocBuilder<SubCategoriesCubit, SubCategoriesState>(
+                          child: BlocBuilder<SubSubCategoriesCubit, SubSubCategoriesState>(
                             builder: (context, state) {
-                              if (state is SubCategoriesLoading) {
+                              if (state is SubSubCategoriesLoading) {
                                 return CircularProgressIndicator(); // Show loading indicator
-                              } else if (state is SubCategoriesFailure) {
-                                return Text(state.errMessage); // Display error message
-                              } else if (state is SubCategoriesSuccess) {
-                                List<String>subs=state.subCategories?.firstWhere((sub) => sub.name==widget.subCategory ).subcategory??[];
+                              } else if (state is SubSubCategoriesFailure) {
+                                return Text(""); // Display error message
+                              } else if (state is SubSubCategoriesSuccess) {
+                                List<String?>subs=state.subCategories;
                                 return GridView.builder(
                                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 3, // 3 items per row
                                     crossAxisSpacing: 8, // spacing between columns
                                     mainAxisSpacing: 8, // spacing between rows
-                                    childAspectRatio: 1.4, // aspect ratio of the grid items
+                                    childAspectRatio: 1.5, // aspect ratio of the grid items
                                   ),
                                   itemCount: subs.length, // total number of items
                                   itemBuilder: (context, index) {
                                     return  GestureDetector(
                                       onTap: (){
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => MultiBlocProvider(
-                                              providers: [
-                                                BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                                BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                                BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                                BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
-                                                BlocProvider<SubSubCategoriesCubit>(create: (_) => SubSubCategoriesCubit()),
 
-                                              ],
-                                              child: SubSubCategoryScreen(Category: 'mentalHealth', subCategory:subs[index]??"",),
-                                            ),
-
-                                          ),
-
-                                        );
                                       },
                                       child: Container(
                                         width: 100.w,
@@ -566,7 +534,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                                         ),
                                         child: Center(
                                           child: Text(
-                                            subs[index],
+                                            subs[index]??"",
                                             textAlign: TextAlign.center,
                                             style:  TextStyle(
                                               fontSize: 16.sp,

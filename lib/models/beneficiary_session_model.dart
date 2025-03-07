@@ -9,121 +9,98 @@ BeneficiarySessionModel beneficiarySessionModelFromJson(String str) => Beneficia
 String beneficiarySessionModelToJson(BeneficiarySessionModel data) => json.encode(data.toJson());
 
 class BeneficiarySessionModel {
-  List<EdSession>? scheduledSessions;
-  List<EdSession>? completedSessions;
+  int? totalSessions;
+  List<Session>? scheduledSessions;
+  List<Session>? completedSessions;
+  List<Session>? canceledSessions;
+  List<Session>? upcomingSessions;
 
   BeneficiarySessionModel({
+    this.totalSessions,
     this.scheduledSessions,
     this.completedSessions,
+    this.canceledSessions,
+    this.upcomingSessions,
   });
 
   factory BeneficiarySessionModel.fromJson(Map<String, dynamic> json) => BeneficiarySessionModel(
-    scheduledSessions: json["scheduledSessions"] == null ? [] : List<EdSession>.from(json["scheduledSessions"]!.map((x) => EdSession.fromJson(x))),
-    completedSessions: json["completedSessions"] == null ? [] : List<EdSession>.from(json["completedSessions"]!.map((x) => EdSession.fromJson(x))),
+    totalSessions: json["totalSessions"],
+    scheduledSessions: json["scheduledSessions"] == null ? [] : List<Session>.from(json["scheduledSessions"]!.map((x) => Session.fromJson(x))),
+    completedSessions: json["completedSessions"] == null ? [] : List<Session>.from(json["completedSessions"]!.map((x) => Session.fromJson(x))),
+    canceledSessions: json["canceledSessions"] == null ? [] : List<Session>.from(json["canceledSessions"]!.map((x) => Session.fromJson(x))),
+    upcomingSessions: json["upcomingSessions"] == null ? [] : List<Session>.from(json["upcomingSessions"]!.map((x) => Session.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
+    "totalSessions": totalSessions,
     "scheduledSessions": scheduledSessions == null ? [] : List<dynamic>.from(scheduledSessions!.map((x) => x.toJson())),
     "completedSessions": completedSessions == null ? [] : List<dynamic>.from(completedSessions!.map((x) => x.toJson())),
+    "canceledSessions": canceledSessions == null ? [] : List<dynamic>.from(canceledSessions!.map((x) => x.toJson())),
+    "upcomingSessions": upcomingSessions == null ? [] : List<dynamic>.from(upcomingSessions!.map((x) => x.toJson())),
   };
 }
 
-class EdSession {
+class Session {
   String? id;
+  String? category;
+  String? subcategory;
+  String? sessionType;
+  String? description;
   DateTime? sessionDate;
-  Beneficiary? beneficiary;
-
-  EdSession({
-    this.id,
-    this.sessionDate,
-    this.beneficiary,
-  });
-
-  factory EdSession.fromJson(Map<String, dynamic> json) => EdSession(
-    id: json["_id"],
-    sessionDate: json["sessionDate"] == null ? null : DateTime.parse(json["sessionDate"]),
-    beneficiary: json["beneficiary"] == null ? null : Beneficiary.fromJson(json["beneficiary"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "_id": id,
-    "sessionDate": sessionDate?.toIso8601String(),
-    "beneficiary": beneficiary?.toJson(),
-  };
-}
-
-class Beneficiary {
-  String? id;
-  String? firstName;
-  String? lastName;
-  String? email;
-  String? password;
-  String? phone;
-  String? profession;
-  String? homeAddress;
-  int? age;
-  String? region;
-  String? nationality;
-  String? gender;
-  String? role;
-  List<String>? sessions;
+  String? status;
+  String? beneficiary;
+  String? specialist;
+  String? paymentStatus;
   DateTime? createdAt;
+  DateTime? updatedAt;
   int? v;
 
-  Beneficiary({
+  Session({
     this.id,
-    this.firstName,
-    this.lastName,
-    this.email,
-    this.password,
-    this.phone,
-    this.profession,
-    this.homeAddress,
-    this.age,
-    this.region,
-    this.nationality,
-    this.gender,
-    this.role,
-    this.sessions,
+    this.category,
+    this.subcategory,
+    this.sessionType,
+    this.description,
+    this.sessionDate,
+    this.status,
+    this.beneficiary,
+    this.specialist,
+    this.paymentStatus,
     this.createdAt,
+    this.updatedAt,
     this.v,
   });
 
-  factory Beneficiary.fromJson(Map<String, dynamic> json) => Beneficiary(
+  factory Session.fromJson(Map<String, dynamic> json) => Session(
     id: json["_id"],
-    firstName: json["firstName"],
-    lastName: json["lastName"],
-    email: json["email"],
-    password: json["password"],
-    phone: json["phone"],
-    profession: json["profession"],
-    homeAddress: json["homeAddress"],
-    age: json["age"],
-    region: json["region"],
-    nationality: json["nationality"],
-    gender: json["gender"],
-    role: json["role"],
-    sessions: json["sessions"] == null ? [] : List<String>.from(json["sessions"]!.map((x) => x)),
+    category: json["category"],
+    subcategory: json["subcategory"],
+    sessionType: json["sessionType"],
+    description: json["description"],
+    sessionDate: json["sessionDate"] == null ? null : DateTime.parse(json["sessionDate"]),
+    status: json["status"],
+    beneficiary: json["beneficiary"],
+    specialist: json["specialist"],
+    paymentStatus: json["paymentStatus"],
     createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
+    updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
     v: json["__v"],
   );
 
   Map<String, dynamic> toJson() => {
     "_id": id,
-    "firstName": firstName,
-    "lastName": lastName,
-    "email": email,
-    "password": password,
-    "phone": phone,
-    "profession": profession,
-    "homeAddress": homeAddress,
-    "age": age,
-    "region": region,
-    "nationality": nationality,
-    "gender": gender,
-    "role": role,
-    "sessions": sessions == null ? [] : List<dynamic>.from(sessions!.map((x) => x)),
+    "category":category,
+    "subcategory": subcategory,
+    "sessionType": sessionType,
+    "description": description,
+    "sessionDate": sessionDate?.toIso8601String(),
+    "status": status,
+    "beneficiary": beneficiary,
+    "specialist": specialist,
+    "paymentStatus": paymentStatus,
     "createdAt": createdAt?.toIso8601String(),
+    "updatedAt": updatedAt?.toIso8601String(),
     "__v": v,
   };
 }
+

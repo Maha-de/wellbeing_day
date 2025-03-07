@@ -10,6 +10,9 @@ import 'dart:convert';
 
 import 'package:doctor/make_email/login.dart'; // هنا تم إضافة السطر
 
+import '../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
+import '../cubit/get_sub_categories_cubit/get_sub_categories_cubit.dart';
+import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../make_email/login.dart';
 
@@ -73,8 +76,17 @@ class _SignUpAsClientState extends State<SignUpAsClient> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => BlocProvider(
-                          create: (_) => UserProfileCubit(),
+                        builder: (context) => MultiBlocProvider(
+                          providers: [
+                            BlocProvider<UserProfileCubit>(
+                                create: (_) => UserProfileCubit()),
+                            BlocProvider<SubCategoriesCubit>(
+                                create: (_) => SubCategoriesCubit()),
+                            BlocProvider<UpdateUserCubit>(
+                                create: (_) => UpdateUserCubit()),
+                            BlocProvider<DoctorProfileCubit>(
+                                create: (_) => DoctorProfileCubit()),
+                          ],
                           child: const HomeScreen(),
                         ),
                       ),

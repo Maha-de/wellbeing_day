@@ -56,7 +56,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('doctorId') ?? "";
     userProfileCubit.getUserProfile(context, id);
-    doctorSessionCubit.getDoctorSessionsTypes(context);
+    doctorSessionCubit.getDoctorSessionsTypes(context,id);
   }
 
   @override

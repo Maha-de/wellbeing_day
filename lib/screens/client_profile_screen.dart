@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
+import '../cubit/get_beneficiary_sessions_cubit/beneficiary_session_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
 import '../models/user_profile_model.dart';
@@ -279,7 +280,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                                         BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
                                         BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
                                         BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                        BlocProvider<UpCommingCubit>(create: (_) => UpCommingCubit()),
+                                        BlocProvider<BeneficiarySessionCubit>(create: (_) => BeneficiarySessionCubit()),
                                       ],
                                   child: AppointmentsSection())));
                                   // Navigator.push(

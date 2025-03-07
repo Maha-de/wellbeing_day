@@ -15,7 +15,8 @@ class DoctorCard extends StatelessWidget {
   final Specialists? specialists;
   final String  doctorID;
   final Specialist? sessionDoctor;
-   const DoctorCard({super.key,  this.specialistModel, required this.doctorID, this.specialists, this.sessionDoctor});
+  final String? id;
+   const DoctorCard({super.key,  this.specialistModel, required this.doctorID, this.specialists, this.sessionDoctor, this.id});
 
   @override
   Widget build(BuildContext context) {

@@ -133,6 +133,7 @@ class CustomBottomNavBar extends StatelessWidget {
                       BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
                       BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
                       BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                      BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
                     ],
                     child: const HomeScreen(),
                   ),

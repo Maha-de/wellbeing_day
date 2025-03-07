@@ -16,7 +16,7 @@ class SpecialistsResponse {
   factory SpecialistsResponse.fromJson(Map<String, dynamic> json) {
     return SpecialistsResponse(
       message: json['message'] as String?,
-      items: (json['items'] as List<dynamic>?)
+      items: (json['data'] as List<dynamic>?)
           ?.map((item) => Specialists.fromJson(item as Map<String, dynamic>))
           .toList(),
       totalPages: json['totalPages'] as int?,
@@ -28,7 +28,7 @@ class SpecialistsResponse {
   Map<String, dynamic> toJson() {
     return {
       'message': message,
-      'items': items?.map((item) => item.toJson()).toList(),
+      'data': items?.map((item) => item.toJson()).toList(),
       'totalPages': totalPages,
       'totalItems': totalItems,
       'page': page,

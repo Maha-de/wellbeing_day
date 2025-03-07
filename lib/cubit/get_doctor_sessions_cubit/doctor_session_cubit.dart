@@ -13,7 +13,7 @@ import 'doctor_session_state.dart';
 class DoctorSessionCubit extends Cubit<DoctorSessionState> {
   DoctorSessionCubit() : super(DoctorSessionInitial());
   DoctorSessionsTypesModel? sessionData;
-  Future<void> getDoctorSessionsTypes(BuildContext context) async {
+  Future<void> getDoctorSessionsTypes(BuildContext context,String id) async {
     emit(DoctorSessionLoading());
     try {
       final dio = Dio(
@@ -23,7 +23,7 @@ class DoctorSessionCubit extends Cubit<DoctorSessionState> {
         ),
       );
 
-      final response = await dio.get("/sessions");
+      final response = await dio.get("/sessions/beneficiary/$id");
 
       if (response.statusCode == 200) {
         final userProfileModel = DoctorSessionsTypesModel.fromJson(response.data);

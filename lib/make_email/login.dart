@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:doctor/cubit/get_doctor_sessions_types_cubit/doctor_session_types_cubit.dart';
+import 'package:doctor/cubit/get_sub_categories_cubit/get_sub_categories_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,8 +43,17 @@ class _LoginPageState extends State<LoginPage> {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => BlocProvider(
-                  create: (_) => UserProfileCubit(),
+                builder: (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider<UserProfileCubit>(
+                        create: (_) => UserProfileCubit()),
+                    BlocProvider<SubCategoriesCubit>(
+                        create: (_) => SubCategoriesCubit()),
+                    BlocProvider<UpdateUserCubit>(
+                        create: (_) => UpdateUserCubit()),
+                    BlocProvider<DoctorProfileCubit>(
+                        create: (_) => DoctorProfileCubit()),
+                  ],
                   child: const HomeScreen(),
                 ),
               ),

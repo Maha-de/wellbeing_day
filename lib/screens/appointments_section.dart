@@ -1,13 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
+import '../cubit/get_beneficiary_sessions_cubit/beneficiary_session_cubit.dart';
+import '../cubit/get_beneficiary_sessions_cubit/beneficiary_session_state.dart';
 import '../cubit/get_specialist/get_sepcialist_cubit.dart';
 import '../cubit/get_specialist/get_specialist_state.dart';
-import '../cubit/up_comming_session_beneficiary/up_comming_cubit.dart';
-import '../cubit/up_comming_session_beneficiary/up_comming_state.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
 import '../models/user_profile_model.dart';
@@ -30,7 +32,8 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
   final int totalPages = 3;
 
   late UserProfileCubit userProfileCubit;
-  late UpCommingCubit upCommingCubit;
+  late BeneficiarySessionCubit beneficiarySessionCubit;
+
 
   void _onItemTapped(int index) {
     setState(() {
@@ -42,7 +45,8 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
   void initState() {
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
-    upCommingCubit=  BlocProvider.of<UpCommingCubit>(context);
+    beneficiarySessionCubit=  BlocProvider.of<BeneficiarySessionCubit>(context);
+
     _loadUserProfile();
 
   }
@@ -51,7 +55,7 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
     String token=prefs.getString('token') ?? "";
-    upCommingCubit.UpComming(id, token);
+    beneficiarySessionCubit.getDoctorSessionsTypes(context, id);
     userProfileCubit.getUserProfile(context, id);
   }
 
@@ -250,22 +254,23 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(right: 15, left: 15),
-                      child:  BlocBuilder<UpCommingCubit, UpCommingState>(
+                      child:  BlocBuilder<BeneficiarySessionCubit, BeneficiarySessionState>(
                         builder: (context, state) {
-                          if (state is UpCommingLoading) {
+                          if (state is BeneficiarySessionLoading) {
                             return CircularProgressIndicator(); // Show loading indicator
-                          } else if (state is UpCommingFailure) {
-                            return Text(state.errMessage); // Display error message
-                          } else if (state is UpCommingSuccess) {
+                          } else if (state is BeneficiarySessionFailure) {
+                            return Text(state.error); // Display error message
+                          } else if (state is BeneficiarySessionSuccess) {
                             return Container(
                               height: 360.h,
                               child: ListView.separated(
                                 separatorBuilder: (context,index){
                                   return SizedBox(height: 12.h,);
                                 },
-                                itemCount: state.doctors.length,
+                                itemCount: state.session.upcomingSessions?.length??0,
                                 itemBuilder: (context, index) {
-                                  return DoctorCard(sessionDoctor: state.doctors[index].specialist, doctorID: state.doctors[index].specialist?.id??"",);
+
+                                  return DoctorCard(sessionDoctor: state.doctors[index].specialist,doctorID: state.doctors[index].specialist?.id??"",);
                                 },
                               ),
                             );
@@ -279,79 +284,25 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                 ),
                 Column(
                   children: [
-
-
                     Padding(
                       padding: const EdgeInsets.only(right: 15, left: 15),
-                      child:  BlocBuilder<GetSpecialistCubit, GetSpecialistState>(
+                      child:  BlocBuilder<BeneficiarySessionCubit, BeneficiarySessionState>(
                         builder: (context, state) {
-                          if (state is SpecialistLoading) {
+                          if (state is BeneficiarySessionLoading) {
                             return CircularProgressIndicator(); // Show loading indicator
-                          } else if (state is SpecialistFailure) {
-                            return Text(state.errMessage); // Display error message
-                          } else if (state is SpecialistSuccess) {
+                          } else if (state is BeneficiarySessionFailure) {
+                            return Text(state.error); // Display error message
+                          } else if (state is BeneficiarySessionSuccess) {
                             return Container(
                               height: 360.h,
-                              child: ListView.builder(
-                                itemCount: state.specialists.length,
+                              child: ListView.separated(
+                                separatorBuilder: (context,index){
+                                  return SizedBox(height: 12.h,);
+                                },
+                                itemCount: state.session.completedSessions?.length??0,
                                 itemBuilder: (context, index) {
-                                  return Container(
-                                    height: 329.h,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(20)
-                                    ),
 
-                                    child: Column(
-                                      children: [
-                                        DoctorCard(specialistModel: state.specialists[index], doctorID: state.specialists[index].id??"",),
-                                        Container(
-                                          color: Colors.white,
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Container(
-                                                width:160.w,
-                                                height:40.h,
-                                                decoration: BoxDecoration(
-                                                    color: Color(0xFF19649E),
-                                                    borderRadius: BorderRadius.circular(20)
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    "reschedule".tr(),
-                                                    style: TextStyle(
-                                                        fontSize: 18.sp,
-                                                        fontWeight: FontWeight.bold,
-                                                        color: Colors.white),
-                                                  ),
-                                                ),
-
-                                              ),
-                                              Container(
-                                                width:160.w,
-                                                height:40.h,
-                                                decoration: BoxDecoration(
-                                                    color: Color(0xFF19649E),
-                                                    borderRadius: BorderRadius.circular(20)
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    "cancelAppointment".tr(),
-                                                    style: TextStyle(
-                                                        fontSize: isEnglish ? 17.sp : 20.sp,
-                                                        fontWeight: FontWeight.bold,
-                                                        color: Colors.white),
-                                                  ),
-                                                ),
-
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
+                                  return DoctorCard(sessionDoctor: state.doctorsCompleted[index].specialist,doctorID: state.doctorsCompleted[index].specialist?.id??"",);
                                 },
                               ),
                             );
@@ -365,26 +316,25 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
                 ),
                 Column(
                   children: [
-
-
                     Padding(
                       padding: const EdgeInsets.only(right: 15, left: 15),
-                      child:  BlocBuilder<GetSpecialistCubit, GetSpecialistState>(
+                      child:  BlocBuilder<BeneficiarySessionCubit, BeneficiarySessionState>(
                         builder: (context, state) {
-                          if (state is SpecialistLoading) {
+                          if (state is BeneficiarySessionLoading) {
                             return CircularProgressIndicator(); // Show loading indicator
-                          } else if (state is SpecialistFailure) {
-                            return Text(state.errMessage); // Display error message
-                          } else if (state is SpecialistSuccess) {
+                          } else if (state is BeneficiarySessionFailure) {
+                            return Text(state.error); // Display error message
+                          } else if (state is BeneficiarySessionSuccess) {
                             return Container(
                               height: 360.h,
                               child: ListView.separated(
                                 separatorBuilder: (context,index){
                                   return SizedBox(height: 12.h,);
                                 },
-                                itemCount: state.specialists.length,
+                                itemCount: state.session.canceledSessions?.length??0,
                                 itemBuilder: (context, index) {
-                                  return DoctorCard(specialistModel: state.specialists[index], doctorID: state.specialists[index].id??"",);
+
+                                  return DoctorCard(sessionDoctor: state.doctorsCanceled[index].specialist,doctorID: state.doctorsCanceled[index].specialist?.id??"",);
                                 },
                               ),
                             );
@@ -436,6 +386,12 @@ class _AppointmentsSectionState extends State<AppointmentsSection> {
         ),
       ),
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('DoctorProfileCubit', DoctorProfileCubit));
   }
 
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../api/end_points.dart';
+import '../../models/Doctor_id_model.dart';
 import '../../models/beneficiaries_sessions_model.dart';
 import '../../models/beneficiary_session_model.dart';
 import '../../models/doctor_session_model.dart';
@@ -15,7 +16,7 @@ import 'beneficiary_session_state.dart';
 
 class BeneficiarySessionCubit extends Cubit<BeneficiarySessionState> {
   BeneficiarySessionCubit() : super(BeneficiarySessionInitial());
-  BeneficiarySessionsModel? sessionData;
+  BeneficiarySessionModel? sessionData;
   Future<void> getDoctorSessionsTypes(BuildContext context,String id) async {
     emit(BeneficiarySessionLoading());
     try {
@@ -26,16 +27,54 @@ class BeneficiarySessionCubit extends Cubit<BeneficiarySessionState> {
         ),
       );
 
-      final response = await dio.get("/sessions/beneficiary/$id");
+      final response = await dio.get("/beneficiaries/sessions/$id");
 
       if (response.statusCode == 200) {
-        final userProfileModel = BeneficiarySessionsModel.fromJson(response.data);
+        final userProfileModel = BeneficiarySessionModel.fromJson(response.data);
         sessionData = userProfileModel;
-        print("sessions1: ${sessionData}");
+        // استخراج جميع الـ doctorId من الجلسات
+        final doctorIds = userProfileModel.upcomingSessions?.map((s) => s.specialist).toSet().toList()??[];
+        final doctorIdsComplete = userProfileModel.completedSessions?.map((s) => s.specialist).toSet().toList()??[];
+        final doctorIdsCancled = userProfileModel.canceledSessions?.map((s) => s.specialist).toSet().toList()??[];
+        // 2️⃣ جلب بيانات كل طبيب
+        final doctorResponses = await Future.wait(
+          doctorIds.map((doctorId) => dio.get(
+            "/specialist/getById/$doctorId",
+
+          )),
+        );
+
+        // تحويل البيانات إلى قائمة `DoctorByIdModel`
+        final doctorsData = doctorResponses
+            .where((res) => res.statusCode == 200||res.statusCode==201)
+            .map((res) => DoctorByIdModel.fromJson(res.data))
+            .toList();
+        final doctorResponsesCompleted = await Future.wait(
+          doctorIdsComplete.map((doctorId) => dio.get(
+            "/specialist/getById/$doctorId",
+
+          )),
+        );
+        final doctorsDataCompleted = doctorResponsesCompleted
+            .where((res) => res.statusCode == 200||res.statusCode==201)
+            .map((res) => DoctorByIdModel.fromJson(res.data))
+            .toList();
+        final doctorResponsesCancled = await Future.wait(
+          doctorIdsCancled.map((doctorId) => dio.get(
+            "/specialist/getById/$doctorId",
+
+          )),
+        );
+        final doctorsDataCancled = doctorResponsesCancled
+            .where((res) => res.statusCode == 200||res.statusCode==201)
+            .map((res) => DoctorByIdModel.fromJson(res.data))
+            .toList();
+        print("sessions1: ${sessionData?.upcomingSessions}");
+        print("sessions1: ${sessionData?.canceledSessions}");
         print("sessions2: ${sessionData?.scheduledSessions}");
         print("sessions3: ${sessionData?.completedSessions}");
 
-        emit(BeneficiarySessionSuccess("Profile loaded successfully", userProfileModel));
+        emit(BeneficiarySessionSuccess("Profile loaded successfully", userProfileModel,doctorsData,doctorsDataCompleted,doctorsDataCancled));
       } else {
         emit(BeneficiarySessionFailure("Error Fetching Data: ${response.data['message']}"));
       }

@@ -10,6 +10,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../cubit/get_specialist/get_sepcialist_cubit.dart';
 import '../cubit/get_specialist/get_specialist_state.dart';
+import '../cubit/get_sub_categories_cubit/get_sub_categories_cubit.dart';
+import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
 import '../make_email/login.dart';
@@ -31,6 +33,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
   var sliderIndex = 0;
   CarouselSliderController carouselControllerEx = CarouselSliderController();
   late UserProfileCubit userProfileCubit;
+  late GetSpecialistCubit getSpecialistCubit;
 int currentIndex=0;
   var images = [
     'assets/images/familyy.png',
@@ -40,10 +43,11 @@ int currentIndex=0;
   @override
   void initState() {
     super.initState();
+    getSpecialistCubit = BlocProvider.of<GetSpecialistCubit>(context);
+    getSpecialistCubit.fetchSpecialists();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
     _loadUserProfile();
-    final specialistCubit = BlocProvider.of<GetSpecialistCubit>(context);
-    specialistCubit.fetchSpecialists();
+
     _startAutoPageSwitch();
   }
   PageController _pageController = PageController();
@@ -86,85 +90,57 @@ int currentIndex=0;
                     screenHeight: screenHeight,
                   ),
                   backgroundColor: Colors.white,
-                  bottomNavigationBar:BottomNavigationBar(
-                    backgroundColor: const Color(0xff19649E), // Ensures the background is consistent
-                    selectedItemColor: Colors.white, // Sets the color of the selected icons
-                    unselectedItemColor: Colors.black, // Sets the color of unselected icons
-                    showSelectedLabels: false, // Hides selected labels
-                    showUnselectedLabels: false, // Hides unselected labels
-                    currentIndex: currentIndex, // Default selected index
-                    type: BottomNavigationBarType.fixed, // Prevents animation on shifting types
+                  bottomNavigationBar: BottomNavigationBar(
+                    backgroundColor: const Color(0xff19649E),
+                    selectedItemColor: Colors.white,
+                    unselectedItemColor: Colors.black,
+                    showSelectedLabels: false,
+                    showUnselectedLabels: false,
+                    currentIndex: currentIndex,
+                    type: BottomNavigationBarType.fixed,
                     items: [
                       BottomNavigationBarItem(
                         icon: SizedBox(
-                          height: 27.h, // Adjust icon size
-                          child:
-                          Image.asset(
-                            "assets/images/meteor-icons_home.png",
-                            // color: currentIndex == 0 ? Colors.white : Colors.black,
-                            fit: BoxFit.fill,
-                          ),
+                          height: 27.h,
+                          child: Image.asset("assets/images/meteor-icons_home.png", fit: BoxFit.fill),
                         ),
                         activeIcon: SizedBox(
-                          height: 27.h, // Active icon size adjustment
-                          child: Image.asset(
-                            "assets/images/meteor-icons_home.png",
-                            color: currentIndex == 0 ? Colors.white : Colors.black,
-
-                            fit: BoxFit.fill,
-                          ),
+                          height: 27.h,
+                          child: Image.asset("assets/images/meteor-icons_home.png",
+                              color: currentIndex == 0 ? Colors.white : Colors.black, fit: BoxFit.fill),
                         ),
                         label: "home".tr(),
                       ),
                       BottomNavigationBarItem(
                         icon: SizedBox(
                           height: 27.h,
-                          child: Image.asset(
-                            "assets/images/nrk_category1.png",
-                            fit: BoxFit.fill,
-                          ),
+                          child: Image.asset("assets/images/nrk_category1.png", fit: BoxFit.fill),
                         ),
                         activeIcon: SizedBox(
                           height: 27.h,
-                          child: Image.asset(
-                            "assets/images/nrk_category.png",
-                            fit: BoxFit.fill,
-                          ),
+                          child: Image.asset("assets/images/nrk_category.png", fit: BoxFit.fill),
                         ),
                         label: "menu".tr(),
                       ),
                       BottomNavigationBarItem(
                         icon: SizedBox(
-                          height: 25.h, // Adjust icon size
-                          child: Image.asset(
-                            "assets/images/material-symbols_help-clinic-outline-rounded.png",
-                            fit: BoxFit.fill,
-                          ),
+                          height: 25.h,
+                          child: Image.asset("assets/images/material-symbols_help-clinic-outline-rounded.png", fit: BoxFit.fill),
                         ),
                         activeIcon: SizedBox(
                           height: 33.h,
-                          // width: 50,
-                          child: Image.asset(
-                            "assets/images/material-symbols_help-clinic-outline-rounded_Active.png",
-                            fit: BoxFit.fill,
-                          ),
+                          child: Image.asset("assets/images/material-symbols_help-clinic-outline-rounded_Active.png", fit: BoxFit.fill),
                         ),
                         label: "info".tr(),
                       ),
                       BottomNavigationBarItem(
                         icon: SizedBox(
                           height: 27.h,
-                          child: Image.asset(
-                            "assets/images/gg_profile.png",
-                            fit: BoxFit.fill,
-                          ),
+                          child: Image.asset("assets/images/gg_profile.png", fit: BoxFit.fill),
                         ),
                         activeIcon: SizedBox(
                           height: 27.h,
-                          child: Image.asset(
-                            "assets/images/gg_profile1.png",
-                            fit: BoxFit.fill,
-                          ),
+                          child: Image.asset("assets/images/gg_profile1.png", fit: BoxFit.fill),
                         ),
                         label: "profile".tr(),
                       ),
@@ -172,7 +148,6 @@ int currentIndex=0;
                     onTap: (index) {
                       switch (index) {
                         case 3:
-
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
@@ -181,27 +156,21 @@ int currentIndex=0;
                               actions: [
                                 TextButton(
                                   onPressed: () {
-                                    Navigator.pop(context); // إغلاق الـ Alert
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
-                                    );
+                                    Navigator.pop(context);
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
                                   },
                                   child: Text("login".tr()),
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    Navigator.pop(context); // إغلاق الـ Alert
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
-                                    );
+                                    Navigator.pop(context);
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpAsClient()));
                                   },
                                   child: Text("createAccount".tr()),
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
+                                    Navigator.pop(context);
                                   },
                                   child: Text("cancel".tr()),
                                 ),
@@ -210,27 +179,26 @@ int currentIndex=0;
                           );
                           break;
                         case 1:
-
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => BlocProvider(
-                                create: (_) => UserProfileCubit(),
+                              builder: (context) => MultiBlocProvider(
+                                providers: [
+                                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                  BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
+                                  BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                  BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
+                                ],
                                 child: const HomeScreen(),
                               ),
                             ),
                           );
                           break;
                         case 2:
-
                           Navigator.push(context, MaterialPageRoute(builder: (context) => const ApplicationInfo()));
-
                           break;
-
                         case 0:
-
                           Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstHomePage()));
-
                           break;
                       }
                     },
@@ -238,13 +206,11 @@ int currentIndex=0;
                   body: SingleChildScrollView(
                     child: Column(
                       children: [
-                        SizedBox(height: 10.h,),
+                        SizedBox(height: 10.h),
                         Container(
                           width: 343.w,
-                          height:145.h,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20)
-                          ),
+                          height: 145.h,
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
                           child: PageView.builder(
                             controller: _pageController,
                             itemCount: images.length,
@@ -253,50 +219,56 @@ int currentIndex=0;
                                 images[index],
                                 fit: BoxFit.fill,
                                 width: 343.w,
-                                height:145.h,
+                                height: 145.h,
                               );
                             },
                           ),
                         ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
+                        SizedBox(height: 10.h),
+
+                        // ✅ **إضافة البحث**
                         Center(
                           child: Container(
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: const Color(0xFFAFDCFF)),
+                              borderRadius: BorderRadius.circular(10),
+                              color: const Color(0xFFAFDCFF),
+                            ),
                             height: 40.h,
                             width: 310.w,
                             child: TextFormField(
+                              controller: context.read<GetSpecialistCubit>().searchController,
+                              onChanged: (value) {
+                                context.read<GetSpecialistCubit>().searchSpecialists(value);
+                              },
                               decoration: InputDecoration(
                                 prefixIcon: Icon(Icons.search),
                                 labelText: "search".tr(),
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide.none),
+                                border: OutlineInputBorder(borderSide: BorderSide.none),
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
 
-                        // List of doctors
+                        SizedBox(height: 10.h),
+
+                        // ✅ **تحديث قائمة الأطباء بناءً على البحث**
                         BlocBuilder<GetSpecialistCubit, GetSpecialistState>(
                           builder: (context, state) {
                             if (state is SpecialistLoading) {
-                              return CircularProgressIndicator(); // Show loading indicator
+                              return CircularProgressIndicator(); // مؤشر تحميل
                             } else if (state is SpecialistFailure) {
-                              return Text(state.errMessage); // Display error message
+                              return Text(state.errMessage); // رسالة خطأ
                             } else if (state is SpecialistSuccess) {
                               return Container(
-                                height: screenHeight*0.57.h,
+                                height: screenHeight * 0.57.h,
                                 width: 344.w,
                                 child: ListView.builder(
-                                  itemCount: state.specialists.length,
+                                  itemCount: context.read<GetSpecialistCubit>().filteredSpecialists.length,
                                   itemBuilder: (context, index) {
-                                    return DoctorCard(specialistModel: state.specialists[index], doctorID:state.specialists[index].id??"",);
+                                    return DoctorCard(
+                                      specialistModel: context.read<GetSpecialistCubit>().filteredSpecialists[index],
+                                      doctorID: context.read<GetSpecialistCubit>().filteredSpecialists[index].id ?? "",
+                                    );
                                   },
                                 ),
                               );
@@ -305,11 +277,11 @@ int currentIndex=0;
                             }
                           },
                         )
-
                       ],
                     ),
                   ),
                 );
+
               } else if (state is UserProfileSuccess) {
                 UserProfileModel userProfile = state.userProfile;
                 return Scaffold(
@@ -325,13 +297,11 @@ int currentIndex=0;
                   body: SingleChildScrollView(
                     child: Column(
                       children: [
-                        SizedBox(height: 10.h,),
+                        SizedBox(height: 10.h),
                         Container(
                           width: 343.w,
-                          height:145.h,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20)
-                          ),
+                          height: 145.h,
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
                           child: PageView.builder(
                             controller: _pageController,
                             itemCount: images.length,
@@ -340,50 +310,56 @@ int currentIndex=0;
                                 images[index],
                                 fit: BoxFit.fill,
                                 width: 343.w,
-                                height:145.h,
+                                height: 145.h,
                               );
                             },
                           ),
                         ),
-                         SizedBox(
-                          height: 10.h,
-                        ),
+                        SizedBox(height: 10.h),
+
+                        // ✅ **إضافة البحث**
                         Center(
                           child: Container(
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: const Color(0xFFAFDCFF)),
+                              borderRadius: BorderRadius.circular(10),
+                              color: const Color(0xFFAFDCFF),
+                            ),
                             height: 40.h,
                             width: 310.w,
                             child: TextFormField(
+                              controller: context.read<GetSpecialistCubit>().searchController,
+                              onChanged: (value) {
+                                context.read<GetSpecialistCubit>().searchSpecialists(value);
+                              },
                               decoration: InputDecoration(
                                 prefixIcon: Icon(Icons.search),
                                 labelText: "search".tr(),
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide.none),
+                                border: OutlineInputBorder(borderSide: BorderSide.none),
                               ),
                             ),
                           ),
                         ),
-                         SizedBox(
-                          height: 10.h,
-                        ),
 
-                        // List of doctors
+                        SizedBox(height: 10.h),
+
+                        // ✅ **تحديث قائمة الأطباء بناءً على البحث**
                         BlocBuilder<GetSpecialistCubit, GetSpecialistState>(
                           builder: (context, state) {
                             if (state is SpecialistLoading) {
-                              return CircularProgressIndicator(); // Show loading indicator
+                              return CircularProgressIndicator(); // مؤشر تحميل
                             } else if (state is SpecialistFailure) {
-                              return Text(state.errMessage); // Display error message
+                              return Text(state.errMessage); // رسالة خطأ
                             } else if (state is SpecialistSuccess) {
                               return Container(
-                                height: screenHeight*0.57.h,
+                                height: screenHeight * 0.57.h,
                                 width: 344.w,
                                 child: ListView.builder(
-                                  itemCount: state.specialists.length,
+                                  itemCount: context.read<GetSpecialistCubit>().filteredSpecialists.length,
                                   itemBuilder: (context, index) {
-                                    return DoctorCard(specialistModel: state.specialists[index], doctorID: state.specialists[index].id??"",);
+                                    return DoctorCard(
+                                      specialistModel: context.read<GetSpecialistCubit>().filteredSpecialists[index],
+                                      doctorID: context.read<GetSpecialistCubit>().filteredSpecialists[index].id ?? "",
+                                    );
                                   },
                                 ),
                               );
@@ -392,11 +368,11 @@ int currentIndex=0;
                             }
                           },
                         )
-
                       ],
                     ),
                   ),
                 );
+
               }
               return Container(); // Default return in case no state matches
             }
