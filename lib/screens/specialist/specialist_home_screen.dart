@@ -151,7 +151,7 @@ int listLength=0;
                                 itemBuilder: (context, index) {
                                   return Container(
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15), // تعديل الحواف
+                                      borderRadius: BorderRadius.circular(20), // تعديل الحواف
                                       image: DecorationImage(
                                         image: NetworkImage(state.adv[index].photo ?? ""),
                                         fit: BoxFit.fill,
