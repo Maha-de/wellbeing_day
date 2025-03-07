@@ -1,17 +1,90 @@
+import 'dart:convert';
+
 import 'package:doctor/core/strings.dart';
 import 'package:doctor/screens/payment_methods_profile.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'add_credit_card_screen.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class PaymentScreen extends StatelessWidget {
   final DateTime confirmedUserDateTimel;
-  const PaymentScreen({super.key, required this.confirmedUserDateTimel});
+  String? categorey;
+  String? subCategorey;
+  final int sessionPrice;
+  final int sessionDuration;
+  final String specId;
+
+  PaymentScreen(
+      {super.key,
+      required this.confirmedUserDateTimel,
+      required this.sessionPrice,
+      required this.sessionDuration,
+      this.categorey,
+      this.subCategorey,
+      required this.specId});
+
+  Future<Map<String, String>> _loadUserProfile() async {
+    final prefs = await SharedPreferences.getInstance();
+    String id = prefs.getString('userId') ?? "";
+    String token = prefs.getString('token') ?? "";
+
+    return {"idi": id, "token": token};
+  }
+
+  Future<void> createSession() async {
+    final Uri url =
+        Uri.parse('https://scopey.onrender.com/api/sessions/create');
+
+    final Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Authorization':
+          'Bearer ${_loadUserProfile().then((value) => value["id"])}',
+    };
+
+    final Map<String, dynamic> body = {
+      "specilaist": "6788f3b9303599314e97e3cd",
+      "beneficiary": _loadUserProfile().then((value) => value["id"]),
+      "sessionDate": confirmedUserDateTimel,
+      "sessionType": "Instant Session",
+      "category": categorey,
+      "subcategory": subCategorey,
+      "description": "this is a description",
+      "paymentStatus": "Unpaid",
+    };
+
+    try {
+      final response = await http.post(
+        url,
+        headers: headers,
+        body: json.encode(body),
+      );
+
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else {
+        print('Error: ${response.statusCode} - ${response.reasonPhrase}');
+      }
+    } catch (e) {
+      print('Request failed: $e');
+    }
+  }
 
   void openWhatsApp(String paymentWay) async {
+    createSession();
+    //create the session //
+    //ben :id ,
+    // specalize id ,
+    //token ,
+    // sessiondate ,
+    //"paymentStatus":"Unpaid"
+
     String message = Uri.encodeComponent("anotherPayWays".tr() + paymentWay);
     String whatsappUrl = "https://wa.me/${contactNumber}?text=$message";
 
@@ -31,7 +104,7 @@ class PaymentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(confirmedUserDateTimel);
+    print(specId);
     final double screenWidth = MediaQuery.of(context).size.width.w;
     final double screenHeight = MediaQuery.of(context).size.height.h;
     return Scaffold(
@@ -139,7 +212,8 @@ class PaymentScreen extends StatelessWidget {
                                     width: 5.w,
                                   ),
                                   Text(
-                                    "minutesInPayment".tr(),
+                                    "${sessionDuration} " +
+                                        "minutesInPayment".tr(),
                                     style: TextStyle(
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w600,
@@ -212,7 +286,7 @@ class PaymentScreen extends StatelessWidget {
                                     color: Color(0xff000000)),
                               ),
                               Text(
-                                " \$ 99",
+                                " \$ ${sessionPrice.toString()}",
                                 style: TextStyle(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.normal,
