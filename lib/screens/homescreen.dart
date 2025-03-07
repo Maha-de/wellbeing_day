@@ -374,6 +374,7 @@ int currentIndex=1;
                     // Image Slider
                     SizedBox(
                       height: screenHeight * 0.18.h,
+                      width:screenWidth*0.9.w,
                       child: BlocBuilder<GetAllAdsCubit, GetAllAdsState>(
                         builder: (context, state) {
                           if (state is GetAllAdsLoading) {
@@ -954,6 +955,7 @@ int currentIndex=1;
                     // Image Slider
                     SizedBox(
                       height: screenHeight * 0.18.h,
+                      width:screenWidth*0.9.w,
                       child: BlocBuilder<GetAllAdsCubit, GetAllAdsState>(
                         builder: (context, state) {
                           if (state is GetAllAdsLoading) {

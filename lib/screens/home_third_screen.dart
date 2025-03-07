@@ -370,6 +370,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
               SizedBox(height: screenHeight * 0.01.h),
               SizedBox(
                 height: screenHeight * 0.18.h,
+                width:screenWidth*0.9.w,
                 child: BlocBuilder<GetAllAdsCubit, GetAllAdsState>(
                   builder: (context, state) {
                     if (state is GetAllAdsLoading) {
@@ -684,6 +685,7 @@ class _HomeThirdScreenState extends State<HomeThirdScreen> {
                   SizedBox(height:10.h),
                   SizedBox(
                     height: screenHeight * 0.18.h,
+                    width:screenWidth*0.9.w,
                     child: BlocBuilder<GetAllAdsCubit, GetAllAdsState>(
                       builder: (context, state) {
                         if (state is GetAllAdsLoading) {

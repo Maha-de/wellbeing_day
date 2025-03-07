@@ -395,6 +395,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                       // Image Carousel
                       SizedBox(
                         height: screenHeight * 0.18.h,
+                        width:screenWidth*0.9.w,
                         child: BlocBuilder<GetAllAdsCubit, GetAllAdsState>(
                           builder: (context, state) {
                             if (state is GetAllAdsLoading) {
@@ -725,6 +726,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                       // Image Carousel
                       SizedBox(
                         height: screenHeight * 0.18.h,
+                        width:screenWidth*0.9.w,
                         child: BlocBuilder<GetAllAdsCubit, GetAllAdsState>(
                           builder: (context, state) {
                             if (state is GetAllAdsLoading) {
