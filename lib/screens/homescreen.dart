@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:doctor/cubit/get_all_ads/get_all_ads_cubit.dart';
 import 'package:doctor/make_email/login.dart';
 import 'package:doctor/screens/group_therapy.dart';
 import 'package:doctor/screens/home_second_screen.dart';
@@ -16,6 +17,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../cubit/doctor_by_category_cubit/doctor_by_category_cubit.dart';
+import '../cubit/get_all_ads/get_all_ads_state.dart';
 import '../cubit/get_sub_categories_cubit/get_sub_categories_cubit.dart';
 import '../cubit/get_sub_categories_cubit/get_sub_categories_state.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
@@ -56,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
   PageController _pageController = PageController();
   late Timer _timer;
   late UserProfileCubit userProfileCubit;
+  late GetAllAdsCubit getAllAdsCubit;
 
 int currentIndex=1;
   @override
@@ -63,6 +66,7 @@ int currentIndex=1;
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
    subCategoriesCubit=BlocProvider.of<SubCategoriesCubit>(context);
+    getAllAdsCubit= BlocProvider.of<GetAllAdsCubit>(context);
     _loadUserProfile();
     _startAutoPageSwitch();
   }
@@ -71,6 +75,7 @@ int currentIndex=1;
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
     print(id);
+    getAllAdsCubit.fetchAllAdv();
     subCategoriesCubit.fetchSubCategories(context,"mentalHealth");
     userProfileCubit.getUserProfile(context, id);
 
@@ -256,6 +261,7 @@ int currentIndex=1;
                                   BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
                                   BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                                   BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
+                                  BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
                                 ],
                                 child: const HomeScreen(),
                               ),
@@ -325,6 +331,7 @@ int currentIndex=1;
                                         BlocProvider(create: (_) => UserProfileCubit()),
                                         BlocProvider(create: (_) => DoctorByCategoryCubit()),
                                         BlocProvider(create: (_) => SubCategoriesCubit()),
+                                        BlocProvider(create: (_) => GetAllAdsCubit()),
                                       ],
 
                                       child: page,
@@ -367,14 +374,26 @@ int currentIndex=1;
                     // Image Slider
                     SizedBox(
                       height: screenHeight * 0.18.h,
-                      child: PageView.builder(
-                        controller: _pageController,
-                        itemCount: images.length,
-                        itemBuilder: (context, index) {
-                          return Image.asset(
-                            images[index],
-                            fit: BoxFit.fill,
-                          );
+                      child: BlocBuilder<GetAllAdsCubit, GetAllAdsState>(
+                        builder: (context, state) {
+                          if (state is GetAllAdsLoading) {
+                            return CircularProgressIndicator(); // Show loading indicator
+                          } else if (state is GetAllAdsFailure) {
+                            return Text(state.errMessage); // Display error message
+                          } else if (state is GetAllAdsSuccess) {
+                            return PageView.builder(
+                              controller: _pageController,
+                              itemCount: state.adv.length,
+                              itemBuilder: (context, index) {
+                                return Image.network(
+                                  state.adv[index].photo??"",
+                                  fit: BoxFit.fill,
+                                );
+                              },
+                            );
+                          } else {
+                            return Center(child: Text('noSpecialistsFound'.tr()));
+                          }
                         },
                       ),
                     ),
@@ -886,6 +905,7 @@ int currentIndex=1;
                                         BlocProvider(create: (_) => UserProfileCubit()),
                                         BlocProvider(create: (_) => DoctorByCategoryCubit()),
                                         BlocProvider(create: (_) => SubCategoriesCubit()),
+                                        BlocProvider(create: (_) => GetAllAdsCubit()),
                                       ],
 
                                       child: page,
@@ -928,14 +948,26 @@ int currentIndex=1;
                     // Image Slider
                     SizedBox(
                       height: screenHeight * 0.18.h,
-                      child: PageView.builder(
-                        controller: _pageController,
-                        itemCount: images.length,
-                        itemBuilder: (context, index) {
-                          return Image.asset(
-                            images[index],
-                            fit: BoxFit.fill,
-                          );
+                      child: BlocBuilder<GetAllAdsCubit, GetAllAdsState>(
+                        builder: (context, state) {
+                          if (state is GetAllAdsLoading) {
+                            return CircularProgressIndicator(); // Show loading indicator
+                          } else if (state is GetAllAdsFailure) {
+                            return Text(state.errMessage); // Display error message
+                          } else if (state is GetAllAdsSuccess) {
+                            return PageView.builder(
+                              controller: _pageController,
+                              itemCount: state.adv.length,
+                              itemBuilder: (context, index) {
+                                return Image.network(
+                                  state.adv[index].photo??"",
+                                  fit: BoxFit.fill,
+                                );
+                              },
+                            );
+                          } else {
+                            return Center(child: Text('noSpecialistsFound'.tr()));
+                          }
                         },
                       ),
                     ),

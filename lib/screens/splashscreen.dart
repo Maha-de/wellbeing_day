@@ -11,6 +11,7 @@ import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
+import '../cubit/get_all_ads/get_all_ads_cubit.dart';
 import '../cubit/get_doctor_sessions_types_cubit/doctor_session_types_cubit.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
@@ -60,6 +61,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                 BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
                 BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
                 BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
               ],
               child: const HomeScreen(),
             ),
@@ -72,6 +74,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
               BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
               BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),
               BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+              BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
             ],
             child: const SpecialistHomeScreen(),
           ),

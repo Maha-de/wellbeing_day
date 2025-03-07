@@ -12,6 +12,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../cubit/doctor_by_category_cubit/doctor_by_category_cubit.dart';
+import '../cubit/get_all_ads/get_all_ads_cubit.dart';
+import '../cubit/get_all_ads/get_all_ads_state.dart';
 import '../cubit/get_sub_categories_cubit/get_sub_categories_cubit.dart';
 import '../cubit/get_sub_categories_cubit/get_sub_categories_state.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
@@ -57,12 +59,15 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
   late AnimationController _fadeController;
   late Animation<double> _fadeAnimation;
   late SubCategoriesCubit subCategoriesCubit;
+  late GetAllAdsCubit getAllAdsCubit;
 
   @override
   void initState() {
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
     subCategoriesCubit= BlocProvider.of<SubCategoriesCubit>(context);
+    getAllAdsCubit= BlocProvider.of<GetAllAdsCubit>(context);
+    getAllAdsCubit.fetchAllAdv();
     _fadeController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 500),
@@ -272,6 +277,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                     BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
                                     BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                                     BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
+                                    BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
                                   ],
                                   child: const HomeScreen(),
                                 ),
@@ -348,6 +354,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                           BlocProvider(create: (_) => UserProfileCubit()),
                                           BlocProvider(create: (_) => DoctorByCategoryCubit()),
                                           BlocProvider(create: (_) => SubCategoriesCubit()),
+                                          BlocProvider(create: (_) => GetAllAdsCubit()),
                                         ],
 
                                         child: page,
@@ -386,16 +393,28 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                       ),
                       SizedBox(height: screenHeight * 0.02.h),
                       // Image Carousel
-                      Container(
+                      SizedBox(
                         height: screenHeight * 0.18.h,
-                        child: PageView.builder(
-                          controller: _pageController,
-                          itemCount: images.length,
-                          itemBuilder: (context, index) {
-                            return Image.asset(
-                              images[index],
-                              fit: BoxFit.fill,
-                            );
+                        child: BlocBuilder<GetAllAdsCubit, GetAllAdsState>(
+                          builder: (context, state) {
+                            if (state is GetAllAdsLoading) {
+                              return CircularProgressIndicator(); // Show loading indicator
+                            } else if (state is GetAllAdsFailure) {
+                              return Text(state.errMessage); // Display error message
+                            } else if (state is GetAllAdsSuccess) {
+                              return PageView.builder(
+                                controller: _pageController,
+                                itemCount: state.adv.length,
+                                itemBuilder: (context, index) {
+                                  return Image.network(
+                                    state.adv[index].photo??"",
+                                    fit: BoxFit.fill,
+                                  );
+                                },
+                              );
+                            } else {
+                              return Center(child: Text('noSpecialistsFound'.tr()));
+                            }
                           },
                         ),
                       ),
@@ -659,6 +678,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                                           BlocProvider(create: (_) => UserProfileCubit()),
                                           BlocProvider(create: (_) => DoctorByCategoryCubit()),
                                           BlocProvider(create: (_) => SubCategoriesCubit()),
+                                          BlocProvider(create: (_) => GetAllAdsCubit()),
                                         ],
 
                                         child: page,
@@ -697,16 +717,28 @@ class _HomeSecondScreenState extends State<HomeSecondScreen>
                       ),
                       SizedBox(height: screenHeight * 0.02.h),
                       // Image Carousel
-                      Container(
+                      SizedBox(
                         height: screenHeight * 0.18.h,
-                        child: PageView.builder(
-                          controller: _pageController,
-                          itemCount: images.length,
-                          itemBuilder: (context, index) {
-                            return Image.asset(
-                              images[index],
-                              fit: BoxFit.fill,
-                            );
+                        child: BlocBuilder<GetAllAdsCubit, GetAllAdsState>(
+                          builder: (context, state) {
+                            if (state is GetAllAdsLoading) {
+                              return CircularProgressIndicator(); // Show loading indicator
+                            } else if (state is GetAllAdsFailure) {
+                              return Text(state.errMessage); // Display error message
+                            } else if (state is GetAllAdsSuccess) {
+                              return PageView.builder(
+                                controller: _pageController,
+                                itemCount: state.adv.length,
+                                itemBuilder: (context, index) {
+                                  return Image.network(
+                                    state.adv[index].photo??"",
+                                    fit: BoxFit.fill,
+                                  );
+                                },
+                              );
+                            } else {
+                              return Center(child: Text('noSpecialistsFound'.tr()));
+                            }
                           },
                         ),
                       ),

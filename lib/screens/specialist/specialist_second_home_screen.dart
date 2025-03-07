@@ -16,6 +16,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
 import '../../cubit/doctor_details_cubit/doctor_profile_state.dart';
+import '../../cubit/get_all_ads/get_all_ads_cubit.dart';
+import '../../cubit/get_all_ads/get_all_ads_state.dart';
 import '../../cubit/get_doctor_sessions_types_cubit/doctor_session_types_cubit.dart';
 import '../../cubit/get_doctor_sessions_types_cubit/doctor_session_types_state.dart';
 import '../../cubit/update_user_cubit/update_user_cubit.dart';
@@ -55,11 +57,13 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
   late DoctorProfileCubit userProfileCubit;
   late DoctorSessionTypesCubit sessionTypesCubit;
   bool isFirstButtonActive = false;
+  late GetAllAdsCubit getAllAdsCubit;
   @override
   void initState() {
     super.initState();
     userProfileCubit = BlocProvider.of<DoctorProfileCubit>(context);
     sessionTypesCubit = BlocProvider.of<DoctorSessionTypesCubit>(context);
+    getAllAdsCubit= BlocProvider.of<GetAllAdsCubit>(context);
     _loadUserProfile();
     _startAutoPageSwitch();
   }
@@ -67,6 +71,7 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
   Future<void> _loadUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('doctorId') ?? "";
+    getAllAdsCubit.fetchAllAdv();
     userProfileCubit.getUserProfile(context, id);
     sessionTypesCubit.getDoctorSessions(context, id);
   }
@@ -129,14 +134,26 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                       SizedBox(
                         height: 145.h,
                         width: 343.w,
-                        child: PageView.builder(
-                          controller: _pageController,
-                          itemCount: images.length,
-                          itemBuilder: (context, index) {
-                            return Image.asset(
-                              images[index],
-                              fit: BoxFit.fill,
-                            );
+                        child: BlocBuilder<GetAllAdsCubit, GetAllAdsState>(
+                          builder: (context, state) {
+                            if (state is GetAllAdsLoading) {
+                              return CircularProgressIndicator(); // Show loading indicator
+                            } else if (state is GetAllAdsFailure) {
+                              return Text(state.errMessage); // Display error message
+                            } else if (state is GetAllAdsSuccess) {
+                              return PageView.builder(
+                                controller: _pageController,
+                                itemCount: state.adv.length,
+                                itemBuilder: (context, index) {
+                                  return Image.network(
+                                    state.adv[index].photo??"",
+                                    fit: BoxFit.fill,
+                                  );
+                                },
+                              );
+                            } else {
+                              return Center(child: Text('noSpecialistsFound'.tr()));
+                            }
                           },
                         ),
                       ),
@@ -159,6 +176,7 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                                       BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
                                       BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),
                                       BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                      BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
                                     ],
                                     child: const SpecialistHomeScreen(),
                                   ),
@@ -197,6 +215,7 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                                       BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
                                       BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),
                                       BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                      BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
                                     ],
                                     child: const SpecialistSecondHomeScreen(),
                                   ),

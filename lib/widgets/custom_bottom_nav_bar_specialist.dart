@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
+import '../cubit/get_all_ads/get_all_ads_cubit.dart';
 import '../cubit/get_doctor_sessions_cubit/doctor_session_cubit.dart';
 import '../cubit/get_doctor_sessions_types_cubit/doctor_session_types_cubit.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
@@ -138,6 +139,7 @@ class SpecialistCustomBottomNavBar extends StatelessWidget {
                     BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
                     BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),
                     BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                    BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
                   ],
                   child: const SpecialistHomeScreen(),
                 ),

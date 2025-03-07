@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
+import '../cubit/get_all_ads/get_all_ads_cubit.dart';
 import '../cubit/get_sub_categories_cubit/get_sub_categories_cubit.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
@@ -134,6 +135,7 @@ class CustomBottomNavBar extends StatelessWidget {
                       BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
                       BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                       BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
+                      BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
                     ],
                     child: const HomeScreen(),
                   ),

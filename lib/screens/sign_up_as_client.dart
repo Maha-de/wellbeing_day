@@ -11,6 +11,7 @@ import 'dart:convert';
 import 'package:doctor/make_email/login.dart'; // هنا تم إضافة السطر
 
 import '../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
+import '../cubit/get_all_ads/get_all_ads_cubit.dart';
 import '../cubit/get_sub_categories_cubit/get_sub_categories_cubit.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
@@ -86,6 +87,7 @@ class _SignUpAsClientState extends State<SignUpAsClient> {
                                 create: (_) => UpdateUserCubit()),
                             BlocProvider<DoctorProfileCubit>(
                                 create: (_) => DoctorProfileCubit()),
+                            BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
                           ],
                           child: const HomeScreen(),
                         ),

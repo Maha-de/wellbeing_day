@@ -344,6 +344,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
 import '../../cubit/doctor_sign_up_cubit/doctor_sign_up_cubit.dart';
 import '../../cubit/doctor_sign_up_cubit/doctor_sign_up_state.dart';
+import '../../cubit/get_all_ads/get_all_ads_cubit.dart';
 import '../../cubit/get_doctor_sessions_types_cubit/doctor_session_types_cubit.dart';
 import '../../cubit/update_user_cubit/update_user_cubit.dart';
 import '../../models/Specialist.dart';
@@ -375,6 +376,7 @@ class _SignUpAsDoctorThirdScreenState extends State<SignUpAsDoctorThirdScreen> {
             BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
             BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),
             BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+            BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
           ],
           child: const SpecialistHomeScreen(),
         ),

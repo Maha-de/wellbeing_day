@@ -11,6 +11,7 @@ import 'package:doctor/make_email/reset_password.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
 import '../cubit/forget_password_cubit/forget_password_cubit.dart';
+import '../cubit/get_all_ads/get_all_ads_cubit.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../screens/selectionpage.dart';
@@ -53,6 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                         create: (_) => UpdateUserCubit()),
                     BlocProvider<DoctorProfileCubit>(
                         create: (_) => DoctorProfileCubit()),
+                    BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
                   ],
                   child: const HomeScreen(),
                 ),
@@ -71,6 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                         create: (_) => DoctorSessionTypesCubit()),
                     BlocProvider<UpdateUserCubit>(
                         create: (_) => UpdateUserCubit()),
+                    BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
                   ],
                   child: const SpecialistHomeScreen(),
                 ),
