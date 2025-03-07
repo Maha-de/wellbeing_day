@@ -280,6 +280,46 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                                   itemBuilder: (context, index) {
                                     return  GestureDetector(
                                       onTap: (){
+                                        if(subs[index]=="Depression"||subs[index]=="الاكتئاب"){
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => MultiBlocProvider(
+                                                providers: [
+                                                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                                  BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                                  BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                                  BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
+                                                  BlocProvider<SubSubCategoriesCubit>(create: (_) => SubSubCategoriesCubit()),
+
+                                                ],
+                                                child: DepressionScreen(),
+                                              ),
+
+                                            ),
+
+                                          );
+                                        }else if(subs[index]=="Anxiety"||subs[index]=="القلق")
+                                        {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => MultiBlocProvider(
+                                                providers: [
+                                                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                                  BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                                  BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                                  BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
+                                                  BlocProvider<SubSubCategoriesCubit>(create: (_) => SubSubCategoriesCubit()),
+
+                                                ],
+                                                child:AnxietyScreen(),
+                                              ),
+
+                                            ),
+
+                                          );
+                                        }else{
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -297,7 +337,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
 
                                           ),
 
-                                        );
+                                        );}
                                       },
                                       child: Container(
                                         width: 100.w,
