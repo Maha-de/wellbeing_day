@@ -149,12 +149,18 @@ int listLength=0;
                                 controller: _pageController,
                                 itemCount: state.adv.length,
                                 itemBuilder: (context, index) {
-                                  return Image.network(
-                                    state.adv[index].photo??"",
-                                    fit: BoxFit.fill,
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15), // تعديل الحواف
+                                      image: DecorationImage(
+                                        image: NetworkImage(state.adv[index].photo ?? ""),
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
                                   );
                                 },
                               );
+
                             } else {
                               return Center(child: Text('noSpecialistsFound'.tr()));
                             }
