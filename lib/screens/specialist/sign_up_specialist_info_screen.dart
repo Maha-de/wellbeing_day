@@ -140,14 +140,14 @@ class _SignUpAsDoctorFirstScreenState extends State<SignUpAsDoctorFirstScreen> {
                     validator: (value) => isSubmitted
                         ? validatePassword(value, "password".tr())
                         : null,
-
                     suffixIcon: obSecureText
                         ? Icons.visibility_off_rounded
                         : Icons.visibility_rounded,
                     obscureText: obSecureText,
-                    onSuffixIconTap: (){
+                    onSuffixIconTap: () {
                       setState(() {
-                        obSecureText = !obSecureText; // Toggle the obscure state
+                        obSecureText =
+                            !obSecureText; // Toggle the obscure state
                       });
                     },
                   ),
@@ -168,12 +168,12 @@ class _SignUpAsDoctorFirstScreenState extends State<SignUpAsDoctorFirstScreen> {
                         ? Icons.visibility_off_rounded
                         : Icons.visibility_rounded,
                     obscureText: obSecureText1,
-                    onSuffixIconTap: (){
+                    onSuffixIconTap: () {
                       setState(() {
-                        obSecureText1 = !obSecureText1; // Toggle the obscure state
+                        obSecureText1 =
+                            !obSecureText1; // Toggle the obscure state
                       });
                     },
-
                   ),
                   CustomTextField(
                     keyboardType: TextInputType.number,
@@ -344,7 +344,7 @@ class _SignUpAsDoctorFirstScreenState extends State<SignUpAsDoctorFirstScreen> {
                       });
 
                       if (signUpFormKey.currentState?.validate() ?? false) {
-                        Specialist doctor = Specialist.withoutSpeciality(
+                        Specialist doctor = Specialist.withoutSpecialty(
                           phone: context
                               .read<GetSpecialistCubit>()
                               .phoneController
