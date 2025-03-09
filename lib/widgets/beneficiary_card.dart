@@ -1,3 +1,4 @@
+import 'package:doctor/cubit/create_session.dart/create_session_cubit.dart';
 import 'package:doctor/screens/specialist/specialist_free_consultation_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +64,25 @@ class BeneficiaryCard extends StatelessWidget {
                     _buildInfoBox(
                         '${scheduledSessions?.sessionDate == null ? '${completedSessions?.sessionDate?.day}/${completedSessions?.sessionDate?.month}/${completedSessions?.sessionDate?.year}' : '${scheduledSessions?.sessionDate?.day}/${scheduledSessions?.sessionDate?.month}/${scheduledSessions?.sessionDate?.year}'}',
                         () {
+
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MultiBlocProvider(
+                            providers: [
+                              BlocProvider<DoctorProfileCubit>(
+                                  create: (_) => DoctorProfileCubit()),
+                              BlocProvider<DoctorSessionTypesCubit>(
+                                  create: (_) => DoctorSessionTypesCubit()),
+                              BlocProvider<UpdateUserCubit>(
+                                  create: (_) => UpdateUserCubit()),
+                              BlocProvider<CreateSessionCubit>(
+                                  create: (_) => CreateSessionCubit()),
+                            ],
+                            child: const SpecialistFreeConsultationScreen(),
+                          ),
+                        ),
+                      );
 
                     }),
                     _buildInfoBox('userDetails'.tr(), () {

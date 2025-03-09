@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:doctor/screens/homescreen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -87,7 +89,8 @@ class _SignUpAsClientState extends State<SignUpAsClient> {
                                 create: (_) => UpdateUserCubit()),
                             BlocProvider<DoctorProfileCubit>(
                                 create: (_) => DoctorProfileCubit()),
-                            BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
+                            BlocProvider<GetAllAdsCubit>(
+                                create: (_) => GetAllAdsCubit()),
                           ],
                           child: const HomeScreen(),
                         ),
@@ -159,20 +162,21 @@ class _SignUpAsClientState extends State<SignUpAsClient> {
                               ? Icons.visibility_off_rounded
                               : Icons.visibility_rounded,
                           obscureText: obSecureText,
-                          onSuffixIconTap: (){
+                          onSuffixIconTap: () {
                             setState(() {
-                              obSecureText = !obSecureText; // Toggle the obscure state
+                              obSecureText =
+                                  !obSecureText; // Toggle the obscure state
                             });
                           },
-
                         ),
                         CustomTextField(
                           label: "phoneNumber".tr(),
                           suffixIcon: Icons.phone_android,
                           controller: phoneController,
                           keyboardType: TextInputType.phone,
-                          validator: (value) =>
-                              value!.isEmpty ? "phoneNumberValidator".tr() : null,
+                          validator: (value) => value!.isEmpty
+                              ? "phoneNumberValidator".tr()
+                              : null,
                         ),
                         CustomTextField(
                           label: "age".tr(),
@@ -237,8 +241,9 @@ class _SignUpAsClientState extends State<SignUpAsClient> {
                           label: "profession".tr(),
                           suffixIcon: Icons.work,
                           controller: professionController,
-                          validator: (value) =>
-                              value!.isEmpty ? "professionValidator".tr() : null,
+                          validator: (value) => value!.isEmpty
+                              ? "professionValidator".tr()
+                              : null,
                         ),
                         SizedBox(height: 24.h),
                         ElevatedButton(
@@ -371,11 +376,12 @@ class SignUpCubit extends Cubit<SignupState> {
 
         final data = json.decode(response.body);
         var userId = data['newBeneficiary']['_id'];
-        var token=data['token'];
+        var token = data['token'];
         final prefs = await SharedPreferences.getInstance();
         prefs.setString('userId', userId); // Store userId
         prefs.setString('email', email);
         prefs.setString('token', token);
+        log('token is $token');
         emit(SignupSuccess(message: 'تم تسجيل الدخول بنجاح'));
       } else {
         print("Response status: ${response.statusCode} + ${response.body}");

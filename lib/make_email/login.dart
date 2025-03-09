@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:doctor/cubit/get_doctor_sessions_types_cubit/doctor_session_types_cubit.dart';
 import 'package:doctor/cubit/get_sub_categories_cubit/get_sub_categories_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -54,7 +55,8 @@ class _LoginPageState extends State<LoginPage> {
                         create: (_) => UpdateUserCubit()),
                     BlocProvider<DoctorProfileCubit>(
                         create: (_) => DoctorProfileCubit()),
-                    BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
+                    BlocProvider<GetAllAdsCubit>(
+                        create: (_) => GetAllAdsCubit()),
                   ],
                   child: const HomeScreen(),
                 ),
@@ -73,7 +75,8 @@ class _LoginPageState extends State<LoginPage> {
                         create: (_) => DoctorSessionTypesCubit()),
                     BlocProvider<UpdateUserCubit>(
                         create: (_) => UpdateUserCubit()),
-                    BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
+                    BlocProvider<GetAllAdsCubit>(
+                        create: (_) => GetAllAdsCubit()),
                   ],
                   child: const SpecialistHomeScreen(),
                 ),
@@ -305,13 +308,13 @@ class LoginCubit extends Cubit<LoginState> {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        print(role);
         if (role == "beneficiary") {
           var userId = data['user']['id'];
           final prefs = await SharedPreferences.getInstance();
           prefs.setString('userId', userId);
           prefs.setString('email', email);
           prefs.setString('role', "0");
+          prefs.setString('token', data["token"]);
         } else if (role == "specialized") {
           var userId = data['user']['id'];
           final prefs = await SharedPreferences.getInstance();

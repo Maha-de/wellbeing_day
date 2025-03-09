@@ -1,3 +1,4 @@
+import 'package:doctor/models/catgoryInfo.dart';
 import 'package:doctor/screens/sign_up_as_client.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,6 @@ import '../../widgets/doctor_card.dart';
 import '../applicationInfo.dart';
 import '../first_home_page.dart';
 import '../homescreen.dart';
-
 
 class DietSystem extends StatefulWidget {
   final String category;
@@ -68,9 +68,9 @@ class _DietSystemState extends State<DietSystem> {
                 backgroundColor: const Color(
                     0xff19649E), // Ensures the background is consistent
                 selectedItemColor:
-                Colors.white, // Sets the color of the selected icons
+                    Colors.white, // Sets the color of the selected icons
                 unselectedItemColor:
-                Colors.black, // Sets the color of unselected icons
+                    Colors.black, // Sets the color of unselected icons
                 showSelectedLabels: false, // Hides selected labels
                 showUnselectedLabels: false, // Hides unselected labels
                 currentIndex: currentIndex, // Default selected index
@@ -232,7 +232,6 @@ class _DietSystemState extends State<DietSystem> {
               body: SingleChildScrollView(
                 child: Column(
                   children: [
-
                     SizedBox(
                       height: 40.h,
                     ),
@@ -272,6 +271,9 @@ class _DietSystemState extends State<DietSystem> {
                               itemCount: state.specialists.length,
                               itemBuilder: (context, index) {
                                 return DoctorCard(
+                                  categoryInfo: CategoryInfo(
+                                      pubCategory: widget.category,
+                                      subCategory: widget.subCategory),
                                   specialists: state.specialists[index],
                                   doctorID: state.specialists[index].id ?? "",
                                 );
@@ -287,13 +289,11 @@ class _DietSystemState extends State<DietSystem> {
                 ),
               ),
             );
-
           } else if (state is UserProfileSuccess) {
             UserProfileModel userProfile = state.userProfile;
             return Scaffold(
               bottomNavigationBar: CustomBottomNavBar(currentIndex: 1),
               appBar: AppBar(
-
                 elevation: 0,
                 backgroundColor: Colors.transparent,
                 iconTheme: const IconThemeData(
@@ -303,11 +303,10 @@ class _DietSystemState extends State<DietSystem> {
               body: SingleChildScrollView(
                 child: Center(
                   child: Container(
-                      width:354.w,
+                      width: 354.w,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-
                           Center(
                             child: Container(
                               margin: EdgeInsets.only(bottom: 25),
@@ -330,24 +329,39 @@ class _DietSystemState extends State<DietSystem> {
                             ),
                           ),
                           // List of doctors
-                          BlocBuilder<DoctorByCategoryCubit, DoctorByCategoryState>(
+                          BlocBuilder<DoctorByCategoryCubit,
+                              DoctorByCategoryState>(
                             builder: (context, state) {
                               if (state is DoctorByCategoryLoading) {
                                 return CircularProgressIndicator(); // Show loading indicator
                               } else if (state is DoctorByCategoryFailure) {
-                                return Text(state.errMessage); // Display error message
+                                print(
+                                    '-----------------------------------------------');
+                                print(widget.category);
+                                print(
+                                    '-----------------------------------------------');
+                                return Text(
+                                    state.errMessage); // Display error message
                               } else if (state is DoctorByCategorySuccess) {
                                 return Container(
                                   height: screenHeight,
                                   child: ListView.builder(
                                     itemCount: state.specialists.length,
                                     itemBuilder: (context, index) {
-                                      return DoctorCard(specialists: state.specialists[index], doctorID: state.specialists[index].id??"",);
+                                      return DoctorCard(
+                                        specialists: state.specialists[index],
+                                        doctorID:
+                                            state.specialists[index].id ?? "",
+                                        categoryInfo: CategoryInfo(
+                                            pubCategory: widget.category,
+                                            subCategory: widget.subCategory),
+                                      );
                                     },
                                   ),
                                 );
                               } else {
-                                return Center(child: Text('noSpecialistsFound'.tr()));
+                                return Center(
+                                    child: Text('noSpecialistsFound'.tr()));
                               }
                             },
                           )
@@ -361,6 +375,5 @@ class _DietSystemState extends State<DietSystem> {
         },
       ),
     );
-
   }
 }

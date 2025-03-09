@@ -1,4 +1,6 @@
 import 'package:doctor/cubit/doctor_details_cubit/doctor_profile_cubit.dart';
+import 'package:doctor/models/catgoryInfo.dart';
+import 'package:doctor/models/sessionType.dart';
 import 'package:doctor/screens/doctor_details.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -13,19 +15,33 @@ import '../models/specialist_model.dart' as s;
 class DoctorCard extends StatelessWidget {
   final s.Specialists? specialistModel;
   final Specialists? specialists;
-  final String  doctorID;
+  final String doctorID;
   final Specialist? sessionDoctor;
   final String? id;
-   const DoctorCard({super.key,  this.specialistModel, required this.doctorID, this.specialists, this.sessionDoctor, this.id});
+  final CategoryInfo? categoryInfo;
+  final SessionType? sessionType;
+  DoctorCard(
+      {super.key,
+      this.specialistModel,
+      required this.doctorID,
+      this.specialists,
+      this.sessionDoctor,
+      this.id,
+      this.categoryInfo,
+      this.sessionType});
 
   @override
   Widget build(BuildContext context) {
+    print("--------------DoctorCard----------------------");
+    // print((sessionType as InstantSession).description);
+
     final double screenWidth = MediaQuery.of(context).size.width.w;
     final double screenHeight = MediaQuery.of(context).size.height.h;
 
     print("specialistModel: ${specialistModel.toString()}");
     if (specialistModel != null) {
-      print("Doctor Name: ${specialistModel?.firstName} ${specialistModel?.lastName}");
+      print(
+          "Doctor Name: ${specialistModel?.firstName} ${specialistModel?.lastName}");
     } else {
       print("No specialist data found!");
     }
@@ -33,22 +49,22 @@ class DoctorCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (doctorID != null) {
-          print(specialists?.id);
-          print(specialists?.id);
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => MultiBlocProvider(
                 providers: [
-                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                  BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
+                  BlocProvider<UserProfileCubit>(
+                      create: (_) => UserProfileCubit()),
+                  BlocProvider<DoctorProfileCubit>(
+                      create: (_) => DoctorProfileCubit()),
                 ],
-                child:  DoctorDetails(
-                     doctorID:doctorID),
+                child: DoctorDetails(
+                    sessionType: sessionType  ,
+                    doctorID: doctorID,
+                    categoryInfo: categoryInfo),
               ),
-
             ),
-
           );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -71,7 +87,8 @@ class DoctorCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(right: 5, top: 10, left: 5),
+                      padding:
+                          const EdgeInsets.only(right: 5, top: 10, left: 5),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -79,7 +96,7 @@ class DoctorCard extends StatelessWidget {
                             width: 140.w,
                             child: Text(
                               overflow: TextOverflow.ellipsis,
-                              '${specialists?.firstName ??specialistModel?.firstName??sessionDoctor?.firstName?? "notFound".tr()} ${specialistModel?.lastName ??sessionDoctor?.firstName??specialists?.firstName?? ''}',
+                              '${specialists?.firstName ?? specialistModel?.firstName ?? sessionDoctor?.firstName ?? "notFound".tr()} ${specialistModel?.lastName ?? sessionDoctor?.firstName ?? specialists?.firstName ?? ''}',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20.sp,
@@ -88,30 +105,39 @@ class DoctorCard extends StatelessWidget {
                               textAlign: TextAlign.left,
                             ),
                           ),
-                           SizedBox(height: 2.h),
+                          SizedBox(height: 2.h),
                           Text(
-                            specialists?.work ?? sessionDoctor?.work??specialistModel?.work?? "notAvailable".tr(),
-                            style:  TextStyle(
+                            specialists?.work ??
+                                sessionDoctor?.work ??
+                                specialistModel?.work ??
+                                "notAvailable".tr(),
+                            style: TextStyle(
                               color: Colors.white,
                               fontSize: 12.sp,
                             ),
                             textAlign: TextAlign.left,
                           ),
-                           SizedBox(height: 15.h),
-                          buildInfoRow("assets/images/heart.png",
-                              "speciality".tr() + "${(specialists?.specialties?.mentalHealth?.isNotEmpty ?? false)
-                                  ? specialists?.specialties?.mentalHealth?.join(", ") : (sessionDoctor?.specialties?.mentalHealth?.isNotEmpty ?? false)
-                                  ? sessionDoctor?.specialties?.mentalHealth?.join(", ") :(specialistModel?.specialties?.mentalHealth?.isNotEmpty ?? false)
-                                  ? specialistModel?.specialties?.mentalHealth?.join(", ") :"notAvailable".tr()}"),
-                           SizedBox(height: 4.h),
+                          SizedBox(height: 15.h),
+                          buildInfoRow(
+                              "assets/images/heart.png",
+                              "speciality".tr() +
+                                  "${(specialists?.specialties?.mentalHealth?.isNotEmpty ?? false) ? specialists?.specialties?.mentalHealth?.join(", ") : (sessionDoctor?.specialties?.mentalHealth?.isNotEmpty ?? false) ? sessionDoctor?.specialties?.mentalHealth?.join(", ") : (specialistModel?.specialties?.mentalHealth?.isNotEmpty ?? false) ? specialistModel?.specialties?.mentalHealth?.join(", ") : "notAvailable".tr()}"),
+                          SizedBox(height: 4.h),
                           buildInfoRow("assets/images/PhoneCall.png",
                               'availableVideo'.tr()),
-                           SizedBox(height: 4.h),
-                          buildInfoRow("assets/images/experience.png",
-                              "experienceYears".tr() + ' ${specialists?.yearsExperience ?? specialistModel?.yearsExperience??sessionDoctor?.yearsExperience??0} ' + "years".tr()),
-                           SizedBox(height: 4.h),
-                          buildInfoRow("assets/images/translation.png",
-                              "language".tr() + "arabic".tr() + "، " + "english".tr()),
+                          SizedBox(height: 4.h),
+                          buildInfoRow(
+                              "assets/images/experience.png",
+                              "experienceYears".tr() +
+                                  ' ${specialists?.yearsExperience ?? specialistModel?.yearsExperience ?? sessionDoctor?.yearsExperience ?? 0} ' +
+                                  "years".tr()),
+                          SizedBox(height: 4.h),
+                          buildInfoRow(
+                              "assets/images/translation.png",
+                              "language".tr() +
+                                  "arabic".tr() +
+                                  "، " +
+                                  "english".tr()),
                         ],
                       ),
                     ),
@@ -122,7 +148,8 @@ class DoctorCard extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: _getImageWidget(), // استدعاء الدالة التي تعالج الصورة
+                        child:
+                            _getImageWidget(), // استدعاء الدالة التي تعالج الصورة
                       ),
                     ),
                   ],
@@ -133,13 +160,16 @@ class DoctorCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  buildDetailColumn("assets/images/time.png", 'availability'.tr(),
-                      "dateExample".tr()),
-                  buildDetailColumn("assets/images/price.png", 'price'.tr(),
-                      '${specialistModel?.sessionPrice  ??specialistModel?.sessionPrice?? sessionDoctor?.sessionPrice??'notAvailable'.tr()} ' + "currency".tr()
-                          + ' / ' +
-                          '${specialistModel?.sessionDuration ?? specialistModel?.sessionDuration??sessionDoctor?.sessionDuration??'notAvailable'.tr()} ' + "timeSession".tr()
-                  ),
+                  buildDetailColumn("assets/images/time.png",
+                      'availability'.tr(), "dateExample".tr()),
+                  buildDetailColumn(
+                      "assets/images/price.png",
+                      'price'.tr(),
+                      '${specialistModel?.sessionPrice ?? specialistModel?.sessionPrice ?? sessionDoctor?.sessionPrice ?? 'notAvailable'.tr()} ' +
+                          "currency".tr() +
+                          ' / ' +
+                          '${specialistModel?.sessionDuration ?? specialistModel?.sessionDuration ?? sessionDoctor?.sessionDuration ?? 'notAvailable'.tr()} ' +
+                          "timeSession".tr()),
                 ],
               ),
             ],
@@ -161,7 +191,7 @@ class DoctorCard extends StatelessWidget {
           height: 19.h,
           color: Colors.white,
         ),
-         SizedBox(width: 8.w),
+        SizedBox(width: 8.w),
         Container(
           width: 184.w,
           child: Row(
@@ -172,8 +202,10 @@ class DoctorCard extends StatelessWidget {
                 child: Text(
                   overflow: TextOverflow.ellipsis,
                   text,
-                  style: TextStyle(fontSize: 14.sp, color: Colors.white,),
-
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ],
@@ -195,7 +227,6 @@ class DoctorCard extends StatelessWidget {
               Image.asset(icon, width: 19.w, height: 19.h),
               const SizedBox(width: 8),
               Text(
-
                 title,
                 style: TextStyle(color: Color(0xff19649E), fontSize: 14.sp),
               ),
@@ -218,8 +249,11 @@ class DoctorCard extends StatelessWidget {
       ),
     );
   }
+
   Widget _getImageWidget() {
-    String? imageUrl = sessionDoctor?.imageUrl??specialistModel?.imageUrl??specialists?.imageUrl;
+    String? imageUrl = sessionDoctor?.imageUrl ??
+        specialistModel?.imageUrl ??
+        specialists?.imageUrl;
 
     if (imageUrl != null && imageUrl.isNotEmpty) {
       return Image.network(
@@ -247,5 +281,3 @@ class DoctorCard extends StatelessWidget {
     return Image.asset('assets/images/doctor.png', fit: BoxFit.cover);
   }
 }
-
-

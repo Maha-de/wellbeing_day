@@ -1,12 +1,26 @@
-import 'package:doctor/screens/payment_screen.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import 'package:doctor/models/Doctor_id_model.dart';
+import 'package:doctor/models/catgoryInfo.dart';
+import 'package:doctor/models/sessionType.dart';
+import 'package:doctor/screens/payment_screen.dart';
+
 class AppointmentScreen extends StatefulWidget {
   final List<String> availableSlots;
-  const AppointmentScreen({super.key, required this.availableSlots});
+  CategoryInfo? categoryInfo;
+  Specialist specialistInfo;
+  SessionType sessionType;
+  AppointmentScreen({
+    Key? key,
+    required this.availableSlots,
+    required this.categoryInfo,
+    required this.specialistInfo,
+    required this.sessionType,
+  }) : super(key: key);
 
   @override
   State<AppointmentScreen> createState() => _AppointmentScreenState();
@@ -54,6 +68,9 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("--------------AppointmentScreen----------------------");
+    print(widget.categoryInfo?.pubCategory);
+    print(widget.categoryInfo?.subCategory);
     final slotsForSelectedDay = availableSlotsDateTime
         .where((dateTime) => isSameDay(dateTime, _selectedDay))
         .toList();
@@ -167,6 +184,13 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => PaymentScreen(
+                                sessionType : widget.sessionType,
+                                    sessionDuration:
+                                        widget.specialistInfo.sessionDuration!,
+                                    sessionPrice:
+                                        widget.specialistInfo.sessionPrice!,
+                                    specId: widget.specialistInfo.id!,
+                                    categoryInfo: widget.categoryInfo!,
                                     confirmedUserDateTimel:
                                         _selectedTimeSlot!.toUtc(),
                                   )));

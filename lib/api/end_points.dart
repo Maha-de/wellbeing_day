@@ -6,6 +6,7 @@ class EndPoint {
   static String signUpSpecialist = "/specialist/register";
   static String getSpecialist = "/specialist/getByCategory";
   static String getAllSpecialist = "/specialist/getSpecialists";
+  static String createSession = "/sessions/create";
 
   static String getSpecialistSessions(String id) {
     return "/sessions/specialist/$id";
