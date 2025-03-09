@@ -299,7 +299,7 @@ class _SpecialistSecondHomeScreenState
                                                 session: state
                                                     .session
                                                     .freeConsultations?[index]
-                                                    .beneficiary,
+                                                    .beneficiary?[0], fOrI: "f",
                                               );
                                             },
                                             separatorBuilder: (context, index) {

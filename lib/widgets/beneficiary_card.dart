@@ -20,6 +20,8 @@ class BeneficiaryCard extends StatelessWidget {
   final Beneficiary? session;
   EdSession? scheduledSessions;
   EdSession? completedSessions;
+  InstantSession? instantSessions;
+  FreeConsultation? freeConsultations;
   BeneficiaryCard(
       {super.key,
       required this.session,
@@ -65,24 +67,7 @@ class BeneficiaryCard extends StatelessWidget {
                         '${scheduledSessions?.sessionDate == null ? '${completedSessions?.sessionDate?.day}/${completedSessions?.sessionDate?.month}/${completedSessions?.sessionDate?.year}' : '${scheduledSessions?.sessionDate?.day}/${scheduledSessions?.sessionDate?.month}/${scheduledSessions?.sessionDate?.year}'}',
                         () {
 
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MultiBlocProvider(
-                            providers: [
-                              BlocProvider<DoctorProfileCubit>(
-                                  create: (_) => DoctorProfileCubit()),
-                              BlocProvider<DoctorSessionTypesCubit>(
-                                  create: (_) => DoctorSessionTypesCubit()),
-                              BlocProvider<UpdateUserCubit>(
-                                  create: (_) => UpdateUserCubit()),
-                              BlocProvider<CreateSessionCubit>(
-                                  create: (_) => CreateSessionCubit()),
-                            ],
-                            child: const SpecialistFreeConsultationScreen(),
-                          ),
-                        ),
-                      );
+                 
 
                     }),
                     _buildInfoBox('userDetails'.tr(), () {
