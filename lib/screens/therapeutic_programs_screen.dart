@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../cubit/doctor_by_category_cubit/doctor_by_category_cubit.dart';
 import '../cubit/doctor_by_category_cubit/doctor_by_category_state.dart';
@@ -572,14 +571,10 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
                 ),
               );
             }
-            return Container(); // Default return in case no state matches
-          },
-        ),
-      ),
-    );
+    return Container(); // Default return in case no state matches
+    },
+    )));
   }
-
-  // Helper method to build disorder buttons
   Widget _buildDisorderButton(String title) {
     return Container(
       width: 105.w,
@@ -610,3 +605,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
     );
   }
 }
+
+  // Helper method to build disorder buttons
+
+
