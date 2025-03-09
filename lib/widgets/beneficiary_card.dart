@@ -67,7 +67,7 @@ class BeneficiaryCard extends StatelessWidget {
                         '${scheduledSessions?.sessionDate == null ? '${completedSessions?.sessionDate?.day}/${completedSessions?.sessionDate?.month}/${completedSessions?.sessionDate?.year}' : '${scheduledSessions?.sessionDate?.day}/${scheduledSessions?.sessionDate?.month}/${scheduledSessions?.sessionDate?.year}'}',
                         () {
 
-                 
+
 
                     }),
                     _buildInfoBox('userDetails'.tr(), () {
