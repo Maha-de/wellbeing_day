@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:doctor/cubit/get_specialist/get_sepcialist_cubit.dart';
 import 'package:doctor/cubit/get_sub_sub_catrgory_cubit/get_sub_sub_category_cubit.dart';
+import 'package:doctor/models/catgoryInfo.dart';
+import 'package:doctor/models/sessionType.dart';
 import 'package:doctor/screens/anxiety_screen.dart';
 import 'package:doctor/screens/personality_disorder_screen.dart';
 import 'package:doctor/screens/sign_up_as_client.dart';
@@ -32,7 +36,9 @@ import 'homescreen.dart';
 class SubCategoryScreen extends StatefulWidget {
   final String category;
   final String subCategory;
-  const SubCategoryScreen({super.key, required this.category, required this.subCategory});
+
+  const SubCategoryScreen(
+      {super.key, required this.category, required this.subCategory});
 
   @override
   State<SubCategoryScreen> createState() => _SubCategoryScreenState();
@@ -48,20 +54,26 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
     doctorByCategoryCubit = BlocProvider.of<DoctorByCategoryCubit>(context);
-    subCategoriesCubit= BlocProvider.of<SubCategoriesCubit>(context);
+    subCategoriesCubit = BlocProvider.of<SubCategoriesCubit>(context);
     _loadUserProfile();
   }
-  int currentIndex=1;
+
+  int currentIndex = 1;
   Future<void> _loadUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
     userProfileCubit.getUserProfile(context, id);
-    subCategoriesCubit.fetchSubCategories(context,widget.category);
-    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.category,widget.subCategory);
+    subCategoriesCubit.fetchSubCategories(context, widget.category);
+    doctorByCategoryCubit.fetchSpecialistsbycategory(
+        widget.category, widget.subCategory);
   }
 
   @override
   Widget build(BuildContext context) {
+    print(
+        "-----------**********************************----------------------");
+
+    print(widget.category + widget.subCategory);
     double screenWidth = MediaQuery.of(context).size.width.w;
     double screenHeight = MediaQuery.of(context).size.height.h;
     bool isEnglish = Localizations.localeOf(context).languageCode == 'en';
@@ -76,20 +88,23 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
             );
           } else if (state is UserProfileFailure) {
             return Scaffold(
-              bottomNavigationBar:BottomNavigationBar(
-                backgroundColor: const Color(0xff19649E), // Ensures the background is consistent
-                selectedItemColor: Colors.white, // Sets the color of the selected icons
-                unselectedItemColor: Colors.black, // Sets the color of unselected icons
+              bottomNavigationBar: BottomNavigationBar(
+                backgroundColor: const Color(
+                    0xff19649E), // Ensures the background is consistent
+                selectedItemColor:
+                    Colors.white, // Sets the color of the selected icons
+                unselectedItemColor:
+                    Colors.black, // Sets the color of unselected icons
                 showSelectedLabels: false, // Hides selected labels
                 showUnselectedLabels: false, // Hides unselected labels
                 currentIndex: currentIndex, // Default selected index
-                type: BottomNavigationBarType.fixed, // Prevents animation on shifting types
+                type: BottomNavigationBarType
+                    .fixed, // Prevents animation on shifting types
                 items: [
                   BottomNavigationBarItem(
                     icon: SizedBox(
                       height: 27.h, // Adjust icon size
-                      child:
-                      Image.asset(
+                      child: Image.asset(
                         "assets/images/meteor-icons_home.png",
                         // color: currentIndex == 0 ? Colors.white : Colors.black,
                         fit: BoxFit.fill,
@@ -100,7 +115,6 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                       child: Image.asset(
                         "assets/images/meteor-icons_home.png",
                         color: currentIndex == 0 ? Colors.white : Colors.black,
-
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -162,7 +176,6 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                 onTap: (index) {
                   switch (index) {
                     case 3:
-
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
@@ -174,7 +187,9 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                                 Navigator.pop(context); // إغلاق الـ Alert
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          LoginPage()), // استبدليها بصفحة تسجيل الدخول
                                 );
                               },
                               child: Text("login".tr()),
@@ -184,14 +199,17 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                                 Navigator.pop(context); // إغلاق الـ Alert
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          SignUpAsClient()), // استبدليها بصفحة التسجيل
                                 );
                               },
                               child: Text("createAccount".tr()),
                             ),
                             TextButton(
                               onPressed: () {
-                                Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
+                                Navigator.pop(
+                                    context); // إغلاق الـ Alert بدون أي انتقال
                               },
                               child: Text("cancel".tr()),
                             ),
@@ -200,7 +218,6 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                       );
                       break;
                     case 1:
-
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -212,14 +229,18 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                       );
                       break;
                     case 2:
-
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ApplicationInfo()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ApplicationInfo()));
 
                       break;
 
                     case 0:
-
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstHomePage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const FirstHomePage()));
 
                       break;
                   }
@@ -261,93 +282,147 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                         child: SizedBox(
                           width: 338.w,
                           height: 252.h,
-                          child: BlocBuilder<SubCategoriesCubit, SubCategoriesState>(
+                          child: BlocBuilder<SubCategoriesCubit,
+                              SubCategoriesState>(
                             builder: (context, state) {
                               if (state is SubCategoriesLoading) {
                                 return CircularProgressIndicator(); // Show loading indicator
                               } else if (state is SubCategoriesFailure) {
-                                return Text(state.errMessage); // Display error message
+                                return Text(
+                                    state.errMessage); // Display error message
                               } else if (state is SubCategoriesSuccess) {
-                                List<String>subs=state.subCategories?.firstWhere((sub) => sub.name==widget.subCategory ).subcategory??[];
+                                List<String> subs = state.subCategories
+                                        ?.firstWhere((sub) =>
+                                            sub.name == widget.subCategory)
+                                        .subcategory ??
+                                    [];
                                 return GridView.builder(
-                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 3, // 3 items per row
-                                    crossAxisSpacing: 8, // spacing between columns
+                                    crossAxisSpacing:
+                                        8, // spacing between columns
                                     mainAxisSpacing: 8, // spacing between rows
-                                    childAspectRatio: 1.5, // aspect ratio of the grid items
+                                    childAspectRatio:
+                                        1.5, // aspect ratio of the grid items
                                   ),
-                                  itemCount: subs.length, // total number of items
+                                  itemCount:
+                                      subs.length, // total number of items
                                   itemBuilder: (context, index) {
-                                    return  GestureDetector(
-                                      onTap: (){
-                                        if(subs[index]=="Depression"||subs[index]=="الاكتئاب"){
+                                    return GestureDetector(
+                                      onTap: () {
+                                        if (subs[index] == "Depression" ||
+                                            subs[index] == "الاكتئاب") {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) => MultiBlocProvider(
+                                              builder: (context) =>
+                                                  MultiBlocProvider(
                                                 providers: [
-                                                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                                  BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                                  BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                                  BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
-                                                  BlocProvider<SubSubCategoriesCubit>(create: (_) => SubSubCategoriesCubit()),
-
+                                                  BlocProvider<
+                                                          UserProfileCubit>(
+                                                      create: (_) =>
+                                                          UserProfileCubit()),
+                                                  BlocProvider<
+                                                          AddImageToProfileCubit>(
+                                                      create: (_) =>
+                                                          AddImageToProfileCubit()),
+                                                  BlocProvider<UpdateUserCubit>(
+                                                      create: (_) =>
+                                                          UpdateUserCubit()),
+                                                  BlocProvider<
+                                                          DoctorByCategoryCubit>(
+                                                      create: (_) =>
+                                                          DoctorByCategoryCubit()),
+                                                  BlocProvider<
+                                                          SubSubCategoriesCubit>(
+                                                      create: (_) =>
+                                                          SubSubCategoriesCubit()),
                                                 ],
                                                 child: DepressionScreen(),
                                               ),
-
                                             ),
-
                                           );
-                                        }else if(subs[index]=="Anxiety"||subs[index]=="القلق")
-                                        {
+                                        } else if (subs[index] == "Anxiety" ||
+                                            subs[index] == "القلق") {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) => MultiBlocProvider(
+                                              builder: (context) =>
+                                                  MultiBlocProvider(
                                                 providers: [
-                                                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                                  BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                                  BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                                  BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
-                                                  BlocProvider<SubSubCategoriesCubit>(create: (_) => SubSubCategoriesCubit()),
-
+                                                  BlocProvider<
+                                                          UserProfileCubit>(
+                                                      create: (_) =>
+                                                          UserProfileCubit()),
+                                                  BlocProvider<
+                                                          AddImageToProfileCubit>(
+                                                      create: (_) =>
+                                                          AddImageToProfileCubit()),
+                                                  BlocProvider<UpdateUserCubit>(
+                                                      create: (_) =>
+                                                          UpdateUserCubit()),
+                                                  BlocProvider<
+                                                          DoctorByCategoryCubit>(
+                                                      create: (_) =>
+                                                          DoctorByCategoryCubit()),
+                                                  BlocProvider<
+                                                          SubSubCategoriesCubit>(
+                                                      create: (_) =>
+                                                          SubSubCategoriesCubit()),
                                                 ],
-                                                child:AnxietyScreen(),
+                                                child: AnxietyScreen(),
                                               ),
-
                                             ),
-
                                           );
-                                        }else{
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => MultiBlocProvider(
-                                              providers: [
-                                                BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                                BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                                BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                                BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
-                                                BlocProvider<SubSubCategoriesCubit>(create: (_) => SubSubCategoriesCubit()),
-
-                                              ],
-                                              child: SubSubCategoryScreen(Category: 'mentalHealth', subCategory: subs[index]??"",),
+                                        } else {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  MultiBlocProvider(
+                                                providers: [
+                                                  BlocProvider<
+                                                          UserProfileCubit>(
+                                                      create: (_) =>
+                                                          UserProfileCubit()),
+                                                  BlocProvider<
+                                                          AddImageToProfileCubit>(
+                                                      create: (_) =>
+                                                          AddImageToProfileCubit()),
+                                                  BlocProvider<UpdateUserCubit>(
+                                                      create: (_) =>
+                                                          UpdateUserCubit()),
+                                                  BlocProvider<
+                                                          DoctorByCategoryCubit>(
+                                                      create: (_) =>
+                                                          DoctorByCategoryCubit()),
+                                                  BlocProvider<
+                                                          SubSubCategoriesCubit>(
+                                                      create: (_) =>
+                                                          SubSubCategoriesCubit()),
+                                                ],
+                                                child: SubSubCategoryScreen(
+                                                  Category: 'mentalHealth',
+                                                  subCategory:
+                                                      subs[index] ?? "",
+                                                ),
+                                              ),
                                             ),
-
-                                          ),
-
-                                        );}
+                                          );
+                                        }
                                       },
                                       child: Container(
                                         width: 100.w,
                                         height: 68.h,
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(20),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
                                           color: const Color(0xff69B7F3),
                                           boxShadow: [
                                             BoxShadow(
-                                              color: Colors.black.withOpacity(0.2),
+                                              color:
+                                                  Colors.black.withOpacity(0.2),
                                               spreadRadius: 2,
                                               blurRadius: 4,
                                               offset: const Offset(0, 2),
@@ -358,7 +433,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                                           child: Text(
                                             subs[index],
                                             textAlign: TextAlign.center,
-                                            style:  TextStyle(
+                                            style: TextStyle(
                                               fontSize: 16.sp,
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold,
@@ -370,7 +445,8 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                                   },
                                 );
                               } else {
-                                return Center(child: Text('noSpecialistsFound'.tr()));
+                                return Center(
+                                    child: Text('noSpecialistsFound'.tr()));
                               }
                             },
                           ),
@@ -457,7 +533,8 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                       //     },child: _buildDisorderButton("personalityDisorder".tr())),
                       //   ],
                       // ),
-                      ,SizedBox(
+                      ,
+                      SizedBox(
                         height: 30.h,
                       ),
                       Center(
@@ -487,24 +564,32 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                           if (state is DoctorByCategoryLoading) {
                             return CircularProgressIndicator(); // Show loading indicator
                           } else if (state is DoctorByCategoryFailure) {
-                            return Text(state.errMessage); // Display error message
+                            return Text(
+                                state.errMessage); // Display error message
                           } else if (state is DoctorByCategorySuccess) {
                             return Container(
-                              height: screenHeight*0.63.h,
+                              height: screenHeight * 0.63.h,
                               child: ListView.builder(
                                 itemCount: state.specialists.length,
                                 itemBuilder: (context, index) {
-                                  return DoctorCard(specialists: state.specialists[index], doctorID: state.specialists[index].id??"",);
+                                  return DoctorCard(
+                                    sessionType:
+                                        RegularSession(), /////////////////////
+                                    categoryInfo: CategoryInfo(
+                                        pubCategory: widget.category,
+                                        subCategory: widget.subCategory),
+                                    specialists: state.specialists[index],
+                                    doctorID: state.specialists[index].id ?? "",
+                                  );
                                 },
                               ),
                             );
                           } else {
-                            return Center(child: Text('noSpecialistsFound'.tr()));
+                            return Center(
+                                child: Text('noSpecialistsFound'.tr()));
                           }
                         },
                       )
-
-
                     ],
                   ),
                 ),
@@ -551,53 +636,79 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                         child: SizedBox(
                           width: 338.w,
                           height: 252.h,
-                          child: BlocBuilder<SubCategoriesCubit, SubCategoriesState>(
+                          child: BlocBuilder<SubCategoriesCubit,
+                              SubCategoriesState>(
                             builder: (context, state) {
                               if (state is SubCategoriesLoading) {
                                 return CircularProgressIndicator(); // Show loading indicator
                               } else if (state is SubCategoriesFailure) {
-                                return Text(state.errMessage); // Display error message
+                                return Text(
+                                    state.errMessage); // Display error message
                               } else if (state is SubCategoriesSuccess) {
-                                List<String>subs=state.subCategories?.firstWhere((sub) => sub.name==widget.subCategory ).subcategory??[];
+                                List<String> subs = state.subCategories
+                                        ?.firstWhere((sub) =>
+                                            sub.name == widget.subCategory)
+                                        .subcategory ??
+                                    [];
                                 return GridView.builder(
-                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 3, // 3 items per row
-                                    crossAxisSpacing: 8, // spacing between columns
+                                    crossAxisSpacing:
+                                        8, // spacing between columns
                                     mainAxisSpacing: 8, // spacing between rows
-                                    childAspectRatio: 1.4, // aspect ratio of the grid items
+                                    childAspectRatio:
+                                        1.4, // aspect ratio of the grid items
                                   ),
-                                  itemCount: subs.length, // total number of items
+                                  itemCount:
+                                      subs.length, // total number of items
                                   itemBuilder: (context, index) {
-                                    return  GestureDetector(
-                                      onTap: (){
+                                    return GestureDetector(
+                                      onTap: () {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => MultiBlocProvider(
+                                            builder: (context) =>
+                                                MultiBlocProvider(
                                               providers: [
-                                                BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                                                BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                                                BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                                BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
-                                                BlocProvider<SubSubCategoriesCubit>(create: (_) => SubSubCategoriesCubit()),
-
+                                                BlocProvider<UserProfileCubit>(
+                                                    create: (_) =>
+                                                        UserProfileCubit()),
+                                                BlocProvider<
+                                                        AddImageToProfileCubit>(
+                                                    create: (_) =>
+                                                        AddImageToProfileCubit()),
+                                                BlocProvider<UpdateUserCubit>(
+                                                    create: (_) =>
+                                                        UpdateUserCubit()),
+                                                BlocProvider<
+                                                        DoctorByCategoryCubit>(
+                                                    create: (_) =>
+                                                        DoctorByCategoryCubit()),
+                                                BlocProvider<
+                                                        SubSubCategoriesCubit>(
+                                                    create: (_) =>
+                                                        SubSubCategoriesCubit()),
                                               ],
-                                              child: SubSubCategoryScreen(Category: 'mentalHealth', subCategory:subs[index]??"",),
+                                              child: SubSubCategoryScreen(
+                                                Category: 'mentalHealth',
+                                                subCategory: subs[index] ?? "",
+                                              ),
                                             ),
-
                                           ),
-
                                         );
                                       },
                                       child: Container(
                                         width: 100.w,
                                         height: 68.h,
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(20),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
                                           color: const Color(0xff69B7F3),
                                           boxShadow: [
                                             BoxShadow(
-                                              color: Colors.black.withOpacity(0.2),
+                                              color:
+                                                  Colors.black.withOpacity(0.2),
                                               spreadRadius: 2,
                                               blurRadius: 4,
                                               offset: const Offset(0, 2),
@@ -608,7 +719,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                                           child: Text(
                                             subs[index],
                                             textAlign: TextAlign.center,
-                                            style:  TextStyle(
+                                            style: TextStyle(
                                               fontSize: 16.sp,
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold,
@@ -620,7 +731,8 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                                   },
                                 );
                               } else {
-                                return Center(child: Text('noSpecialistsFound'.tr()));
+                                return Center(
+                                    child: Text('noSpecialistsFound'.tr()));
                               }
                             },
                           ),
@@ -656,19 +768,28 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                           if (state is DoctorByCategoryLoading) {
                             return CircularProgressIndicator(); // Show loading indicator
                           } else if (state is DoctorByCategoryFailure) {
-                            return Text(state.errMessage); // Display error message
+                            return Text(
+                                state.errMessage); // Display error message
                           } else if (state is DoctorByCategorySuccess) {
                             return Container(
-                              height: screenHeight*0.63.h,
+                              height: screenHeight * 0.63.h,
                               child: ListView.builder(
                                 itemCount: state.specialists.length,
                                 itemBuilder: (context, index) {
-                                  return DoctorCard(specialists: state.specialists[index], doctorID: state.specialists[index].id??"",);
+                                  return DoctorCard(
+                                    sessionType: RegularSession(),
+                                    categoryInfo: CategoryInfo(
+                                        pubCategory: widget.category,
+                                        subCategory: widget.subCategory),
+                                    specialists: state.specialists[index],
+                                    doctorID: state.specialists[index].id ?? "",
+                                  );
                                 },
                               ),
                             );
                           } else {
-                            return Center(child: Text('noSpecialistsFound'.tr()));
+                            return Center(
+                                child: Text('noSpecialistsFound'.tr()));
                           }
                         },
                       )

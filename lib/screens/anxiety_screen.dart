@@ -1,3 +1,4 @@
+import 'package:doctor/models/sessionType.dart';
 import 'package:doctor/screens/sign_up_as_client.dart';
 import 'package:doctor/screens/specialists_screen.dart';
 import 'package:doctor/widgets/custom_bottom_nav_bar.dart';
@@ -130,26 +131,27 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                         SizedBox(height: screenHeight.h * 0.01.h),
                         BlocBuilder<ProgramCubit, ProgramState>(
                           builder: (context, state) {
-                             if (state is ProgramLoading) {
+                            if (state is ProgramLoading) {
                               return Center(child: CircularProgressIndicator());
                             } else if (state is ProgramLoaded) {
-                               ProgramsModel program = state.programDetails;
+                              ProgramsModel program = state.programDetails;
 
-                               return Container(
-                                   padding: const EdgeInsets.symmetric(vertical: 10),
-                                   decoration: BoxDecoration(
-                                     color: Colors.white,
-                                     borderRadius: BorderRadius.circular(10),
-                                     boxShadow: [
-                                       BoxShadow(
-                                         color: Colors.grey.withOpacity(0.3),
-                                         spreadRadius: 1,
-                                         blurRadius: 5,
-                                         offset: Offset(0, 3),
-                                       ),
-                                     ],
-                                   ),
-                                   child: Text(program.program.importance));
+                              return Container(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.3),
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
+                                        offset: Offset(0, 3),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Text(program.program.importance));
 
                               //   ListView.builder(
                               //   itemCount: state.programs.length,
@@ -163,7 +165,8 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                               //   },
                               // );
                             } else if (state is ProgramError) {
-                              return Center(child: Text('Error: ${state.error}'));
+                              return Center(
+                                  child: Text('Error: ${state.error}'));
                             } else {
                               return Container(); // Handle other states if needed.
                             }
@@ -402,7 +405,9 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                                     BlocProvider<UpdateUserCubit>(
                                         create: (_) => UpdateUserCubit()),
                                   ],
-                                  child: const SpecialistsScreen(),
+                                  child: SpecialistsScreen(
+                                    sessionType: RegularSession(),
+                                  ),
                                 ),
                               ),
                             );
@@ -667,7 +672,8 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                               ProgramsModel program = state.programDetails;
 
                               return Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10),
@@ -694,7 +700,8 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                               //   },
                               // );
                             } else if (state is ProgramError) {
-                              return Center(child: Text('Error: ${state.error}'));
+                              return Center(
+                                  child: Text('Error: ${state.error}'));
                             } else {
                               return Container(); // Handle other states if needed.
                             }
@@ -961,7 +968,9 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                                     BlocProvider<UpdateUserCubit>(
                                         create: (_) => UpdateUserCubit()),
                                   ],
-                                  child: const SpecialistsScreen(),
+                                  child: SpecialistsScreen(
+                                    sessionType: RegularSession(),
+                                  ),
                                 ),
                               ),
                             );

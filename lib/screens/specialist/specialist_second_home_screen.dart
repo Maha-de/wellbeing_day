@@ -35,16 +35,16 @@ import '../home_third_screen.dart';
 import '../homescreen.dart';
 import '../instant_session_screen.dart';
 
-
 class SpecialistSecondHomeScreen extends StatefulWidget {
   const SpecialistSecondHomeScreen({super.key});
 
   @override
-  State<SpecialistSecondHomeScreen> createState() => _SpecialistSecondHomeScreenState();
+  State<SpecialistSecondHomeScreen> createState() =>
+      _SpecialistSecondHomeScreenState();
 }
 
-class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen> {
-
+class _SpecialistSecondHomeScreenState
+    extends State<SpecialistSecondHomeScreen> {
   int selectedIndex = 0;
 
   final List<String> images = [
@@ -63,7 +63,7 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
     super.initState();
     userProfileCubit = BlocProvider.of<DoctorProfileCubit>(context);
     sessionTypesCubit = BlocProvider.of<DoctorSessionTypesCubit>(context);
-    getAllAdsCubit= BlocProvider.of<GetAllAdsCubit>(context);
+    getAllAdsCubit = BlocProvider.of<GetAllAdsCubit>(context);
     _loadUserProfile();
     _startAutoPageSwitch();
   }
@@ -88,8 +88,6 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
       }
     });
   }
-
-
 
   @override
   void dispose() {
@@ -116,7 +114,9 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                   body: Center(child: CircularProgressIndicator()),
                 );
               } else if (state is DoctorProfileFailure) {
-                return Scaffold(body: Center(child: Text("Error loading profile: ${state.error}")));
+                return Scaffold(
+                    body: Center(
+                        child: Text("Error loading profile: ${state.error}")));
               } else if (state is DoctorProfileSuccess) {
                 Specialist? userProfile = state.doctorProfile.specialist;
                 return Scaffold(
@@ -125,7 +125,9 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                     screenWidth: screenWidth,
                     screenHeight: screenHeight,
                   ),
-                  bottomNavigationBar:const SpecialistCustomBottomNavBar(currentIndex: 0,),
+                  bottomNavigationBar: const SpecialistCustomBottomNavBar(
+                    currentIndex: 0,
+                  ),
                   body: Column(
                     children: [
                       SizedBox(height: 5.h),
@@ -139,7 +141,8 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                             if (state is GetAllAdsLoading) {
                               return CircularProgressIndicator(); // Show loading indicator
                             } else if (state is GetAllAdsFailure) {
-                              return Text(state.errMessage); // Display error message
+                              return Text(
+                                  state.errMessage); // Display error message
                             } else if (state is GetAllAdsSuccess) {
                               return PageView.builder(
                                 controller: _pageController,
@@ -147,18 +150,20 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                                 itemBuilder: (context, index) {
                                   return Container(
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20), // تعديل الحواف
+                                      borderRadius: BorderRadius.circular(
+                                          20), // تعديل الحواف
                                       image: DecorationImage(
-                                        image: NetworkImage(state.adv[index].photo ?? ""),
+                                        image: NetworkImage(
+                                            state.adv[index].photo ?? ""),
                                         fit: BoxFit.fill,
                                       ),
                                     ),
                                   );
                                 },
                               );
-
                             } else {
-                              return Center(child: Text('noSpecialistsFound'.tr()));
+                              return Center(
+                                  child: Text('noSpecialistsFound'.tr()));
                             }
                           },
                         ),
@@ -179,10 +184,15 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                                 MaterialPageRoute(
                                   builder: (context) => MultiBlocProvider(
                                     providers: [
-                                      BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
-                                      BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),
-                                      BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                      BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
+                                      BlocProvider<DoctorProfileCubit>(
+                                          create: (_) => DoctorProfileCubit()),
+                                      BlocProvider<DoctorSessionTypesCubit>(
+                                          create: (_) =>
+                                              DoctorSessionTypesCubit()),
+                                      BlocProvider<UpdateUserCubit>(
+                                          create: (_) => UpdateUserCubit()),
+                                      BlocProvider<GetAllAdsCubit>(
+                                          create: (_) => GetAllAdsCubit()),
                                     ],
                                     child: const SpecialistHomeScreen(),
                                   ),
@@ -194,12 +204,14 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                               height: 40.h,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: isFirstButtonActive ? const Color(0xff1F78BC) : Colors.grey,
+                                color: isFirstButtonActive
+                                    ? const Color(0xff1F78BC)
+                                    : Colors.grey,
                               ),
                               child: Center(
                                 child: Text(
                                   "instantSessions".tr(),
-                                  style:  TextStyle(
+                                  style: TextStyle(
                                     fontSize: 18.sp,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -218,10 +230,15 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                                 MaterialPageRoute(
                                   builder: (context) => MultiBlocProvider(
                                     providers: [
-                                      BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
-                                      BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),
-                                      BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                                      BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
+                                      BlocProvider<DoctorProfileCubit>(
+                                          create: (_) => DoctorProfileCubit()),
+                                      BlocProvider<DoctorSessionTypesCubit>(
+                                          create: (_) =>
+                                              DoctorSessionTypesCubit()),
+                                      BlocProvider<UpdateUserCubit>(
+                                          create: (_) => UpdateUserCubit()),
+                                      BlocProvider<GetAllAdsCubit>(
+                                          create: (_) => GetAllAdsCubit()),
                                     ],
                                     child: const SpecialistSecondHomeScreen(),
                                   ),
@@ -233,12 +250,14 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                               height: 40.h,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: isFirstButtonActive ? Colors.grey : const Color(0xff1F78BC),
+                                color: isFirstButtonActive
+                                    ? Colors.grey
+                                    : const Color(0xff1F78BC),
                               ),
                               child: Center(
                                 child: Text(
                                   "freeConsultant".tr(),
-                                  style:  TextStyle(
+                                  style: TextStyle(
                                     fontSize: 18.sp,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -249,8 +268,9 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                           ),
                         ],
                       ),
-                      SizedBox(height:50.h),
-                      BlocBuilder<DoctorSessionTypesCubit, DoctorSessionTypesState>(
+                      SizedBox(height: 50.h),
+                      BlocBuilder<DoctorSessionTypesCubit,
+                          DoctorSessionTypesState>(
                         builder: (context, state) {
                           if (state is DoctorSessionTypesLoading) {
                             return CircularProgressIndicator(); // Show loading indicator
@@ -260,26 +280,43 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                             return Center(
                               child: Container(
                                 height: 250.h,
-                                width:344.w,
-                                child: state.session.freeConsultations?.length == 0?
-                                Center(
-                                  child: Image(image:AssetImage("assets/images/image.png"),fit: BoxFit.fill,),
-                                ):
-                                ListView.separated(
-                                    itemBuilder: (context,index)
-                                    {
-                                      return BeneficiaryCardHome(session: state.session.freeConsultations?[index].beneficiary,);
-                                    }, separatorBuilder: (context,index){
-                                  return SizedBox(height: 50.h,);
-                                }, itemCount: state.session.freeConsultations?.length??0),
+                                width: 344.w,
+                                child:
+                                    state.session.freeConsultations?.length == 0
+                                        ? Center(
+                                            child: Image(
+                                              image: AssetImage(
+                                                  "assets/images/image.png"),
+                                              fit: BoxFit.fill,
+                                            ),
+                                          )
+                                        : ListView.separated(
+                                            itemBuilder: (context, index) {
+                                              return BeneficiaryCardHome(
+                                                session: state
+                                                    .session
+                                                    .freeConsultations?[index]
+                                                    .beneficiary,
+                                              );
+                                            },
+                                            separatorBuilder: (context, index) {
+                                              return SizedBox(
+                                                height: 50.h,
+                                              );
+                                            },
+                                            itemCount: state
+                                                    .session
+                                                    .freeConsultations
+                                                    ?.length ??
+                                                0),
                               ),
                             );
                           } else {
-                            return Center(child: Text('noSpecialistsFound'.tr()));
+                            return Center(
+                                child: Text('noSpecialistsFound'.tr()));
                           }
                         },
                       )
-
                     ],
                   ),
                 );
@@ -290,4 +327,3 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
     );
   }
 }
-
