@@ -183,6 +183,52 @@ class _SessionsScreenState extends State<SessionsScreen> {
                             return Text(state.error); // Display error message
                           } else if (state is DoctorSessionTypesSuccess) {
                             return Container(
+                              height: 400.h,
+                              width: screenWidth,
+                              child:
+                              state.session.completedSessions?.length == 0
+                                  ? Center(
+                                child: Image(
+                                  image: AssetImage(
+                                      "assets/images/image.png"),
+                                  fit: BoxFit.fill,
+                                ),
+                              )
+                                  : ListView.separated(
+                                  padding: EdgeInsets.only(top: 45),
+                                  itemBuilder: (context, index) {
+                                    return BeneficiaryCard(
+                                      session: state
+                                          .session
+                                          .completedSessions?[index]
+                                          .beneficiary?[0],
+                                      completedSessions: state.session
+                                          .completedSessions?[index],
+                                    );
+                                  },
+                                  separatorBuilder: (context, index) {
+                                    return SizedBox(
+                                      height: 50.h,
+                                    );
+                                  },
+                                  itemCount: state.session
+                                      .completedSessions?.length ??
+                                      0),
+                            );
+                          } else {
+                            return Center(
+                                child: Text('noSpecialistsFound'.tr()));
+                          }
+                        },
+                      ),
+                      BlocBuilder<DoctorSessionTypesCubit, DoctorSessionTypesState>(
+                        builder: (context, state) {
+                          if (state is DoctorSessionTypesLoading) {
+                            return CircularProgressIndicator(); // Show loading indicator
+                          } else if (state is DoctorSessionTypesFailure) {
+                            return Text(state.error); // Display error message
+                          } else if (state is DoctorSessionTypesSuccess) {
+                            return Container(
                               height: 400,
                               width: screenWidth,
                               child:
@@ -221,52 +267,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
                           }
                         },
                       ),
-                      BlocBuilder<DoctorSessionTypesCubit, DoctorSessionTypesState>(
-                        builder: (context, state) {
-                          if (state is DoctorSessionTypesLoading) {
-                            return CircularProgressIndicator(); // Show loading indicator
-                          } else if (state is DoctorSessionTypesFailure) {
-                            return Text(state.error); // Display error message
-                          } else if (state is DoctorSessionTypesSuccess) {
-                            return Container(
-                              height: 400.h,
-                              width: screenWidth,
-                              child:
-                                  state.session.completedSessions?.length == 0
-                                      ? Center(
-                                          child: Image(
-                                            image: AssetImage(
-                                                "assets/images/image.png"),
-                                            fit: BoxFit.fill,
-                                          ),
-                                        )
-                                      : ListView.separated(
-                                          padding: EdgeInsets.only(top: 45),
-                                          itemBuilder: (context, index) {
-                                            return BeneficiaryCard(
-                                              session: state
-                                                  .session
-                                                  .completedSessions?[index]
-                                                  .beneficiary?[0],
-                                              completedSessions: state.session
-                                                  .completedSessions?[index],
-                                            );
-                                          },
-                                          separatorBuilder: (context, index) {
-                                            return SizedBox(
-                                              height: 50.h,
-                                            );
-                                          },
-                                          itemCount: state.session
-                                                  .scheduledSessions?.length ??
-                                              0),
-                            );
-                          } else {
-                            return Center(
-                                child: Text('noSpecialistsFound'.tr()));
-                          }
-                        },
-                      )
+
                     ][_currentPage],
                   ],
                 ),

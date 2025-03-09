@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../cubit/beneficiary_notifications/beneficiary_notification_cubit.dart';
 import '../cubit/beneficiary_notifications/beneficiary_notification_state.dart';
@@ -98,7 +99,7 @@ class _NotificationsscreenState extends State<Notificationsscreen> {
               final todaySessions = state.notifications;
 
               if (todaySessions.isEmpty) {
-                return const Center(
+                return  Center(
                   child: Text(
                     "لا توجد جلسات اليوم",
                     style: TextStyle(
@@ -133,49 +134,63 @@ class _NotificationsscreenState extends State<Notificationsscreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
-                                  Text("اشعار جديد"),
+                                  Text(EasyLocalization.of(context)?.currentLocale?.languageCode == 'ar' ?"اشعار جديد":"New Notification"),
+                                  Text(
+                                    session.createdAt != null
+                                        ?"sessionDateIn".tr()+DateFormat('yyyy-MM-dd').format(DateTime.parse(session.createdAt!))
+                                        : "لا يوجد تاريخ",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF1F78BC),
+                                    ),
+                                  ),
 
                                        Text(
-                                          session.message??"",
+                                          "\""+"${session.message??" "}"+"\"",
+                                          textAlign: TextAlign.start,
                                           style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,
-                                            color:  Color(0xFF1F78BC)
+                                            color:  Colors.black
                                                 ,
                                           ),
                                         ),
 
-
-                      Text(
-                      session.createdAt != null
-                          ? DateFormat('yyyy-MM-dd').format(DateTime.parse(session.createdAt!))
-                          : "لا يوجد تاريخ",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF1F78BC),
-                      ),
-                    ),
-
-
-                    Row(
+                                       Row(
+                                         crossAxisAlignment: CrossAxisAlignment.center,
                                    children: [
                                      Text(
                                        "YourMeetingLink".tr()+": ",
                                        style: const TextStyle(
                                          fontSize: 18,
                                          fontWeight: FontWeight.bold,
+                                         color: Colors.black
                                        ),
                                      ),
                                      GestureDetector(
-                                       child: Text(
-                                         "${session.meetingLink}",
-                                         style: const TextStyle(
-                                           fontSize: 18,
-                                           fontWeight: FontWeight.bold,
+                                       onTap: () async {
+                                         final Uri url = Uri.parse(session.meetingLink ?? "");
+                                         if (await canLaunchUrl(url)) {
+                                           await launchUrl(url, mode: LaunchMode.externalApplication);
+                                         } else {
+                                           print("Could not launch $url");
+                                         }
+                                       },
+                                       child: RichText(
+                                         text: TextSpan(
+                                           text: session.meetingLink ?? "No link available",
+                                           style: TextStyle(
+                                             fontSize: 18,
+                                             fontWeight: FontWeight.bold,
+                                             color: Color(0xff19649E), // عشان يبان إنه لينك
+                                             decoration: TextDecoration.underline,
+                                             decorationColor: Color(0xff19649E), // تأكيد إن الخط واضح
+                                           ),
                                          ),
                                        ),
                                      ),
+
                                    ],
                                  )
                                 ],
