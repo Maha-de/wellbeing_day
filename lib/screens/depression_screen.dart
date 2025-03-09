@@ -1,3 +1,4 @@
+import 'package:doctor/models/sessionType.dart';
 import 'package:doctor/screens/sign_up_as_client.dart';
 import 'package:doctor/screens/specialists_screen.dart';
 import 'package:doctor/widgets/custom_bottom_nav_bar.dart';
@@ -373,7 +374,9 @@ class _DepressionScreenState extends State<DepressionScreen> {
                                     BlocProvider<UpdateUserCubit>(
                                         create: (_) => UpdateUserCubit()),
                                   ],
-                                  child: const SpecialistsScreen(),
+                                  child: SpecialistsScreen(
+                                    sessionType: RegularSession(),
+                                  ),
                                 ),
                               ),
                             );
@@ -893,7 +896,9 @@ class _DepressionScreenState extends State<DepressionScreen> {
                                     BlocProvider<UpdateUserCubit>(
                                         create: (_) => UpdateUserCubit()),
                                   ],
-                                  child: const SpecialistsScreen(),
+                                  child: SpecialistsScreen(
+                                    sessionType: RegularSession(),
+                                  ),
                                 ),
                               ),
                             );

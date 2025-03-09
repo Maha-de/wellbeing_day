@@ -1,4 +1,8 @@
+
+import 'package:doctor/models/sessionType.dart';
+
 import 'package:doctor/cubit/get_treatment_program_cubit/get_treatment_program_cubit.dart';
+
 import 'package:doctor/screens/sign_up_as_client.dart';
 import 'package:doctor/screens/specialists_screen.dart';
 import 'package:doctor/widgets/custom_bottom_nav_bar.dart';
@@ -139,13 +143,73 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                                   color: Colors.blue[900],
                                 ),
                               ),
-                              SizedBox(height: screenHeight.h * 0.01.h),
-                              BlocBuilder<GetTreatmentProgramCubit, GetTreatmentProgramState>(
-                                builder: (context, state) {
-                                  if (state is GetTreatmentProgramLoading) {
-                                    return Center(child: CircularProgressIndicator());
-                                  } else if (state is GetTreatmentProgramSuccess) {
-                                    Program? program = state.programs;
+
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: screenHeight.h * 0.02.h),
+                        // "أهمية البرامج" Section
+                        Text(
+                          "importanceOfPrograms".tr(),
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue[900],
+                          ),
+                        ),
+                        SizedBox(height: screenHeight.h * 0.01.h),
+                        BlocBuilder<ProgramCubit, ProgramState>(
+                          builder: (context, state) {
+                            if (state is ProgramLoading) {
+                              return Center(child: CircularProgressIndicator());
+                            } else if (state is ProgramLoaded) {
+                              ProgramsModel program = state.programDetails;
+
+                              return Container(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.3),
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
+                                        offset: Offset(0, 3),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Text(program.program.importance));
+
+                              //   ListView.builder(
+                              //   itemCount: state.programs.length,
+                              //   itemBuilder: (context, index) {
+                              //     final program = state.programs[index];
+                              //     return ListTile(
+                              //       title: Text(program.name),
+                              //       subtitle: Text(program.importance),
+                              //       // ... other program details
+                              //     );
+                              //   },
+                              // );
+                            } else if (state is ProgramError) {
+                              return Center(
+                                  child: Text('Error: ${state.error}'));
+                            } else {
+                              return Container(); // Handle other states if needed.
+                            }
+                          },
+                        ),
+// =======
+//                               SizedBox(height: screenHeight.h * 0.01.h),
+//                               BlocBuilder<GetTreatmentProgramCubit, GetTreatmentProgramState>(
+//                                 builder: (context, state) {
+//                                   if (state is GetTreatmentProgramLoading) {
+//                                     return Center(child: CircularProgressIndicator());
+//                                   } else if (state is GetTreatmentProgramSuccess) {
+//                                     Program? program = state.programs;
+// >>>>>>> main
 
                                     return Container(
                                         padding: const EdgeInsets.symmetric(vertical: 10),
@@ -293,6 +357,11 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                                       offset: Offset(0, 3),
                                     ),
                                   ],
+
+                                  child: SpecialistsScreen(
+                                    sessionType: RegularSession(),
+                                  ),
+
                                 ),
                                 child: Center(
                                   child: Column(
@@ -690,223 +759,250 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                                   color: Colors.blue[900],
                                 ),
                               ),
-                              SizedBox(height: screenHeight.h * 0.01.h),
-                              BlocBuilder<GetTreatmentProgramCubit, GetTreatmentProgramState>(
-                                builder: (context, state) {
-                                  if (state is GetTreatmentProgramLoading) {
-                                    return Center(child: CircularProgressIndicator());
-                                  } else if (state is GetTreatmentProgramSuccess) {
-                                    Program? program = state.programs;
 
-                                    return Container(
-                                        padding: const EdgeInsets.symmetric(vertical: 10),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(10),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.grey.withOpacity(0.3),
-                                              spreadRadius: 1,
-                                              blurRadius: 5,
-                                              offset: Offset(0, 3),
-                                            ),
-                                          ],
-                                        ),
-                                        child: Text(program?.importance??""));
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: screenHeight.h * 0.02.h),
+                        // "أهمية البرامج" Section
+                        Text(
+                          "importanceOfPrograms".tr(),
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue[900],
+                          ),
+                        ),
+                        SizedBox(height: screenHeight.h * 0.01.h),
+                        BlocBuilder<ProgramCubit, ProgramState>(
+                          builder: (context, state) {
+                            if (state is ProgramLoading) {
+                              return Center(child: CircularProgressIndicator());
+                            } else if (state is ProgramLoaded) {
+                              ProgramsModel program = state.programDetails;
 
-                                    //   ListView.builder(
-                                    //   itemCount: state.programs.length,
-                                    //   itemBuilder: (context, index) {
-                                    //     final program = state.programs[index];
-                                    //     return ListTile(
-                                    //       title: Text(program.name),
-                                    //       subtitle: Text(program.importance),
-                                    //       // ... other program details
-                                    //     );
-                                    //   },
-                                    // );
-                                  } else if (state is GetTreatmentProgramFailure) {
-                                    return Center(child: Text('Error: ${state.errMessage}'));
-                                  } else {
-                                    return Container(); // Handle other states if needed.
-                                  }
-                                },
-                              ),
-                              // Container(
-                              //   padding: const EdgeInsets.symmetric(vertical: 10),
-                              //   decoration: BoxDecoration(
-                              //     color: Colors.white,
-                              //     borderRadius: BorderRadius.circular(10),
-                              //     boxShadow: [
-                              //       BoxShadow(
-                              //         color: Colors.grey.withOpacity(0.3),
-                              //         spreadRadius: 1,
-                              //         blurRadius: 5,
-                              //         offset: Offset(0, 3),
-                              //       ),
-                              //     ],
-                              //   ),
-                              //   child: TextFormField(
-                              //     initialValue: "depPlanDesc".tr(),
-                              //     maxLines:
-                              //         null, // Allows the field to expand for multiline input
-                              //     style: TextStyle(fontSize: 14.sp, height: 1.6.h),
-                              //
-                              //     decoration: const InputDecoration(
-                              //       alignLabelWithHint: true,
-                              //       border: InputBorder.none, // Removes the underline
-                              //       contentPadding: EdgeInsets
-                              //           .zero, // Matches the original padding
-                              //     ),
-                              //   ),
-                              // ),
+                              return Container(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
+// =======
+//                               SizedBox(height: screenHeight.h * 0.01.h),
+//                               BlocBuilder<GetTreatmentProgramCubit, GetTreatmentProgramState>(
+//                                 builder: (context, state) {
+//                                   if (state is GetTreatmentProgramLoading) {
+//                                     return Center(child: CircularProgressIndicator());
+//                                   } else if (state is GetTreatmentProgramSuccess) {
+//                                     Program? program = state.programs;
 
-                              SizedBox(height: screenHeight.h * 0.03.h),
-                              // "الخطة / العلاج" Section
-                              Text(
-                                "planSection".tr(),
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue[900],
-                                ),
-                              ),
-                              SizedBox(height: screenHeight.h * 0.01.h),
-                              Container(
-                                padding: const EdgeInsets.symmetric(vertical: 35),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.3),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: Offset(0, 3),
-                                    ),
-                                  ],
-                                ),
-                                child:  Center(
-                                  child: Text(state.programs?.treatmentPlan??""),
-                                )
-                                ,
-                              ),
-                              SizedBox(height: screenHeight.h * 0.03.h),
-                              // "الأهداف" Section
-                              Text(
-                                "goals".tr(),
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue[900],
-                                ),
-                              ),
-                              SizedBox(height: screenHeight.h * 0.01.h),
-                              Container(
-                                padding: const EdgeInsets.symmetric(vertical: 35),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.3),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: Offset(0, 3),
-                                    ),
-                                  ],
-                                ),
-                                child: Center(
-                                  child: Text(state.programs?.goals??""),
-                                ),
-                              ),
-                              SizedBox(height: screenHeight.h * 0.045.h),
-                              // "الأهداف" Section
-                              Text(
-                                "stages".tr(),
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue[900],
-                                ),
-                              ),
-                              SizedBox(height: screenHeight.h * 0.01.h),
-                              Container(
-                                padding: const EdgeInsets.symmetric(vertical: 20),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.3),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: Offset(0, 3),
-                                    ),
-                                  ],
-                                ),
-                                child: Center(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: state.programs?.stages
-                                        ?.map<Widget>((session) => Text(session))
-                                        .toList() ??
-                                        [Text("لا توجد بيانات")],
-                                  ),
-                                )
+//                                     return Container(
+//                                         padding: const EdgeInsets.symmetric(vertical: 10),
+//                                         decoration: BoxDecoration(
+//                                           color: Colors.white,
+//                                           borderRadius: BorderRadius.circular(10),
+//                                           boxShadow: [
+//                                             BoxShadow(
+//                                               color: Colors.grey.withOpacity(0.3),
+//                                               spreadRadius: 1,
+//                                               blurRadius: 5,
+//                                               offset: Offset(0, 3),
+//                                             ),
+//                                           ],
+//                                         ),
+//                                         child: Text(program?.importance??""));
 
-                                ,
-                              ),
-                              SizedBox(height: screenHeight.h * 0.03.h),
-                              // "الأهداف" Section
-                              Text(
-                                "techniques".tr(),
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue[900],
-                                ),
-                              ),
-                              SizedBox(height: screenHeight.h * 0.01.h),
-                              Container(
-                                padding: const EdgeInsets.symmetric(vertical: 30),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.3),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: Offset(0, 3),
-                                    ),
-                                  ],
-                                ),
-                                child: Center(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: state.programs?.techniques
-                                        ?.map<Widget>((session) => Text(session))
-                                        .toList() ??
-                                        [Text("لا توجد بيانات")],
-                                  ),
-                                )
+//                                     //   ListView.builder(
+//                                     //   itemCount: state.programs.length,
+//                                     //   itemBuilder: (context, index) {
+//                                     //     final program = state.programs[index];
+//                                     //     return ListTile(
+//                                     //       title: Text(program.name),
+//                                     //       subtitle: Text(program.importance),
+//                                     //       // ... other program details
+//                                     //     );
+//                                     //   },
+//                                     // );
+//                                   } else if (state is GetTreatmentProgramFailure) {
+//                                     return Center(child: Text('Error: ${state.errMessage}'));
+//                                   } else {
+//                                     return Container(); // Handle other states if needed.
+//                                   }
+//                                 },
+//                               ),
+//                               // Container(
+//                               //   padding: const EdgeInsets.symmetric(vertical: 10),
+//                               //   decoration: BoxDecoration(
+//                               //     color: Colors.white,
+//                               //     borderRadius: BorderRadius.circular(10),
+//                               //     boxShadow: [
+//                               //       BoxShadow(
+//                               //         color: Colors.grey.withOpacity(0.3),
+//                               //         spreadRadius: 1,
+//                               //         blurRadius: 5,
+//                               //         offset: Offset(0, 3),
+//                               //       ),
+//                               //     ],
+//                               //   ),
+//                               //   child: TextFormField(
+//                               //     initialValue: "depPlanDesc".tr(),
+//                               //     maxLines:
+//                               //         null, // Allows the field to expand for multiline input
+//                               //     style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+//                               //
+//                               //     decoration: const InputDecoration(
+//                               //       alignLabelWithHint: true,
+//                               //       border: InputBorder.none, // Removes the underline
+//                               //       contentPadding: EdgeInsets
+//                               //           .zero, // Matches the original padding
+//                               //     ),
+//                               //   ),
+//                               // ),
 
-                                ,
-                              ),
-                              SizedBox(height: screenHeight.h * 0.03.h),
-                              // "الأهداف" Section
-                              Text(
-                                "sessions".tr(),
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue[900],
-                                ),
-                              ),
-                              SizedBox(height: screenHeight.h * 0.01.h),
-                              Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 30),
+//                               SizedBox(height: screenHeight.h * 0.03.h),
+//                               // "الخطة / العلاج" Section
+//                               Text(
+//                                 "planSection".tr(),
+//                                 style: TextStyle(
+//                                   fontSize: 16.sp,
+//                                   fontWeight: FontWeight.bold,
+//                                   color: Colors.blue[900],
+//                                 ),
+//                               ),
+//                               SizedBox(height: screenHeight.h * 0.01.h),
+//                               Container(
+//                                 padding: const EdgeInsets.symmetric(vertical: 35),
+//                                 decoration: BoxDecoration(
+//                                   color: Colors.white,
+//                                   borderRadius: BorderRadius.circular(10),
+//                                   boxShadow: [
+//                                     BoxShadow(
+//                                       color: Colors.grey.withOpacity(0.3),
+//                                       spreadRadius: 1,
+//                                       blurRadius: 5,
+//                                       offset: Offset(0, 3),
+//                                     ),
+//                                   ],
+//                                 ),
+//                                 child:  Center(
+//                                   child: Text(state.programs?.treatmentPlan??""),
+//                                 )
+//                                 ,
+//                               ),
+//                               SizedBox(height: screenHeight.h * 0.03.h),
+//                               // "الأهداف" Section
+//                               Text(
+//                                 "goals".tr(),
+//                                 style: TextStyle(
+//                                   fontSize: 16.sp,
+//                                   fontWeight: FontWeight.bold,
+//                                   color: Colors.blue[900],
+//                                 ),
+//                               ),
+//                               SizedBox(height: screenHeight.h * 0.01.h),
+//                               Container(
+//                                 padding: const EdgeInsets.symmetric(vertical: 35),
+//                                 decoration: BoxDecoration(
+//                                   color: Colors.white,
+//                                   borderRadius: BorderRadius.circular(10),
+//                                   boxShadow: [
+//                                     BoxShadow(
+//                                       color: Colors.grey.withOpacity(0.3),
+//                                       spreadRadius: 1,
+//                                       blurRadius: 5,
+//                                       offset: Offset(0, 3),
+//                                     ),
+//                                   ],
+//                                 ),
+//                                 child: Center(
+//                                   child: Text(state.programs?.goals??""),
+//                                 ),
+//                               ),
+//                               SizedBox(height: screenHeight.h * 0.045.h),
+//                               // "الأهداف" Section
+//                               Text(
+//                                 "stages".tr(),
+//                                 style: TextStyle(
+//                                   fontSize: 16.sp,
+//                                   fontWeight: FontWeight.bold,
+//                                   color: Colors.blue[900],
+//                                 ),
+//                               ),
+//                               SizedBox(height: screenHeight.h * 0.01.h),
+//                               Container(
+//                                 padding: const EdgeInsets.symmetric(vertical: 20),
+//                                 decoration: BoxDecoration(
+//                                   color: Colors.white,
+//                                   borderRadius: BorderRadius.circular(10),
+//                                   boxShadow: [
+//                                     BoxShadow(
+//                                       color: Colors.grey.withOpacity(0.3),
+//                                       spreadRadius: 1,
+//                                       blurRadius: 5,
+//                                       offset: Offset(0, 3),
+//                                     ),
+//                                   ],
+//                                 ),
+//                                 child: Center(
+//                                   child: Column(
+//                                     mainAxisSize: MainAxisSize.min,
+//                                     children: state.programs?.stages
+//                                         ?.map<Widget>((session) => Text(session))
+//                                         .toList() ??
+//                                         [Text("لا توجد بيانات")],
+//                                   ),
+//                                 )
+
+//                                 ,
+//                               ),
+//                               SizedBox(height: screenHeight.h * 0.03.h),
+//                               // "الأهداف" Section
+//                               Text(
+//                                 "techniques".tr(),
+//                                 style: TextStyle(
+//                                   fontSize: 16.sp,
+//                                   fontWeight: FontWeight.bold,
+//                                   color: Colors.blue[900],
+//                                 ),
+//                               ),
+//                               SizedBox(height: screenHeight.h * 0.01.h),
+//                               Container(
+//                                 padding: const EdgeInsets.symmetric(vertical: 30),
+//                                 decoration: BoxDecoration(
+//                                   color: Colors.white,
+//                                   borderRadius: BorderRadius.circular(10),
+//                                   boxShadow: [
+//                                     BoxShadow(
+//                                       color: Colors.grey.withOpacity(0.3),
+//                                       spreadRadius: 1,
+//                                       blurRadius: 5,
+//                                       offset: Offset(0, 3),
+//                                     ),
+//                                   ],
+//                                 ),
+//                                 child: Center(
+//                                   child: Column(
+//                                     mainAxisSize: MainAxisSize.min,
+//                                     children: state.programs?.techniques
+//                                         ?.map<Widget>((session) => Text(session))
+//                                         .toList() ??
+//                                         [Text("لا توجد بيانات")],
+//                                   ),
+//                                 )
+
+//                                 ,
+//                               ),
+//                               SizedBox(height: screenHeight.h * 0.03.h),
+//                               // "الأهداف" Section
+//                               Text(
+//                                 "sessions".tr(),
+//                                 style: TextStyle(
+//                                   fontSize: 16.sp,
+//                                   fontWeight: FontWeight.bold,
+//                                   color: Colors.blue[900],
+//                                 ),
+//                               ),
+//                               SizedBox(height: screenHeight.h * 0.01.h),
+//                               Container(
+//                                   padding: const EdgeInsets.symmetric(vertical: 30),
+// >>>>>>> main
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10),
@@ -919,11 +1015,230 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                                       ),
                                     ],
                                   ),
-                                  child: Center(
-                                    child: Text("${state.programs?.sessions.length??"there are no details"}"),
-                                  )
+
+                                  child: Text(program.program.importance));
+
+                              //   ListView.builder(
+                              //   itemCount: state.programs.length,
+                              //   itemBuilder: (context, index) {
+                              //     final program = state.programs[index];
+                              //     return ListTile(
+                              //       title: Text(program.name),
+                              //       subtitle: Text(program.importance),
+                              //       // ... other program details
+                              //     );
+                              //   },
+                              // );
+                            } else if (state is ProgramError) {
+                              return Center(
+                                  child: Text('Error: ${state.error}'));
+                            } else {
+                              return Container(); // Handle other states if needed.
+                            }
+                          },
+                        ),
+                        // Container(
+                        //   padding: const EdgeInsets.symmetric(vertical: 10),
+                        //   decoration: BoxDecoration(
+                        //     color: Colors.white,
+                        //     borderRadius: BorderRadius.circular(10),
+                        //     boxShadow: [
+                        //       BoxShadow(
+                        //         color: Colors.grey.withOpacity(0.3),
+                        //         spreadRadius: 1,
+                        //         blurRadius: 5,
+                        //         offset: Offset(0, 3),
+                        //       ),
+                        //     ],
+                        //   ),
+                        //   child: TextFormField(
+                        //     initialValue: "depPlanDesc".tr(),
+                        //     maxLines:
+                        //         null, // Allows the field to expand for multiline input
+                        //     style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                        //
+                        //     decoration: const InputDecoration(
+                        //       alignLabelWithHint: true,
+                        //       border: InputBorder.none, // Removes the underline
+                        //       contentPadding: EdgeInsets
+                        //           .zero, // Matches the original padding
+                        //     ),
+                        //   ),
+                        // ),
+
+                        SizedBox(height: screenHeight.h * 0.03.h),
+                        // "الخطة / العلاج" Section
+                        Text(
+                          "planSection".tr(),
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue[900],
+                          ),
+                        ),
+                        SizedBox(height: screenHeight.h * 0.01.h),
+                        Container(
+                          padding: const EdgeInsets.symmetric(vertical: 35),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: TextFormField(
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            decoration: const InputDecoration(
+                              border: InputBorder.none, // Removes the underline
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: screenHeight.h * 0.03.h),
+                        // "الأهداف" Section
+                        Text(
+                          "goals".tr(),
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue[900],
+                          ),
+                        ),
+                        SizedBox(height: screenHeight.h * 0.01.h),
+                        Container(
+                          padding: const EdgeInsets.symmetric(vertical: 35),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: TextFormField(
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            decoration: const InputDecoration(
+                              border: InputBorder.none, // Removes the underline
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: screenHeight.h * 0.045.h),
+                        // "الأهداف" Section
+                        Text(
+                          "stages".tr(),
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue[900],
+                          ),
+                        ),
+                        SizedBox(height: screenHeight.h * 0.01.h),
+                        Container(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: TextFormField(
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            decoration: const InputDecoration(
+                              border: InputBorder.none, // Removes the underline
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: screenHeight.h * 0.03.h),
+                        // "الأهداف" Section
+                        Text(
+                          "techniques".tr(),
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue[900],
+                          ),
+                        ),
+                        SizedBox(height: screenHeight.h * 0.01.h),
+                        Container(
+                          padding: const EdgeInsets.symmetric(vertical: 30),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: TextFormField(
+                            maxLines:
+                                null, // Allows the field to expand for multiline input
+                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                            decoration: const InputDecoration(
+                              border: InputBorder.none, // Removes the underline
+                              contentPadding: EdgeInsets
+                                  .zero, // Matches the original padding
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: screenHeight.h * 0.03.h),
+                        // "الأهداف" Section
+                        Text(
+                          "sessions".tr(),
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue[900],
+                          ),
+                        ),
+                        SizedBox(height: screenHeight.h * 0.01.h),
+                        Container(
+                          padding: const EdgeInsets.symmetric(vertical: 30),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: Offset(0, 3),
+// =======
+//                                   child: Center(
+//                                     child: Text("${state.programs?.sessions.length??"there are no details"}"),
+//                                   )
 
 
+// >>>>>>> main
                               ),
                               SizedBox(height: screenHeight.h * 0.03.h),
                               // "الأهداف" Section
@@ -949,6 +1264,11 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                                       offset: Offset(0, 3),
                                     ),
                                   ],
+
+                                  child: SpecialistsScreen(
+                                    sessionType: RegularSession(),
+                                  ),
+
                                 ),
                                 child: Center(
                                   child: Column(

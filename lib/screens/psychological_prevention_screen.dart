@@ -1,3 +1,4 @@
+import 'package:doctor/models/catgoryInfo.dart';
 import 'package:doctor/screens/sign_up_as_client.dart';
 import 'package:doctor/widgets/custom_app_bar.dart';
 import 'package:doctor/widgets/custom_bottom_nav_bar.dart';
@@ -23,13 +24,16 @@ import 'homescreen.dart';
 class PsychologicalPreventionScreen extends StatefulWidget {
   final String category;
   final String subCategory;
-  const PsychologicalPreventionScreen({super.key, required this.category, required this.subCategory});
+  const PsychologicalPreventionScreen(
+      {super.key, required this.category, required this.subCategory});
 
   @override
-  State<PsychologicalPreventionScreen> createState() => _PsychologicalPreventionScreenState();
+  State<PsychologicalPreventionScreen> createState() =>
+      _PsychologicalPreventionScreenState();
 }
 
-class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionScreen> {
+class _PsychologicalPreventionScreenState
+    extends State<PsychologicalPreventionScreen> {
   late UserProfileCubit userProfileCubit;
 
   late DoctorByCategoryCubit doctorByCategoryCubit;
@@ -46,9 +50,11 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
     userProfileCubit.getUserProfile(context, id);
-    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.category, widget.subCategory);
+    doctorByCategoryCubit.fetchSpecialistsbycategory(
+        widget.category, widget.subCategory);
   }
-  int currentIndex=1;
+
+  int currentIndex = 1;
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width.w;
@@ -66,20 +72,23 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
             );
           } else if (state is UserProfileFailure) {
             return Scaffold(
-              bottomNavigationBar:BottomNavigationBar(
-                backgroundColor: const Color(0xff19649E), // Ensures the background is consistent
-                selectedItemColor: Colors.white, // Sets the color of the selected icons
-                unselectedItemColor: Colors.black, // Sets the color of unselected icons
+              bottomNavigationBar: BottomNavigationBar(
+                backgroundColor: const Color(
+                    0xff19649E), // Ensures the background is consistent
+                selectedItemColor:
+                    Colors.white, // Sets the color of the selected icons
+                unselectedItemColor:
+                    Colors.black, // Sets the color of unselected icons
                 showSelectedLabels: false, // Hides selected labels
                 showUnselectedLabels: false, // Hides unselected labels
                 currentIndex: currentIndex, // Default selected index
-                type: BottomNavigationBarType.fixed, // Prevents animation on shifting types
+                type: BottomNavigationBarType
+                    .fixed, // Prevents animation on shifting types
                 items: [
                   BottomNavigationBarItem(
                     icon: SizedBox(
                       height: 27.h, // Adjust icon size
-                      child:
-                      Image.asset(
+                      child: Image.asset(
                         "assets/images/meteor-icons_home.png",
                         // color: currentIndex == 0 ? Colors.white : Colors.black,
                         fit: BoxFit.fill,
@@ -90,7 +99,6 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                       child: Image.asset(
                         "assets/images/meteor-icons_home.png",
                         color: currentIndex == 0 ? Colors.white : Colors.black,
-
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -152,7 +160,6 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                 onTap: (index) {
                   switch (index) {
                     case 3:
-
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
@@ -164,7 +171,9 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                                 Navigator.pop(context); // إغلاق الـ Alert
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          LoginPage()), // استبدليها بصفحة تسجيل الدخول
                                 );
                               },
                               child: Text("login".tr()),
@@ -174,14 +183,17 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                                 Navigator.pop(context); // إغلاق الـ Alert
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          SignUpAsClient()), // استبدليها بصفحة التسجيل
                                 );
                               },
                               child: Text("createAccount".tr()),
                             ),
                             TextButton(
                               onPressed: () {
-                                Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
+                                Navigator.pop(
+                                    context); // إغلاق الـ Alert بدون أي انتقال
                               },
                               child: Text("cancel".tr()),
                             ),
@@ -190,7 +202,6 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                       );
                       break;
                     case 1:
-
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -202,14 +213,18 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                       );
                       break;
                     case 2:
-
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ApplicationInfo()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ApplicationInfo()));
 
                       break;
 
                     case 0:
-
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstHomePage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const FirstHomePage()));
 
                       break;
                   }
@@ -264,7 +279,6 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                       children: [
                         _buildDisorderButton("ego".tr()),
                         _buildDisorderButton("challenges".tr()),
-
                       ],
                     ),
 
@@ -298,14 +312,25 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                         if (state is DoctorByCategoryLoading) {
                           return CircularProgressIndicator(); // Show loading indicator
                         } else if (state is DoctorByCategoryFailure) {
-                          return Text(state.errMessage); // Display error message
+                          return Text(
+                              state.errMessage); // Display error message
                         } else if (state is DoctorByCategorySuccess) {
                           return Container(
-                            height: screenHeight*0.63.h,
+                            height: screenHeight * 0.63.h,
                             child: ListView.builder(
                               itemCount: state.specialists.length,
                               itemBuilder: (context, index) {
-                                return DoctorCard(specialists: state.specialists[index], doctorID: state.specialists[index].id??"",);
+                                print("************************");
+                                print(widget.category +
+                                    "    >> " +
+                                    widget.subCategory);
+                                return DoctorCard(
+                                  specialists: state.specialists[index],
+                                  doctorID: state.specialists[index].id ?? "",
+                                  categoryInfo: CategoryInfo(
+                                      pubCategory: widget.category,
+                                      subCategory: widget.subCategory),
+                                );
                               },
                             ),
                           );
@@ -371,7 +396,6 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                       children: [
                         _buildDisorderButton("ego".tr()),
                         _buildDisorderButton("challenges".tr()),
-
                       ],
                     ),
 
@@ -405,14 +429,25 @@ class _PsychologicalPreventionScreenState extends State<PsychologicalPreventionS
                         if (state is DoctorByCategoryLoading) {
                           return CircularProgressIndicator(); // Show loading indicator
                         } else if (state is DoctorByCategoryFailure) {
-                          return Text(state.errMessage); // Display error message
+                          return Text(
+                              state.errMessage); // Display error message
                         } else if (state is DoctorByCategorySuccess) {
                           return Container(
-                            height: screenHeight*0.63.h,
+                            height: screenHeight * 0.63.h,
                             child: ListView.builder(
                               itemCount: state.specialists.length,
                               itemBuilder: (context, index) {
-                                return DoctorCard(specialists: state.specialists[index], doctorID: state.specialists[index].id??"",);
+                                print("######################################");
+                                print(widget.category +
+                                    "    >> " +
+                                    widget.subCategory);
+                                return DoctorCard(
+                                  specialists: state.specialists[index],
+                                  doctorID: state.specialists[index].id ?? "",
+                                  categoryInfo: CategoryInfo(
+                                      pubCategory: widget.category,
+                                      subCategory: widget.subCategory),
+                                );
                               },
                             ),
                           );

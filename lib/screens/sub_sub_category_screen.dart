@@ -1,4 +1,5 @@
 import 'package:doctor/cubit/get_specialist/get_sepcialist_cubit.dart';
+import 'package:doctor/models/sessionType.dart';
 import 'package:doctor/screens/anxiety_screen.dart';
 import 'package:doctor/screens/personality_disorder_screen.dart';
 import 'package:doctor/screens/sign_up_as_client.dart';
@@ -32,7 +33,8 @@ import 'homescreen.dart';
 class SubSubCategoryScreen extends StatefulWidget {
   final String subCategory;
   final String Category;
-  const SubSubCategoryScreen({super.key,required this.Category,  required this.subCategory});
+  const SubSubCategoryScreen(
+      {super.key, required this.Category, required this.subCategory});
 
   @override
   State<SubSubCategoryScreen> createState() => _SubSubCategoryScreenState();
@@ -46,18 +48,19 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
   @override
   void initState() {
     super.initState();
-    print(widget.subCategory);
 
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
     doctorByCategoryCubit = BlocProvider.of<DoctorByCategoryCubit>(context);
-    subSubCategoriesCubit= BlocProvider.of<SubSubCategoriesCubit>(context);
+    subSubCategoriesCubit = BlocProvider.of<SubSubCategoriesCubit>(context);
     _loadUserProfile();
   }
-  int currentIndex=1;
+
+  int currentIndex = 1;
   Future<void> _loadUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
     userProfileCubit.getUserProfile(context, id);
+
     subSubCategoriesCubit.fetchSubCategories(context,widget.subCategory);
     Map<String, String> subCategoryMapping = {
       "Anxiety": "القلق",
@@ -98,10 +101,13 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
     doctorByCategoryCubit.fetchSpecialistsbycategory(widget.Category, translatedSubCategory);
 
     doctorByCategoryCubit.fetchSpecialistsbycategory(widget.Category,widget.subCategory);
+
   }
 
   @override
   Widget build(BuildContext context) {
+    print("*****SubSubCategoryScreen**************");
+    print(widget.Category);
     double screenWidth = MediaQuery.of(context).size.width.w;
     double screenHeight = MediaQuery.of(context).size.height.h;
     bool isEnglish = Localizations.localeOf(context).languageCode == 'en';
@@ -116,20 +122,23 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
             );
           } else if (state is UserProfileFailure) {
             return Scaffold(
-              bottomNavigationBar:BottomNavigationBar(
-                backgroundColor: const Color(0xff19649E), // Ensures the background is consistent
-                selectedItemColor: Colors.white, // Sets the color of the selected icons
-                unselectedItemColor: Colors.black, // Sets the color of unselected icons
+              bottomNavigationBar: BottomNavigationBar(
+                backgroundColor: const Color(
+                    0xff19649E), // Ensures the background is consistent
+                selectedItemColor:
+                    Colors.white, // Sets the color of the selected icons
+                unselectedItemColor:
+                    Colors.black, // Sets the color of unselected icons
                 showSelectedLabels: false, // Hides selected labels
                 showUnselectedLabels: false, // Hides unselected labels
                 currentIndex: currentIndex, // Default selected index
-                type: BottomNavigationBarType.fixed, // Prevents animation on shifting types
+                type: BottomNavigationBarType
+                    .fixed, // Prevents animation on shifting types
                 items: [
                   BottomNavigationBarItem(
                     icon: SizedBox(
                       height: 27.h, // Adjust icon size
-                      child:
-                      Image.asset(
+                      child: Image.asset(
                         "assets/images/meteor-icons_home.png",
                         // color: currentIndex == 0 ? Colors.white : Colors.black,
                         fit: BoxFit.fill,
@@ -140,7 +149,6 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
                       child: Image.asset(
                         "assets/images/meteor-icons_home.png",
                         color: currentIndex == 0 ? Colors.white : Colors.black,
-
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -202,7 +210,6 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
                 onTap: (index) {
                   switch (index) {
                     case 3:
-
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
@@ -214,7 +221,9 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
                                 Navigator.pop(context); // إغلاق الـ Alert
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          LoginPage()), // استبدليها بصفحة تسجيل الدخول
                                 );
                               },
                               child: Text("login".tr()),
@@ -224,14 +233,17 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
                                 Navigator.pop(context); // إغلاق الـ Alert
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          SignUpAsClient()), // استبدليها بصفحة التسجيل
                                 );
                               },
                               child: Text("createAccount".tr()),
                             ),
                             TextButton(
                               onPressed: () {
-                                Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
+                                Navigator.pop(
+                                    context); // إغلاق الـ Alert بدون أي انتقال
                               },
                               child: Text("cancel".tr()),
                             ),
@@ -240,7 +252,6 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
                       );
                       break;
                     case 1:
-
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -252,14 +263,18 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
                       );
                       break;
                     case 2:
-
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ApplicationInfo()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ApplicationInfo()));
 
                       break;
 
                     case 0:
-
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstHomePage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const FirstHomePage()));
 
                       break;
                   }
@@ -301,36 +316,41 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
                         child: SizedBox(
                           width: 338.w,
                           height: 252.h,
-                          child: BlocBuilder<SubSubCategoriesCubit, SubSubCategoriesState>(
+                          child: BlocBuilder<SubSubCategoriesCubit,
+                              SubSubCategoriesState>(
                             builder: (context, state) {
                               if (state is SubSubCategoriesLoading) {
                                 return CircularProgressIndicator(); // Show loading indicator
                               } else if (state is SubSubCategoriesFailure) {
                                 return Text(""); // Display error message
                               } else if (state is SubSubCategoriesSuccess) {
-                                List<String?>subs=state.subCategories;
+                                List<String?> subs = state.subCategories;
                                 return GridView.builder(
-                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 3, // 3 items per row
-                                    crossAxisSpacing: 8, // spacing between columns
+                                    crossAxisSpacing:
+                                        8, // spacing between columns
                                     mainAxisSpacing: 8, // spacing between rows
-                                    childAspectRatio: 1.5, // aspect ratio of the grid items
+                                    childAspectRatio:
+                                        1.5, // aspect ratio of the grid items
                                   ),
-                                  itemCount: subs.length, // total number of items
+                                  itemCount:
+                                      subs.length, // total number of items
                                   itemBuilder: (context, index) {
-                                    return  GestureDetector(
-                                      onTap: (){
-
-                                      },
+                                    return GestureDetector(
+                                      onTap: () {},
                                       child: Container(
                                         width: 100.w,
                                         height: 68.h,
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(20),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
                                           color: const Color(0xff69B7F3),
                                           boxShadow: [
                                             BoxShadow(
-                                              color: Colors.black.withOpacity(0.2),
+                                              color:
+                                                  Colors.black.withOpacity(0.2),
                                               spreadRadius: 2,
                                               blurRadius: 4,
                                               offset: const Offset(0, 2),
@@ -339,9 +359,9 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
                                         ),
                                         child: Center(
                                           child: Text(
-                                            subs[index]??"",
+                                            subs[index] ?? "",
                                             textAlign: TextAlign.center,
-                                            style:  TextStyle(
+                                            style: TextStyle(
                                               fontSize: 16.sp,
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold,
@@ -353,7 +373,8 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
                                   },
                                 );
                               } else {
-                                return Center(child: Text('noSpecialistsFound'.tr()));
+                                return Center(
+                                    child: Text('noSpecialistsFound'.tr()));
                               }
                             },
                           ),
@@ -440,7 +461,8 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
                       //     },child: _buildDisorderButton("personalityDisorder".tr())),
                       //   ],
                       // ),
-                      ,SizedBox(
+                      ,
+                      SizedBox(
                         height: 30.h,
                       ),
                       Center(
@@ -470,24 +492,32 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
                           if (state is DoctorByCategoryLoading) {
                             return CircularProgressIndicator(); // Show loading indicator
                           } else if (state is DoctorByCategoryFailure) {
-                            return Text(state.errMessage); // Display error message
+                            return Text(
+                                state.errMessage); // Display error message
                           } else if (state is DoctorByCategorySuccess) {
                             return Container(
-                              height: screenHeight*0.63.h,
+                              height: screenHeight * 0.63.h,
                               child: ListView.builder(
                                 itemCount: state.specialists.length,
                                 itemBuilder: (context, index) {
-                                  return DoctorCard(specialists: state.specialists[index], doctorID: state.specialists[index].id??"",);
+                                  print("*****************");
+                                  print(widget.subCategory);
+                                  print("********@@@@*********");
+
+                                  return DoctorCard(
+                                    sessionType: RegularSession(),
+                                    specialists: state.specialists[index],
+                                    doctorID: state.specialists[index].id ?? "",
+                                  );
                                 },
                               ),
                             );
                           } else {
-                            return Center(child: Text('noSpecialistsFound'.tr()));
+                            return Center(
+                                child: Text('noSpecialistsFound'.tr()));
                           }
                         },
                       )
-
-
                     ],
                   ),
                 ),
@@ -534,36 +564,41 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
                         child: SizedBox(
                           width: 338.w,
                           height: 252.h,
-                          child: BlocBuilder<SubSubCategoriesCubit, SubSubCategoriesState>(
+                          child: BlocBuilder<SubSubCategoriesCubit,
+                              SubSubCategoriesState>(
                             builder: (context, state) {
                               if (state is SubSubCategoriesLoading) {
                                 return CircularProgressIndicator(); // Show loading indicator
                               } else if (state is SubSubCategoriesFailure) {
                                 return Text(""); // Display error message
                               } else if (state is SubSubCategoriesSuccess) {
-                                List<String?>subs=state.subCategories;
+                                List<String?> subs = state.subCategories;
                                 return GridView.builder(
-                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 3, // 3 items per row
-                                    crossAxisSpacing: 8, // spacing between columns
+                                    crossAxisSpacing:
+                                        8, // spacing between columns
                                     mainAxisSpacing: 8, // spacing between rows
-                                    childAspectRatio: 1.5, // aspect ratio of the grid items
+                                    childAspectRatio:
+                                        1.5, // aspect ratio of the grid items
                                   ),
-                                  itemCount: subs.length, // total number of items
+                                  itemCount:
+                                      subs.length, // total number of items
                                   itemBuilder: (context, index) {
-                                    return  GestureDetector(
-                                      onTap: (){
-
-                                      },
+                                    return GestureDetector(
+                                      onTap: () {},
                                       child: Container(
                                         width: 100.w,
                                         height: 68.h,
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(20),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
                                           color: const Color(0xff69B7F3),
                                           boxShadow: [
                                             BoxShadow(
-                                              color: Colors.black.withOpacity(0.2),
+                                              color:
+                                                  Colors.black.withOpacity(0.2),
                                               spreadRadius: 2,
                                               blurRadius: 4,
                                               offset: const Offset(0, 2),
@@ -572,9 +607,9 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
                                         ),
                                         child: Center(
                                           child: Text(
-                                            subs[index]??"",
+                                            subs[index] ?? "",
                                             textAlign: TextAlign.center,
-                                            style:  TextStyle(
+                                            style: TextStyle(
                                               fontSize: 16.sp,
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold,
@@ -586,7 +621,8 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
                                   },
                                 );
                               } else {
-                                return Center(child: Text('noSpecialistsFound'.tr()));
+                                return Center(
+                                    child: Text('noSpecialistsFound'.tr()));
                               }
                             },
                           ),
@@ -622,19 +658,26 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
                           if (state is DoctorByCategoryLoading) {
                             return CircularProgressIndicator(); // Show loading indicator
                           } else if (state is DoctorByCategoryFailure) {
-                            return Text(state.errMessage); // Display error message
+                            return Text(
+                                state.errMessage); // Display error message
                           } else if (state is DoctorByCategorySuccess) {
                             return Container(
-                              height: screenHeight*0.63.h,
+                              height: screenHeight * 0.63.h,
                               child: ListView.builder(
                                 itemCount: state.specialists.length,
                                 itemBuilder: (context, index) {
-                                  return DoctorCard(specialists: state.specialists[index], doctorID: state.specialists[index].id??"",);
+                                  print(widget.Category);
+                                  return DoctorCard(
+                                    sessionType: RegularSession(),
+                                    specialists: state.specialists[index],
+                                    doctorID: state.specialists[index].id ?? "",
+                                  );
                                 },
                               ),
                             );
                           } else {
-                            return Center(child: Text('noSpecialistsFound'.tr()));
+                            return Center(
+                                child: Text('noSpecialistsFound'.tr()));
                           }
                         },
                       )

@@ -1,3 +1,5 @@
+import 'package:doctor/models/catgoryInfo.dart';
+import 'package:doctor/models/sessionType.dart';
 import 'package:doctor/screens/personality_disorder_screen.dart';
 import 'package:doctor/screens/sign_up_as_client.dart';
 import 'package:doctor/widgets/custom_app_bar.dart';
@@ -22,8 +24,10 @@ import 'first_home_page.dart';
 import 'homescreen.dart';
 
 class SpecialistsScreen extends StatefulWidget {
-  final String?description;
-  const SpecialistsScreen({super.key, this.description});
+  final String? description;
+  final SessionType sessionType;
+  const SpecialistsScreen(
+      {super.key, this.description, required this.sessionType});
 
   @override
   State<SpecialistsScreen> createState() => _SpecialistsScreenState();
@@ -40,7 +44,8 @@ class _SpecialistsScreenState extends State<SpecialistsScreen> {
     getSpecialistCubit = BlocProvider.of<GetSpecialistCubit>(context);
     _loadUserProfile();
   }
-  int currentIndex=1;
+
+  int currentIndex = 1;
   Future<void> _loadUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
@@ -63,20 +68,23 @@ class _SpecialistsScreenState extends State<SpecialistsScreen> {
             );
           } else if (state is UserProfileFailure) {
             return Scaffold(
-              bottomNavigationBar:BottomNavigationBar(
-                backgroundColor: const Color(0xff19649E), // Ensures the background is consistent
-                selectedItemColor: Colors.white, // Sets the color of the selected icons
-                unselectedItemColor: Colors.black, // Sets the color of unselected icons
+              bottomNavigationBar: BottomNavigationBar(
+                backgroundColor: const Color(
+                    0xff19649E), // Ensures the background is consistent
+                selectedItemColor:
+                    Colors.white, // Sets the color of the selected icons
+                unselectedItemColor:
+                    Colors.black, // Sets the color of unselected icons
                 showSelectedLabels: false, // Hides selected labels
                 showUnselectedLabels: false, // Hides unselected labels
                 currentIndex: currentIndex, // Default selected index
-                type: BottomNavigationBarType.fixed, // Prevents animation on shifting types
+                type: BottomNavigationBarType
+                    .fixed, // Prevents animation on shifting types
                 items: [
                   BottomNavigationBarItem(
                     icon: SizedBox(
                       height: 27.h, // Adjust icon size
-                      child:
-                      Image.asset(
+                      child: Image.asset(
                         "assets/images/meteor-icons_home.png",
                         // color: currentIndex == 0 ? Colors.white : Colors.black,
                         fit: BoxFit.fill,
@@ -87,7 +95,6 @@ class _SpecialistsScreenState extends State<SpecialistsScreen> {
                       child: Image.asset(
                         "assets/images/meteor-icons_home.png",
                         color: currentIndex == 0 ? Colors.white : Colors.black,
-
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -149,7 +156,6 @@ class _SpecialistsScreenState extends State<SpecialistsScreen> {
                 onTap: (index) {
                   switch (index) {
                     case 3:
-
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
@@ -161,7 +167,9 @@ class _SpecialistsScreenState extends State<SpecialistsScreen> {
                                 Navigator.pop(context); // إغلاق الـ Alert
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => LoginPage()), // استبدليها بصفحة تسجيل الدخول
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          LoginPage()), // استبدليها بصفحة تسجيل الدخول
                                 );
                               },
                               child: Text("login".tr()),
@@ -171,14 +179,17 @@ class _SpecialistsScreenState extends State<SpecialistsScreen> {
                                 Navigator.pop(context); // إغلاق الـ Alert
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => SignUpAsClient()), // استبدليها بصفحة التسجيل
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          SignUpAsClient()), // استبدليها بصفحة التسجيل
                                 );
                               },
                               child: Text("createAccount".tr()),
                             ),
                             TextButton(
                               onPressed: () {
-                                Navigator.pop(context); // إغلاق الـ Alert بدون أي انتقال
+                                Navigator.pop(
+                                    context); // إغلاق الـ Alert بدون أي انتقال
                               },
                               child: Text("cancel".tr()),
                             ),
@@ -187,7 +198,6 @@ class _SpecialistsScreenState extends State<SpecialistsScreen> {
                       );
                       break;
                     case 1:
-
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -199,21 +209,25 @@ class _SpecialistsScreenState extends State<SpecialistsScreen> {
                       );
                       break;
                     case 2:
-
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ApplicationInfo()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ApplicationInfo()));
 
                       break;
 
                     case 0:
-
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstHomePage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const FirstHomePage()));
 
                       break;
                   }
                 },
               ),
               appBar: AppBar(
-   toolbarHeight: screenHeight*0.05.h,
+                toolbarHeight: screenHeight * 0.05.h,
                 elevation: 0,
                 backgroundColor: Colors.transparent,
                 iconTheme: const IconThemeData(
@@ -225,7 +239,6 @@ class _SpecialistsScreenState extends State<SpecialistsScreen> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-
                       Center(
                         child: Container(
                           margin: EdgeInsets.only(bottom: 15),
@@ -253,19 +266,32 @@ class _SpecialistsScreenState extends State<SpecialistsScreen> {
                           if (state is SpecialistLoading) {
                             return CircularProgressIndicator(); // Show loading indicator
                           } else if (state is SpecialistFailure) {
-                            return Text(state.errMessage); // Display error message
+                            return Text(
+                                state.errMessage); // Display error message
                           } else if (state is SpecialistSuccess) {
                             return Container(
-                              height: screenHeight*0.75.h,
+                              height: screenHeight * 0.75.h,
                               child: ListView.builder(
                                 itemCount: state.specialists.length,
                                 itemBuilder: (context, index) {
-                                  return DoctorCard(specialistModel: state.specialists[index], doctorID:state.specialists[index].id??"",);
+                                  return DoctorCard(
+                                    categoryInfo:
+                                        widget.sessionType.runtimeType ==
+                                                GruopTherapSession
+                                            ? CategoryInfo(
+                                                pubCategory: "mentalHealth",
+                                                subCategory: "Group Therap")
+                                            : null,
+                                    sessionType: widget.sessionType,
+                                    specialistModel: state.specialists[index],
+                                    doctorID: state.specialists[index].id ?? "",
+                                  );
                                 },
                               ),
                             );
                           } else {
-                            return Center(child: Text('noSpecialistsFound'.tr()));
+                            return Center(
+                                child: Text('noSpecialistsFound'.tr()));
                           }
                         },
                       )
@@ -275,11 +301,9 @@ class _SpecialistsScreenState extends State<SpecialistsScreen> {
               ),
             );
           } else if (state is UserProfileSuccess) {
-
             return Scaffold(
               bottomNavigationBar: CustomBottomNavBar(currentIndex: 1),
               appBar: AppBar(
-
                 elevation: 0,
                 backgroundColor: Colors.transparent,
                 iconTheme: const IconThemeData(
@@ -291,7 +315,6 @@ class _SpecialistsScreenState extends State<SpecialistsScreen> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-
                       Center(
                         child: Container(
                           margin: EdgeInsets.only(bottom: 25),
@@ -320,7 +343,8 @@ class _SpecialistsScreenState extends State<SpecialistsScreen> {
                             return CircularProgressIndicator(); // Show loading indicator
                           } else if (state is SpecialistFailure) {
                             print(state.errMessage);
-                            return Text(state.errMessage); // Display error message
+                            return Text(
+                                state.errMessage); // Display error message
                           } else if (state is SpecialistSuccess) {
                             print(state.message);
                             return Container(
@@ -328,12 +352,17 @@ class _SpecialistsScreenState extends State<SpecialistsScreen> {
                               child: ListView.builder(
                                 itemCount: state.specialists.length,
                                 itemBuilder: (context, index) {
-                                  return DoctorCard(specialistModel: state.specialists[index], doctorID: state.specialists[index].id??"",);
+                                  return DoctorCard(
+                                    sessionType: widget.sessionType,
+                                    specialistModel: state.specialists[index],
+                                    doctorID: state.specialists[index].id ?? "",
+                                  );
                                 },
                               ),
                             );
                           } else {
-                            return Center(child: Text('noSpecialistsFound'.tr()));
+                            return Center(
+                                child: Text('noSpecialistsFound'.tr()));
                           }
                         },
                       )
