@@ -253,7 +253,7 @@ int listLength=0;
                         ),
                       ],
                     ),
-                      SizedBox(height:50.h),
+                      SizedBox(height:10.h),
                       BlocBuilder<DoctorSessionTypesCubit, DoctorSessionTypesState>(
                         builder: (context, state) {
                           if (state is DoctorSessionTypesLoading) {
@@ -263,17 +263,17 @@ int listLength=0;
                           } else if (state is DoctorSessionTypesSuccess) {
                             return Center(
                               child: Container(
-                                height: 250.h,
+                                height: 300.h,
                                 width: 344,
                                 child: state.session.instantSessions?.length == 0?
                                 Center(
                                   child: Image(image:AssetImage("assets/images/image.png"),fit: BoxFit.fill,),
                                 ):
                                 ListView.separated(
-
+                                    padding: EdgeInsets.only(top: 40),
                                     itemBuilder: (context,index)
                                     {
-                                      return BeneficiaryCardHome(session: state.session.instantSessions?[index].beneficiary,);
+                                      return BeneficiaryCardHome(session: state.session.instantSessions?[index].beneficiary?[0], fOrI: "i",);
                                     }, separatorBuilder: (context,index){
                                   return SizedBox(height: 50.h,);
                                 }, itemCount: state.session.instantSessions?.length??0),

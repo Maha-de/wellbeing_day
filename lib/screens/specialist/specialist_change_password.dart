@@ -347,7 +347,7 @@ class _SpecialistChangePasswordState extends State<SpecialistChangePassword> {
                                     if (formKey.currentState!.validate()) {
                                       BlocProvider.of<ResetPasswordCubit>(context)
                                           .resetPasswordByEmail(context, userProfileCubit.userData?.specialist?.email??"",
-                                          passwordController.text,"changePassword");
+                                          passwordController.text,"doctor");
                                       passwordController.clear();
                                       confirmPasswordController.clear();
                                       FocusScopeNode currentFocus = FocusScope.of(context);

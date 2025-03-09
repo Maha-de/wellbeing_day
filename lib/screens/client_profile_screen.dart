@@ -251,25 +251,23 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                                     ),
                                   );
                                 } else if (index == 1) {
-                                  Navigator.push(
+                                  Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          MultiBlocProvider(providers: [
-                                        BlocProvider<UserProfileCubit>(
-                                            create: (_) =>
-                                                UserProfileCubit()),
-                                        BlocProvider<DeleteAccountCubit>(
-                                            create: (_) =>
-                                                DeleteAccountCubit()),
-                                        BlocProvider<UpdateUserCubit>(
-                                            create: (_) => UpdateUserCubit()),
-                                        BlocProvider<AddImageToProfileCubit>(
-                                            create: (_) =>
-                                                AddImageToProfileCubit()),
-                                      ], child: SettingsScreen()),
+                                      builder: (context) => MultiBlocProvider(
+                                        providers: [
+                                          BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                          BlocProvider<DeleteAccountCubit>(create: (_) => DeleteAccountCubit()),
+                                          BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                          BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                        ],
+                                        child: SettingsScreen(),
+                                      ),
                                     ),
-                                  );
+                                  ).then((value) {
+                                    setState(() {}); // إعادة بناء الصفحة بعد الرجوع
+                                  });
+
                                 } else if (index == 2) {
 
                                   Navigator.push(

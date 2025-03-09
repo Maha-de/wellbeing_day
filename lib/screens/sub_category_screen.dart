@@ -2,8 +2,12 @@ import 'dart:developer';
 
 import 'package:doctor/cubit/get_specialist/get_sepcialist_cubit.dart';
 import 'package:doctor/cubit/get_sub_sub_catrgory_cubit/get_sub_sub_category_cubit.dart';
+
 import 'package:doctor/models/catgoryInfo.dart';
 import 'package:doctor/models/sessionType.dart';
+
+import 'package:doctor/cubit/get_treatment_program_cubit/get_treatment_program_cubit.dart';
+
 import 'package:doctor/screens/anxiety_screen.dart';
 import 'package:doctor/screens/personality_disorder_screen.dart';
 import 'package:doctor/screens/sign_up_as_client.dart';
@@ -63,9 +67,38 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
     userProfileCubit.getUserProfile(context, id);
-    subCategoriesCubit.fetchSubCategories(context, widget.category);
-    doctorByCategoryCubit.fetchSpecialistsbycategory(
-        widget.category, widget.subCategory);
+
+    subCategoriesCubit.fetchSubCategories(context,widget.category);
+    Map<String, String> subCategoryMapping = {
+      "Psychological Disorders": "اضطرابات نفسية",
+      "Personality Disorder": "اضطراب شخصي",
+      "Addiction": "الادمان",
+      "Trauma Disorder": "اضطراب الصدمة",
+      "Therapeutic Programs": "برامج علاجية",
+      "Group Therapy": "علاج جماعي",
+      "Childhood Disorders": "اضطرابات الأطفال",
+      "Problem Solving": "حل مشكلات",
+      "Guidance and Counseling": "ارشاد وتوجيه",
+      "Prevention and Psychological Follow-up": "وقاية ومتابعة نفسية",
+      "Rehabilitation and Support": "اعادة تأهيل ودعم",
+    };
+
+// التحقق مما إذا كان النص بالإنجليزية أم العربية
+    bool isEnglish(String text) {
+      final englishRegex = RegExp(r'^[A-Za-z\s]+$');
+      return englishRegex.hasMatch(text);
+    }
+
+// إذا كانت إنجليزية، يتم الترجمة، وإلا تبقى كما هي
+    String translatedSubCategory = isEnglish(widget.subCategory)
+        ? (subCategoryMapping[widget.subCategory] ?? widget.subCategory)
+        : widget.subCategory;
+
+// استدعاء الدالة مع الفئة المترجمة
+    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.category, translatedSubCategory);
+
+    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.category,widget.subCategory);
+
   }
 
   @override
@@ -309,16 +342,21 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                                   itemCount:
                                       subs.length, // total number of items
                                   itemBuilder: (context, index) {
-                                    return GestureDetector(
+
+                                    return  GestureDetector(
                                       onTap: () {
-                                        if (subs[index] == "Depression" ||
-                                            subs[index] == "الاكتئاب") {
+                                        print("Clicked on: ${subs[index]}");
+
+                                        if (subs[index] == "Depression" || subs[index] == "الاكتئاب") {
+                                          print("Navigating to DepressionScreen");
+
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   MultiBlocProvider(
                                                 providers: [
+
                                                   BlocProvider<
                                                           UserProfileCubit>(
                                                       create: (_) =>
@@ -338,19 +376,23 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                                                           SubSubCategoriesCubit>(
                                                       create: (_) =>
                                                           SubSubCategoriesCubit()),
+
                                                 ],
                                                 child: DepressionScreen(),
                                               ),
                                             ),
                                           );
-                                        } else if (subs[index] == "Anxiety" ||
-                                            subs[index] == "القلق") {
+
+                                        } else if (subs[index] == "Anxiety" || subs[index] == "القلق") {
+                                          print("Navigating to AnxietyScreen");
+
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   MultiBlocProvider(
                                                 providers: [
+
                                                   BlocProvider<
                                                           UserProfileCubit>(
                                                       create: (_) =>
@@ -370,43 +412,28 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                                                           SubSubCategoriesCubit>(
                                                       create: (_) =>
                                                           SubSubCategoriesCubit()),
+
                                                 ],
                                                 child: AnxietyScreen(),
                                               ),
                                             ),
                                           );
                                         } else {
+
+                                          print("Navigating to SubSubCategoryScreen with: ${subs[index]}");
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) =>
-                                                  MultiBlocProvider(
+                                              builder: (context) => MultiBlocProvider(
                                                 providers: [
-                                                  BlocProvider<
-                                                          UserProfileCubit>(
-                                                      create: (_) =>
-                                                          UserProfileCubit()),
-                                                  BlocProvider<
-                                                          AddImageToProfileCubit>(
-                                                      create: (_) =>
-                                                          AddImageToProfileCubit()),
-                                                  BlocProvider<UpdateUserCubit>(
-                                                      create: (_) =>
-                                                          UpdateUserCubit()),
-                                                  BlocProvider<
-                                                          DoctorByCategoryCubit>(
-                                                      create: (_) =>
-                                                          DoctorByCategoryCubit()),
-                                                  BlocProvider<
-                                                          SubSubCategoriesCubit>(
-                                                      create: (_) =>
-                                                          SubSubCategoriesCubit()),
+                                                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                                  BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                                  BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                                  BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
+                                                  BlocProvider<SubSubCategoriesCubit>(create: (_) => SubSubCategoriesCubit()),
                                                 ],
-                                                child: SubSubCategoryScreen(
-                                                  Category: 'mentalHealth',
-                                                  subCategory:
-                                                      subs[index] ?? "",
-                                                ),
+                                                child: SubSubCategoryScreen(Category: 'mentalHealth', subCategory: subs[index] ?? ""),
+
                                               ),
                                             ),
                                           );
@@ -663,40 +690,64 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                                   itemCount:
                                       subs.length, // total number of items
                                   itemBuilder: (context, index) {
-                                    return GestureDetector(
+
+                                    return  GestureDetector(
                                       onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                MultiBlocProvider(
-                                              providers: [
-                                                BlocProvider<UserProfileCubit>(
-                                                    create: (_) =>
-                                                        UserProfileCubit()),
-                                                BlocProvider<
-                                                        AddImageToProfileCubit>(
-                                                    create: (_) =>
-                                                        AddImageToProfileCubit()),
-                                                BlocProvider<UpdateUserCubit>(
-                                                    create: (_) =>
-                                                        UpdateUserCubit()),
-                                                BlocProvider<
-                                                        DoctorByCategoryCubit>(
-                                                    create: (_) =>
-                                                        DoctorByCategoryCubit()),
-                                                BlocProvider<
-                                                        SubSubCategoriesCubit>(
-                                                    create: (_) =>
-                                                        SubSubCategoriesCubit()),
-                                              ],
-                                              child: SubSubCategoryScreen(
-                                                Category: 'mentalHealth',
-                                                subCategory: subs[index] ?? "",
+                                        print("Clicked on: ${subs[index]}");
+
+                                        if (subs[index] == "Depression" || subs[index] == "الاكتئاب") {
+                                          print("Navigating to DepressionScreen");
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => MultiBlocProvider(
+                                                providers: [
+                                                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                                  BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                                  BlocProvider<GetTreatmentProgramCubit>(create: (_) => GetTreatmentProgramCubit()),
+                                                  BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
+                                                  BlocProvider<SubSubCategoriesCubit>(create: (_) => SubSubCategoriesCubit()),
+                                                ],
+                                                child: DepressionScreen(),
                                               ),
                                             ),
-                                          ),
-                                        );
+                                          );
+                                        } else if (subs[index] == "Anxiety" || subs[index] == "القلق") {
+                                          print("Navigating to AnxietyScreen");
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => MultiBlocProvider(
+                                                providers: [
+                                                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                                  BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                                  BlocProvider<GetTreatmentProgramCubit>(create: (_) => GetTreatmentProgramCubit()),
+                                                  BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
+                                                  BlocProvider<SubSubCategoriesCubit>(create: (_) => SubSubCategoriesCubit()),
+                                                ],
+                                                child: AnxietyScreen(),
+                                              ),
+                                            ),
+                                          );
+                                        } else {
+                                          print("Navigating to SubSubCategoryScreen with: ${subs[index]}");
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => MultiBlocProvider(
+                                                providers: [
+                                                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                                  BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                                                  BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                                  BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
+                                                  BlocProvider<SubSubCategoriesCubit>(create: (_) => SubSubCategoriesCubit()),
+                                                ],
+                                                child: SubSubCategoryScreen(Category: 'mentalHealth', subCategory: subs[index] ?? ""),
+                                              ),
+                                            ),
+                                          );
+                                        }
+
                                       },
                                       child: Container(
                                         width: 100.w,

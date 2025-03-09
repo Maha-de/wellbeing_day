@@ -162,6 +162,7 @@ class SpecialistCustomBottomNavBar extends StatelessWidget {
                       BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
                       BlocProvider<DoctorSessionCubit>(create: (_) => DoctorSessionCubit()),
                       BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                      BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),
                     ],
                     child: const SessionsScreen(),
                   ),

@@ -9,6 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../cubit/beneficiary_notifications/beneficiary_notification_cubit.dart';
+import '../cubit/beneficiary_notifications/beneficiary_notification_state.dart';
+
 class Notificationsscreen extends StatefulWidget {
   const Notificationsscreen({super.key});
 
@@ -17,7 +20,7 @@ class Notificationsscreen extends StatefulWidget {
 }
 
 class _NotificationsscreenState extends State<Notificationsscreen> {
-  late UserNotificationCubit userNotificationCubit;
+  late GetBeneficiaryNotificationCubit userNotificationCubit;
 
   @override
   void initState() {
@@ -31,8 +34,8 @@ class _NotificationsscreenState extends State<Notificationsscreen> {
     if (role == "1") {
       String id = prefs.getString('doctorId') ?? "";
       if (id.isNotEmpty) {
-        userNotificationCubit = context.read<UserNotificationCubit>();
-        userNotificationCubit.fetchDoctorSessions(
+        userNotificationCubit = context.read<GetBeneficiaryNotificationCubit>();
+        userNotificationCubit.fetchAllNotifications(
           id,
         );
       } else {
@@ -41,8 +44,8 @@ class _NotificationsscreenState extends State<Notificationsscreen> {
     } else if (role == "0") {
       String id = prefs.getString('userId') ?? "";
       if (id.isNotEmpty) {
-        userNotificationCubit = context.read<UserNotificationCubit>();
-        userNotificationCubit.fetchBenificarySessions(
+        userNotificationCubit = context.read<GetBeneficiaryNotificationCubit>();
+        userNotificationCubit.fetchAllNotifications(
           id,
         );
       } else {
@@ -57,6 +60,7 @@ class _NotificationsscreenState extends State<Notificationsscreen> {
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         iconTheme: const IconThemeData(
           color: Color(0xff19649E),
         ),
@@ -84,14 +88,14 @@ class _NotificationsscreenState extends State<Notificationsscreen> {
         ),
       ),
       body: SafeArea(
-        child: BlocBuilder<UserNotificationCubit, UserNotificationState>(
+        child: BlocBuilder<GetBeneficiaryNotificationCubit, GetBeneficiaryNotificationState>(
           builder: (context, state) {
-            if (state is UserNotificationLoading) {
+            if (state is GetBeneficiaryNotificationLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (state is UserNotificationSuccess) {
-              final todaySessions = state.TodaySessions;
+            } else if (state is GetBeneficiaryNotificationSuccess) {
+              final todaySessions = state.notifications;
 
               if (todaySessions.isEmpty) {
                 return const Center(
@@ -130,32 +134,50 @@ class _NotificationsscreenState extends State<Notificationsscreen> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   Text("اشعار جديد"),
-                                  session.notificationType.isNotEmpty
-                                      ? Text(
-                                          session.notificationType,
+
+                                       Text(
+                                          session.message??"",
                                           style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,
-                                            color: session.notificationType ==
-                                                    "جلسة مجانية"
-                                                ? Color(0xFF1F78BC)
-                                                : Colors.red,
+                                            color:  Color(0xFF1F78BC)
+                                                ,
                                           ),
-                                        )
-                                      : Text(
-                                          'جلستك في',
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color(0xFF1F78BC)),
                                         ),
-                                  Text(
-                                    session.date,
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
+
+
+                      Text(
+                      session.createdAt != null
+                          ? DateFormat('yyyy-MM-dd').format(DateTime.parse(session.createdAt!))
+                          : "لا يوجد تاريخ",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF1F78BC),
+                      ),
+                    ),
+
+
+                    Row(
+                                   children: [
+                                     Text(
+                                       "YourMeetingLink".tr()+": ",
+                                       style: const TextStyle(
+                                         fontSize: 18,
+                                         fontWeight: FontWeight.bold,
+                                       ),
+                                     ),
+                                     GestureDetector(
+                                       child: Text(
+                                         "${session.meetingLink}",
+                                         style: const TextStyle(
+                                           fontSize: 18,
+                                           fontWeight: FontWeight.bold,
+                                         ),
+                                       ),
+                                     ),
+                                   ],
+                                 )
                                 ],
                               ),
                             ),
@@ -172,7 +194,7 @@ class _NotificationsscreenState extends State<Notificationsscreen> {
                   },
                 ),
               );
-            } else if (state is UserNotificationFailure) {
+            } else if (state is GetBeneficiaryNotificationFailure) {
               return Center(
                 child: Column(
                   children: [

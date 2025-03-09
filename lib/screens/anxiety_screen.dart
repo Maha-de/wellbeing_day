@@ -1,4 +1,8 @@
+
 import 'package:doctor/models/sessionType.dart';
+
+import 'package:doctor/cubit/get_treatment_program_cubit/get_treatment_program_cubit.dart';
+
 import 'package:doctor/screens/sign_up_as_client.dart';
 import 'package:doctor/screens/specialists_screen.dart';
 import 'package:doctor/widgets/custom_bottom_nav_bar.dart';
@@ -8,12 +12,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
+import '../cubit/get_session_by_id_cubit/get_session_by_id_cubit.dart';
+import '../cubit/get_treatment_program_cubit/get_treatment_program_state.dart';
 import '../cubit/programs/anxiety_cubit.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
 import '../make_email/login.dart';
-import '../models/programs_model.dart';
+
+import '../models/treatment_programs_model.dart';
 import '../models/user_profile_model.dart';
 import 'applicationInfo.dart';
 import 'first_home_page.dart';
@@ -28,15 +35,14 @@ class AnxietyScreen extends StatefulWidget {
 
 class _AnxietyScreenState extends State<AnxietyScreen> {
   late UserProfileCubit userProfileCubit;
-
-  late ProgramCubit programCubit;
+  late GetTreatmentProgramCubit getTreatmentProgramCubit;
 
   @override
   void initState() {
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
+    getTreatmentProgramCubit= BlocProvider.of<GetTreatmentProgramCubit>(context);
 
-    programCubit = BlocProvider.of<ProgramCubit>(context);
 
     _loadUserProfile();
     WidgetsBinding.instance.addPostFrameCallback((_) {});
@@ -46,6 +52,7 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
   Future<void> _loadUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
+    getTreatmentProgramCubit.fetchProgramByName(context, "Anxiety Treatment");
     userProfileCubit.getUserProfile(context, id);
   }
 
@@ -89,32 +96,54 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                     color: Color(0xff19649E),
                   ),
                 ),
-                body: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 10.0),
-                          child: Center(
-                            child: Container(
-                              width: 161.w,
-                              height: 40.h,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF1F78BC),
-                                borderRadius: BorderRadius.only(
-                                    bottomRight: Radius.circular(20),
-                                    topLeft: Radius.circular(20)),
+                body: BlocBuilder<GetTreatmentProgramCubit, GetTreatmentProgramState>(
+                  builder: (context, state) {
+                    if (state is GetTreatmentProgramLoading) {
+                      return CircularProgressIndicator(); // Show loading indicator
+                    } else if (state is GetTreatmentProgramFailure) {
+                      return Text(state.errMessage); // Display error message
+                    } else if (state is GetTreatmentProgramSuccess) {
+
+                      return SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10.0),
+                                child: Center(
+                                  child: Container(
+                                    width: 161.w,
+                                    height: 40.h,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF1F78BC),
+                                      borderRadius: BorderRadius.only(
+                                          bottomRight: Radius.circular(20),
+                                          topLeft: Radius.circular(20)),
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "anxiety".tr(),
+                                      style: TextStyle(
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    ),
+                                  ),
+                                ),
                               ),
-                              alignment: Alignment.center,
-                              child: Text(
-                                "anxiety".tr(),
+                              SizedBox(height: screenHeight.h * 0.02.h),
+                              // "أهمية البرامج" Section
+                              Text(
+                                "importanceOfPrograms".tr(),
                                 style: TextStyle(
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
                               ),
+
                             ),
                           ),
                         ),
@@ -172,268 +201,327 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                             }
                           },
                         ),
+// =======
+//                               SizedBox(height: screenHeight.h * 0.01.h),
+//                               BlocBuilder<GetTreatmentProgramCubit, GetTreatmentProgramState>(
+//                                 builder: (context, state) {
+//                                   if (state is GetTreatmentProgramLoading) {
+//                                     return Center(child: CircularProgressIndicator());
+//                                   } else if (state is GetTreatmentProgramSuccess) {
+//                                     Program? program = state.programs;
+// >>>>>>> main
 
-                        SizedBox(height: screenHeight.h * 0.03.h),
-                        // "الخطة / العلاج" Section
-                        Text(
-                          "planSection".tr(),
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue[900],
-                          ),
-                        ),
-                        SizedBox(height: screenHeight.h * 0.01.h),
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 35),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                spreadRadius: 1,
-                                blurRadius: 5,
-                                offset: Offset(0, 3),
+                                    return Container(
+                                        padding: const EdgeInsets.symmetric(vertical: 10),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey.withOpacity(0.3),
+                                              spreadRadius: 1,
+                                              blurRadius: 5,
+                                              offset: Offset(0, 3),
+                                            ),
+                                          ],
+                                        ),
+                                        child: Text(program?.importance??""));
+
+                                    //   ListView.builder(
+                                    //   itemCount: state.programs.length,
+                                    //   itemBuilder: (context, index) {
+                                    //     final program = state.programs[index];
+                                    //     return ListTile(
+                                    //       title: Text(program.name),
+                                    //       subtitle: Text(program.importance),
+                                    //       // ... other program details
+                                    //     );
+                                    //   },
+                                    // );
+                                  } else if (state is GetTreatmentProgramFailure) {
+                                    return Center(child: Text('Error: ${state.errMessage}'));
+                                  } else {
+                                    return Container(); // Handle other states if needed.
+                                  }
+                                },
                               ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            maxLines:
-                                null, // Allows the field to expand for multiline input
-                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
-                            decoration: const InputDecoration(
-                              border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets
-                                  .zero, // Matches the original padding
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: screenHeight.h * 0.03.h),
-                        // "الأهداف" Section
-                        Text(
-                          "goals".tr(),
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue[900],
-                          ),
-                        ),
-                        SizedBox(height: screenHeight.h * 0.01.h),
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 35),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                spreadRadius: 1,
-                                blurRadius: 5,
-                                offset: Offset(0, 3),
+                              // Container(
+                              //   padding: const EdgeInsets.symmetric(vertical: 10),
+                              //   decoration: BoxDecoration(
+                              //     color: Colors.white,
+                              //     borderRadius: BorderRadius.circular(10),
+                              //     boxShadow: [
+                              //       BoxShadow(
+                              //         color: Colors.grey.withOpacity(0.3),
+                              //         spreadRadius: 1,
+                              //         blurRadius: 5,
+                              //         offset: Offset(0, 3),
+                              //       ),
+                              //     ],
+                              //   ),
+                              //   child: TextFormField(
+                              //     initialValue: "depPlanDesc".tr(),
+                              //     maxLines:
+                              //         null, // Allows the field to expand for multiline input
+                              //     style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                              //
+                              //     decoration: const InputDecoration(
+                              //       alignLabelWithHint: true,
+                              //       border: InputBorder.none, // Removes the underline
+                              //       contentPadding: EdgeInsets
+                              //           .zero, // Matches the original padding
+                              //     ),
+                              //   ),
+                              // ),
+
+                              SizedBox(height: screenHeight.h * 0.03.h),
+                              // "الخطة / العلاج" Section
+                              Text(
+                                "planSection".tr(),
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
                               ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            maxLines:
-                                null, // Allows the field to expand for multiline input
-                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
-                            decoration: const InputDecoration(
-                              border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets
-                                  .zero, // Matches the original padding
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: screenHeight.h * 0.045.h),
-                        // "الأهداف" Section
-                        Text(
-                          "stages".tr(),
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue[900],
-                          ),
-                        ),
-                        SizedBox(height: screenHeight.h * 0.01.h),
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 20),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                spreadRadius: 1,
-                                blurRadius: 5,
-                                offset: Offset(0, 3),
-                              ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            maxLines:
-                                null, // Allows the field to expand for multiline input
-                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
-                            decoration: const InputDecoration(
-                              border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets
-                                  .zero, // Matches the original padding
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: screenHeight.h * 0.03.h),
-                        // "الأهداف" Section
-                        Text(
-                          "techniques".tr(),
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue[900],
-                          ),
-                        ),
-                        SizedBox(height: screenHeight.h * 0.01.h),
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 30),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                spreadRadius: 1,
-                                blurRadius: 5,
-                                offset: Offset(0, 3),
-                              ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            maxLines:
-                                null, // Allows the field to expand for multiline input
-                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
-                            decoration: const InputDecoration(
-                              border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets
-                                  .zero, // Matches the original padding
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: screenHeight.h * 0.03.h),
-                        // "الأهداف" Section
-                        Text(
-                          "sessions".tr(),
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue[900],
-                          ),
-                        ),
-                        SizedBox(height: screenHeight.h * 0.01.h),
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 30),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                spreadRadius: 1,
-                                blurRadius: 5,
-                                offset: Offset(0, 3),
-                              ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            maxLines:
-                                null, // Allows the field to expand for multiline input
-                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
-                            decoration: const InputDecoration(
-                              border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets
-                                  .zero, // Matches the original padding
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: screenHeight.h * 0.03.h),
-                        // "الأهداف" Section
-                        Text(
-                          "trainSkill".tr(),
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue[900],
-                          ),
-                        ),
-                        SizedBox(height: screenHeight.h * 0.01.h),
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 30),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                spreadRadius: 1,
-                                blurRadius: 5,
-                                offset: Offset(0, 3),
-                              ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            maxLines:
-                                null, // Allows the field to expand for multiline input
-                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
-                            decoration: const InputDecoration(
-                              border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets
-                                  .zero, // Matches the original padding
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: screenHeight.h * 0.05.h),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => MultiBlocProvider(
-                                  providers: [
-                                    BlocProvider<UserProfileCubit>(
-                                        create: (_) => UserProfileCubit()),
-                                    BlocProvider<AddImageToProfileCubit>(
-                                        create: (_) =>
-                                            AddImageToProfileCubit()),
-                                    BlocProvider<UpdateUserCubit>(
-                                        create: (_) => UpdateUserCubit()),
+                              SizedBox(height: screenHeight.h * 0.01.h),
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 35),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
                                   ],
+                                ),
+                                child:  Center(
+                                  child: Text(state.programs?.treatmentPlan??""),
+                                )
+                                ,
+                              ),
+                              SizedBox(height: screenHeight.h * 0.03.h),
+                              // "الأهداف" Section
+                              Text(
+                                "goals".tr(),
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.01.h),
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 35),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: Center(
+                                  child: Text(state.programs?.goals??""),
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.045.h),
+                              // "الأهداف" Section
+                              Text(
+                                "stages".tr(),
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.01.h),
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 20),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+
                                   child: SpecialistsScreen(
                                     sessionType: RegularSession(),
                                   ),
+
+                                ),
+                                child: Center(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: state.programs?.stages?.map((session) => Text(session)).toList() ?? [Text("لا توجد بيانات")],
+                                  ),
+                                )
+                                ,
+                              ),
+                              SizedBox(height: screenHeight.h * 0.03.h),
+                              // "الأهداف" Section
+                              Text(
+                                "techniques".tr(),
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
                                 ),
                               ),
-                            );
-                          },
-                          child: Container(
-                            width: screenWidth.w * 0.9.w,
-                            height: 48.h,
-                            decoration: BoxDecoration(
-                              color: Color(0xff19649E),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "continue".tr(),
-                                style: TextStyle(
-                                    fontSize: 20.sp,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                              SizedBox(height: screenHeight.h * 0.01.h),
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 30),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: Center(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: state.programs?.techniques?.map((session) => Text(session)).toList() ?? [Text("لا توجد بيانات")],
+                                  ),
+                                )
+                                ,
                               ),
-                            ),
+                              SizedBox(height: screenHeight.h * 0.03.h),
+                              // "الأهداف" Section
+                              Text(
+                                "sessions".tr(),
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.01.h),
+                              Container(
+                                  padding: const EdgeInsets.symmetric(vertical: 30),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.3),
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
+                                        offset: Offset(0, 3),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Center(
+                                    child: Text("${state.programs?.sessions.length??"there are no details"}"),
+                                  )
+
+
+                              ),
+                              SizedBox(height: screenHeight.h * 0.03.h),
+                              // "الأهداف" Section
+                              Text(
+                                "trainSkill".tr(),
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.01.h),
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 30),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: Center(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: state.programs?.skillTraining
+                                        ?.map<Widget>((session) => Text(session))
+                                        .toList() ??
+                                        [Text("لا توجد بيانات")],
+                                  ),
+                                )
+
+                                ,
+                              ),
+                              SizedBox(height: screenHeight.h * 0.05.h),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MultiBlocProvider(
+                                        providers: [
+                                          BlocProvider<UserProfileCubit>(
+                                              create: (_) => UserProfileCubit()),
+                                          BlocProvider<AddImageToProfileCubit>(
+                                              create: (_) =>
+                                                  AddImageToProfileCubit()),
+                                          BlocProvider<UpdateUserCubit>(
+                                              create: (_) => UpdateUserCubit()),
+                                        ],
+                                        child: const SpecialistsScreen(),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Center(
+                                  child: Container(
+                                    width: screenWidth.w * 0.9.w,
+                                    height: 48.h,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xff19649E),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "continue".tr(),
+                                        style: TextStyle(
+                                            fontSize: 20.sp,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.03.h),
+                            ],
                           ),
                         ),
-                        SizedBox(height: screenHeight.h * 0.03.h),
-                      ],
-                    ),
-                  ),
+                      );
+                    } else {
+                      return Center(child: Text('noSpecialistsFound'.tr()));
+                    }
+                  },
                 ),
                 bottomNavigationBar: BottomNavigationBar(
                   backgroundColor: const Color(
@@ -624,32 +712,54 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                     color: Color(0xff19649E),
                   ),
                 ),
-                body: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 10.0),
-                          child: Center(
-                            child: Container(
-                              width: 161.w,
-                              height: 40.h,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF1F78BC),
-                                borderRadius: BorderRadius.only(
-                                    bottomRight: Radius.circular(20),
-                                    topLeft: Radius.circular(20)),
+                body:  BlocBuilder<GetTreatmentProgramCubit, GetTreatmentProgramState>(
+                  builder: (context, state) {
+                    if (state is GetTreatmentProgramLoading) {
+                      return CircularProgressIndicator(); // Show loading indicator
+                    } else if (state is GetTreatmentProgramFailure) {
+                      return Text(state.errMessage); // Display error message
+                    } else if (state is GetTreatmentProgramSuccess) {
+
+                      return SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10.0),
+                                child: Center(
+                                  child: Container(
+                                    width: 161.w,
+                                    height: 40.h,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF1F78BC),
+                                      borderRadius: BorderRadius.only(
+                                          bottomRight: Radius.circular(20),
+                                          topLeft: Radius.circular(20)),
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "anxiety".tr(),
+                                      style: TextStyle(
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    ),
+                                  ),
+                                ),
                               ),
-                              alignment: Alignment.center,
-                              child: Text(
-                                "anxiety".tr(),
+                              SizedBox(height: screenHeight.h * 0.02.h),
+                              // "أهمية البرامج" Section
+                              Text(
+                                "importanceOfPrograms".tr(),
                                 style: TextStyle(
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
                               ),
+
                             ),
                           ),
                         ),
@@ -674,6 +784,225 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                               return Container(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 10),
+// =======
+//                               SizedBox(height: screenHeight.h * 0.01.h),
+//                               BlocBuilder<GetTreatmentProgramCubit, GetTreatmentProgramState>(
+//                                 builder: (context, state) {
+//                                   if (state is GetTreatmentProgramLoading) {
+//                                     return Center(child: CircularProgressIndicator());
+//                                   } else if (state is GetTreatmentProgramSuccess) {
+//                                     Program? program = state.programs;
+
+//                                     return Container(
+//                                         padding: const EdgeInsets.symmetric(vertical: 10),
+//                                         decoration: BoxDecoration(
+//                                           color: Colors.white,
+//                                           borderRadius: BorderRadius.circular(10),
+//                                           boxShadow: [
+//                                             BoxShadow(
+//                                               color: Colors.grey.withOpacity(0.3),
+//                                               spreadRadius: 1,
+//                                               blurRadius: 5,
+//                                               offset: Offset(0, 3),
+//                                             ),
+//                                           ],
+//                                         ),
+//                                         child: Text(program?.importance??""));
+
+//                                     //   ListView.builder(
+//                                     //   itemCount: state.programs.length,
+//                                     //   itemBuilder: (context, index) {
+//                                     //     final program = state.programs[index];
+//                                     //     return ListTile(
+//                                     //       title: Text(program.name),
+//                                     //       subtitle: Text(program.importance),
+//                                     //       // ... other program details
+//                                     //     );
+//                                     //   },
+//                                     // );
+//                                   } else if (state is GetTreatmentProgramFailure) {
+//                                     return Center(child: Text('Error: ${state.errMessage}'));
+//                                   } else {
+//                                     return Container(); // Handle other states if needed.
+//                                   }
+//                                 },
+//                               ),
+//                               // Container(
+//                               //   padding: const EdgeInsets.symmetric(vertical: 10),
+//                               //   decoration: BoxDecoration(
+//                               //     color: Colors.white,
+//                               //     borderRadius: BorderRadius.circular(10),
+//                               //     boxShadow: [
+//                               //       BoxShadow(
+//                               //         color: Colors.grey.withOpacity(0.3),
+//                               //         spreadRadius: 1,
+//                               //         blurRadius: 5,
+//                               //         offset: Offset(0, 3),
+//                               //       ),
+//                               //     ],
+//                               //   ),
+//                               //   child: TextFormField(
+//                               //     initialValue: "depPlanDesc".tr(),
+//                               //     maxLines:
+//                               //         null, // Allows the field to expand for multiline input
+//                               //     style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+//                               //
+//                               //     decoration: const InputDecoration(
+//                               //       alignLabelWithHint: true,
+//                               //       border: InputBorder.none, // Removes the underline
+//                               //       contentPadding: EdgeInsets
+//                               //           .zero, // Matches the original padding
+//                               //     ),
+//                               //   ),
+//                               // ),
+
+//                               SizedBox(height: screenHeight.h * 0.03.h),
+//                               // "الخطة / العلاج" Section
+//                               Text(
+//                                 "planSection".tr(),
+//                                 style: TextStyle(
+//                                   fontSize: 16.sp,
+//                                   fontWeight: FontWeight.bold,
+//                                   color: Colors.blue[900],
+//                                 ),
+//                               ),
+//                               SizedBox(height: screenHeight.h * 0.01.h),
+//                               Container(
+//                                 padding: const EdgeInsets.symmetric(vertical: 35),
+//                                 decoration: BoxDecoration(
+//                                   color: Colors.white,
+//                                   borderRadius: BorderRadius.circular(10),
+//                                   boxShadow: [
+//                                     BoxShadow(
+//                                       color: Colors.grey.withOpacity(0.3),
+//                                       spreadRadius: 1,
+//                                       blurRadius: 5,
+//                                       offset: Offset(0, 3),
+//                                     ),
+//                                   ],
+//                                 ),
+//                                 child:  Center(
+//                                   child: Text(state.programs?.treatmentPlan??""),
+//                                 )
+//                                 ,
+//                               ),
+//                               SizedBox(height: screenHeight.h * 0.03.h),
+//                               // "الأهداف" Section
+//                               Text(
+//                                 "goals".tr(),
+//                                 style: TextStyle(
+//                                   fontSize: 16.sp,
+//                                   fontWeight: FontWeight.bold,
+//                                   color: Colors.blue[900],
+//                                 ),
+//                               ),
+//                               SizedBox(height: screenHeight.h * 0.01.h),
+//                               Container(
+//                                 padding: const EdgeInsets.symmetric(vertical: 35),
+//                                 decoration: BoxDecoration(
+//                                   color: Colors.white,
+//                                   borderRadius: BorderRadius.circular(10),
+//                                   boxShadow: [
+//                                     BoxShadow(
+//                                       color: Colors.grey.withOpacity(0.3),
+//                                       spreadRadius: 1,
+//                                       blurRadius: 5,
+//                                       offset: Offset(0, 3),
+//                                     ),
+//                                   ],
+//                                 ),
+//                                 child: Center(
+//                                   child: Text(state.programs?.goals??""),
+//                                 ),
+//                               ),
+//                               SizedBox(height: screenHeight.h * 0.045.h),
+//                               // "الأهداف" Section
+//                               Text(
+//                                 "stages".tr(),
+//                                 style: TextStyle(
+//                                   fontSize: 16.sp,
+//                                   fontWeight: FontWeight.bold,
+//                                   color: Colors.blue[900],
+//                                 ),
+//                               ),
+//                               SizedBox(height: screenHeight.h * 0.01.h),
+//                               Container(
+//                                 padding: const EdgeInsets.symmetric(vertical: 20),
+//                                 decoration: BoxDecoration(
+//                                   color: Colors.white,
+//                                   borderRadius: BorderRadius.circular(10),
+//                                   boxShadow: [
+//                                     BoxShadow(
+//                                       color: Colors.grey.withOpacity(0.3),
+//                                       spreadRadius: 1,
+//                                       blurRadius: 5,
+//                                       offset: Offset(0, 3),
+//                                     ),
+//                                   ],
+//                                 ),
+//                                 child: Center(
+//                                   child: Column(
+//                                     mainAxisSize: MainAxisSize.min,
+//                                     children: state.programs?.stages
+//                                         ?.map<Widget>((session) => Text(session))
+//                                         .toList() ??
+//                                         [Text("لا توجد بيانات")],
+//                                   ),
+//                                 )
+
+//                                 ,
+//                               ),
+//                               SizedBox(height: screenHeight.h * 0.03.h),
+//                               // "الأهداف" Section
+//                               Text(
+//                                 "techniques".tr(),
+//                                 style: TextStyle(
+//                                   fontSize: 16.sp,
+//                                   fontWeight: FontWeight.bold,
+//                                   color: Colors.blue[900],
+//                                 ),
+//                               ),
+//                               SizedBox(height: screenHeight.h * 0.01.h),
+//                               Container(
+//                                 padding: const EdgeInsets.symmetric(vertical: 30),
+//                                 decoration: BoxDecoration(
+//                                   color: Colors.white,
+//                                   borderRadius: BorderRadius.circular(10),
+//                                   boxShadow: [
+//                                     BoxShadow(
+//                                       color: Colors.grey.withOpacity(0.3),
+//                                       spreadRadius: 1,
+//                                       blurRadius: 5,
+//                                       offset: Offset(0, 3),
+//                                     ),
+//                                   ],
+//                                 ),
+//                                 child: Center(
+//                                   child: Column(
+//                                     mainAxisSize: MainAxisSize.min,
+//                                     children: state.programs?.techniques
+//                                         ?.map<Widget>((session) => Text(session))
+//                                         .toList() ??
+//                                         [Text("لا توجد بيانات")],
+//                                   ),
+//                                 )
+
+//                                 ,
+//                               ),
+//                               SizedBox(height: screenHeight.h * 0.03.h),
+//                               // "الأهداف" Section
+//                               Text(
+//                                 "sessions".tr(),
+//                                 style: TextStyle(
+//                                   fontSize: 16.sp,
+//                                   fontWeight: FontWeight.bold,
+//                                   color: Colors.blue[900],
+//                                 ),
+//                               ),
+//                               SizedBox(height: screenHeight.h * 0.01.h),
+//                               Container(
+//                                   padding: const EdgeInsets.symmetric(vertical: 30),
+// >>>>>>> main
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10),
@@ -686,6 +1015,7 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                                       ),
                                     ],
                                   ),
+
                                   child: Text(program.program.importance));
 
                               //   ListView.builder(
@@ -902,103 +1232,106 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                                 spreadRadius: 1,
                                 blurRadius: 5,
                                 offset: Offset(0, 3),
+// =======
+//                                   child: Center(
+//                                     child: Text("${state.programs?.sessions.length??"there are no details"}"),
+//                                   )
+
+
+// >>>>>>> main
                               ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            maxLines:
-                                null, // Allows the field to expand for multiline input
-                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
-                            decoration: const InputDecoration(
-                              border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets
-                                  .zero, // Matches the original padding
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: screenHeight.h * 0.03.h),
-                        // "الأهداف" Section
-                        Text(
-                          "trainSkill".tr(),
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue[900],
-                          ),
-                        ),
-                        SizedBox(height: screenHeight.h * 0.01.h),
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 30),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                spreadRadius: 1,
-                                blurRadius: 5,
-                                offset: Offset(0, 3),
+                              SizedBox(height: screenHeight.h * 0.03.h),
+                              // "الأهداف" Section
+                              Text(
+                                "trainSkill".tr(),
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
                               ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            maxLines:
-                                null, // Allows the field to expand for multiline input
-                            style: TextStyle(fontSize: 14.sp, height: 1.6.h),
-                            decoration: const InputDecoration(
-                              border: InputBorder.none, // Removes the underline
-                              contentPadding: EdgeInsets
-                                  .zero, // Matches the original padding
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: screenHeight.h * 0.05.h),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => MultiBlocProvider(
-                                  providers: [
-                                    BlocProvider<UserProfileCubit>(
-                                        create: (_) => UserProfileCubit()),
-                                    BlocProvider<AddImageToProfileCubit>(
-                                        create: (_) =>
-                                            AddImageToProfileCubit()),
-                                    BlocProvider<UpdateUserCubit>(
-                                        create: (_) => UpdateUserCubit()),
+                              SizedBox(height: screenHeight.h * 0.01.h),
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 30),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
                                   ],
+
                                   child: SpecialistsScreen(
                                     sessionType: RegularSession(),
                                   ),
+
+                                ),
+                                child: Center(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: state.programs?.skillTraining
+                                        ?.map<Widget>((session) => Text(session))
+                                        .toList() ??
+                                        [Text("لا توجد بيانات")],
+                                  ),
+                                )
+
+                                ,
+                              ),
+                              SizedBox(height: screenHeight.h * 0.05.h),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MultiBlocProvider(
+                                        providers: [
+                                          BlocProvider<UserProfileCubit>(
+                                              create: (_) => UserProfileCubit()),
+                                          BlocProvider<AddImageToProfileCubit>(
+                                              create: (_) =>
+                                                  AddImageToProfileCubit()),
+                                          BlocProvider<UpdateUserCubit>(
+                                              create: (_) => UpdateUserCubit()),
+                                        ],
+                                        child: const SpecialistsScreen(),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Center(
+                                  child: Container(
+                                    width: screenWidth.w * 0.9.w,
+                                    height: 48.h,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xff19649E),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "continue".tr(),
+                                        style: TextStyle(
+                                            fontSize: 20.sp,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            );
-                          },
-                          child: Center(
-                            child: Container(
-                              width: screenWidth.w * 0.9.w,
-                              height: 48.h,
-                              decoration: BoxDecoration(
-                                color: Color(0xff19649E),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "continue".tr(),
-                                  style: TextStyle(
-                                      fontSize: 20.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
+                              SizedBox(height: screenHeight.h * 0.03.h),
+                            ],
                           ),
                         ),
-                        SizedBox(height: screenHeight.h * 0.03.h),
-                      ],
-                    ),
-                  ),
+                      );
+                    } else {
+                      return Center(child: Text('noSpecialistsFound'.tr()));
+                    }
+                  },
                 ),
                 bottomNavigationBar: CustomBottomNavBar(currentIndex: 1),
               );

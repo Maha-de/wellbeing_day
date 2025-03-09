@@ -268,9 +268,11 @@ class _SpecialistSecondHomeScreenState
                           ),
                         ],
                       ),
+
                       SizedBox(height: 50.h),
                       BlocBuilder<DoctorSessionTypesCubit,
                           DoctorSessionTypesState>(
+
                         builder: (context, state) {
                           if (state is DoctorSessionTypesLoading) {
                             return CircularProgressIndicator(); // Show loading indicator
@@ -279,6 +281,7 @@ class _SpecialistSecondHomeScreenState
                           } else if (state is DoctorSessionTypesSuccess) {
                             return Center(
                               child: Container(
+
                                 height: 250.h,
                                 width: 344.w,
                                 child:
@@ -309,6 +312,22 @@ class _SpecialistSecondHomeScreenState
                                                     .freeConsultations
                                                     ?.length ??
                                                 0),
+// =======
+//                                 height: 300.h,
+//                                 width:344.w,
+//                                 child: state.session.freeConsultations?.length == 0?
+//                                 Center(
+//                                   child: Image(image:AssetImage("assets/images/image.png"),fit: BoxFit.fill,),
+//                                 ):
+//                                 ListView.separated(
+//                                   padding: EdgeInsets.only(top: 40),
+//                                     itemBuilder: (context,index)
+//                                     {
+//                                       return BeneficiaryCardHome(session: state.session.freeConsultations?[index].beneficiary?[0], fOrI: "f",);
+//                                     }, separatorBuilder: (context,index){
+//                                   return SizedBox(height: 50.h,);
+//                                 }, itemCount: state.session.freeConsultations?.length??0),
+// >>>>>>> main
                               ),
                             );
                           } else {

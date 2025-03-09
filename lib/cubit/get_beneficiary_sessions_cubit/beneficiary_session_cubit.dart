@@ -30,6 +30,7 @@ class BeneficiarySessionCubit extends Cubit<BeneficiarySessionState> {
       final response = await dio.get("/beneficiaries/sessions/$id");
 
       if (response.statusCode == 200) {
+        print(response.data);
         final userProfileModel = BeneficiarySessionModel.fromJson(response.data);
         sessionData = userProfileModel;
         // استخراج جميع الـ doctorId من الجلسات
@@ -79,6 +80,7 @@ class BeneficiarySessionCubit extends Cubit<BeneficiarySessionState> {
         emit(BeneficiarySessionFailure("Error Fetching Data: ${response.data['message']}"));
       }
     } catch (e) {
+      print(e);
       emit(BeneficiarySessionFailure("Error occurred while connecting to the API: $e"));
     }
   }

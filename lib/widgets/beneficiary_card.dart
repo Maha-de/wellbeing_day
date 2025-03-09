@@ -11,7 +11,9 @@ import '../cubit/get_beneficiary_sessions_cubit/beneficiary_session_cubit.dart';
 import '../cubit/get_doctor_sessions_types_cubit/doctor_session_types_cubit.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
-import '../models/doctor_sessions_types_model.dart';
+
+
+import '../models/doctor_session_model.dart';
 import '../screens/specialist/user_profile_screen.dart';
 
 class BeneficiaryCard extends StatelessWidget {
@@ -62,6 +64,7 @@ class BeneficiaryCard extends StatelessWidget {
                     _buildInfoBox(
                         '${scheduledSessions?.sessionDate == null ? '${completedSessions?.sessionDate?.day}/${completedSessions?.sessionDate?.month}/${completedSessions?.sessionDate?.year}' : '${scheduledSessions?.sessionDate?.day}/${scheduledSessions?.sessionDate?.month}/${scheduledSessions?.sessionDate?.year}'}',
                         () {
+
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -80,6 +83,7 @@ class BeneficiaryCard extends StatelessWidget {
                           ),
                         ),
                       );
+
                     }),
                     _buildInfoBox('userDetails'.tr(), () {
                       Navigator.push(

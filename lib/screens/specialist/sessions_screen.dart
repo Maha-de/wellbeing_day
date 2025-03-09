@@ -13,8 +13,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
 import '../../cubit/doctor_details_cubit/doctor_profile_state.dart';
-import '../../cubit/get_doctor_sessions_cubit/doctor_session_cubit.dart';
 import '../../cubit/get_doctor_sessions_cubit/doctor_session_state.dart';
+import '../../cubit/get_doctor_sessions_types_cubit/doctor_session_types_cubit.dart';
+import '../../cubit/get_doctor_sessions_types_cubit/doctor_session_types_state.dart';
 import '../../cubit/update_user_cubit/update_user_cubit.dart';
 import '../../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../../cubit/user_profile_cubit/user_profile_state.dart';
@@ -36,7 +37,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
   int listLength = 2;
 
   late DoctorProfileCubit userProfileCubit;
-  late DoctorSessionCubit doctorSessionCubit;
+  late DoctorSessionTypesCubit doctorSessionCubit;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -48,7 +49,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
   void initState() {
     super.initState();
     userProfileCubit = BlocProvider.of<DoctorProfileCubit>(context);
-    doctorSessionCubit = BlocProvider.of<DoctorSessionCubit>(context);
+    doctorSessionCubit = BlocProvider.of<DoctorSessionTypesCubit>(context);
     _loadUserProfile();
   }
 
@@ -56,7 +57,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('doctorId') ?? "";
     userProfileCubit.getUserProfile(context, id);
-    doctorSessionCubit.getDoctorSessionsTypes(context,id);
+    doctorSessionCubit.getDoctorSessions(context,id);
   }
 
   @override
@@ -174,13 +175,13 @@ class _SessionsScreenState extends State<SessionsScreen> {
                     ),
                     <Widget>[
                       SizedBox(height: 5.h),
-                      BlocBuilder<DoctorSessionCubit, DoctorSessionState>(
+                      BlocBuilder<DoctorSessionTypesCubit, DoctorSessionTypesState>(
                         builder: (context, state) {
-                          if (state is DoctorSessionLoading) {
+                          if (state is DoctorSessionTypesLoading) {
                             return CircularProgressIndicator(); // Show loading indicator
-                          } else if (state is DoctorSessionFailure) {
+                          } else if (state is DoctorSessionTypesFailure) {
                             return Text(state.error); // Display error message
-                          } else if (state is DoctorSessionSuccess) {
+                          } else if (state is DoctorSessionTypesSuccess) {
                             return Container(
                               height: 400,
                               width: screenWidth,
@@ -200,7 +201,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
                                               session: state
                                                   .session
                                                   .scheduledSessions?[index]
-                                                  .beneficiary,
+                                                  .beneficiary?[0],
                                               scheduledSessions: state.session
                                                   .scheduledSessions?[index],
                                             );
@@ -220,13 +221,13 @@ class _SessionsScreenState extends State<SessionsScreen> {
                           }
                         },
                       ),
-                      BlocBuilder<DoctorSessionCubit, DoctorSessionState>(
+                      BlocBuilder<DoctorSessionTypesCubit, DoctorSessionTypesState>(
                         builder: (context, state) {
-                          if (state is DoctorSessionLoading) {
+                          if (state is DoctorSessionTypesLoading) {
                             return CircularProgressIndicator(); // Show loading indicator
-                          } else if (state is DoctorSessionFailure) {
+                          } else if (state is DoctorSessionTypesFailure) {
                             return Text(state.error); // Display error message
-                          } else if (state is DoctorSessionSuccess) {
+                          } else if (state is DoctorSessionTypesSuccess) {
                             return Container(
                               height: 400.h,
                               width: screenWidth,
@@ -246,7 +247,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
                                               session: state
                                                   .session
                                                   .completedSessions?[index]
-                                                  .beneficiary,
+                                                  .beneficiary?[0],
                                               completedSessions: state.session
                                                   .completedSessions?[index],
                                             );

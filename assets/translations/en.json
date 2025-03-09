@@ -346,5 +346,7 @@
   "completeDetails": "Please complete your details",
   "go": "Go",
   "groupNote": "Your name will be placed on the waiting list. \nOnce the number is full, you will be contacted to set an appointment.",
-  "avaiableTimes": "Avaiable Times:"
+  "avaiableTimes": "Avaiable Times:",
+  "YourMeetingLink": "Your meeting link",
+  "sessionDateIn": "Session Date: "
 }

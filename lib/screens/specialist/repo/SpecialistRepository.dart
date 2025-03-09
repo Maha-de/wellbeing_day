@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:doctor/api/dio_consumer.dart';
 import 'package:doctor/models/notification_model.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:intl/intl.dart';
@@ -53,10 +54,11 @@ class SpecialistRepository {
           contentType: MediaType('application', 'pdf'),
         ));
       }
-
+      // print("+++++++++++++++++++++++++++");
+      // print(doctor.getSpecialtiesAsKeyValuePairs());
+      // print("+++++++++++++++++++++++++++");
       List<MultipartFile> uploadedFiles = await Future.wait(fileUploadFutures);
-
-      FormData formData = FormData.fromMap({
+      Map<String, dynamic> formDataMap = {
         'firstName': doctor.firstName,
         'lastName': doctor.lastName,
         'email': doctor.email,
@@ -70,14 +72,37 @@ class SpecialistRepository {
         'bio': doctor.bio,
         'sessionPrice': doctor.sessionPrice,
         'sessionDuration': doctor.sessionDuration,
-        'specialties': doctor.specialties,
         if (doctor.idOrPassport != null) 'idOrPassport': uploadedFiles[0],
         if (doctor.resume != null) 'resume': uploadedFiles[1],
         if (doctor.certificates != null) 'certificates': uploadedFiles[2],
         if (doctor.ministryLicense != null) 'ministryLicense': uploadedFiles[3],
         if (doctor.associationMembership != null)
           'associationMembership': uploadedFiles[4],
+      };
+
+      doctor.getSpecialtiesAsKeyValuePairs().forEach((specialty) {
+        String key = specialty.split('=')[0];
+        String value = specialty.split('=')[1];
+
+        if (formDataMap.containsKey(key)) {
+          if (formDataMap[key] is List) {
+            (formDataMap[key] as List).add(value);
+          } else {
+            formDataMap[key] = [formDataMap[key], value];
+          }
+        } else {
+          formDataMap[key] = value;
+        }
+
+        print('$key : $value');
       });
+
+      FormData formData = FormData.fromMap(formDataMap);
+
+      print("FormData contents:");
+      // for (var field in formData.fields) {
+      //   print("${field.key}: ${field.value}");
+      // }
       final response = await dio.post(
         dio.options.baseUrl + EndPoint.signUpSpecialist,
         data: formData,
