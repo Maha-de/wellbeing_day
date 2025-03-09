@@ -19,8 +19,8 @@ class CreateSessionCubit extends Cubit<CreateSessionState> {
   }
 
   Future<void> createSession(
-    DateTime confirmedUserDateTimel,
-    CategoryInfo categoryInfo,
+    DateTime? confirmedUserDateTimel,
+    CategoryInfo? categoryInfo,
     String? specId,
     SessionType sessionType,
   ) async {
@@ -30,8 +30,9 @@ class CreateSessionCubit extends Cubit<CreateSessionState> {
       final userProfile = await _loadUserProfile();
       final String? userId = userProfile["id"];
       final String? token = userProfile["token"];
-      print(
-          "info are : token =${token}  ${confirmedUserDateTimel}, ${categoryInfo.pubCategory} specId =  ${specId},${sessionType.runtimeType},");
+      print(token);
+
+      print(userProfile["token"]);
 
       if (userId == null || userId.isEmpty || token == null || token.isEmpty) {
         emit(CreateSessionError("User ID or token is missing."));
@@ -41,14 +42,13 @@ class CreateSessionCubit extends Cubit<CreateSessionState> {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       };
-
       final Map<String, dynamic> body = {
         "specialist": specId ?? "",
         "beneficiary": userId,
-        "sessionDate": confirmedUserDateTimel.toString(),
+        "sessionDate": confirmedUserDateTimel == null
+            ? DateTime.now().toUtc().toIso8601String()
+            : confirmedUserDateTimel.toString(),
         "sessionType": sessionType.sessionType,
-        "category": categoryInfo.pubCategory,
-        "subcategory": categoryInfo.subCategory,
         "description": sessionType is InstantSession
             ? sessionType.description
             : sessionType is FreeSession
@@ -57,13 +57,34 @@ class CreateSessionCubit extends Cubit<CreateSessionState> {
         "paymentStatus": sessionType.isPaid ? "paid" : "Unpaid",
       };
 
-      final url = Uri.parse(EndPoint.baseUrl + EndPoint.createSession);
+      if (categoryInfo != null) {
+        body["category"] = categoryInfo.pubCategory;
+        body["subcategory"] = categoryInfo.subCategory;
+      }
+      print("before");
+      print(specId);
+      print(userId);
+      print(confirmedUserDateTimel == null
+          ? DateTime.now().toUtc().toIso8601String()
+          : confirmedUserDateTimel.toString());
 
-      final response = await Dio().post(
-        url.toString(),
-        data: json.encode(body),
-        options: Options(headers: headers),
-      );
+      print(sessionType.sessionType);
+      print(sessionType is InstantSession
+          ? sessionType.description
+          : sessionType is FreeSession
+              ? sessionType.description
+              : "No Description");
+
+      print(sessionType.isPaid ? "paid" : "Unpaid");
+      final url = Uri.parse(EndPoint.baseUrl + EndPoint.createSession);
+      final response = await Dio()
+          .post(
+            url.toString(),
+            data: json.encode(body),
+            options: Options(headers: headers),
+          )
+          .timeout(Duration(seconds: 30));
+      print(response.statusCode);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         emit(CreateSessionSuccess());
@@ -74,8 +95,11 @@ class CreateSessionCubit extends Cubit<CreateSessionState> {
       }
     } catch (e) {
       if (e is DioException) {
-        if (e.response?.statusCode == 400 || e.response?.statusCode == 401)
+        if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
           emit(CreateSessionError(e.response?.data["error"]));
+        } else if (e.response?.statusCode == 500) {
+          emit(CreateSessionError(e.response?.data["details"]));
+        }
       } else
         emit(CreateSessionError("Request failed: $e"));
     }

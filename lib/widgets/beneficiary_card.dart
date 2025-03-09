@@ -1,3 +1,4 @@
+import 'package:doctor/cubit/create_session.dart/create_session_cubit.dart';
 import 'package:doctor/screens/specialist/specialist_free_consultation_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -72,6 +73,8 @@ class BeneficiaryCard extends StatelessWidget {
                                   create: (_) => DoctorSessionTypesCubit()),
                               BlocProvider<UpdateUserCubit>(
                                   create: (_) => UpdateUserCubit()),
+                              BlocProvider<CreateSessionCubit>(
+                                  create: (_) => CreateSessionCubit()),
                             ],
                             child: const SpecialistFreeConsultationScreen(),
                           ),
