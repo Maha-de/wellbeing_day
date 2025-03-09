@@ -48,7 +48,7 @@ class Session {
   String? description;
   DateTime? sessionDate;
   String? status;
-  String? beneficiary;
+  List<String>? beneficiary; // تعديل هنا
   String? specialist;
   String? paymentStatus;
   DateTime? createdAt;
@@ -79,7 +79,7 @@ class Session {
     description: json["description"],
     sessionDate: json["sessionDate"] == null ? null : DateTime.parse(json["sessionDate"]),
     status: json["status"],
-    beneficiary: json["beneficiary"],
+    beneficiary: json["beneficiary"] == null ? [] : List<String>.from(json["beneficiary"].map((x) => x.toString())), // تعديل هنا
     specialist: json["specialist"],
     paymentStatus: json["paymentStatus"],
     createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
@@ -89,13 +89,13 @@ class Session {
 
   Map<String, dynamic> toJson() => {
     "_id": id,
-    "category":category,
+    "category": category,
     "subcategory": subcategory,
     "sessionType": sessionType,
     "description": description,
     "sessionDate": sessionDate?.toIso8601String(),
     "status": status,
-    "beneficiary": beneficiary,
+    "beneficiary": beneficiary == null ? [] : List<dynamic>.from(beneficiary!.map((x) => x)), // تعديل هنا
     "specialist": specialist,
     "paymentStatus": paymentStatus,
     "createdAt": createdAt?.toIso8601String(),
@@ -103,4 +103,5 @@ class Session {
     "__v": v,
   };
 }
+
 

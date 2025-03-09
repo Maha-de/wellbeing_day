@@ -249,7 +249,7 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                           ),
                         ],
                       ),
-                      SizedBox(height:50.h),
+                      SizedBox(height:10.h),
                       BlocBuilder<DoctorSessionTypesCubit, DoctorSessionTypesState>(
                         builder: (context, state) {
                           if (state is DoctorSessionTypesLoading) {
@@ -259,16 +259,17 @@ class _SpecialistSecondHomeScreenState extends State<SpecialistSecondHomeScreen>
                           } else if (state is DoctorSessionTypesSuccess) {
                             return Center(
                               child: Container(
-                                height: 250.h,
+                                height: 300.h,
                                 width:344.w,
                                 child: state.session.freeConsultations?.length == 0?
                                 Center(
                                   child: Image(image:AssetImage("assets/images/image.png"),fit: BoxFit.fill,),
                                 ):
                                 ListView.separated(
+                                  padding: EdgeInsets.only(top: 40),
                                     itemBuilder: (context,index)
                                     {
-                                      return BeneficiaryCardHome(session: state.session.freeConsultations?[index].beneficiary,);
+                                      return BeneficiaryCardHome(session: state.session.freeConsultations?[index].beneficiary?[0], fOrI: "f",);
                                     }, separatorBuilder: (context,index){
                                   return SizedBox(height: 50.h,);
                                 }, itemCount: state.session.freeConsultations?.length??0),

@@ -53,7 +53,7 @@ class DoctorSessionTypesCubit extends Cubit<DoctorSessionTypesState> {
         ),
       );
 
-      final response = await dio.get("/sessions/specialist/$id");
+      final response = await dio.get("/sessions/specialist/67a4a7a716033e66a957deb6");
 
       if (response.statusCode == 200) {
         final userProfileModel = DoctorSessionsModel.fromJson(response.data);

@@ -345,5 +345,7 @@
   "go": "توجه",
   "groupNote": "سيتم تسجيل اسمك على لائحة الانتظار\nعند اكتمال العدد سيتم التواصل معك لتحديد موعد",
   "avaiableTimes": "الأوقات المتاحة :",
-  "diagnoseAndMotivation": "حل مشكلات"
+  "diagnoseAndMotivation": "حل مشكلات",
+  "YourMeetingLink": "رابط جلستك",
+  "sessionDateIn": "تاريخ الجلسه: "
 }

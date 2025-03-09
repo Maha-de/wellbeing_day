@@ -52,7 +52,7 @@ class DoctorByCategoryCubit extends Cubit<DoctorByCategoryState> {
         final response = await dio.get("/specialist/getByCategory",
             data: {
 
-                "category": [category],
+                "category": category,
                 "subcategory": [subcategory]
 
             });

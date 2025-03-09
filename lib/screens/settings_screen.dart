@@ -12,6 +12,7 @@ import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
 import '../models/user_profile_model.dart';
+import 'client_profile_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -135,6 +136,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
               return Scaffold(
       backgroundColor: Colors.white,
                 appBar: AppBar(
+                  leading: BackButton(
+                    onPressed: (){
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MultiBlocProvider(
+                            providers: [
+                              BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                              BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
+                              BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                            ],
+                            child: const ClientProfileScreen(),
+                          ),
+
+                        ),
+                            (route) => false,
+                      );
+                    },
+                  ),
                   backgroundColor: const Color(0xff19649E),
                   iconTheme: const IconThemeData(
                     color: Colors.white,

@@ -1,3 +1,4 @@
+import 'package:doctor/cubit/beneficiary_notifications/beneficiary_notification_cubit.dart';
 import 'package:doctor/cubit/user_notification_cubit.dart/user_notification_cubit.dart';
 import 'package:doctor/screens/notificationsScreen.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -100,8 +101,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        BlocProvider<UserNotificationCubit>(
-                                      create: (_) => UserNotificationCubit(),
+                                        BlocProvider<GetBeneficiaryNotificationCubit>(
+                                      create: (_) => GetBeneficiaryNotificationCubit(),
                                       child: Notificationsscreen(),
                                     ),
                                   ),

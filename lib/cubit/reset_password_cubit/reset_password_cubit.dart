@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:doctor/cubit/doctor_details_cubit/doctor_profile_cubit.dart';
 import 'package:doctor/cubit/reset_password_cubit/reset_password_state.dart';
 import 'package:doctor/cubit/user_profile_cubit/user_profile_cubit.dart';
 import 'package:doctor/make_email/new_password.dart';
 import 'package:doctor/models/reset_password_model.dart';
 import 'package:doctor/screens/client_change_password.dart';
 import 'package:doctor/screens/homescreen.dart';
+import 'package:doctor/screens/specialist/specialist_change_password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -46,6 +48,14 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
             builder: (context) => BlocProvider(
                 create: (_) => UserProfileCubit(),
                 child: HomeScreen()
+            ),
+          ),
+        ):whereNext=="doctor"?Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                create: (_) => DoctorProfileCubit(),
+                child: SpecialistChangePassword()
             ),
           ),
         ):Navigator.push(

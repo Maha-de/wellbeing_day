@@ -59,6 +59,44 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
     String id = prefs.getString('userId') ?? "";
     userProfileCubit.getUserProfile(context, id);
     subSubCategoriesCubit.fetchSubCategories(context,widget.subCategory);
+    Map<String, String> subCategoryMapping = {
+      "Anxiety": "القلق",
+      "Depression": "الاكتئاب",
+      "Phobia": "الرهاب",
+      "Obsession": "الوسواس",
+      "Sexual Disorder": "اضطراب جنسي",
+      "Eating Disorder": "اضطراب الأكل",
+      "Borderline": "حدي",
+      "Narcissistic": "نرجسي",
+      "Obsessive": "وسواس",
+      "Dependent": "اعتمادي",
+      "Phobic": "رهابي",
+      "Deviant": "انحرافي",
+      "Learning Disabilities": "صعوبات التعلم",
+      "Speech Difficulties": "صعوبات النطق",
+      "Hyperactivity": "فرط الحركة",
+      "Autism": "التوحد",
+      "Lying": "الكذب",
+      "Stealing": "السرقة",
+      "Stubbornness": "العناد",
+      "Stuttering": "التعلثم",
+      "Attachment": "التعلق",
+    };
+
+// التحقق مما إذا كان النص بالإنجليزية أم العربية
+    bool isEnglish(String text) {
+      final englishRegex = RegExp(r'^[A-Za-z\s]+$');
+      return englishRegex.hasMatch(text);
+    }
+
+// إذا كانت إنجليزية، يتم الترجمة، وإلا تبقى كما هي
+    String translatedSubCategory = isEnglish(widget.subCategory)
+        ? (subCategoryMapping[widget.subCategory] ?? widget.subCategory)
+        : widget.subCategory;
+
+// استدعاء الدالة مع الفئة المترجمة
+    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.Category, translatedSubCategory);
+
     doctorByCategoryCubit.fetchSpecialistsbycategory(widget.Category,widget.subCategory);
   }
 

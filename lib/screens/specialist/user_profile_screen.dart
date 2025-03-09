@@ -1,6 +1,8 @@
 import 'package:doctor/cubit/get_beneficiary_sessions_cubit/beneficiary_session_cubit.dart';
 import 'package:doctor/cubit/get_doctor_sessions_types_cubit/doctor_session_types_cubit.dart';
+import 'package:doctor/cubit/send_notification_cubit/send_notification_cubit.dart';
 import 'package:doctor/models/user_profile_model.dart';
+import 'package:doctor/screens/specialist/send_meeting_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -64,6 +66,28 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             } else if (state is UserProfileSuccess) {
               UserProfileModel? userProfile = state.userProfile;
               return Scaffold(
+                floatingActionButton: FloatingActionButton.extended(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MultiBlocProvider(
+                          providers: [
+                            BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                            BlocProvider<SendNotificationCubit>(create: (_) => SendNotificationCubit()),
+                          ],
+                          child: MeetingScreen(uId: widget.id),
+                        ),
+                      ),
+                    );
+
+                  },
+                  backgroundColor: Colors.blue[100],
+                  icon: Icon(Icons.play_arrow, color: Color(0xff19649E)),
+                  label: Text("Start Session", style: TextStyle(color: Color(0xff19649E),fontWeight: FontWeight.bold,fontSize: 14)),
+                ),
+                floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+
                 appBar: AppBar(
                   backgroundColor: const Color(0xff19649E),
                   iconTheme: const IconThemeData(
