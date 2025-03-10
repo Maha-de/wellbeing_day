@@ -493,11 +493,16 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                                         ? Image.asset(
                                             'assets/images/doctor.png',
                                             fit: BoxFit.contain)
-                                        : Image.network(
-                                            doctor.specialist?.imageUrl ??
-                                                "", // رابط الصورة
-                                            fit: BoxFit.contain, // ملء الصورة
-                                          )),
+                                        : ClipRRect(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(60),
+                                        topRight: Radius.circular(60),
+                                      ),
+                                      child: Image.network(
+                                        doctor.specialist?.imageUrl ?? "", // رابط الصورة
+                                        fit: BoxFit.fill, // ملء الصورة
+                                      ),
+                                    )),
                               ),
                             ),
                           ],
