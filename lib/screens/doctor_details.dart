@@ -511,7 +511,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                             children: [
                               DoctorInfo(
                                 text:
-                                    "session price:${doctor.specialist?.sessionPrice ?? " "}",
+                                  "sessionPrice".tr() + "${doctor.specialist?.sessionPrice ?? " "}",
                               ),
                               SizedBox(height: 6.h),
                               Text(
@@ -537,7 +537,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                               ),
                               SizedBox(height: 6.h),
                               DoctorInfo(
-                                text: "Years of Experience: " +
+                                text: "yearsOfExperience".tr() +
                                     "${doctor.specialist?.yearsExperience ?? 0}",
                               ),
                               SizedBox(height: 6.h),

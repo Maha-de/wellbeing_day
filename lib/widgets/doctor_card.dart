@@ -96,7 +96,7 @@ class DoctorCard extends StatelessWidget {
                             width: 140.w,
                             child: Text(
                               overflow: TextOverflow.ellipsis,
-                              '${specialists?.firstName ?? specialistModel?.firstName ?? sessionDoctor?.firstName ?? "notFound".tr()} ${specialistModel?.lastName ?? sessionDoctor?.firstName ?? specialists?.firstName ?? ''}',
+                              '${specialists?.firstName ?? specialistModel?.firstName ?? sessionDoctor?.firstName ?? "notFound".tr()} ${specialistModel?.lastName ?? sessionDoctor?.lastName ?? specialists?.lastName ?? ''}',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20.sp,

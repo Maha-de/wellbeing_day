@@ -359,5 +359,7 @@
   "message": "الرسالة",
   "enterYourMessage": "أدخل رسالتك",
   "submit": "تم",
-  "pleaseFillFields": "من فضلك املء كل البيانات"
+  "pleaseFillFields": "من فضلك املء كل البيانات",
+  "sessionPrice:": "سعر الجلسة: ",
+  "yearsOfExperience": "سنوات الخبرة: "
 }

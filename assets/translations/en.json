@@ -359,5 +359,7 @@
   "message": "Message",
   "enterYourMessage": "Enter your message",
   "submit": "Submit",
-  "pleaseFillFields": "Please fill all fields"
+  "pleaseFillFields": "Please fill all fields",
+  "sessionPrice:": "Session Price: ",
+  "yearsOfExperience": "Years of Experience: "
 }
