@@ -1,14 +1,16 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:doctor/models/catgoryInfo.dart';
 import 'package:doctor/models/sessionType.dart';
 import 'package:doctor/screens/personality_disorder_screen.dart';
 import 'package:doctor/screens/sign_up_as_client.dart';
 import 'package:doctor/widgets/custom_app_bar.dart';
 import 'package:doctor/widgets/custom_bottom_nav_bar.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../cubit/add_image_to_profile/add_image_to_profile_cubit.dart';
 import '../cubit/get_specialist/get_sepcialist_cubit.dart';
@@ -26,8 +28,13 @@ import 'homescreen.dart';
 class SpecialistsScreen extends StatefulWidget {
   final String? description;
   final SessionType sessionType;
-  const SpecialistsScreen(
-      {super.key, this.description, required this.sessionType});
+  CategoryInfo? categoryInfoFromDepressionAndAni;
+
+  SpecialistsScreen(
+      {super.key,
+      this.description,
+      required this.sessionType,
+      this.categoryInfoFromDepressionAndAni});
 
   @override
   State<SpecialistsScreen> createState() => _SpecialistsScreenState();
@@ -275,12 +282,16 @@ class _SpecialistsScreenState extends State<SpecialistsScreen> {
                                 itemCount: state.specialists.length,
                                 itemBuilder: (context, index) {
                                   return DoctorCard(
-                                    categoryInfo:
-                                        widget.sessionType.runtimeType ==
-                                                GruopTherapSession
-                                            ? CategoryInfo(
-                                                pubCategory: "mentalHealth",
-                                                subCategory: "Group Therap")
+                                    categoryInfo: widget
+                                                .sessionType.runtimeType ==
+                                            GruopTherapSession
+                                        ? CategoryInfo(
+                                            pubCategory: "mentalHealth",
+                                            subCategory: "Group Therap")
+                                        : widget.sessionType.runtimeType ==
+                                                RegularSession
+                                            ? widget
+                                                .categoryInfoFromDepressionAndAni
                                             : null,
                                     sessionType: widget.sessionType,
                                     specialistModel: state.specialists[index],
@@ -353,6 +364,8 @@ class _SpecialistsScreenState extends State<SpecialistsScreen> {
                                 itemCount: state.specialists.length,
                                 itemBuilder: (context, index) {
                                   return DoctorCard(
+                                    categoryInfo:
+                                        widget.categoryInfoFromDepressionAndAni,
                                     sessionType: widget.sessionType,
                                     specialistModel: state.specialists[index],
                                     doctorID: state.specialists[index].id ?? "",

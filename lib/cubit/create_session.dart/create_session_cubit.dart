@@ -30,9 +30,9 @@ class CreateSessionCubit extends Cubit<CreateSessionState> {
       final userProfile = await _loadUserProfile();
       final String? userId = userProfile["id"];
       final String? token = userProfile["token"];
-      print(token);
+      // print(token);
 
-      print(userProfile["token"]);
+      // print(userProfile["token"]);
 
       if (userId == null || userId.isEmpty || token == null || token.isEmpty) {
         emit(CreateSessionError("User ID or token is missing."));
@@ -52,15 +52,10 @@ class CreateSessionCubit extends Cubit<CreateSessionState> {
         "description": sessionType is InstantSession
             ? sessionType.description
             : sessionType is FreeSession
-            ? sessionType.description
-            : sessionType is GruopTherapSession
-            ? _generateGroupTherapyDescription(sessionType)
-            : "No Description",
-        // "description": sessionType is InstantSession
-        //     ? sessionType.description
-        //     : sessionType is FreeSession
-        //         ? sessionType.description
-        //         : "No Description",
+                ? sessionType.description
+                : sessionType is GruopTherapSession
+                    ? _generateGroupTherapyDescription(sessionType)
+                    : "No Description",
         "paymentStatus": sessionType.isPaid ? "paid" : "Unpaid",
       };
 
@@ -68,21 +63,22 @@ class CreateSessionCubit extends Cubit<CreateSessionState> {
         body["category"] = categoryInfo.pubCategory;
         body["subcategory"] = categoryInfo.subCategory;
       }
-      print("before");
-      print(specId);
-      print(userId);
-      print(confirmedUserDateTimel == null
-          ? DateTime.now().toUtc().toIso8601String()
-          : confirmedUserDateTimel.toString());
+      // print("before");
+      // print(specId);
+      // print(userId);
+      // print(confirmedUserDateTimel == null
+      //     ? DateTime.now().toUtc().toIso8601String()
+      //     : confirmedUserDateTimel.toString());
 
-      print(sessionType.sessionType);
-      print(sessionType is InstantSession
-          ? sessionType.description
-          : sessionType is FreeSession
-              ? sessionType.description
-              : "No Description");
+      // print(sessionType.sessionType);
+      // print(sessionType is InstantSession
+      //     ? sessionType.description
+      //     : sessionType is FreeSession
+      //         ? sessionType.description
+      //         : "No Description");
 
-      print(sessionType.isPaid ? "paid" : "Unpaid");
+      print(
+          "catgory : ${categoryInfo?.pubCategory}  sub ${categoryInfo?.subCategory}");
       final url = Uri.parse(EndPoint.baseUrl + EndPoint.createSession);
       final response = await Dio()
           .post(
@@ -101,13 +97,11 @@ class CreateSessionCubit extends Cubit<CreateSessionState> {
         emit(CreateSessionError(responseData['error']));
       }
     } catch (e) {
-
-
       if (e is DioException) {
         if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
-
           // emit(CreateSessionError(e.response?.data["error"]));
-          emit(CreateSessionError(e.response?.data["error"] ?? 'Authentication error'));
+          emit(CreateSessionError(
+              e.response?.data["error"] ?? 'Authentication error'));
         } else if (e.response?.statusCode == 500) {
           emit(CreateSessionError(e.response?.data["details"]));
         }
@@ -122,6 +116,4 @@ class CreateSessionCubit extends Cubit<CreateSessionState> {
         : "No problems specified";
     return "$problems";
   }
-
 }
-
