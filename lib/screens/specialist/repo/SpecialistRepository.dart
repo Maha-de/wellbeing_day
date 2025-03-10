@@ -100,9 +100,9 @@ class SpecialistRepository {
       FormData formData = FormData.fromMap(formDataMap);
 
       print("FormData contents:");
-      // for (var field in formData.fields) {
-      //   print("${field.key}: ${field.value}");
-      // }
+      for (var field in formData.fields) {
+        print("${field.key}: ${field.value}");
+      }
       final response = await dio.post(
         dio.options.baseUrl + EndPoint.signUpSpecialist,
         data: formData,

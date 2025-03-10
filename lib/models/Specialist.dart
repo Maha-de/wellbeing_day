@@ -129,18 +129,48 @@ class Specialist {
     };
   }
 
+  // List<String> getSpecialtiesAsKeyValuePairs() {
+  //   List<String> result = [];
+
+  //   specialties.forEach((key, values) {
+  //     String translatedValue, mapKey;
+  //     if (key == 'Mental Disorder') {
+  //       translatedValue = 'اضطرابات نفسية';
+  //       mapKey = 'specialties[${smallNoSpace('Mental Health')}]';
+  //       result.add('$mapKey=$translatedValue');
+  //     }
+  //     for (var value in values) {
+  //       translatedValue = arabicMapForDoctorSpecialties[value] ?? value;
+  //       if (translatedValue == 'القلق') {
+  //         result.add('specialties[mentalDisorder]=القلق');
+  //       } else {
+  //         mapKey = 'specialties[${smallNoSpace(key)}]';
+  //         if (key == 'Mental Disorder') {
+  //           mapKey = 'specialties[${smallNoSpace('Mental Health')}]';
+  //         }
+  //         result.add('$mapKey=$translatedValue');
+  //       }
+  //     }
+  //   });
+  //   print("resssssult");
+  //   print(result);
+  //   return result;
+  // }
   List<String> getSpecialtiesAsKeyValuePairs() {
     List<String> result = [];
 
     specialties.forEach((key, values) {
       for (var value in values) {
-        String translatedValue = arabicMapForDoctorRegistration[value] ?? value;
-        String mapKey = 'specialties[${smallNoSpace(key)}][]';
-
+        String translatedValue = arabicSpecLikeInBackEnd[value] ?? value;
+        String mapKey = 'specialties[${smallNoSpace(key)}]';
+        if (key == 'Mental Disorder') {
+          mapKey = 'specialties[psychologicalDisorders]';
+        } else if (smallNoSpace(key) == 'skillDevelopment') {
+          mapKey = 'specialties[skillsDevelopment]';
+        }
         result.add('$mapKey=$translatedValue');
       }
     });
-
     return result;
   }
 

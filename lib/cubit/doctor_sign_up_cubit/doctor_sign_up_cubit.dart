@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:doctor/models/Specialist.dart';
@@ -31,7 +29,6 @@ class SignUpSpecialistCubit extends Cubit<SignUpSpecialistState> {
       // Call the sign-up function from the repository
       Response response = await specialistRepository.signUpSpecialist(doctor);
       var data = response.data;
-
       // Check for errors in the response
       if (data["errors"] != null) {
         emit(SignUpSpecialistFailure(errMessage: data["errors"][0]['msg']));
@@ -64,7 +61,7 @@ class SignUpSpecialistCubit extends Cubit<SignUpSpecialistState> {
       emit(SignUpSpecialistFailure(errMessage: e.errModel.message!));
     } catch (e) {
       // Handle any other exceptions
-      log("Unexpected error: $e");
+      log("Unexpected error: ${e.toString()}");
       emit(
           SignUpSpecialistFailure(errMessage: "An unexpected error occurred."));
     }
