@@ -52,8 +52,15 @@ class CreateSessionCubit extends Cubit<CreateSessionState> {
         "description": sessionType is InstantSession
             ? sessionType.description
             : sessionType is FreeSession
-                ? sessionType.description
-                : "No Description",
+            ? sessionType.description
+            : sessionType is GruopTherapSession
+            ? _generateGroupTherapyDescription(sessionType)
+            : "No Description",
+        // "description": sessionType is InstantSession
+        //     ? sessionType.description
+        //     : sessionType is FreeSession
+        //         ? sessionType.description
+        //         : "No Description",
         "paymentStatus": sessionType.isPaid ? "paid" : "Unpaid",
       };
 
@@ -94,9 +101,13 @@ class CreateSessionCubit extends Cubit<CreateSessionState> {
         emit(CreateSessionError(responseData['error']));
       }
     } catch (e) {
+
+
       if (e is DioException) {
         if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
-          emit(CreateSessionError(e.response?.data["error"]));
+
+          // emit(CreateSessionError(e.response?.data["error"]));
+          emit(CreateSessionError(e.response?.data["error"] ?? 'Authentication error'));
         } else if (e.response?.statusCode == 500) {
           emit(CreateSessionError(e.response?.data["details"]));
         }
@@ -104,4 +115,13 @@ class CreateSessionCubit extends Cubit<CreateSessionState> {
         emit(CreateSessionError("Request failed: $e"));
     }
   }
+
+  String _generateGroupTherapyDescription(GruopTherapSession session) {
+    String problems = session.problems?.isNotEmpty == true
+        ? "Problems: ${session.problems!.join(", ")}"
+        : "No problems specified";
+    return "$problems";
+  }
+
 }
+

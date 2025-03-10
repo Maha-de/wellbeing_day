@@ -7,6 +7,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../cubit/create_session.dart/create_session_cubit.dart';
+import '../cubit/create_session.dart/create_session_state.dart';
 import '../widgets/custom_bottom_nav_bar.dart';
 
 class GroupTherapy extends StatefulWidget {
@@ -39,11 +42,32 @@ class _GroupTherapyState extends State<GroupTherapy> {
   };
 
   final _formKey = GlobalKey<FormState>();
+  late CreateSessionCubit createSessionCubit;
+  TextEditingController descController = TextEditingController();
+  late UserProfileCubit userProfileCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
+    descController = TextEditingController();
+    createSessionCubit = BlocProvider.of<CreateSessionCubit>(context);
+
+    _loadUserProfile();
+  }
+
+  Future<void> _loadUserProfile() async {
+    final prefs = await SharedPreferences.getInstance();
+    String id = prefs.getString('userId') ?? "";
+    userProfileCubit.getUserProfile(context, id);
+  }
 
   // final _positivesController = TextEditingController();
 
   @override
   void dispose() {
+    descController.dispose();
+
     // _positivesController.dispose();
     super.dispose();
   }
@@ -53,49 +77,56 @@ class _GroupTherapyState extends State<GroupTherapy> {
     return isAnySelected ? null : errorMessage;
   }
 
-  void _submitForm() {
-    bool isFormValid = _formKey.currentState!.validate();
-
-    String? problemError =
-        _validateCheckboxes(_problems, "Please select at least one problem.");
-    String? goalError =
-        _validateCheckboxes(_goals, "Please select at least one goal.");
-
-    if (isFormValid && problemError == null && goalError == null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => MultiBlocProvider(
-            providers: [
-              BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-              BlocProvider<AddImageToProfileCubit>(
-                  create: (_) => AddImageToProfileCubit()),
-              BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-            ],
-            child: SpecialistsScreen(
-              sessionType: GruopTherapSession(),
-            ),
-          ),
-        ),
-      );
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   const SnackBar(content: Text("Form submitted successfully!")),
-      // );
-    } else {
-      String errorMessage = "";
-      if (!isFormValid) {
-        errorMessage = "Please fill in all required fields.";
-      } else if (problemError != null) {
-        errorMessage = problemError;
-      } else if (goalError != null) {
-        errorMessage = goalError;
-      }
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(errorMessage)),
-      );
-    }
+  List<String> _getSelectedStrings(Map<String, bool> map) {
+    return map.entries
+        .where((entry) => entry.value)
+        .map((entry) => entry.key)
+        .toList();
   }
+
+  // void _submitForm() {
+  //   bool isFormValid = _formKey.currentState!.validate();
+  //
+  //   String? problemError =
+  //       _validateCheckboxes(_problems, "Please select at least one problem.");
+  //   String? goalError =
+  //       _validateCheckboxes(_goals, "Please select at least one goal.");
+  //
+  //   if (isFormValid && problemError == null && goalError == null) {
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder: (context) => MultiBlocProvider(
+  //           providers: [
+  //             BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+  //             BlocProvider<AddImageToProfileCubit>(
+  //                 create: (_) => AddImageToProfileCubit()),
+  //             BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+  //           ],
+  //           child: SpecialistsScreen(
+  //             sessionType: GruopTherapSession(),
+  //           ),
+  //         ),
+  //       ),
+  //     );
+  //     // ScaffoldMessenger.of(context).showSnackBar(
+  //     //   const SnackBar(content: Text("Form submitted successfully!")),
+  //     // );
+  //   } else {
+  //     String errorMessage = "";
+  //     if (!isFormValid) {
+  //       errorMessage = "Please fill in all required fields.";
+  //     } else if (problemError != null) {
+  //       errorMessage = problemError;
+  //     } else if (goalError != null) {
+  //       errorMessage = goalError;
+  //     }
+  //
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text(errorMessage)),
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -177,12 +208,12 @@ class _GroupTherapyState extends State<GroupTherapy> {
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(horizontal: 10),
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter what group therapy means to you.";
-                  }
-                  return null;
-                },
+                // validator: (value) {
+                //   if (value == null || value.isEmpty) {
+                //     return "Please enter what group therapy means to you.";
+                //   }
+                //   return null;
+                // },
               ),
             ),
             SizedBox(height: screenHeight * 0.01.h),
@@ -221,12 +252,12 @@ class _GroupTherapyState extends State<GroupTherapy> {
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(horizontal: 10),
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter the positives of group therapy.";
-                  }
-                  return null;
-                },
+                // validator: (value) {
+                //   if (value == null || value.isEmpty) {
+                //     return "Please enter the positives of group therapy.";
+                //   }
+                //   return null;
+                // },
               ),
             ),
             SizedBox(height: screenHeight * 0.01.h),
@@ -301,48 +332,117 @@ class _GroupTherapyState extends State<GroupTherapy> {
                 ),
               ],
             ),
-            Center(
-              child: ElevatedButton(
-                onPressed: _submitForm,
-                // () {
-                // showDialog(
-                //   context: context,
-                //   builder: (context) {
-                //     return AlertDialog(
-                //       title: Text("registered".tr()),
-                //       content: Text("groupNote".tr()),
-                //       actions: [
-                //         TextButton(
-                //           onPressed: () {
-                //             Navigator.of(context)
-                //                 .pop(); // Close the dialog
-                //           },
-                //           child: Text('ok'.tr()),
-                //         ),
-                //       ],
-                //     );
-                //   },
-                // ).then((_) {
-                //   // This code will run after the dialog is closed
 
-                //   Navigator.push(context, MaterialPageRoute(builder: (context)=> const HomeScreen()));
-                // }
-                // );
-                // },
-                style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(350, 50),
-                    backgroundColor: const Color(0xFF19649E),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10))),
-                child: Text(
-                  "approve".tr(),
-                  style: TextStyle(
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
+                BlocConsumer<CreateSessionCubit, CreateSessionState>(
+                  listener: (context, state) {
+                    print("statttttttttttttttttte");
+                    print(state.runtimeType);
+                    if (state is CreateSessionLoading) {
+                      // يمكنك إضافة أي منطق إضافي هنا أثناء التحميل
+                    } else if (state is CreateSessionSuccess) {
+                      print("success");
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Session Created Successfully!")),
+                      );
+                    } else if (state is CreateSessionError) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Error: ${state.message}")),
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    bool isLoading = state is CreateSessionLoading;
+
+                    return GestureDetector(
+                      onTap: () {
+                        try {
+                          if (!isLoading) {
+                            List<String> selectedProblems = _getSelectedStrings(_problems);
+                            List<String> selectedGoals = _getSelectedStrings(_goals);
+
+                            createSessionCubit.createSession(
+                              null,
+                              null,
+                              null,
+                              GruopTherapSession(problems: selectedProblems), // تأكد من إنشاء GruopTherapSession() بشكل صحيح
+                            );
+                          }
+                        } catch (e, stackTrace) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("An error occurred: $e")),
+                          );
+                          debugPrint("Error: $e\nStack Trace: $stackTrace");
+                        }
+                      },
+                    child: Center(
+                      child: Container(
+                        width: screenWidth * 0.7.w,
+                        height: 48.h,
+                        decoration: BoxDecoration(
+                          color: isLoading
+                              ? Colors.grey
+                              : Color(0xff19649E),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: isLoading
+                              ? CircularProgressIndicator() // Show loading spinner
+                              : Text(
+                            'approve'.tr(),
+                            style: TextStyle(
+                              fontSize: 20.sp,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
               ),
-            ),
+
+              // ElevatedButton(
+              //   onPressed: _submitForm,
+              //   // () {
+              //   // showDialog(
+              //   //   context: context,
+              //   //   builder: (context) {
+              //   //     return AlertDialog(
+              //   //       title: Text("registered".tr()),
+              //   //       content: Text("groupNote".tr()),
+              //   //       actions: [
+              //   //         TextButton(
+              //   //           onPressed: () {
+              //   //             Navigator.of(context)
+              //   //                 .pop(); // Close the dialog
+              //   //           },
+              //   //           child: Text('ok'.tr()),
+              //   //         ),
+              //   //       ],
+              //   //     );
+              //   //   },
+              //   // ).then((_) {
+              //   //   // This code will run after the dialog is closed
+              //
+              //   //   Navigator.push(context, MaterialPageRoute(builder: (context)=> const HomeScreen()));
+              //   // }
+              //   // );
+              //   // },
+              //   style: ElevatedButton.styleFrom(
+              //       minimumSize: const Size(350, 50),
+              //       backgroundColor: const Color(0xFF19649E),
+              //       shape: RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.circular(10))),
+              //   child: Text(
+              //     "approve".tr(),
+              //     style: TextStyle(
+              //         fontSize: 20.sp,
+              //         fontWeight: FontWeight.bold,
+              //         color: Colors.white),
+              //   ),
+              // ),
+
             SizedBox(height: screenHeight * 0.05.h),
           ]),
         ),

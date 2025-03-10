@@ -1210,6 +1210,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           SubCategoriesCubit>(
                                                       create: (_) =>
                                                           SubCategoriesCubit()),
+                                                  BlocProvider<CreateSessionCubit>(
+                                                      create: (_) => CreateSessionCubit()),
                                                 ],
                                                 child: GroupTherapy(),
                                               ),

@@ -35,6 +35,10 @@ class RegularSession extends SessionType {
 }
 
 class GruopTherapSession extends SessionType {
+   List<String>? problems;
+   GruopTherapSession({
+     required this.problems,
+   });
   @override
   String get sessionType => "Group Therapy";
   @override
