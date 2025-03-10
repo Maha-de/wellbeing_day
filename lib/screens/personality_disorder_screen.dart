@@ -44,7 +44,7 @@ class _PersonalityDisorderScreenState extends State<PersonalityDisorderScreen> {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
     userProfileCubit.getUserProfile(context, id);
-    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.category, widget.subCategory);
+    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.category, widget.subCategory,context);
   }
 
   @override

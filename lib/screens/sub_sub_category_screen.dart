@@ -98,9 +98,9 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
         : widget.subCategory;
 
 // استدعاء الدالة مع الفئة المترجمة
-    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.Category, translatedSubCategory);
+    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.Category, translatedSubCategory,context);
 
-    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.Category,widget.subCategory);
+    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.Category,widget.subCategory,context);
 
   }
 

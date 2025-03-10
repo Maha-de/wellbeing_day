@@ -7,8 +7,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../cubit/send_notification_cubit/send_notification_state.dart';
 
 class MeetingScreen extends StatefulWidget {
-  final String uId;
-  const MeetingScreen({super.key, required this.uId});
+  final String? uId;
+  final List<String?>?ids;
+  final bool groupThreapy;
+  const MeetingScreen({super.key,  this.uId, this.ids, required this.groupThreapy});
 
   @override
   _MeetingScreenState createState() => _MeetingScreenState();
@@ -105,14 +107,26 @@ class _MeetingScreenState extends State<MeetingScreen> {
                 final prefs = await SharedPreferences.getInstance();
                 String dId = prefs.getString('doctorId') ?? "";
 
-                BlocProvider.of<SendNotificationCubit>(context)
-                    .sendNotification(context, dId, widget.uId, link, message);
+                if (widget.groupThreapy && widget.ids != null) {
+                  // لو كان جروب ثيرابي، يبعث لكل الـ ids
+                  for (String? id in widget.ids!) {
+                    if (id != null) {
+                      BlocProvider.of<SendNotificationCubit>(context)
+                          .sendNotification(context, dId, id, link, message);
+                    }
+                  }
+                } else {
+                  // لو مش جروب ثيرابي، يبعث بس لشخص واحد
+                  BlocProvider.of<SendNotificationCubit>(context)
+                      .sendNotification(context, dId, widget.uId ?? "", link, message);
+                }
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text("Please fill all fields")),
                 );
               }
             },
+
             style: ElevatedButton.styleFrom(
               backgroundColor: Color(0xff19649E),
               padding: EdgeInsets.symmetric(vertical: 15),

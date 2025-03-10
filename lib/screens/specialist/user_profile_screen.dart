@@ -17,8 +17,10 @@ import '../../cubit/user_profile_cubit/user_profile_state.dart';
 import '../../models/Doctor_id_model.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  final String id;
-  const UserProfileScreen({super.key, required this.id});
+  final String? id;
+  final List<String?>?ids;
+  final bool groupThreapy;
+  const UserProfileScreen({super.key,  this.id, this.ids, required this.groupThreapy});
 
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
@@ -37,7 +39,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
   Future<void> _loadUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
-    String id = widget.id;
+    String id = widget.id??"";
 
     print(id);
     userProfileCubit.getUserProfile(context, id);
@@ -76,7 +78,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
                             BlocProvider<SendNotificationCubit>(create: (_) => SendNotificationCubit()),
                           ],
-                          child: MeetingScreen(uId: widget.id),
+                          child: MeetingScreen(uId: widget.id??"", groupThreapy: false,),
                         ),
                       ),
                     );
@@ -377,13 +379,26 @@ Widget profilePage(double profileHeight, String img) {
         radius: profileHeight / 3,
         backgroundColor: Colors.transparent,
         child: img == "" || img == null
-            ? Image(
-                image: AssetImage(
-                  "assets/images/profile.png",
-                ),
-                fit: BoxFit.fill,
-              )
-            : Image(image: NetworkImage(img)),
+            ? ClipOval(
+          child: Image(
+            image: AssetImage(
+              "assets/images/profile.png",
+            ),
+            width: 150, // Adjust the size as needed
+            height: 150,
+            fit: BoxFit.cover,
+          )
+        )
+
+            : ClipOval(
+          child: Image(
+            image: NetworkImage(img),
+            width: 150, // Adjust the size as needed
+            height: 150,
+            fit: BoxFit.cover, // Ensures the image covers the circle
+          ),
+        )
+
       ),
     ),
   );

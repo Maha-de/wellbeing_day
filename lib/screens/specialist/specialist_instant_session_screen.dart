@@ -218,7 +218,7 @@ class _SpecialistInstantSessionScreenState extends State<SpecialistInstantSessio
                                           BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
                                           BlocProvider<SendNotificationCubit>(create: (_) => SendNotificationCubit()),
                                         ],
-                                        child: MeetingScreen(uId: session.session?.beneficiary?[0].id??""),
+                                        child: MeetingScreen(uId: session.session?.beneficiary?[0].id??"", groupThreapy: false,),
                                       ),
                                     ),
                                   );

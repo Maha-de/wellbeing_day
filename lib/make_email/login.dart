@@ -315,6 +315,7 @@ class LoginCubit extends Cubit<LoginState> {
           prefs.setString('email', email);
           prefs.setString('role', "0");
           prefs.setString('token', data["token"]);
+          print("tokkkkkkkkkeeeen"+data["token"]);
         } else if (role == "specialized") {
           var userId = data['user']['id'];
           final prefs = await SharedPreferences.getInstance();

@@ -57,7 +57,7 @@ class _TherapeuticProgramsScreenState extends State<TherapeuticProgramsScreen> {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('userId') ?? "";
     userProfileCubit.getUserProfile(context, id);
-    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.category, widget.subCategory);
+    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.category, widget.subCategory,context);
   }ScrollController scroll=ScrollController();
   int currentIndex=1;
   @override
