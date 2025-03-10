@@ -269,7 +269,7 @@ class _SpecialistSecondHomeScreenState
                         ],
                       ),
 
-                      SizedBox(height: 50.h),
+                      SizedBox(height: 10.h),
                       BlocBuilder<DoctorSessionTypesCubit,
                           DoctorSessionTypesState>(
 
@@ -282,7 +282,7 @@ class _SpecialistSecondHomeScreenState
                             return Center(
                               child: Container(
 
-                                height: 250.h,
+                                height: 300.h,
                                 width: 344.w,
                                 child:
                                     state.session.freeConsultations?.length == 0
@@ -294,6 +294,7 @@ class _SpecialistSecondHomeScreenState
                                             ),
                                           )
                                         : ListView.separated(
+                                      padding: EdgeInsets.only(top: 40),
                                             itemBuilder: (context, index) {
                                               return BeneficiaryCardHome(
                                                 session: state

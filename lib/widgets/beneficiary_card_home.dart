@@ -111,7 +111,7 @@ class BeneficiaryCardHome extends StatelessWidget {
                                   create: (_) => BeneficiarySessionCubit()),
                             ],
                             child: UserProfileScreen(
-                              id: session?.id ?? "",
+                              id: session?.id ?? "", groupThreapy: false,
                             ),
                           ),
                         ),

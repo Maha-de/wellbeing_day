@@ -1,4 +1,5 @@
 import 'package:doctor/cubit/delete_account_cubit/delete_account_cubit.dart';
+import 'package:doctor/cubit/get_group_threapy_cubit/get_group_threapy_cubit.dart';
 import 'package:doctor/cubit/update_user_cubit/update_user_cubit.dart';
 import 'package:doctor/models/Doctor_id_model.dart';
 import 'package:doctor/screens/client_profile_details.dart';
@@ -23,6 +24,7 @@ import '../../models/user_profile_model.dart';
 import '../../widgets/custom_bottom_nav_bar_specialist.dart';
 import '../appointments_section.dart';
 import '../cubit/available_slots_cubit.dart';
+import 'group_therapy_sessions.dart';
 
 class SpecialistProfileScreen extends StatefulWidget {
   const SpecialistProfileScreen({super.key});
@@ -62,6 +64,7 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
       "yourProfile".tr(),
       "settings".tr(),
       "appointments".tr(),
+      EasyLocalization.of(context)?.currentLocale?.languageCode == 'ar' ?"الجلسات الجماعيه":"Group Therapy Sessions",
       "signOut".tr()
     ];
 
@@ -231,8 +234,8 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
                     Center(
                       child: Container(
                         margin: const EdgeInsets.only(
-                            top: 5, left: 5, right: 5, bottom: 5),
-                        height: 293.h,
+                            top: 0, left: 5, right: 5, bottom: 0),
+                        height: 335.h,
                         width: 343.w,// Adjust height proportionally
                         child: ListView.builder(
                           // physics: NeverScrollableScrollPhysics(),
@@ -297,6 +300,29 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
+                                      builder: (context) =>
+                                          MultiBlocProvider(providers: [
+                                            BlocProvider<DoctorProfileCubit>(
+                                                create: (_) =>
+                                                    DoctorProfileCubit()),
+                                            BlocProvider<DeleteAccountCubit>(
+                                                create: (_) =>
+                                                    DeleteAccountCubit()),
+                                            BlocProvider<UpdateUserCubit>(
+                                                create: (_) => UpdateUserCubit()),
+                                            BlocProvider<AddImageToProfileCubit>(
+                                                create: (_) =>
+                                                    AddImageToProfileCubit()),
+                                            BlocProvider<GetGroupThreapyCubit>(
+                                                create: (_) =>
+                                                    GetGroupThreapyCubit()),
+                                          ], child: GroupTherapyScreen()),
+                                    ),
+                                  );
+                                } else if (index == 4) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
                                       builder: (context) => BlocProvider(
                                           create: (_) => UserProfileCubit(),
                                           child: SplashScreen()),
@@ -309,7 +335,7 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
                               },
                               child: Container(
                                 margin: EdgeInsets.only(
-                                    bottom: 5, top: 10, left: 5, right: 5),
+                                    bottom: 5, top: 5, left: 5, right: 5),
                                 child: Column(
                                   children: [
                                     Row(
@@ -336,7 +362,7 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
                                     ),
                                     Container(
                                       margin:
-                                      EdgeInsets.only(top: 15, left: 12),
+                                      EdgeInsets.only(top: 12, left: 12),
                                       width: 320.w,
                                       height: 2.h,
                                       color: Color(0xff19649E),
@@ -346,7 +372,7 @@ class _SpecialistProfileScreenState extends State<SpecialistProfileScreen> {
                               ),
                             );
                           },
-                          itemCount: 4,
+                          itemCount: actions.length,
                         ),
                       ),
                     ),

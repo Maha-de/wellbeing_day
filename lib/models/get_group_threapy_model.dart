@@ -30,15 +30,15 @@ class Session {
   String? category;
   String? subcategory;
   String? description;
-  DateTime? sessionDate;
+  String? sessionDate;
   String? status;
   List<Specialist>? beneficiary;
   Specialist? specialist;
   bool? isGroupReady;
   String? paymentStatus;
   int? maxParticipants;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? createdAt;
+  String? updatedAt;
   int? v;
 
   Session({
@@ -65,15 +65,15 @@ class Session {
     category: json["category"],
     subcategory: json["subcategory"],
     description: json["description"],
-    sessionDate: json["sessionDate"] == null ? null : DateTime.parse(json["sessionDate"]),
+    sessionDate: json["sessionDate"] ,
     status: json["status"],
     beneficiary: json["beneficiary"] == null ? [] : List<Specialist>.from(json["beneficiary"]!.map((x) => Specialist.fromJson(x))),
     specialist: json["specialist"] == null ? null : Specialist.fromJson(json["specialist"]),
     isGroupReady: json["isGroupReady"],
     paymentStatus: json["paymentStatus"],
     maxParticipants: json["maxParticipants"],
-    createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
-    updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
+    createdAt: json["createdAt"],
+    updatedAt: json["updatedAt"] ,
     v: json["__v"],
   );
 
@@ -83,15 +83,15 @@ class Session {
     "category": category,
     "subcategory": subcategory,
     "description": description,
-    "sessionDate": sessionDate?.toIso8601String(),
+    "sessionDate": sessionDate,
     "status": status,
     "beneficiary": beneficiary == null ? [] : List<dynamic>.from(beneficiary!.map((x) => x.toJson())),
     "specialist": specialist?.toJson(),
     "isGroupReady": isGroupReady,
     "paymentStatus": paymentStatus,
     "maxParticipants": maxParticipants,
-    "createdAt": createdAt?.toIso8601String(),
-    "updatedAt": updatedAt?.toIso8601String(),
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
     "__v": v,
   };
 }

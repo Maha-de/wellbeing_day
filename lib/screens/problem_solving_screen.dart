@@ -52,7 +52,7 @@ class _ProblemSolvingScreenState extends State<ProblemSolvingScreen> {
     userProfileCubit.getUserProfile(context, id);
     subCategoriesCubit.fetchSubCategories(context,"mentalHealth");
 
-    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.category, widget.subCategory);
+    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.category, widget.subCategory,context);
   }
   int currentIndex=1;
   @override

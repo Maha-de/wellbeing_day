@@ -3,11 +3,12 @@ import 'package:doctor/models/doctor_sessions_types_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../api/end_points.dart';
+import '../../models/get_group_threapy_model.dart';
 import 'get_group_threapy_state.dart';
 
 class GetGroupThreapyCubit extends Cubit<GetGroupThreapyState> {
   GetGroupThreapyCubit() : super(GetGroupThreapyInitial());
-  DoctorSessionsTypesModel? sessionData;
+  GetGroupThreapyModel? sessionData;
   Future<void> getDoctorSessionsTypes(BuildContext context,String id) async {
     emit(GetGroupThreapyLoading());
     try {
@@ -18,14 +19,13 @@ class GetGroupThreapyCubit extends Cubit<GetGroupThreapyState> {
         ),
       );
 
-      final response = await dio.get("/sessions/beneficiary/$id");
+      final response = await dio.get("/sessions/groupTherapy/67c1d4f985349387c42ae05a");
 
       if (response.statusCode == 200) {
-        final userProfileModel = DoctorSessionsTypesModel.fromJson(response.data);
+        final userProfileModel = GetGroupThreapyModel.fromJson(response.data);
         sessionData = userProfileModel;
         print("sessions1: ${sessionData}");
-        print("sessions2: ${sessionData?.scheduledSessions}");
-        print("sessions3: ${sessionData?.completedSessions}");
+
 
         emit(GetGroupThreapySuccess("Profile loaded successfully", userProfileModel));
       } else {

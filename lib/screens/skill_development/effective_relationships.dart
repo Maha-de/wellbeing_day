@@ -44,7 +44,7 @@ class _EffectiveRelationshipsState extends State<EffectiveRelationships> {
     String id = prefs.getString('userId') ?? "";
     userProfileCubit.getUserProfile(context, id);
     doctorByCategoryCubit.fetchSpecialistsbycategory(
-        widget.category, widget.subCategory);
+        widget.category, widget.subCategory,context);
   }
 
   int currentIndex = 1;

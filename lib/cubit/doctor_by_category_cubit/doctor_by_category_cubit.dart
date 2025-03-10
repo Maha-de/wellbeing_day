@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../api/end_points.dart';
@@ -36,7 +37,7 @@ class DoctorByCategoryCubit extends Cubit<DoctorByCategoryState> {
 
     
 
-  Future<void> fetchSpecialistsbycategory(String category,String subcategory) async {
+  Future<void> fetchSpecialistsbycategory(String category,String subcategory,BuildContext context) async {
 
       emit(DoctorByCategoryLoading());
       try {
@@ -67,7 +68,7 @@ class DoctorByCategoryCubit extends Cubit<DoctorByCategoryState> {
           emit(DoctorByCategoryFailure("${response.data['message']}", errMessage: " ${response.data['message']}"));
         }
       } catch (e) {
-        emit(DoctorByCategoryFailure("Error occurred while connecting to the API: $e", errMessage: "Error occurred while connecting to the API: $e"));
+        emit(DoctorByCategoryFailure("", errMessage: EasyLocalization.of(context)?.currentLocale?.languageCode == 'ar' ?"لا يوجد مختصين في هذا التخصص":"there aren't any specialists for this category"));
       }
   }
 }

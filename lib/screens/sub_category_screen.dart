@@ -81,6 +81,19 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
       "Guidance and Counseling": "ارشاد وتوجيه",
       "Prevention and Psychological Follow-up": "وقاية ومتابعة نفسية",
       "Rehabilitation and Support": "اعادة تأهيل ودعم",
+      "Diet Plan": "نظام غذائي",
+      "Exercise Plan": "نظام رياضي",
+      "Regular Check-ups": "فحوص دورية",
+      "Health Care": "عناية صحية",
+      "Relaxation": "الاسترخاء",
+      "Stress Management": "تحمل الضغوط",
+      "Emotional Control": "ضبط المشاعر",
+      "Dialectical Strategies": "استراتيجيات جدلية حل",
+      "Achieving Balance": "تحقيق التوازن",
+      "Improving Confidence": "تحسين الثقة",
+      "Achieving Goals": "تحقيق الأهداف",
+      "Achieving Success": "تحقيق النجاح",
+      "Effective Relationships": "العلاقات الفعالة"
     };
 
 // التحقق مما إذا كان النص بالإنجليزية أم العربية
@@ -95,9 +108,9 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
         : widget.subCategory;
 
 // استدعاء الدالة مع الفئة المترجمة
-    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.category, translatedSubCategory);
+    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.category, translatedSubCategory,context);
 
-    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.category,widget.subCategory);
+    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.category,widget.subCategory,context);
 
   }
 
