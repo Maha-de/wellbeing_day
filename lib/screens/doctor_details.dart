@@ -243,51 +243,74 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                                     Wrap(
                                       spacing: 10,
                                       children: doctor
-                                              .specialist?.availableSlots
-                                              ?.map((timeString) {
-                                            // تحويل النص إلى DateTime
-                                            DateTime time =
-                                                DateTime.parse(timeString);
+                                          .specialist?.availableSlots
+                                          ?.map((timeString) {
+                                        if (timeString == null)
+                                          return SizedBox();
 
-                                            // تنسيق الوقت فقط بدون التاريخ
-                                            String formattedTime =
-                                                DateFormat('hh:mm a')
-                                                    .format(time);
+                                        try {
+                                          // تنظيف النص من "T" وأي مسافات زائدة
+                                          String cleanedTimeString =
+                                          timeString
+                                              .replaceAll("T", "")
+                                              .trim();
 
-                                            return TextButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  _selectedTime =
-                                                      timeString; // تخزين النص الأصلي لضمان التوافق
-                                                });
-                                              },
-                                              style: TextButton.styleFrom(
-                                                minimumSize: Size(110, 50),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                ),
-                                                foregroundColor:
-                                                    Colors.grey.shade300,
-                                                backgroundColor:
-                                                    _selectedTime == timeString
-                                                        ? const Color(
-                                                            0xFF19649E)
-                                                        : Colors.grey.shade300,
+                                          // استخراج الجزء الخاص بالوقت فقط
+                                          RegExp regex = RegExp(
+                                              r"(\d{1,2}:\d{2} (AM|PM))");
+                                          Match? match = regex.firstMatch(
+                                              cleanedTimeString);
+
+                                          if (match == null) {
+                                            print(
+                                                "❌ فشل استخراج الوقت من: $timeString");
+                                            return SizedBox();
+                                          }
+
+                                          String formattedTime =
+                                          match.group(0)!; // الوقت فقط
+
+                                          return TextButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                _selectedTime = timeString;
+                                              });
+                                            },
+                                            style: TextButton.styleFrom(
+                                              minimumSize: Size(110, 50),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(
+                                                    20),
                                               ),
-                                              child: Text(
-                                                formattedTime, // عرض الوقت فقط
-                                                style: TextStyle(
-                                                  fontSize: 18.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: _selectedTime ==
-                                                          timeString
-                                                      ? Colors.white
-                                                      : Colors.black,
-                                                ),
+                                              foregroundColor:
+                                              Colors.grey.shade300,
+                                              backgroundColor:
+                                              _selectedTime ==
+                                                  timeString
+                                                  ? const Color(
+                                                  0xFF19649E)
+                                                  : Colors
+                                                  .grey.shade300,
+                                            ),
+                                            child: Text(
+                                              formattedTime, // عرض الوقت فقط مع AM/PM
+                                              style: TextStyle(
+                                                fontSize: 18.sp,
+                                                fontWeight: FontWeight.bold,
+                                                color: _selectedTime ==
+                                                    timeString
+                                                    ? Colors.white
+                                                    : Colors.black,
                                               ),
-                                            );
-                                          }).toList() ??
+                                            ),
+                                          );
+                                        } catch (e) {
+                                          print(
+                                              "❌ خطأ في معالجة الوقت: $timeString - $e");
+                                          return SizedBox();
+                                        }
+                                      }).toList() ??
                                           [],
                                     ),
                                   ],
@@ -309,42 +332,87 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                               SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
                                 child: Row(
-                                  children:
-                                      (isEnglish ? daySlotsEnglish : daySlots)
-                                          .map((day) {
-                                    return TextButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          _selectedDay =
-                                              day; // Update the selected time
-                                        });
-                                      },
-                                      style: TextButton.styleFrom(
-                                        minimumSize: Size(110, 50),
-                                        // Set minimum size for the button
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                              20), // Change this value for more or less rounding
+                                  children: doctor.specialist?.availableSlots
+                                      ?.map((dayString) {
+                                    if (dayString == null)
+                                      return SizedBox();
+
+                                    try {
+                                      // تنظيف النص من أي حرف "T" زائد والمسافات غير الضرورية
+                                      String cleanedDayString = dayString
+                                          .replaceAll("T", " ")
+                                          .trim();
+
+                                      // قائمة بالتنسيقات الممكنة
+                                      List<String> possibleFormats = [
+                                        "yyyy-MM-dd HH:mm", // 2025-07-10 18:00
+                                        "yyyy-MM-dd hh:mm a", // 2025-07-10 08:00 AM
+                                        "yyyy-MM-dd'T'HH:mm", // 2025-07-10T18:00
+                                        "yyyy-MM-dd'T'hh:mm a", // 2025-07-10T08:00 AM
+                                      ];
+
+                                      DateTime?
+                                      parsedDate; // يجب أن يكون قابلاً للإسناد بـ null
+
+                                      for (String format
+                                      in possibleFormats) {
+                                        try {
+                                          parsedDate = DateFormat(format)
+                                              .parse(cleanedDayString);
+                                          break; // إذا تم التحليل بنجاح، نخرج من الحلقة
+                                        } catch (e) {
+                                          continue; // جرب التنسيق التالي
+                                        }
+                                      }
+
+                                      // لو لم يتم التحليل بنجاح، اطبع تحذيرًا وأعد زرًا فارغًا
+                                      if (parsedDate == null) {
+                                        print(
+                                            "❌ فشل تحليل التاريخ: $dayString");
+                                        return SizedBox();
+                                      }
+
+                                      // استخراج اليوم من الأسبوع (Sunday, Monday,...)
+                                      String dayOfWeek = DateFormat('EEEE')
+                                          .format(parsedDate);
+
+                                      return TextButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            _selectedDay = dayString;
+                                          });
+                                        },
+                                        style: TextButton.styleFrom(
+                                          minimumSize: Size(110, 50),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(20),
+                                          ),
+                                          foregroundColor:
+                                          Colors.grey.shade300,
+                                          backgroundColor:
+                                          _selectedDay == dayString
+                                              ? const Color(0xFF19649E)
+                                              : Colors.grey.shade300,
                                         ),
-                                        foregroundColor: Colors.grey.shade300,
-                                        backgroundColor: _selectedDay == day
-                                            ? const Color(0xFF19649E)
-                                            : Colors
-                                                .grey.shade300, // Text color
-                                      ),
-                                      child: Text(
-                                        day,
-                                        // textDirection: TextDirection.ltr,
-                                        style: TextStyle(
-                                          fontSize: 18.sp,
-                                          fontWeight: FontWeight.bold,
-                                          color: _selectedDay == day
-                                              ? Colors.white
-                                              : Colors.black,
+                                        child: Text(
+                                          dayOfWeek, // عرض اليوم فقط
+                                          style: TextStyle(
+                                            fontSize: 18.sp,
+                                            fontWeight: FontWeight.bold,
+                                            color: _selectedDay == dayString
+                                                ? Colors.white
+                                                : Colors.black,
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  }).toList(),
+                                      );
+                                    } catch (e) {
+                                      print(
+                                          "❌ خطأ غير متوقع عند تحليل التاريخ: $dayString - $e");
+                                      return SizedBox();
+                                    }
+                                  }).toList() ??
+                                      [],
                                 ),
                               ),
                               SizedBox(
