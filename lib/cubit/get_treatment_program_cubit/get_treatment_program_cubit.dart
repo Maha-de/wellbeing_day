@@ -15,7 +15,7 @@ import 'get_treatment_program_state.dart';
 
 class GetTreatmentProgramCubit extends Cubit<GetTreatmentProgramState> {
   GetTreatmentProgramCubit() : super(GetTreatmentProgramInitial());
-  List<Program>? programs = [];
+  Program? programs ;
 
   Future<void> fetchProgramByName(BuildContext context, String programName) async {
 
@@ -28,27 +28,22 @@ class GetTreatmentProgramCubit extends Cubit<GetTreatmentProgramState> {
         ),
       );
 
-      final response = await dio.get("/treatment");
+      final response = await dio.get("/treatment/$programName");
 
       if (response.statusCode == 200) {
-        final treatmentProgramsModel = TreatmentProgramsModel.fromJson(response.data);
-        programs = treatmentProgramsModel.programs;
+        final treatmentProgramsModel = TreatmentProgramsModel.fromJson(
+            response.data);
+        programs = treatmentProgramsModel.program;
 
-        // البحث عن البرنامج بالاسم
-        Program? selectedProgram = programs?.firstWhere(
-              (prog) => prog.name == programName,
-          orElse: () => Program(), // يرجّع كائن فارغ لو مفيش برنامج بالاسم ده
-        );
 
-        if (selectedProgram?.id != null) {
-          emit(GetTreatmentProgramSuccess("Program loaded successfully", selectedProgram));
-        } else {
-          emit(GetTreatmentProgramFailure("No program found with this name", errMessage: "No program found with this name"));
-        }
-      } else {
-        emit(GetTreatmentProgramFailure("${response.data['message']}", errMessage: " ${response.data['message']}"));
+        emit(GetTreatmentProgramSuccess(
+            "Program loaded successfully", programs));
       }
-    } catch (e) {
+      else {
+        emit(GetTreatmentProgramFailure("No program found with this name", errMessage: "No program found with this name"));
+      }
+
+    }catch (e) {
       emit(GetTreatmentProgramFailure("Error occurred while connecting to the API: $e", errMessage: "Error occurred while connecting to the API: $e"));
     }
   }

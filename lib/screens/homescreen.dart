@@ -21,6 +21,7 @@ import '../cubit/doctor_by_category_cubit/doctor_by_category_cubit.dart';
 import '../cubit/get_all_ads/get_all_ads_state.dart';
 import '../cubit/get_sub_categories_cubit/get_sub_categories_cubit.dart';
 import '../cubit/get_sub_categories_cubit/get_sub_categories_state.dart';
+import '../cubit/get_treatment_program_cubit/get_treatment_program_cubit.dart';
 import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
@@ -128,9 +129,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     backgroundColor: const Color(
                         0xff19649E), // Ensures the background is consistent
                     selectedItemColor:
-                        Colors.white, // Sets the color of the selected icons
+                    Colors.white, // Sets the color of the selected icons
                     unselectedItemColor:
-                        Colors.black, // Sets the color of unselected icons
+                    Colors.black, // Sets the color of unselected icons
                     showSelectedLabels: false, // Hides selected labels
                     showUnselectedLabels: false, // Hides unselected labels
                     currentIndex: currentIndex, // Default selected index
@@ -151,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Image.asset(
                             "assets/images/meteor-icons_home.png",
                             color:
-                                currentIndex == 0 ? Colors.white : Colors.black,
+                            currentIndex == 0 ? Colors.white : Colors.black,
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -280,7 +281,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const ApplicationInfo()));
+                                  const ApplicationInfo()));
 
                           break;
 
@@ -342,25 +343,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                     context,
                                     PageRouteBuilder(
                                       pageBuilder: (context, animation,
-                                              secondaryAnimation) =>
+                                          secondaryAnimation) =>
                                           MultiBlocProvider(
-                                        providers: [
-                                          BlocProvider(
-                                              create: (_) =>
-                                                  UserProfileCubit()),
-                                          BlocProvider(
-                                              create: (_) =>
-                                                  DoctorByCategoryCubit()),
-                                          BlocProvider(
-                                              create: (_) =>
-                                                  SubCategoriesCubit()),
-                                          BlocProvider(
-                                              create: (_) => GetAllAdsCubit()),
-                                        ],
-                                        child: page,
-                                      ),
+                                            providers: [
+                                              BlocProvider(
+                                                  create: (_) =>
+                                                      UserProfileCubit()),
+                                              BlocProvider(
+                                                  create: (_) =>
+                                                      DoctorByCategoryCubit()),
+                                              BlocProvider(
+                                                  create: (_) =>
+                                                      SubCategoriesCubit()),
+                                              BlocProvider(
+                                                  create: (_) => GetAllAdsCubit()),
+                                            ],
+                                            child: page,
+                                          ),
                                       transitionDuration:
-                                          const Duration(milliseconds: 1),
+                                      const Duration(milliseconds: 1),
                                     ),
                                   );
                                 }
@@ -371,10 +372,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 decoration: BoxDecoration(
                                   color: index == categories.length - 1
                                       ? const Color(
-                                          0xffAFDCFF) // Always blue for the last item
+                                      0xffAFDCFF) // Always blue for the last item
                                       : (selectedIndex == index
-                                          ? const Color(0xff19649E)
-                                          : const Color(0xffD5D5D5)),
+                                      ? const Color(0xff19649E)
+                                      : const Color(0xffD5D5D5)),
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: Center(
@@ -537,13 +538,13 @@ class _HomeScreenState extends State<HomeScreen> {
                               } else if (state is SubCategoriesSuccess) {
                                 return GridView.builder(
                                   gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                  SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 3, // 3 items per row
                                     crossAxisSpacing:
-                                        8, // spacing between columns
+                                    8, // spacing between columns
                                     mainAxisSpacing: 8, // spacing between rows
                                     childAspectRatio:
-                                        1.5, // aspect ratio of the grid items
+                                    1.5, // aspect ratio of the grid items
                                   ),
                                   itemCount: subCategoriesCubit.categories
                                       .length, // total number of items
@@ -555,33 +556,33 @@ class _HomeScreenState extends State<HomeScreen> {
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 MultiBlocProvider(
-                                              providers: [
-                                                BlocProvider<UserProfileCubit>(
-                                                    create: (_) =>
-                                                        UserProfileCubit()),
-                                                BlocProvider<
+                                                  providers: [
+                                                    BlocProvider<UserProfileCubit>(
+                                                        create: (_) =>
+                                                            UserProfileCubit()),
+                                                    BlocProvider<
                                                         AddImageToProfileCubit>(
-                                                    create: (_) =>
-                                                        AddImageToProfileCubit()),
-                                                BlocProvider<UpdateUserCubit>(
-                                                    create: (_) =>
-                                                        UpdateUserCubit()),
-                                                BlocProvider<
+                                                        create: (_) =>
+                                                            AddImageToProfileCubit()),
+                                                    BlocProvider<UpdateUserCubit>(
+                                                        create: (_) =>
+                                                            UpdateUserCubit()),
+                                                    BlocProvider<
                                                         DoctorByCategoryCubit>(
-                                                    create: (_) =>
-                                                        DoctorByCategoryCubit()),
-                                                BlocProvider<
+                                                        create: (_) =>
+                                                            DoctorByCategoryCubit()),
+                                                    BlocProvider<
                                                         SubCategoriesCubit>(
-                                                    create: (_) =>
-                                                        SubCategoriesCubit()),
-                                              ],
-                                              child: SubCategoryScreen(
-                                                category: 'mentalHealth',
-                                                subCategory: subCategoriesCubit
+                                                        create: (_) =>
+                                                            SubCategoriesCubit()),
+                                                  ],
+                                                  child: SubCategoryScreen(
+                                                    category: 'mentalHealth',
+                                                    subCategory: subCategoriesCubit
                                                         .categories[index] ??
-                                                    "",
-                                              ),
-                                            ),
+                                                        "",
+                                                  ),
+                                                ),
                                           ),
                                         );
                                       },
@@ -590,12 +591,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                         height: 68.h,
                                         decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(20),
+                                          BorderRadius.circular(20),
                                           color: const Color(0xff69B7F3),
                                           boxShadow: [
                                             BoxShadow(
                                               color:
-                                                  Colors.black.withOpacity(0.2),
+                                              Colors.black.withOpacity(0.2),
                                               spreadRadius: 2,
                                               blurRadius: 4,
                                               offset: const Offset(0, 2),
@@ -605,7 +606,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         child: Center(
                                           child: Text(
                                             subCategoriesCubit
-                                                    .categories[index] ??
+                                                .categories[index] ??
                                                 "",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
@@ -973,25 +974,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                     context,
                                     PageRouteBuilder(
                                       pageBuilder: (context, animation,
-                                              secondaryAnimation) =>
+                                          secondaryAnimation) =>
                                           MultiBlocProvider(
-                                        providers: [
-                                          BlocProvider(
-                                              create: (_) =>
-                                                  UserProfileCubit()),
-                                          BlocProvider(
-                                              create: (_) =>
-                                                  DoctorByCategoryCubit()),
-                                          BlocProvider(
-                                              create: (_) =>
-                                                  SubCategoriesCubit()),
-                                          BlocProvider(
-                                              create: (_) => GetAllAdsCubit()),
-                                        ],
-                                        child: page,
-                                      ),
+                                            providers: [
+                                              BlocProvider(
+                                                  create: (_) =>
+                                                      UserProfileCubit()),
+                                              BlocProvider(
+                                                  create: (_) =>
+                                                      DoctorByCategoryCubit()),
+                                              BlocProvider(
+                                                  create: (_) =>
+                                                      SubCategoriesCubit()),
+                                              BlocProvider(
+                                                  create: (_) => GetAllAdsCubit()),
+                                            ],
+                                            child: page,
+                                          ),
                                       transitionDuration:
-                                          const Duration(milliseconds: 1),
+                                      const Duration(milliseconds: 1),
                                     ),
                                   );
                                 }
@@ -1002,10 +1003,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 decoration: BoxDecoration(
                                   color: index == categories.length - 1
                                       ? const Color(
-                                          0xffAFDCFF) // Always blue for the last item
+                                      0xffAFDCFF) // Always blue for the last item
                                       : (selectedIndex == index
-                                          ? const Color(0xff19649E)
-                                          : const Color(0xffD5D5D5)),
+                                      ? const Color(0xff19649E)
+                                      : const Color(0xffD5D5D5)),
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: Center(
@@ -1168,53 +1169,55 @@ class _HomeScreenState extends State<HomeScreen> {
                               } else if (state is SubCategoriesSuccess) {
                                 return GridView.builder(
                                   gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                  SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 3, // 3 عناصر في كل صف
                                     crossAxisSpacing: 8,
                                     mainAxisSpacing: 8,
                                     childAspectRatio: 1.4,
                                   ),
                                   itemCount:
-                                      subCategoriesCubit.categories.length,
+                                  subCategoriesCubit.categories.length,
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
                                       onTap: () {
                                         if (subCategoriesCubit
-                                                    .categories[index] ==
-                                                "Group Therapy" ||
+                                            .categories[index] ==
+                                            "Group Therapy" ||
                                             subCategoriesCubit
-                                                    .categories[index] ==
+                                                .categories[index] ==
                                                 "علاج جماعي") {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   MultiBlocProvider(
-                                                providers: [
-                                                  BlocProvider<
+                                                    providers: [
+                                                      BlocProvider<
                                                           UserProfileCubit>(
-                                                      create: (_) =>
-                                                          UserProfileCubit()),
-                                                  BlocProvider<
+                                                          create: (_) =>
+                                                              UserProfileCubit()),
+                                                      BlocProvider<
                                                           AddImageToProfileCubit>(
-                                                      create: (_) =>
-                                                          AddImageToProfileCubit()),
-                                                  BlocProvider<UpdateUserCubit>(
-                                                      create: (_) =>
-                                                          UpdateUserCubit()),
-                                                  BlocProvider<
+                                                          create: (_) =>
+                                                              AddImageToProfileCubit()),
+                                                      BlocProvider<UpdateUserCubit>(
+                                                          create: (_) =>
+                                                              UpdateUserCubit()),
+                                                      BlocProvider<
                                                           DoctorByCategoryCubit>(
-                                                      create: (_) =>
-                                                          DoctorByCategoryCubit()),
-                                                  BlocProvider<
+                                                          create: (_) =>
+                                                              DoctorByCategoryCubit()),
+                                                      BlocProvider<
                                                           SubCategoriesCubit>(
-                                                      create: (_) =>
-                                                          SubCategoriesCubit()),
-                                                  BlocProvider<CreateSessionCubit>(
-                                                      create: (_) => CreateSessionCubit()),
-                                                ],
-                                                child: GroupTherapy(),
-                                              ),
+                                                          create: (_) =>
+                                                              SubCategoriesCubit()),
+                                                      BlocProvider<CreateSessionCubit>(
+                                                          create: (_) => CreateSessionCubit()),
+                                                      BlocProvider<GetTreatmentProgramCubit>(
+                                                          create: (_) => GetTreatmentProgramCubit()),
+                                                    ],
+                                                    child: GroupTherapy(),
+                                                  ),
                                             ),
                                           );
                                         } else {
@@ -1223,36 +1226,36 @@ class _HomeScreenState extends State<HomeScreen> {
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   MultiBlocProvider(
-                                                providers: [
-                                                  BlocProvider<
+                                                    providers: [
+                                                      BlocProvider<
                                                           UserProfileCubit>(
-                                                      create: (_) =>
-                                                          UserProfileCubit()),
-                                                  BlocProvider<
+                                                          create: (_) =>
+                                                              UserProfileCubit()),
+                                                      BlocProvider<
                                                           AddImageToProfileCubit>(
-                                                      create: (_) =>
-                                                          AddImageToProfileCubit()),
-                                                  BlocProvider<UpdateUserCubit>(
-                                                      create: (_) =>
-                                                          UpdateUserCubit()),
-                                                  BlocProvider<
+                                                          create: (_) =>
+                                                              AddImageToProfileCubit()),
+                                                      BlocProvider<UpdateUserCubit>(
+                                                          create: (_) =>
+                                                              UpdateUserCubit()),
+                                                      BlocProvider<
                                                           DoctorByCategoryCubit>(
-                                                      create: (_) =>
-                                                          DoctorByCategoryCubit()),
-                                                  BlocProvider<
+                                                          create: (_) =>
+                                                              DoctorByCategoryCubit()),
+                                                      BlocProvider<
                                                           SubCategoriesCubit>(
-                                                      create: (_) =>
-                                                          SubCategoriesCubit()),
-                                                ],
-                                                child: SubCategoryScreen(
-                                                  category: 'mentalHealth',
-                                                  subCategory:
+                                                          create: (_) =>
+                                                              SubCategoriesCubit()),
+                                                    ],
+                                                    child: SubCategoryScreen(
+                                                      category: 'mentalHealth',
+                                                      subCategory:
                                                       subCategoriesCubit
-                                                                  .categories[
-                                                              index] ??
+                                                          .categories[
+                                                      index] ??
                                                           "",
-                                                ),
-                                              ),
+                                                    ),
+                                                  ),
                                             ),
                                           );
                                         }
@@ -1260,22 +1263,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                       child: Container(
                                         decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(20),
+                                          BorderRadius.circular(20),
                                           border: subCategoriesCubit
-                                                          .categories[index] ==
-                                                      "Problem Solving" ||
-                                                  subCategoriesCubit
-                                                          .categories[index] ==
-                                                      "حل مشكلات"
+                                              .categories[index] ==
+                                              "Problem Solving" ||
+                                              subCategoriesCubit
+                                                  .categories[index] ==
+                                                  "حل مشكلات"
                                               ? Border.all(
-                                                  color: Color(0xff19649E),
-                                                  width: 3.5)
+                                              color: Color(0xff19649E),
+                                              width: 3.5)
                                               : null,
                                           color: const Color(0xff69B7F3),
                                           boxShadow: [
                                             BoxShadow(
                                               color:
-                                                  Colors.black.withOpacity(0.2),
+                                              Colors.black.withOpacity(0.2),
                                               spreadRadius: 2,
                                               blurRadius: 4,
                                               offset: const Offset(0, 2),
@@ -1285,7 +1288,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         child: Center(
                                           child: Text(
                                             subCategoriesCubit
-                                                    .categories[index] ??
+                                                .categories[index] ??
                                                 "",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
