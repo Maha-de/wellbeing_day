@@ -1,3 +1,4 @@
+import 'package:doctor/models/catgoryInfo.dart';
 import 'package:doctor/models/sessionType.dart';
 import 'package:doctor/screens/sign_up_as_client.dart';
 import 'package:doctor/screens/specialists_screen.dart';
@@ -36,7 +37,8 @@ class _DepressionScreenState extends State<DepressionScreen> {
   void initState() {
     super.initState();
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
-    getTreatmentProgramCubit= BlocProvider.of<GetTreatmentProgramCubit>(context);
+    getTreatmentProgramCubit =
+        BlocProvider.of<GetTreatmentProgramCubit>(context);
     _loadUserProfile();
     WidgetsBinding.instance.addPostFrameCallback((_) {});
   }
@@ -130,7 +132,8 @@ class _DepressionScreenState extends State<DepressionScreen> {
                               ),
                               SizedBox(height: screenHeight.h * 0.01.h),
                               Container(
-                                padding: const EdgeInsets.symmetric(vertical: 10),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
@@ -144,14 +147,16 @@ class _DepressionScreenState extends State<DepressionScreen> {
                                   ],
                                 ),
                                 child: TextFormField(
-                                  initialValue: progs?.importance??"",
+                                  initialValue: progs?.importance ?? "",
                                   maxLines:
-                                  null, // Allows the field to expand for multiline input
-                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                      null, // Allows the field to expand for multiline input
+                                  style:
+                                      TextStyle(fontSize: 14.sp, height: 1.6.h),
 
                                   decoration: const InputDecoration(
                                     alignLabelWithHint: true,
-                                    border: InputBorder.none, // Removes the underline
+                                    border: InputBorder
+                                        .none, // Removes the underline
                                     contentPadding: EdgeInsets
                                         .zero, // Matches the original padding
                                   ),
@@ -170,7 +175,8 @@ class _DepressionScreenState extends State<DepressionScreen> {
                               ),
                               SizedBox(height: screenHeight.h * 0.01.h),
                               Container(
-                                padding: const EdgeInsets.symmetric(vertical: 35),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 35),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
@@ -184,12 +190,14 @@ class _DepressionScreenState extends State<DepressionScreen> {
                                   ],
                                 ),
                                 child: TextFormField(
-                                  initialValue: progs?.treatmentPlan??"",
+                                  initialValue: progs?.treatmentPlan ?? "",
                                   maxLines:
-                                  null, // Allows the field to expand for multiline input
-                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                      null, // Allows the field to expand for multiline input
+                                  style:
+                                      TextStyle(fontSize: 14.sp, height: 1.6.h),
                                   decoration: const InputDecoration(
-                                    border: InputBorder.none, // Removes the underline
+                                    border: InputBorder
+                                        .none, // Removes the underline
                                     contentPadding: EdgeInsets
                                         .zero, // Matches the original padding
                                   ),
@@ -207,7 +215,8 @@ class _DepressionScreenState extends State<DepressionScreen> {
                               ),
                               SizedBox(height: screenHeight.h * 0.01.h),
                               Container(
-                                padding: const EdgeInsets.symmetric(vertical: 35),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 35),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
@@ -221,12 +230,14 @@ class _DepressionScreenState extends State<DepressionScreen> {
                                   ],
                                 ),
                                 child: TextFormField(
-                                  initialValue: progs?.goals??"",
+                                  initialValue: progs?.goals ?? "",
                                   maxLines:
-                                  null, // Allows the field to expand for multiline input
-                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                      null, // Allows the field to expand for multiline input
+                                  style:
+                                      TextStyle(fontSize: 14.sp, height: 1.6.h),
                                   decoration: const InputDecoration(
-                                    border: InputBorder.none, // Removes the underline
+                                    border: InputBorder
+                                        .none, // Removes the underline
                                     contentPadding: EdgeInsets
                                         .zero, // Matches the original padding
                                   ),
@@ -244,7 +255,8 @@ class _DepressionScreenState extends State<DepressionScreen> {
                               ),
                               SizedBox(height: screenHeight.h * 0.01.h),
                               Container(
-                                padding: const EdgeInsets.symmetric(vertical: 20),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 20),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
@@ -258,12 +270,16 @@ class _DepressionScreenState extends State<DepressionScreen> {
                                   ],
                                 ),
                                 child: TextFormField(
-                                  initialValue: progs?.stages?.join("\n") ?? "", // Convert List<String> to a multiline String
+                                  initialValue: progs?.stages?.join("\n") ??
+                                      "", // Convert List<String> to a multiline String
                                   maxLines: null, // Allows multiline input
-                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                  style:
+                                      TextStyle(fontSize: 14.sp, height: 1.6.h),
                                   decoration: const InputDecoration(
-                                    border: InputBorder.none, // Removes the underline
-                                    contentPadding: EdgeInsets.zero, // Matches the original padding
+                                    border: InputBorder
+                                        .none, // Removes the underline
+                                    contentPadding: EdgeInsets
+                                        .zero, // Matches the original padding
                                   ),
                                 ),
                               ),
@@ -279,7 +295,8 @@ class _DepressionScreenState extends State<DepressionScreen> {
                               ),
                               SizedBox(height: screenHeight.h * 0.01.h),
                               Container(
-                                padding: const EdgeInsets.symmetric(vertical: 30),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 30),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
@@ -292,16 +309,19 @@ class _DepressionScreenState extends State<DepressionScreen> {
                                     ),
                                   ],
                                 ),
-                                child:  TextFormField(
-                                  initialValue: progs?.techniques?.join("\n") ?? "", // Convert List<String> to a multiline String
+                                child: TextFormField(
+                                  initialValue: progs?.techniques?.join("\n") ??
+                                      "", // Convert List<String> to a multiline String
                                   maxLines: null, // Allows multiline input
-                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                  style:
+                                      TextStyle(fontSize: 14.sp, height: 1.6.h),
                                   decoration: const InputDecoration(
-                                    border: InputBorder.none, // Removes the underline
-                                    contentPadding: EdgeInsets.zero, // Matches the original padding
+                                    border: InputBorder
+                                        .none, // Removes the underline
+                                    contentPadding: EdgeInsets
+                                        .zero, // Matches the original padding
                                   ),
                                 ),
-
                               ),
                               SizedBox(height: screenHeight.h * 0.03.h),
                               // "الأهداف" Section
@@ -315,7 +335,8 @@ class _DepressionScreenState extends State<DepressionScreen> {
                               ),
                               SizedBox(height: screenHeight.h * 0.01.h),
                               Container(
-                                padding: const EdgeInsets.symmetric(vertical: 30),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 30),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
@@ -331,10 +352,12 @@ class _DepressionScreenState extends State<DepressionScreen> {
                                 child: TextFormField(
                                   initialValue: "${progs?.sessions.length}",
                                   maxLines:
-                                  null, // Allows the field to expand for multiline input
-                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                      null, // Allows the field to expand for multiline input
+                                  style:
+                                      TextStyle(fontSize: 14.sp, height: 1.6.h),
                                   decoration: const InputDecoration(
-                                    border: InputBorder.none, // Removes the underline
+                                    border: InputBorder
+                                        .none, // Removes the underline
                                     contentPadding: EdgeInsets
                                         .zero, // Matches the original padding
                                   ),
@@ -352,7 +375,8 @@ class _DepressionScreenState extends State<DepressionScreen> {
                               ),
                               SizedBox(height: screenHeight.h * 0.01.h),
                               Container(
-                                padding: const EdgeInsets.symmetric(vertical: 30),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 30),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
@@ -366,15 +390,19 @@ class _DepressionScreenState extends State<DepressionScreen> {
                                   ],
                                 ),
                                 child: TextFormField(
-                                  initialValue: progs?.skillTraining?.join("\n") ?? "", // Convert List<String> to a multiline String
+                                  initialValue: progs?.skillTraining
+                                          ?.join("\n") ??
+                                      "", // Convert List<String> to a multiline String
                                   maxLines: null, // Allows multiline input
-                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                  style:
+                                      TextStyle(fontSize: 14.sp, height: 1.6.h),
                                   decoration: const InputDecoration(
-                                    border: InputBorder.none, // Removes the underline
-                                    contentPadding: EdgeInsets.zero, // Matches the original padding
+                                    border: InputBorder
+                                        .none, // Removes the underline
+                                    contentPadding: EdgeInsets
+                                        .zero, // Matches the original padding
                                   ),
                                 ),
-
                               ),
                               SizedBox(height: screenHeight.h * 0.05.h),
                               GestureDetector(
@@ -385,14 +413,21 @@ class _DepressionScreenState extends State<DepressionScreen> {
                                       builder: (context) => MultiBlocProvider(
                                         providers: [
                                           BlocProvider<UserProfileCubit>(
-                                              create: (_) => UserProfileCubit()),
+                                              create: (_) =>
+                                                  UserProfileCubit()),
                                           BlocProvider<AddImageToProfileCubit>(
                                               create: (_) =>
                                                   AddImageToProfileCubit()),
                                           BlocProvider<UpdateUserCubit>(
                                               create: (_) => UpdateUserCubit()),
                                         ],
-                                        child:  SpecialistsScreen(sessionType: RegularSession(),),
+                                        child: SpecialistsScreen(
+                                          categoryInfoFromDepressionAndAni:
+                                              CategoryInfo(
+                                                  pubCategory: 'mentalHealth',
+                                                  subCategory: "Depression"),
+                                          sessionType: RegularSession(),
+                                        ),
                                       ),
                                     ),
                                   );
@@ -419,8 +454,7 @@ class _DepressionScreenState extends State<DepressionScreen> {
                             ],
                           );
                         } else {
-                          return Center(
-                              child: Text('noSpecialistsFound'.tr()));
+                          return Center(child: Text('noSpecialistsFound'.tr()));
                         }
                       },
                     ),
@@ -668,7 +702,8 @@ class _DepressionScreenState extends State<DepressionScreen> {
                               ),
                               SizedBox(height: screenHeight.h * 0.01.h),
                               Container(
-                                padding: const EdgeInsets.symmetric(vertical: 10),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
@@ -682,14 +717,16 @@ class _DepressionScreenState extends State<DepressionScreen> {
                                   ],
                                 ),
                                 child: TextFormField(
-                                  initialValue: progs?.importance??"",
+                                  initialValue: progs?.importance ?? "",
                                   maxLines:
-                                  null, // Allows the field to expand for multiline input
-                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                      null, // Allows the field to expand for multiline input
+                                  style:
+                                      TextStyle(fontSize: 14.sp, height: 1.6.h),
 
                                   decoration: const InputDecoration(
                                     alignLabelWithHint: true,
-                                    border: InputBorder.none, // Removes the underline
+                                    border: InputBorder
+                                        .none, // Removes the underline
                                     contentPadding: EdgeInsets
                                         .zero, // Matches the original padding
                                   ),
@@ -708,7 +745,8 @@ class _DepressionScreenState extends State<DepressionScreen> {
                               ),
                               SizedBox(height: screenHeight.h * 0.01.h),
                               Container(
-                                padding: const EdgeInsets.symmetric(vertical: 35),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 35),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
@@ -722,12 +760,14 @@ class _DepressionScreenState extends State<DepressionScreen> {
                                   ],
                                 ),
                                 child: TextFormField(
-                                  initialValue: progs?.treatmentPlan??"",
+                                  initialValue: progs?.treatmentPlan ?? "",
                                   maxLines:
-                                  null, // Allows the field to expand for multiline input
-                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                      null, // Allows the field to expand for multiline input
+                                  style:
+                                      TextStyle(fontSize: 14.sp, height: 1.6.h),
                                   decoration: const InputDecoration(
-                                    border: InputBorder.none, // Removes the underline
+                                    border: InputBorder
+                                        .none, // Removes the underline
                                     contentPadding: EdgeInsets
                                         .zero, // Matches the original padding
                                   ),
@@ -745,7 +785,8 @@ class _DepressionScreenState extends State<DepressionScreen> {
                               ),
                               SizedBox(height: screenHeight.h * 0.01.h),
                               Container(
-                                padding: const EdgeInsets.symmetric(vertical: 35),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 35),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
@@ -759,12 +800,14 @@ class _DepressionScreenState extends State<DepressionScreen> {
                                   ],
                                 ),
                                 child: TextFormField(
-                                  initialValue: progs?.goals??"",
+                                  initialValue: progs?.goals ?? "",
                                   maxLines:
-                                  null, // Allows the field to expand for multiline input
-                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                      null, // Allows the field to expand for multiline input
+                                  style:
+                                      TextStyle(fontSize: 14.sp, height: 1.6.h),
                                   decoration: const InputDecoration(
-                                    border: InputBorder.none, // Removes the underline
+                                    border: InputBorder
+                                        .none, // Removes the underline
                                     contentPadding: EdgeInsets
                                         .zero, // Matches the original padding
                                   ),
@@ -782,7 +825,8 @@ class _DepressionScreenState extends State<DepressionScreen> {
                               ),
                               SizedBox(height: screenHeight.h * 0.01.h),
                               Container(
-                                padding: const EdgeInsets.symmetric(vertical: 20),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 20),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
@@ -796,12 +840,16 @@ class _DepressionScreenState extends State<DepressionScreen> {
                                   ],
                                 ),
                                 child: TextFormField(
-                                  initialValue: progs?.stages?.join("\n") ?? "", // Convert List<String> to a multiline String
+                                  initialValue: progs?.stages?.join("\n") ??
+                                      "", // Convert List<String> to a multiline String
                                   maxLines: null, // Allows multiline input
-                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                  style:
+                                      TextStyle(fontSize: 14.sp, height: 1.6.h),
                                   decoration: const InputDecoration(
-                                    border: InputBorder.none, // Removes the underline
-                                    contentPadding: EdgeInsets.zero, // Matches the original padding
+                                    border: InputBorder
+                                        .none, // Removes the underline
+                                    contentPadding: EdgeInsets
+                                        .zero, // Matches the original padding
                                   ),
                                 ),
                               ),
@@ -817,7 +865,8 @@ class _DepressionScreenState extends State<DepressionScreen> {
                               ),
                               SizedBox(height: screenHeight.h * 0.01.h),
                               Container(
-                                padding: const EdgeInsets.symmetric(vertical: 30),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 30),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
@@ -830,16 +879,19 @@ class _DepressionScreenState extends State<DepressionScreen> {
                                     ),
                                   ],
                                 ),
-                                child:  TextFormField(
-                                  initialValue: progs?.techniques?.join("\n") ?? "", // Convert List<String> to a multiline String
+                                child: TextFormField(
+                                  initialValue: progs?.techniques?.join("\n") ??
+                                      "", // Convert List<String> to a multiline String
                                   maxLines: null, // Allows multiline input
-                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                  style:
+                                      TextStyle(fontSize: 14.sp, height: 1.6.h),
                                   decoration: const InputDecoration(
-                                    border: InputBorder.none, // Removes the underline
-                                    contentPadding: EdgeInsets.zero, // Matches the original padding
+                                    border: InputBorder
+                                        .none, // Removes the underline
+                                    contentPadding: EdgeInsets
+                                        .zero, // Matches the original padding
                                   ),
                                 ),
-
                               ),
                               SizedBox(height: screenHeight.h * 0.03.h),
                               // "الأهداف" Section
@@ -853,7 +905,8 @@ class _DepressionScreenState extends State<DepressionScreen> {
                               ),
                               SizedBox(height: screenHeight.h * 0.01.h),
                               Container(
-                                padding: const EdgeInsets.symmetric(vertical: 30),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 30),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
@@ -869,10 +922,12 @@ class _DepressionScreenState extends State<DepressionScreen> {
                                 child: TextFormField(
                                   initialValue: "${progs?.sessions.length}",
                                   maxLines:
-                                  null, // Allows the field to expand for multiline input
-                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                      null, // Allows the field to expand for multiline input
+                                  style:
+                                      TextStyle(fontSize: 14.sp, height: 1.6.h),
                                   decoration: const InputDecoration(
-                                    border: InputBorder.none, // Removes the underline
+                                    border: InputBorder
+                                        .none, // Removes the underline
                                     contentPadding: EdgeInsets
                                         .zero, // Matches the original padding
                                   ),
@@ -890,7 +945,8 @@ class _DepressionScreenState extends State<DepressionScreen> {
                               ),
                               SizedBox(height: screenHeight.h * 0.01.h),
                               Container(
-                                padding: const EdgeInsets.symmetric(vertical: 30),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 30),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
@@ -904,15 +960,19 @@ class _DepressionScreenState extends State<DepressionScreen> {
                                   ],
                                 ),
                                 child: TextFormField(
-                                  initialValue: progs?.skillTraining?.join("\n") ?? "", // Convert List<String> to a multiline String
+                                  initialValue: progs?.skillTraining
+                                          ?.join("\n") ??
+                                      "", // Convert List<String> to a multiline String
                                   maxLines: null, // Allows multiline input
-                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                  style:
+                                      TextStyle(fontSize: 14.sp, height: 1.6.h),
                                   decoration: const InputDecoration(
-                                    border: InputBorder.none, // Removes the underline
-                                    contentPadding: EdgeInsets.zero, // Matches the original padding
+                                    border: InputBorder
+                                        .none, // Removes the underline
+                                    contentPadding: EdgeInsets
+                                        .zero, // Matches the original padding
                                   ),
                                 ),
-
                               ),
                               SizedBox(height: screenHeight.h * 0.05.h),
                               GestureDetector(
@@ -923,14 +983,21 @@ class _DepressionScreenState extends State<DepressionScreen> {
                                       builder: (context) => MultiBlocProvider(
                                         providers: [
                                           BlocProvider<UserProfileCubit>(
-                                              create: (_) => UserProfileCubit()),
+                                              create: (_) =>
+                                                  UserProfileCubit()),
                                           BlocProvider<AddImageToProfileCubit>(
                                               create: (_) =>
                                                   AddImageToProfileCubit()),
                                           BlocProvider<UpdateUserCubit>(
                                               create: (_) => UpdateUserCubit()),
                                         ],
-                                        child:  SpecialistsScreen(sessionType: RegularSession(),),
+                                        child: SpecialistsScreen(
+                                          categoryInfoFromDepressionAndAni:
+                                              CategoryInfo(
+                                                  pubCategory: 'mentalHealth',
+                                                  subCategory: "Depression"),
+                                          sessionType: RegularSession(),
+                                        ),
                                       ),
                                     ),
                                   );
@@ -957,8 +1024,7 @@ class _DepressionScreenState extends State<DepressionScreen> {
                             ],
                           );
                         } else {
-                          return Center(
-                              child: Text('noSpecialistsFound'.tr()));
+                          return Center(child: Text('noSpecialistsFound'.tr()));
                         }
                       },
                     ),

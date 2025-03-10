@@ -1,4 +1,5 @@
 import 'package:doctor/cubit/get_specialist/get_sepcialist_cubit.dart';
+import 'package:doctor/models/catgoryInfo.dart';
 import 'package:doctor/models/sessionType.dart';
 import 'package:doctor/screens/anxiety_screen.dart';
 import 'package:doctor/screens/personality_disorder_screen.dart';
@@ -61,7 +62,7 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
     String id = prefs.getString('userId') ?? "";
     userProfileCubit.getUserProfile(context, id);
 
-    subSubCategoriesCubit.fetchSubCategories(context,widget.subCategory);
+    subSubCategoriesCubit.fetchSubCategories(context, widget.subCategory);
     Map<String, String> subCategoryMapping = {
       "Anxiety": "القلق",
       "Depression": "الاكتئاب",
@@ -98,16 +99,20 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
         : widget.subCategory;
 
 // استدعاء الدالة مع الفئة المترجمة
-    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.Category, translatedSubCategory,context);
+    doctorByCategoryCubit.fetchSpecialistsbycategory(
+        widget.Category, translatedSubCategory, context);
 
-    doctorByCategoryCubit.fetchSpecialistsbycategory(widget.Category,widget.subCategory,context);
-
+    doctorByCategoryCubit.fetchSpecialistsbycategory(
+        widget.Category, widget.subCategory, context);
   }
 
   @override
   Widget build(BuildContext context) {
     print("*****SubSubCategoryScreen**************");
     print(widget.Category);
+    print(widget.subCategory);
+    print("*******************************************");
+
     double screenWidth = MediaQuery.of(context).size.width.w;
     double screenHeight = MediaQuery.of(context).size.height.h;
     bool isEnglish = Localizations.localeOf(context).languageCode == 'en';
@@ -500,11 +505,10 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
                               child: ListView.builder(
                                 itemCount: state.specialists.length,
                                 itemBuilder: (context, index) {
-                                  print("*****************");
-                                  print(widget.subCategory);
-                                  print("********@@@@*********");
-
                                   return DoctorCard(
+                                    categoryInfo: CategoryInfo(
+                                        pubCategory: widget.Category,
+                                        subCategory: widget.subCategory),
                                     sessionType: RegularSession(),
                                     specialists: state.specialists[index],
                                     doctorID: state.specialists[index].id ?? "",
@@ -668,6 +672,9 @@ class _SubSubCategoryScreenState extends State<SubSubCategoryScreen> {
                                 itemBuilder: (context, index) {
                                   print(widget.Category);
                                   return DoctorCard(
+                                    categoryInfo: CategoryInfo(
+                                        pubCategory: widget.Category,
+                                        subCategory: widget.subCategory),
                                     sessionType: RegularSession(),
                                     specialists: state.specialists[index],
                                     doctorID: state.specialists[index].id ?? "",

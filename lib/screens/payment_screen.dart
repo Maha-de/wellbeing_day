@@ -62,7 +62,8 @@ class PaymentScreen extends StatelessWidget {
           listener: (context, state) async {
             if (state is CreateSessionSuccess) {
               Fluttertoast.showToast(
-                msg: "Session created successfully تم حجزالجلسة بنجاح",
+                msg:
+                    "Session created successfully , Now Should pay to confirm the session registration \n بامكانك الدفع لتاكيد التسجيل تم حجزالجلسة بنجاح",
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.BOTTOM,
                 backgroundColor: Colors.green,
