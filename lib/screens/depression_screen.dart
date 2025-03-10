@@ -60,8 +60,8 @@ class _DepressionScreenState extends State<DepressionScreen> {
             if (state is UserProfileLoading) {
               return Scaffold(
                   body: Center(
-                child: CircularProgressIndicator(),
-              ));
+                    child: CircularProgressIndicator(),
+                  ));
             } else if (state is UserProfileFailure) {
               return Scaffold(
                 backgroundColor: Colors.white,
@@ -88,8 +88,333 @@ class _DepressionScreenState extends State<DepressionScreen> {
                         if (state is GetTreatmentProgramLoading) {
                           return CircularProgressIndicator(); // Show loading indicator
                         } else if (state is GetTreatmentProgramFailure) {
-                          return Text(
-                              state.errMessage); // Display error message
+                          final progs=getTreatmentProgramCubit.programs;
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10.0),
+                                child: Center(
+                                  child: Container(
+                                    width: 161.w,
+                                    height: 40.h,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF1F78BC),
+                                      borderRadius: BorderRadius.only(
+                                          bottomRight: Radius.circular(20),
+                                          topLeft: Radius.circular(20)),
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "depression".tr(),
+                                      style: TextStyle(
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.02.h),
+                              // "أهمية البرامج" Section
+                              Text(
+                                "importanceOfPrograms".tr(),
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.01.h),
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 10),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: TextFormField(
+                                  initialValue: progs?.importance??"",
+                                  maxLines:
+                                  null, // Allows the field to expand for multiline input
+                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+
+                                  decoration: const InputDecoration(
+                                    alignLabelWithHint: true,
+                                    border: InputBorder.none, // Removes the underline
+                                    contentPadding: EdgeInsets
+                                        .zero, // Matches the original padding
+                                  ),
+                                ),
+                              ),
+
+                              SizedBox(height: screenHeight.h * 0.03.h),
+                              // "الخطة / العلاج" Section
+                              Text(
+                                "planSection".tr(),
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.01.h),
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 35),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: TextFormField(
+                                  initialValue: progs?.treatmentPlan??"",
+                                  maxLines:
+                                  null, // Allows the field to expand for multiline input
+                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none, // Removes the underline
+                                    contentPadding: EdgeInsets
+                                        .zero, // Matches the original padding
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.03.h),
+                              // "الأهداف" Section
+                              Text(
+                                "goals".tr(),
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.01.h),
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 35),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: TextFormField(
+                                  initialValue: progs?.goals??"",
+                                  maxLines:
+                                  null, // Allows the field to expand for multiline input
+                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none, // Removes the underline
+                                    contentPadding: EdgeInsets
+                                        .zero, // Matches the original padding
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.045.h),
+                              // "الأهداف" Section
+                              Text(
+                                "stages".tr(),
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.01.h),
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 20),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: TextFormField(
+                                  initialValue: progs?.stages?.join("\n") ?? "", // Convert List<String> to a multiline String
+                                  maxLines: null, // Allows multiline input
+                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none, // Removes the underline
+                                    contentPadding: EdgeInsets.zero, // Matches the original padding
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.03.h),
+                              // "الأهداف" Section
+                              Text(
+                                "techniques".tr(),
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.01.h),
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 30),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child:  TextFormField(
+                                  initialValue: progs?.techniques?.join("\n") ?? "", // Convert List<String> to a multiline String
+                                  maxLines: null, // Allows multiline input
+                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none, // Removes the underline
+                                    contentPadding: EdgeInsets.zero, // Matches the original padding
+                                  ),
+                                ),
+
+                              ),
+                              SizedBox(height: screenHeight.h * 0.03.h),
+                              // "الأهداف" Section
+                              Text(
+                                "sessions".tr(),
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.01.h),
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 30),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: TextFormField(
+                                  initialValue: "${progs?.sessions?.length}",
+                                  maxLines:
+                                  null, // Allows the field to expand for multiline input
+                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none, // Removes the underline
+                                    contentPadding: EdgeInsets
+                                        .zero, // Matches the original padding
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.03.h),
+                              // "الأهداف" Section
+                              Text(
+                                "trainSkill".tr(),
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.01.h),
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 30),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: TextFormField(
+                                  initialValue: progs?.skillTraining?.join("\n") ?? "", // Convert List<String> to a multiline String
+                                  maxLines: null, // Allows multiline input
+                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none, // Removes the underline
+                                    contentPadding: EdgeInsets.zero, // Matches the original padding
+                                  ),
+                                ),
+
+                              ),
+                              SizedBox(height: screenHeight.h * 0.05.h),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MultiBlocProvider(
+                                        providers: [
+                                          BlocProvider<UserProfileCubit>(
+                                              create: (_) => UserProfileCubit()),
+                                          BlocProvider<AddImageToProfileCubit>(
+                                              create: (_) =>
+                                                  AddImageToProfileCubit()),
+                                          BlocProvider<UpdateUserCubit>(
+                                              create: (_) => UpdateUserCubit()),
+                                        ],
+                                        child:  SpecialistsScreen(sessionType: RegularSession(),),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  width: screenWidth.w * 0.9.w,
+                                  height: 48.h,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xff19649E),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "continue".tr(),
+                                      style: TextStyle(
+                                          fontSize: 20.sp,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.03.h),
+                            ],
+                          ); // Display error message
                         } else if (state is GetTreatmentProgramSuccess) {
                           Program? progs = state.programs;
                           return Column(
@@ -329,7 +654,7 @@ class _DepressionScreenState extends State<DepressionScreen> {
                                   ],
                                 ),
                                 child: TextFormField(
-                                  initialValue: "${progs?.sessions.length}",
+                                  initialValue: "${progs?.sessions?.length}",
                                   maxLines:
                                   null, // Allows the field to expand for multiline input
                                   style: TextStyle(fontSize: 14.sp, height: 1.6.h),
@@ -430,9 +755,9 @@ class _DepressionScreenState extends State<DepressionScreen> {
                   backgroundColor: const Color(
                       0xff19649E), // Ensures the background is consistent
                   selectedItemColor:
-                      Colors.white, // Sets the color of the selected icons
+                  Colors.white, // Sets the color of the selected icons
                   unselectedItemColor:
-                      Colors.black, // Sets the color of unselected icons
+                  Colors.black, // Sets the color of unselected icons
                   showSelectedLabels: false, // Hides selected labels
                   showUnselectedLabels: false, // Hides unselected labels
                   currentIndex: currentIndex, // Default selected index
@@ -453,7 +778,7 @@ class _DepressionScreenState extends State<DepressionScreen> {
                         child: Image.asset(
                           "assets/images/meteor-icons_home.png",
                           color:
-                              currentIndex == 0 ? Colors.white : Colors.black,
+                          currentIndex == 0 ? Colors.white : Colors.black,
                           fit: BoxFit.fill,
                         ),
                       ),
@@ -626,8 +951,333 @@ class _DepressionScreenState extends State<DepressionScreen> {
                         if (state is GetTreatmentProgramLoading) {
                           return CircularProgressIndicator(); // Show loading indicator
                         } else if (state is GetTreatmentProgramFailure) {
-                          return Text(
-                              state.errMessage); // Display error message
+                          final progs =getTreatmentProgramCubit.programs;
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10.0),
+                                child: Center(
+                                  child: Container(
+                                    width: 161.w,
+                                    height: 40.h,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF1F78BC),
+                                      borderRadius: BorderRadius.only(
+                                          bottomRight: Radius.circular(20),
+                                          topLeft: Radius.circular(20)),
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "depression".tr(),
+                                      style: TextStyle(
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.02.h),
+                              // "أهمية البرامج" Section
+                              Text(
+                                "importanceOfPrograms".tr(),
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.01.h),
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 10),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: TextFormField(
+                                  initialValue: progs?.importance??"",
+                                  maxLines:
+                                  null, // Allows the field to expand for multiline input
+                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+
+                                  decoration: const InputDecoration(
+                                    alignLabelWithHint: true,
+                                    border: InputBorder.none, // Removes the underline
+                                    contentPadding: EdgeInsets
+                                        .zero, // Matches the original padding
+                                  ),
+                                ),
+                              ),
+
+                              SizedBox(height: screenHeight.h * 0.03.h),
+                              // "الخطة / العلاج" Section
+                              Text(
+                                "planSection".tr(),
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.01.h),
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 35),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: TextFormField(
+                                  initialValue: progs?.treatmentPlan??"",
+                                  maxLines:
+                                  null, // Allows the field to expand for multiline input
+                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none, // Removes the underline
+                                    contentPadding: EdgeInsets
+                                        .zero, // Matches the original padding
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.03.h),
+                              // "الأهداف" Section
+                              Text(
+                                "goals".tr(),
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.01.h),
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 35),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: TextFormField(
+                                  initialValue: progs?.goals??"",
+                                  maxLines:
+                                  null, // Allows the field to expand for multiline input
+                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none, // Removes the underline
+                                    contentPadding: EdgeInsets
+                                        .zero, // Matches the original padding
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.045.h),
+                              // "الأهداف" Section
+                              Text(
+                                "stages".tr(),
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.01.h),
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 20),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: TextFormField(
+                                  initialValue: progs?.stages?.join("\n") ?? "", // Convert List<String> to a multiline String
+                                  maxLines: null, // Allows multiline input
+                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none, // Removes the underline
+                                    contentPadding: EdgeInsets.zero, // Matches the original padding
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.03.h),
+                              // "الأهداف" Section
+                              Text(
+                                "techniques".tr(),
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.01.h),
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 30),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child:  TextFormField(
+                                  initialValue: progs?.techniques?.join("\n") ?? "", // Convert List<String> to a multiline String
+                                  maxLines: null, // Allows multiline input
+                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none, // Removes the underline
+                                    contentPadding: EdgeInsets.zero, // Matches the original padding
+                                  ),
+                                ),
+
+                              ),
+                              SizedBox(height: screenHeight.h * 0.03.h),
+                              // "الأهداف" Section
+                              Text(
+                                "sessions".tr(),
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.01.h),
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 30),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: TextFormField(
+                                  initialValue: "${progs?.sessions?.length}",
+                                  maxLines:
+                                  null, // Allows the field to expand for multiline input
+                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none, // Removes the underline
+                                    contentPadding: EdgeInsets
+                                        .zero, // Matches the original padding
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.03.h),
+                              // "الأهداف" Section
+                              Text(
+                                "trainSkill".tr(),
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.01.h),
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 30),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: TextFormField(
+                                  initialValue: progs?.skillTraining?.join("\n") ?? "", // Convert List<String> to a multiline String
+                                  maxLines: null, // Allows multiline input
+                                  style: TextStyle(fontSize: 14.sp, height: 1.6.h),
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none, // Removes the underline
+                                    contentPadding: EdgeInsets.zero, // Matches the original padding
+                                  ),
+                                ),
+
+                              ),
+                              SizedBox(height: screenHeight.h * 0.05.h),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MultiBlocProvider(
+                                        providers: [
+                                          BlocProvider<UserProfileCubit>(
+                                              create: (_) => UserProfileCubit()),
+                                          BlocProvider<AddImageToProfileCubit>(
+                                              create: (_) =>
+                                                  AddImageToProfileCubit()),
+                                          BlocProvider<UpdateUserCubit>(
+                                              create: (_) => UpdateUserCubit()),
+                                        ],
+                                        child:  SpecialistsScreen(sessionType: RegularSession(),),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  width: screenWidth.w * 0.9.w,
+                                  height: 48.h,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xff19649E),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "continue".tr(),
+                                      style: TextStyle(
+                                          fontSize: 20.sp,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: screenHeight.h * 0.03.h),
+                            ],
+                          ); // Display error message
                         } else if (state is GetTreatmentProgramSuccess) {
                           Program? progs = state.programs;
                           return Column(
@@ -867,7 +1517,7 @@ class _DepressionScreenState extends State<DepressionScreen> {
                                   ],
                                 ),
                                 child: TextFormField(
-                                  initialValue: "${progs?.sessions.length}",
+                                  initialValue: "${progs?.sessions?.length}",
                                   maxLines:
                                   null, // Allows the field to expand for multiline input
                                   style: TextStyle(fontSize: 14.sp, height: 1.6.h),

@@ -339,7 +339,7 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                                   ],
                                 ),
                                 child: TextFormField(
-                                  initialValue: "${progs?.sessions.length}",
+                                  initialValue: "${progs?.sessions?.length}",
                                   maxLines:
                                   null, // Allows the field to expand for multiline input
                                   style: TextStyle(fontSize: 14.sp, height: 1.6.h),

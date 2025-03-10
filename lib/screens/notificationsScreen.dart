@@ -157,13 +157,13 @@ class _NotificationsscreenState extends State<Notificationsscreen> {
                                           ),
                                         ),
 
-                                       Row(
-                                         crossAxisAlignment: CrossAxisAlignment.center,
+                                       Column(
+                                         mainAxisAlignment: MainAxisAlignment.center,
                                    children: [
                                      Text(
                                        "YourMeetingLink".tr()+": ",
-                                       style: const TextStyle(
-                                         fontSize: 18,
+                                       style:  TextStyle(
+                                         fontSize: 14.sp,
                                          fontWeight: FontWeight.bold,
                                          color: Colors.black
                                        ),
@@ -179,9 +179,11 @@ class _NotificationsscreenState extends State<Notificationsscreen> {
                                        },
                                        child: RichText(
                                          text: TextSpan(
+
                                            text: session.meetingLink ?? "No link available",
                                            style: TextStyle(
-                                             fontSize: 18,
+                                             overflow: TextOverflow.clip,
+                                             fontSize: 14.sp,
                                              fontWeight: FontWeight.bold,
                                              color: Color(0xff19649E), // عشان يبان إنه لينك
                                              decoration: TextDecoration.underline,
