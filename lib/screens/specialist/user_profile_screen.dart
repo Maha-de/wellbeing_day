@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
 import '../../cubit/doctor_details_cubit/doctor_profile_state.dart';
 import '../../cubit/get_beneficiary_sessions_cubit/beneficiary_session_state.dart';
@@ -64,7 +63,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             } else if (state is UserProfileFailure) {
               return Scaffold(
                   body: Center(
-                      child: Text("Error loading profile: ${state.error}")));
+                      child: Text("ErrorLoadingProfile".tr() + "${state.error}")));
             } else if (state is UserProfileSuccess) {
               UserProfileModel? userProfile = state.userProfile;
               return Scaffold(
@@ -86,7 +85,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   },
                   backgroundColor: Colors.blue[100],
                   icon: Icon(Icons.play_arrow, color: Color(0xff19649E)),
-                  label: Text("Start Session", style: TextStyle(color: Color(0xff19649E),fontWeight: FontWeight.bold,fontSize: 14)),
+                  label: Text("startSession".tr(), style: TextStyle(color: Color(0xff19649E),fontWeight: FontWeight.bold,fontSize: 14)),
                 ),
                 floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
 

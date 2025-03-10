@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../cubit/send_notification_cubit/send_notification_state.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 
 class MeetingScreen extends StatefulWidget {
   final String? uId;
@@ -25,7 +26,7 @@ class _MeetingScreenState extends State<MeetingScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[100], // لون خلفية ناعم
       appBar: AppBar(
-        title: Text("Meeting Details"),
+        title: Text("meetingDetails".tr()),
         centerTitle: true,
         backgroundColor: Color(0xff19649E),
         elevation: 0,
@@ -34,11 +35,11 @@ class _MeetingScreenState extends State<MeetingScreen> {
         listener: (context, state) {
           if (state is SendNotificationSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Notification Sent Successfully!")),
+              SnackBar(content: Text("notificationSent".tr())),
             );
           } else if (state is SendNotificationFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Error: ${state.error}")),
+              SnackBar(content: Text("error".tr() + "${state.error}")),
             );
           }
         },
@@ -46,12 +47,13 @@ class _MeetingScreenState extends State<MeetingScreen> {
           padding: const EdgeInsets.all(15.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              _buildLabel("Meeting Link"),
-              _buildTextField(_linkController, "Enter meeting link"),
+              _buildLabel("meetingLink".tr()),
+              _buildTextField(_linkController, "enterMeetingLink".tr()),
               SizedBox(height: 20.h),
-              _buildLabel("Message"),
-              _buildTextField(_messageController, "Enter your message", maxLines: 4),
+              _buildLabel("message".tr()),
+              _buildTextField(_messageController, "enterYourMessage".tr(), maxLines: 4),
               SizedBox(height: 23.h),
               _buildSubmitButton(),
             ],
@@ -122,7 +124,7 @@ class _MeetingScreenState extends State<MeetingScreen> {
                 }
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("Please fill all fields")),
+                  SnackBar(content: Text("pleaseFillFields".tr())),
                 );
               }
             },
@@ -134,7 +136,7 @@ class _MeetingScreenState extends State<MeetingScreen> {
             ),
             child: state is SendNotificationLoading
                 ? CircularProgressIndicator(color: Colors.white)
-                : Text("Submit", style: TextStyle(fontSize: 18.sp, color: Colors.white)),
+                : Text("submit".tr(), style: TextStyle(fontSize: 18.sp, color: Colors.white)),
           ),
         );
       },

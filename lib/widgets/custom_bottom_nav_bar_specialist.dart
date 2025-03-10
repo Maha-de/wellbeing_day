@@ -38,7 +38,7 @@ class SpecialistCustomBottomNavBar extends StatelessWidget {
       items: [
         BottomNavigationBarItem(
           icon: SizedBox(
-            height: 27.h, // Adjust icon size
+            height: 30.h, // Adjust icon size
             child:
             Image.asset(
               "assets/images/meteor-icons_home.png",
@@ -46,7 +46,7 @@ class SpecialistCustomBottomNavBar extends StatelessWidget {
             ),
           ),
           activeIcon: SizedBox(
-            height: 27.h, // Active icon size adjustment
+            height: 30.h, // Active icon size adjustment
             child: Image.asset(
               "assets/images/meteor-icons_home.png",
               color: currentIndex == 0 ? Colors.white : Colors.black,
@@ -82,8 +82,8 @@ class SpecialistCustomBottomNavBar extends StatelessWidget {
             ),
           ),
           activeIcon: SizedBox(
-            height: 25.h,
-            width: 50.w,
+            height: 35.h,
+            width: 35.w,
             child: Image.asset(
               "assets/images/material-symbols_help-clinic-outline-rounded_Active.png",
               fit: BoxFit.fill,

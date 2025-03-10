@@ -347,9 +347,17 @@
   "go": "توجه",
   "groupNote": "سيتم تسجيل اسمك على لائحة الانتظار\nعند اكتمال العدد سيتم التواصل معك لتحديد موعد",
   "avaiableTimes": "الأوقات المتاحة :",
-  "diagnoseAndMotivation": "حل مشكلات",
   "YourMeetingLink": "رابط جلستك",
   "sessionDateIn": "تاريخ الجلسه: ",
   "NewNotification": "اشعار جديد",
-  "groupThreapySessions": "الجلسات الجماعيه"
+  "groupThreapySessions": "الجلسات الجماعيه",
+  "meetingDetails": "تفاصيل الجلسة",
+  "error": "خطأ",
+  "notificationSent": "تم إرسال الإشعار",
+  "meetingLink": "لينك الجلسة",
+  "enterMeetingLink": "أدخل لينك الجلسة",
+  "message": "الرسالة",
+  "enterYourMessage": "أدخل رسالتك",
+  "submit": "تم",
+  "pleaseFillFields": "من فضلك املء كل البيانات"
 }

@@ -350,5 +350,14 @@
   "YourMeetingLink": "Your meeting link",
   "sessionDateIn": "Session Date: ",
   "NewNotification": "New Notification",
-  "groupTherapySessions": "Group Therapy Sessions"
+  "groupTherapySessions": "Group Therapy Sessions",
+  "meetingDetails": "Meeting Details",
+  "error": "Error",
+  "notificationSent": "Notification Sent Successfully!",
+  "meetingLink": "Meeting Link",
+  "enterMeetingLink": "Enter meeting link",
+  "message": "Message",
+  "enterYourMessage": "Enter your message",
+  "submit": "Submit",
+  "pleaseFillFields": "Please fill all fields"
 }
