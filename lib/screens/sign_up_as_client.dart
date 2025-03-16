@@ -349,7 +349,7 @@ class SignUpCubit extends Cubit<SignupState> {
   }) async {
     emit(SignupLoading());
     final String url =
-        "https://scopey.onrender.com/api/beneficiaries/register/beneficiary";
+        "https://wellbeingproject.onrender.com/api/beneficiaries/register/beneficiary";
 
     try {
       final response = await http.post(

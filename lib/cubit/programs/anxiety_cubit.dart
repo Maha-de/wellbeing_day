@@ -24,7 +24,7 @@ class ProgramError extends ProgramState {
   ProgramError(this.error);
 }
 
-// Cubit
+// Cubit11
 class ProgramCubit extends Cubit<ProgramState> {
   ProgramCubit() : super(ProgramInitial());
 
@@ -33,7 +33,7 @@ class ProgramCubit extends Cubit<ProgramState> {
     try {
       final dio = Dio();
 
-      final response = await dio.get("https://scopey.onrender.com/api/treatment");
+      final response = await dio.get("https://wellbeingproject.onrender.com/api/treatment");
 
 
       if (response.statusCode == 200) {

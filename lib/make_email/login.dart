@@ -295,7 +295,7 @@ class LoginCubit extends Cubit<LoginState> {
     try {
       emit(LoginLoading());
 
-      final url = 'https://scopey.onrender.com/api/auth/login';
+      final url = 'https://wellbeingproject.onrender.com/api/auth/login';
       final response = await http.post(
         Uri.parse(url),
         headers: {'Content-Type': 'application/json'},
