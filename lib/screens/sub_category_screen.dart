@@ -301,6 +301,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
+                  subCategoriesCubit.categories.isEmpty||subCategoriesCubit.categories==null?SizedBox():
                       Center(
                         child: Container(
                           width: 200.w,
@@ -324,7 +325,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                       SizedBox(
                         height: 40.h,
                       ),
-                      Center(
+                      subCategoriesCubit.categories.isEmpty||subCategoriesCubit.categories==null?SizedBox(): Center(
                         child: SizedBox(
                           width: 338.w,
                           height: 252.h,
@@ -649,7 +650,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      Center(
+                      subCategoriesCubit.categories.isEmpty||subCategoriesCubit.categories==null?SizedBox(): Center(
                         child: Container(
                           width: 200.w,
                           height: 40.h,
@@ -672,7 +673,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                       SizedBox(
                         height: 20.h,
                       ),
-                      Center(
+                      subCategoriesCubit.categories.isEmpty||subCategoriesCubit.categories==null?SizedBox():Center(
                         child: SizedBox(
                           width: 338.w,
                           height: 252.h,
