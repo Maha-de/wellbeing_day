@@ -334,6 +334,7 @@
 //   }
 // }
 
+import 'package:doctor/screens/cubit/available_slots_cubit.dart';
 import 'package:doctor/screens/homescreen.dart';
 import 'package:doctor/screens/specialist/ChooseSpecialty.dart';
 import 'package:doctor/screens/specialist/specialist_home_screen.dart';
@@ -433,6 +434,7 @@ class _SignUpAsDoctorThirdScreenState extends State<SignUpAsDoctorThirdScreen> {
             BlocProvider<DoctorProfileCubit>(create: (_) => DoctorProfileCubit()),
             BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),
             BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+            BlocProvider<AvailableSlotsCubit>(create: (_) => AvailableSlotsCubit()),
           ],
           child: const SpecialistHomeScreen(),
         ),

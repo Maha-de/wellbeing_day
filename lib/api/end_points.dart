@@ -1,5 +1,5 @@
 class EndPoint {
-  static String baseUrl = "https://wellbeingproject.onrender.com";
+  static String baseUrl = "https://wellbeingproject.onrender.com/api";
   static String signIn = "/nectar/login";
   static String signUp = "/nectar/signUp";
   static String doctorSignUp = "auth/register/specialist";

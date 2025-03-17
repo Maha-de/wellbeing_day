@@ -35,7 +35,7 @@ class DoctorProfileCubit extends Cubit<DoctorProfileState> {
 
       final response = await dio.get("/specialist/getById/$id");
 
-      if (response.statusCode == 200||response.statusCode == 201) {
+      if (response.statusCode == 201) {
         print("ssss");
 
         final userProfileModel = DoctorByIdModel.fromJson(response.data);
