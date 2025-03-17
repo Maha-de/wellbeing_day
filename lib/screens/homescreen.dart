@@ -1266,10 +1266,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                           BorderRadius.circular(20),
                                           border: subCategoriesCubit
                                               .categories[index] ==
-                                              "Problem Solving" ||
+                                              "Diagnose and motivate" ||
                                               subCategoriesCubit
                                                   .categories[index] ==
-                                                  "حل مشكلات"
+                                                  "تشخيص وتحفيز"
                                               ? Border.all(
                                               color: Color(0xff19649E),
                                               width: 3.5)

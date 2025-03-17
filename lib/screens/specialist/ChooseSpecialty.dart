@@ -23,7 +23,7 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
       'therapeuticPrograms'.tr(): false,
       'groupTherapy'.tr(): false,
       'childrenDisorder'.tr(): false,
-      'solveProblems'.tr(): false,
+      'diagnoseAndMotivation'.tr(): false,
       'guidanceAndInstructions'.tr(): false,
       'PsychologicalPreventionAndFollowUp'.tr(): false,
       'rehabilitation'.tr(): false,
