@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:doctor/cubit/get_all_ads/get_all_ads_cubit.dart';
 import 'package:doctor/screens/specialist/specialist_home_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -596,6 +597,8 @@ class _SpecialistWorkHoursScreenState extends State<SpecialistWorkHoursScreen> {
                                       create: (_) => DoctorSessionTypesCubit()),
                                   BlocProvider<UpdateUserCubit>(
                                       create: (_) => UpdateUserCubit()),
+                                  BlocProvider<GetAllAdsCubit>(
+                                      create: (_) => GetAllAdsCubit())
                                 ],
                                 child: SpecialistHomeScreen(),
                               ),
@@ -766,7 +769,7 @@ class ApiService {
   Future<Response> postData(String id, Map<String, dynamic> data) async {
     try {
       final response = await _dio.post(
-        'https://scopey.onrender.com/api/specialist/addSlots/$id', // Use correct API endpoint
+        'https://wellbeingproject.onrender.com/api/specialist/addSlots/$id', // Use correct API endpoint
         data: jsonEncode(data),
       );
       return response;
@@ -779,7 +782,7 @@ class ApiService {
   Future<Response> updateLang(String id, Map<String, dynamic> data) async {
     try {
       final response = await _dio.patch(
-        'https://scopey.onrender.com/api/specialist/updateLanguage/$id',
+        'https://wellbeingproject.onrender.com/api/specialist/updateLanguage/$id',
         data: jsonEncode(data),
       );
       return response;
@@ -791,7 +794,7 @@ class ApiService {
   Future<Response> deleteData(String id, Map<String, dynamic> data) async {
     try {
       final response = await _dio.delete(
-        'https://scopey.onrender.com/api/specialist/deleteSlots/$id',
+        'https://wellbeingproject.onrender.com/api/specialist/deleteSlots/$id',
         data: jsonEncode(data),
       );
       return response;

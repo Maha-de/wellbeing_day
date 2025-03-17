@@ -19,7 +19,7 @@ class GetGroupThreapyCubit extends Cubit<GetGroupThreapyState> {
         ),
       );
 
-      final response = await dio.get("/sessions/groupTherapy/67c1d4f985349387c42ae05a");
+      final response = await dio.get("/sessions/groupTherapy/$id");
 
       if (response.statusCode == 200) {
         final userProfileModel = GetGroupThreapyModel.fromJson(response.data);
@@ -29,7 +29,7 @@ class GetGroupThreapyCubit extends Cubit<GetGroupThreapyState> {
 
         emit(GetGroupThreapySuccess("Profile loaded successfully", userProfileModel));
       } else {
-        emit(GetGroupThreapyFailure("Error Fetching Data: ${response.data['message']}"));
+        emit(GetGroupThreapyFailure("${response.data['message']}"));
       }
     } catch (e) {
       emit(GetGroupThreapyFailure("Error occurred while connecting to the API: $e"));

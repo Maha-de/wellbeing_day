@@ -67,7 +67,7 @@ _loadUserProfile();
             if (state is GetGroupThreapyLoading) {
               return const Scaffold(body: Center(child: CircularProgressIndicator()));
             } else if (state is GetGroupThreapyFailure) {
-              return Center(child: Text("Error loading profile: ${state.error}"));
+              return Center(child: Text("${state.error}"));
             } else if (state is GetGroupThreapySuccess) {
               final sessions = state.session.sessions;
 
