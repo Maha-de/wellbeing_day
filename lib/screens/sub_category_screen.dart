@@ -52,10 +52,11 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
   late UserProfileCubit userProfileCubit;
   late DoctorByCategoryCubit doctorByCategoryCubit;
   late SubCategoriesCubit subCategoriesCubit;
-
+  List<String> sub=[];
   @override
   void initState() {
     super.initState();
+
     userProfileCubit = BlocProvider.of<UserProfileCubit>(context);
     doctorByCategoryCubit = BlocProvider.of<DoctorByCategoryCubit>(context);
     subCategoriesCubit = BlocProvider.of<SubCategoriesCubit>(context);
@@ -69,6 +70,12 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
     userProfileCubit.getUserProfile(context, id);
 
     subCategoriesCubit.fetchSubCategories(context,widget.category);
+    List<String> subs1 = subCategoriesCubit.model
+        ?.firstWhere((sub) =>
+    sub.name == widget.subCategory)
+        .subcategory ??
+        [];
+    sub=subs1;
     Map<String, String> subCategoryMapping = {
       "Psychological Disorders": "اضطرابات نفسية",
       "Personality Disorder": "اضطراب شخصي",
@@ -116,6 +123,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     print(
         "-----------**********************************----------------------");
 
@@ -301,49 +309,88 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                  subCategoriesCubit.categories.isEmpty||subCategoriesCubit.categories==null?SizedBox():
+
                       Center(
-                        child: Container(
-                          width: 200.w,
-                          height: 40.h,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF1F78BC),
-                            borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(20),
-                                topLeft: Radius.circular(20)),
-                          ),
-                          alignment: Alignment.center,
-                          child: Text(
-                            widget.subCategory,
-                            style: TextStyle(
-                                fontSize: isEnglish ? 17.sp : 20.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
+                        child: BlocBuilder<SubCategoriesCubit, SubCategoriesState>(
+                          builder: (context, state) {
+                            if (state is SubCategoriesLoading) {
+                              return CircularProgressIndicator(); // Show loading indicator
+                            } else if (state is SubCategoriesFailure) {
+                              return Text(
+                                  state.errMessage); // Display error message
+                            } else if (state is SubCategoriesSuccess) {
+                              List<String> subs = state.subCategories
+                                  ?.firstWhere((sub) =>
+                              sub.name == widget.subCategory)
+                                  .subcategory ??
+                                  [];
+                              return  subs.isEmpty||subs==null?SizedBox(): Container(
+                                width: 200.w,
+                                height: 40.h,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF1F78BC),
+                                  borderRadius: BorderRadius.only(
+                                      bottomRight: Radius.circular(20),
+                                      topLeft: Radius.circular(20)),
+                                ),
+                                alignment: Alignment.center,
+                                child: Text(
+                                  widget.subCategory,
+                                  style: TextStyle(
+                                      fontSize: isEnglish ? 17.sp : 20.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              );
+                            } else {
+                              return Center(
+                                  child: Text('noSpecialistsFound'.tr()));
+                            }
+                          },
                         ),
                       ),
                       SizedBox(
-                        height: 40.h,
+                        child: BlocBuilder<SubCategoriesCubit, SubCategoriesState>(
+                          builder: (context, state) {
+                            if (state is SubCategoriesLoading) {
+                              return CircularProgressIndicator(); // Show loading indicator
+                            } else if (state is SubCategoriesFailure) {
+                              return Text(
+                                  state.errMessage); // Display error message
+                            } else if (state is SubCategoriesSuccess) {
+                              List<String> subs = state.subCategories
+                                  ?.firstWhere((sub) =>
+                              sub.name == widget.subCategory)
+                                  .subcategory ??
+                                  [];
+                              return  subs.isEmpty||subs==null?SizedBox(): SizedBox(
+                                height: 40.h,
+                              );
+                            } else {
+                              return Center(
+                                  child: Text('noSpecialistsFound'.tr()));
+                            }
+                          },
+                        ),
                       ),
-                      subCategoriesCubit.categories.isEmpty||subCategoriesCubit.categories==null?SizedBox(): Center(
-                        child: SizedBox(
-                          width: 338.w,
-                          height: 252.h,
-                          child: BlocBuilder<SubCategoriesCubit,
-                              SubCategoriesState>(
-                            builder: (context, state) {
-                              if (state is SubCategoriesLoading) {
-                                return CircularProgressIndicator(); // Show loading indicator
-                              } else if (state is SubCategoriesFailure) {
-                                return Text(
-                                    state.errMessage); // Display error message
-                              } else if (state is SubCategoriesSuccess) {
-                                List<String> subs = state.subCategories
-                                        ?.firstWhere((sub) =>
-                                            sub.name == widget.subCategory)
-                                        .subcategory ??
-                                    [];
-                                return GridView.builder(
+                      Center(
+                        child: BlocBuilder<SubCategoriesCubit, SubCategoriesState>(
+                          builder: (context, state) {
+                            if (state is SubCategoriesLoading) {
+                              return CircularProgressIndicator(); // Show loading indicator
+                            } else if (state is SubCategoriesFailure) {
+                              return Text(
+                                  state.errMessage); // Display error message
+                            } else if (state is SubCategoriesSuccess) {
+                              List<String> subs = state.subCategories
+                                      ?.firstWhere((sub) =>
+                                          sub.name == widget.subCategory)
+                                      .subcategory ??
+                                  [];
+                              return  subs.isEmpty||subs==null?SizedBox(): SizedBox(
+                                width: 338.w,
+                                height: 252.h,
+                                child: GridView.builder(
                                   gridDelegate:
                                       SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 3, // 3 items per row
@@ -484,96 +531,16 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                                       ),
                                     );
                                   },
-                                );
-                              } else {
-                                return Center(
-                                    child: Text('noSpecialistsFound'.tr()));
-                              }
-                            },
-                          ),
+                                ),
+                              );
+                            } else {
+                              return Center(
+                                  child: Text('noSpecialistsFound'.tr()));
+                            }
+                          },
                         ),
                       )
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      //   children: [
-                      //     _buildDisorderButton("phobia".tr()),
-                      //     GestureDetector(onTap: (){
-                      //       Navigator.push(
-                      //         context,
-                      //         MaterialPageRoute(
-                      //           builder: (context) => MultiBlocProvider(
-                      //             providers: [
-                      //               BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                      //               BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                      //               BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                      //             ],
-                      //             child: const DepressionScreen(),
-                      //           ),
-                      //
-                      //         ),
-                      //
-                      //       );
-                      //     },child: _buildDisorderButton("depression".tr())),
-                      //     GestureDetector(onTap: (){
-                      //       Navigator.push(
-                      //         context,
-                      //         MaterialPageRoute(
-                      //           builder: (context) =>
-                      //               MultiBlocProvider(
-                      //                 providers: [
-                      //                   BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                      //                   BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                      //                   BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                      //                 ],
-                      //                 child:
-                      //                 const AnxietyScreen(),
-                      //               ),
-                      //
-                      //         ),
-                      //
-                      //       );
-                      //     },child: _buildDisorderButton("anxiety".tr())),
-                      //   ],
-                      // ),
-                      // SizedBox(
-                      //   height: 20.h,
-                      // ),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      //   children: [
-                      //     _buildDisorderButton("eatingDisorder".tr()),
-                      //     _buildDisorderButton("sexualDisorder".tr()),
-                      //     _buildDisorderButton("obsessiveDisorder".tr()),
-                      //   ],
-                      // ),
-                      // SizedBox(
-                      //   height: 20.h,
-                      // ),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      //   children: [
-                      //     _buildDisorderButton("traumaDisorder".tr()),
-                      //     _buildDisorderButton("addiction".tr()),
-                      //     GestureDetector(onTap: (){
-                      //       Navigator.push(
-                      //         context,
-                      //         MaterialPageRoute(
-                      //           builder: (context) => MultiBlocProvider(
-                      //             providers: [
-                      //               BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                      //               BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
-                      //               BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
-                      //               BlocProvider<DoctorByCategoryCubit>(create: (_) => DoctorByCategoryCubit()),
-                      //             ],
-                      //             child: const PersonalityDisorderScreen(category: 'psychologicalDisorders', subCategory: 'القلق',),
-                      //           ),
-                      //
-                      //         ),
-                      //
-                      //       );
-                      //     },child: _buildDisorderButton("personalityDisorder".tr())),
-                      //   ],
-                      // ),
+
                       ,
                       SizedBox(
                         height: 30.h,
@@ -650,48 +617,90 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      subCategoriesCubit.categories.isEmpty||subCategoriesCubit.categories==null?SizedBox(): Center(
-                        child: Container(
-                          width: 200.w,
-                          height: 40.h,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF1F78BC),
-                            borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(20),
-                                topLeft: Radius.circular(20)),
-                          ),
-                          alignment: Alignment.center,
-                          child: Text(
-                            widget.subCategory,
-                            style: TextStyle(
-                                fontSize: isEnglish ? 17.sp : 20.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
+                      Center(
+                        child: BlocBuilder<SubCategoriesCubit, SubCategoriesState>(
+                          builder: (context, state) {
+                            if (state is SubCategoriesLoading) {
+                              return CircularProgressIndicator(); // Show loading indicator
+                            } else if (state is SubCategoriesFailure) {
+                              return Text(
+                                  state.errMessage); // Display error message
+                            } else if (state is SubCategoriesSuccess) {
+                              List<String> subs = state.subCategories
+                                  ?.firstWhere((sub) =>
+                              sub.name == widget.subCategory)
+                                  .subcategory ??
+                                  [];
+                              return  subs.isEmpty||subs==null?SizedBox(): Container(
+                                width: 200.w,
+                                height: 40.h,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF1F78BC),
+                                  borderRadius: BorderRadius.only(
+                                      bottomRight: Radius.circular(20),
+                                      topLeft: Radius.circular(20)),
+                                ),
+                                alignment: Alignment.center,
+                                child: Text(
+                                  widget.subCategory,
+                                  style: TextStyle(
+                                      fontSize: isEnglish ? 17.sp : 20.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              );
+                            } else {
+                              return Center(
+                                  child: Text('noSpecialistsFound'.tr()));
+                            }
+                          },
                         ),
                       ),
                       SizedBox(
-                        height: 20.h,
+                        child: BlocBuilder<SubCategoriesCubit, SubCategoriesState>(
+                          builder: (context, state) {
+                            if (state is SubCategoriesLoading) {
+                              return CircularProgressIndicator(); // Show loading indicator
+                            } else if (state is SubCategoriesFailure) {
+                              return Text(
+                                  state.errMessage); // Display error message
+                            } else if (state is SubCategoriesSuccess) {
+                              List<String> subs = state.subCategories
+                                  ?.firstWhere((sub) =>
+                              sub.name == widget.subCategory)
+                                  .subcategory ??
+                                  [];
+                              return  subs.isEmpty||subs==null?SizedBox(): SizedBox(
+                                height: 40.h,
+                              );
+                            } else {
+                              return Center(
+                                  child: Text('noSpecialistsFound'.tr()));
+                            }
+                          },
+                        ),
                       ),
-                      subCategoriesCubit.categories.isEmpty||subCategoriesCubit.categories==null?SizedBox():Center(
-                        child: SizedBox(
-                          width: 338.w,
-                          height: 252.h,
-                          child: BlocBuilder<SubCategoriesCubit,
-                              SubCategoriesState>(
-                            builder: (context, state) {
-                              if (state is SubCategoriesLoading) {
-                                return CircularProgressIndicator(); // Show loading indicator
-                              } else if (state is SubCategoriesFailure) {
-                                return Text(
-                                    state.errMessage); // Display error message
-                              } else if (state is SubCategoriesSuccess) {
-                                List<String> subs = state.subCategories
-                                        ?.firstWhere((sub) =>
-                                            sub.name == widget.subCategory)
-                                        .subcategory ??
-                                    [];
-                                return GridView.builder(
+
+                      Center(
+                        child: BlocBuilder<SubCategoriesCubit,
+                            SubCategoriesState>(
+                          builder: (context, state) {
+                            if (state is SubCategoriesLoading) {
+                              return CircularProgressIndicator(); // Show loading indicator
+                            } else if (state is SubCategoriesFailure) {
+                              return Text(
+                                  state.errMessage); // Display error message
+                            } else if (state is SubCategoriesSuccess) {
+                              List<String> subs = state.subCategories
+                                      ?.firstWhere((sub) =>
+                                          sub.name == widget.subCategory)
+                                      .subcategory ??
+                                  [];
+                              return subs.isEmpty||subs==null? SizedBox():SizedBox(
+
+                                width: 338.w,
+                                height: 252.h,
+                                child: GridView.builder(
                                   gridDelegate:
                                       SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 3, // 3 items per row
@@ -794,13 +803,13 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                                       ),
                                     );
                                   },
-                                );
-                              } else {
-                                return Center(
-                                    child: Text('noSpecialistsFound'.tr()));
-                              }
-                            },
-                          ),
+                                ),
+                              );
+                            } else {
+                              return Center(
+                                  child: Text('noSpecialistsFound'.tr()));
+                            }
+                          },
                         ),
                       ),
                       SizedBox(

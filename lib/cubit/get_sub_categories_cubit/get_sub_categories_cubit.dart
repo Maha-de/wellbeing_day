@@ -15,6 +15,7 @@ class SubCategoriesCubit extends Cubit<SubCategoriesState> {
 
   SubCategoriesCubit() : super(SubCategoriesInitial());
 List<String?>categories=[];
+  List<GetSubCategoriesModel> model=[];
 
 
   Future<void> fetchSubCategories(BuildContext context,String category) async {
@@ -35,7 +36,7 @@ List<String?>categories=[];
         final List<GetSubCategoriesModel> subCategoriesModel =
         (response.data as List).map((e) => GetSubCategoriesModel.fromJson(e)).toList();
         categories=subCategoriesModel?.map((category) => category.name).toList() ?? [];
-
+        model=subCategoriesModel;
         print(subCategoriesModel);
 
         emit(SubCategoriesSuccess("Profile loaded successfully", subCategoriesModel));
