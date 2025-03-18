@@ -12,6 +12,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../cubit/create_session.dart/create_session_cubit.dart';
 import '../cubit/create_session.dart/create_session_state.dart';
+import '../cubit/get_all_ads/get_all_ads_cubit.dart';
+import '../cubit/get_sub_categories_cubit/get_sub_categories_cubit.dart';
 import '../cubit/get_treatment_program_cubit/get_treatment_program_state.dart';
 import '../make_email/login.dart';
 import '../widgets/custom_bottom_nav_bar.dart';
@@ -287,14 +289,18 @@ class _GroupTherapyState extends State<GroupTherapy> {
                         break;
                       case 1:
                         Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BlocProvider(
-                              create: (_) => UserProfileCubit(),
-                              child: const HomeScreen(),
-                            ),
-                          ),
-                        );
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MultiBlocProvider(
+                                providers: [
+                                  BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                  BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
+                                  BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                  BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
+                                ],
+                                child: const HomeScreen(),
+                              ),
+                            ));
                         break;
                       case 2:
                         Navigator.push(
@@ -580,46 +586,6 @@ class _GroupTherapyState extends State<GroupTherapy> {
                         },
                       ),
 
-                      // ElevatedButton(
-                      //   onPressed: _submitForm,
-                      //   // () {
-                      //   // showDialog(
-                      //   //   context: context,
-                      //   //   builder: (context) {
-                      //   //     return AlertDialog(
-                      //   //       title: Text("registered".tr()),
-                      //   //       content: Text("groupNote".tr()),
-                      //   //       actions: [
-                      //   //         TextButton(
-                      //   //           onPressed: () {
-                      //   //             Navigator.of(context)
-                      //   //                 .pop(); // Close the dialog
-                      //   //           },
-                      //   //           child: Text('ok'.tr()),
-                      //   //         ),
-                      //   //       ],
-                      //   //     );
-                      //   //   },
-                      //   // ).then((_) {
-                      //   //   // This code will run after the dialog is closed
-                      //
-                      //   //   Navigator.push(context, MaterialPageRoute(builder: (context)=> const HomeScreen()));
-                      //   // }
-                      //   // );
-                      //   // },
-                      //   style: ElevatedButton.styleFrom(
-                      //       minimumSize: const Size(350, 50),
-                      //       backgroundColor: const Color(0xFF19649E),
-                      //       shape: RoundedRectangleBorder(
-                      //           borderRadius: BorderRadius.circular(10))),
-                      //   child: Text(
-                      //     "approve".tr(),
-                      //     style: TextStyle(
-                      //         fontSize: 20.sp,
-                      //         fontWeight: FontWeight.bold,
-                      //         color: Colors.white),
-                      //   ),
-                      // ),
 
                       SizedBox(height: screenHeight * 0.05.h),
                     ]),

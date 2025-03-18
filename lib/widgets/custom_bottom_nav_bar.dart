@@ -132,7 +132,6 @@ class CustomBottomNavBar extends StatelessWidget {
                   builder: (context) => MultiBlocProvider(
                     providers: [
                       BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
-                      BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
                       BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                       BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
                       BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
