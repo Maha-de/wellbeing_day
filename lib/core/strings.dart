@@ -34,7 +34,7 @@ const Map<String, String> arabicSpecLikeInBackEnd = {
   'Rehabilitation and Support': 'اعادة تأهيل ودعم',
   'Psychological Prevention And Follow-Up': 'وقاية ومتابعة نفسية',
   'Children\'s Disorder': 'اضطرابات الأطفال',
-  'Solve Problems': 'حل مشكلات',
+  'Diagnose and motivate': 'تشخيص وتحفيز',
   'Guidance and Instructions': 'إرشاد وتوجيه',
   'Psychological Disorders': 'اضطرابات نفسية',
   'Group Therapy': 'علاج جماعي',

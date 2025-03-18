@@ -18,6 +18,7 @@ import '../../models/Doctor_id_model.dart';
 import '../../widgets/beneficiary_card_home.dart';
 import '../../widgets/custom_app_bar_specialist.dart';
 import '../../widgets/custom_bottom_nav_bar_specialist.dart';
+import '../cubit/available_slots_cubit.dart';
 
 
 
@@ -29,6 +30,9 @@ class SpecialistHomeScreen extends StatefulWidget {
 }
 
 class _SpecialistHomeScreenState extends State<SpecialistHomeScreen> {
+
+  final availableSlotsCubit = AvailableSlotsCubit();
+  final availableLanguageCubit = AvailableLanguageCubit();
 
   int selectedIndex = 0;
 int listLength=0;
@@ -335,6 +339,10 @@ int listLength=0;
                             BlocProvider<AddImageToProfileCubit>(create: (_) => AddImageToProfileCubit()),
                             BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                             BlocProvider<DoctorSessionTypesCubit>(create: (_) => DoctorSessionTypesCubit()),
+                            BlocProvider<GetAllAdsCubit>(
+                                create: (_) => GetAllAdsCubit()),
+                            BlocProvider.value(value: availableSlotsCubit),
+                            BlocProvider.value(value: availableLanguageCubit),
                           ],
                           child: const SpecialistWorkHoursScreen(),
                         ),
