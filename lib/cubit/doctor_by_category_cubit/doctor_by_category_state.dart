@@ -17,7 +17,7 @@ class DoctorByCategoryLoading extends DoctorByCategoryState {}
 // Success state
 class DoctorByCategorySuccess extends DoctorByCategoryState {
   final String message;
-  final List<Specialists> specialists;
+  final List<Specialist> specialists;
 
   DoctorByCategorySuccess(this.message, this.specialists);
 
