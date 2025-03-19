@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../cubit/get_all_ads/get_all_ads_cubit.dart';
 import '../cubit/get_specialist/get_sepcialist_cubit.dart';
 import '../cubit/get_specialist/get_specialist_state.dart';
 import '../cubit/get_sub_categories_cubit/get_sub_categories_cubit.dart';
@@ -212,6 +213,8 @@ class _FirstHomePageState extends State<FirstHomePage> {
                                   create: (_) => UpdateUserCubit()),
                               BlocProvider<SubCategoriesCubit>(
                                   create: (_) => SubCategoriesCubit()),
+                              BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
+
                             ],
                             child: const HomeScreen(),
                           ),

@@ -94,7 +94,8 @@ class _AnxietyScreenState extends State<AnxietyScreen> {
                 body: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10, right: 10),
-                    child: BlocBuilder<GetTreatmentProgramCubit,
+                    child:
+                    BlocBuilder<GetTreatmentProgramCubit,
                         GetTreatmentProgramState>(
                       builder: (context, state) {
                         if (state is GetTreatmentProgramLoading) {
