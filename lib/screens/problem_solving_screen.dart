@@ -28,9 +28,11 @@ import 'homescreen.dart';
 
 class ProblemSolvingScreen extends StatefulWidget {
   final String category;
-  final String category1;
+  // final String category1;
   final String subCategory;
-  const ProblemSolvingScreen({super.key, required this.category, required this.subCategory, required this.category1});
+  const ProblemSolvingScreen({super.key, required this.category, required this.subCategory,
+    // required this.category1
+  });
 
   @override
   State<ProblemSolvingScreen> createState() => _ProblemSolvingScreenState();
