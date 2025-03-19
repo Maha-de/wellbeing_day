@@ -9,12 +9,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../models/Doctor_id_model.dart';
-import '../models/doctor_by_category_model.dart';
+import '../models/doctor_by_category_model.dart' as c;
 import '../models/specialist_model.dart' as s;
 
 class DoctorCard extends StatelessWidget {
   final s.Specialists? specialistModel;
-  final Specialists? specialists;
+  final c.Specialist? specialists;
   final String doctorID;
   final Specialist? sessionDoctor;
   final String? id;

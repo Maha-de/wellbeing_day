@@ -52,7 +52,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
   late UserProfileCubit userProfileCubit;
   late DoctorByCategoryCubit doctorByCategoryCubit;
   late SubCategoriesCubit subCategoriesCubit;
-  List<String> sub=[];
+
   @override
   void initState() {
     super.initState();
@@ -70,12 +70,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
     userProfileCubit.getUserProfile(context, id);
 
     subCategoriesCubit.fetchSubCategories(context,widget.category);
-    List<String> subs1 = subCategoriesCubit.model
-        ?.firstWhere((sub) =>
-    sub.name == widget.subCategory)
-        .subcategory ??
-        [];
-    sub=subs1;
+
     Map<String, String> subCategoryMapping = {
       "Psychological Disorders": "اضطرابات نفسية",
       "Personality Disorder": "اضطراب شخصي",
@@ -344,7 +339,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                               );
                             } else {
                               return Center(
-                                  child: Text('noSpecialistsFound'.tr()));
+                                  child: Text(''));
                             }
                           },
                         ),
@@ -368,7 +363,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                               );
                             } else {
                               return Center(
-                                  child: Text('noSpecialistsFound'.tr()));
+                                  child: Text(''));
                             }
                           },
                         ),
@@ -543,7 +538,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
 
                       ,
                       SizedBox(
-                        height: 30.h,
+                        height: 20.h,
                       ),
                       Center(
                         child: Container(
@@ -651,7 +646,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                               );
                             } else {
                               return Center(
-                                  child: Text('noSpecialistsFound'.tr()));
+                                  child: Text(''));
                             }
                           },
                         ),
@@ -675,7 +670,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                               );
                             } else {
                               return Center(
-                                  child: Text('noSpecialistsFound'.tr()));
+                                  child: Text(''));
                             }
                           },
                         ),

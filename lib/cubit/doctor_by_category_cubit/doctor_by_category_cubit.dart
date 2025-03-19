@@ -16,7 +16,7 @@ class DoctorByCategoryCubit extends Cubit<DoctorByCategoryState> {
 
 
 
-  List<Specialists> specialists = [];
+  List<Specialist> specialists = [];
 
 
 

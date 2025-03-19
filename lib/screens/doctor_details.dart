@@ -14,12 +14,12 @@ import '../cubit/doctor_details_cubit/doctor_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
 import '../make_email/login.dart';
-import '../models/doctor_by_category_model.dart';
+import '../models/doctor_by_category_model.dart'as c;
 import '../widgets/doctor_details_info.dart';
 import 'appointment_screen.dart';
 
 class DoctorDetails extends StatefulWidget {
-  final Specialists? specialists;
+  final c.Specialist? specialists;
   final String doctorID;
   CategoryInfo? categoryInfo;
   SessionType? sessionType;
