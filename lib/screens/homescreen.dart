@@ -45,9 +45,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late SubCategoriesCubit subCategoriesCubit;
   final programCubit = ProgramCubit();
 
-  late SubCategoriesCubit subCategoriesCubit;
   List<String> categories = [
     "mentalHealth".tr(),
     "physicalHealth".tr(),
@@ -132,9 +132,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     backgroundColor: const Color(
                         0xff19649E), // Ensures the background is consistent
                     selectedItemColor:
-                    Colors.white, // Sets the color of the selected icons
+                        Colors.white, // Sets the color of the selected icons
                     unselectedItemColor:
-                    Colors.black, // Sets the color of unselected icons
+                        Colors.black, // Sets the color of unselected icons
                     showSelectedLabels: false, // Hides selected labels
                     showUnselectedLabels: false, // Hides unselected labels
                     currentIndex: currentIndex, // Default selected index
@@ -155,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Image.asset(
                             "assets/images/meteor-icons_home.png",
                             color:
-                            currentIndex == 0 ? Colors.white : Colors.black,
+                                currentIndex == 0 ? Colors.white : Colors.black,
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -264,16 +264,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               MaterialPageRoute(
                                 builder: (context) => MultiBlocProvider(
                                   providers: [
-                                    BlocProvider<UserProfileCubit>(
-                                        create: (_) => UserProfileCubit()),
-                                    BlocProvider<SubCategoriesCubit>(
-                                        create: (_) => SubCategoriesCubit()),
-                                    BlocProvider<UpdateUserCubit>(
-                                        create: (_) => UpdateUserCubit()),
-                                    BlocProvider<SubCategoriesCubit>(
-                                        create: (_) => SubCategoriesCubit()),
-                                    BlocProvider<GetAllAdsCubit>(
-                                        create: (_) => GetAllAdsCubit()),
+                                    BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                    BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                    BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
+                                    BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
                                   ],
                                   child: const HomeScreen(),
                                 ),
@@ -284,7 +278,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                  const ApplicationInfo()));
+                                      const ApplicationInfo()));
 
                           break;
 
@@ -346,25 +340,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                     context,
                                     PageRouteBuilder(
                                       pageBuilder: (context, animation,
-                                          secondaryAnimation) =>
+                                              secondaryAnimation) =>
                                           MultiBlocProvider(
-                                            providers: [
-                                              BlocProvider(
-                                                  create: (_) =>
-                                                      UserProfileCubit()),
-                                              BlocProvider(
-                                                  create: (_) =>
-                                                      DoctorByCategoryCubit()),
-                                              BlocProvider(
-                                                  create: (_) =>
-                                                      SubCategoriesCubit()),
-                                              BlocProvider(
-                                                  create: (_) => GetAllAdsCubit()),
-                                            ],
-                                            child: page,
-                                          ),
+                                        providers: [
+                                          BlocProvider(
+                                              create: (_) =>
+                                                  UserProfileCubit()),
+                                          BlocProvider(
+                                              create: (_) =>
+                                                  DoctorByCategoryCubit()),
+                                          BlocProvider(
+                                              create: (_) =>
+                                                  SubCategoriesCubit()),
+                                          BlocProvider(
+                                              create: (_) => GetAllAdsCubit()),
+                                        ],
+                                        child: page,
+                                      ),
                                       transitionDuration:
-                                      const Duration(milliseconds: 1),
+                                          const Duration(milliseconds: 1),
                                     ),
                                   );
                                 }
@@ -375,10 +369,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 decoration: BoxDecoration(
                                   color: index == categories.length - 1
                                       ? const Color(
-                                      0xffAFDCFF) // Always blue for the last item
+                                          0xffAFDCFF) // Always blue for the last item
                                       : (selectedIndex == index
-                                      ? const Color(0xff19649E)
-                                      : const Color(0xffD5D5D5)),
+                                          ? const Color(0xff19649E)
+                                          : const Color(0xffD5D5D5)),
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: Center(
@@ -525,6 +519,113 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       ),
+                      // SizedBox(height: 15.h),
+                      // Center(
+                      //   child: SizedBox(
+                      //     width: 338.w,
+                      //     height: 252.h,
+                      //     child: BlocBuilder<SubCategoriesCubit,
+                      //         SubCategoriesState>(
+                      //       builder: (context, state) {
+                      //         if (state is SubCategoriesLoading) {
+                      //           return CircularProgressIndicator(); // Show loading indicator
+                      //         } else if (state is SubCategoriesFailure) {
+                      //           return Text(
+                      //               state.errMessage); // Display error message
+                      //         } else if (state is SubCategoriesSuccess) {
+                      //           return GridView.builder(
+                      //             gridDelegate:
+                      //                 SliverGridDelegateWithFixedCrossAxisCount(
+                      //               crossAxisCount: 3, // 3 items per row
+                      //               crossAxisSpacing:
+                      //                   8, // spacing between columns
+                      //               mainAxisSpacing: 8, // spacing between rows
+                      //               childAspectRatio:
+                      //                   1.5, // aspect ratio of the grid items
+                      //             ),
+                      //             itemCount: subCategoriesCubit.categories
+                      //                 .length, // total number of items
+                      //             itemBuilder: (context, index) {
+                      //               return GestureDetector(
+                      //                 onTap: () {
+                      //                   Navigator.push(
+                      //                     context,
+                      //                     MaterialPageRoute(
+                      //                       builder: (context) =>
+                      //                           MultiBlocProvider(
+                      //                         providers: [
+                      //                           BlocProvider<UserProfileCubit>(
+                      //                               create: (_) =>
+                      //                                   UserProfileCubit()),
+                      //                           BlocProvider<
+                      //                                   AddImageToProfileCubit>(
+                      //                               create: (_) =>
+                      //                                   AddImageToProfileCubit()),
+                      //                           BlocProvider<UpdateUserCubit>(
+                      //                               create: (_) =>
+                      //                                   UpdateUserCubit()),
+                      //                           BlocProvider<
+                      //                                   DoctorByCategoryCubit>(
+                      //                               create: (_) =>
+                      //                                   DoctorByCategoryCubit()),
+                      //                           BlocProvider<
+                      //                                   SubCategoriesCubit>(
+                      //                               create: (_) =>
+                      //                                   SubCategoriesCubit()),
+                      //                         ],
+                      //                         child: SubCategoryScreen(
+                      //                           category: 'mentalHealth',
+                      //                           subCategory: subCategoriesCubit
+                      //                                   .categories[index] ??
+                      //                               "",
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                   );
+                      //                 },
+                      //                 child: Container(
+                      //                   width: 100.w,
+                      //                   height: 68.h,
+                      //                   decoration: BoxDecoration(
+                      //                     borderRadius:
+                      //                         BorderRadius.circular(20),
+                      //                     color: const Color(0xff69B7F3),
+                      //                     boxShadow: [
+                      //                       BoxShadow(
+                      //                         color:
+                      //                             Colors.black.withOpacity(0.2),
+                      //                         spreadRadius: 2,
+                      //                         blurRadius: 4,
+                      //                         offset: const Offset(0, 2),
+                      //                       ),
+                      //                     ],
+                      //                   ),
+                      //                   child: Center(
+                      //                     child: Text(
+                      //                       subCategoriesCubit
+                      //                               .categories[index] ??
+                      //                           "",
+                      //                       textAlign: TextAlign.center,
+                      //                       style: TextStyle(
+                      //                         fontSize: 16.sp,
+                      //                         color: Colors.white,
+                      //                         fontWeight: FontWeight.bold,
+                      //                       ),
+                      //                     ),
+                      //                   ),
+                      //                 ),
+                      //               );
+                      //             },
+                      //           );
+                      //         } else {
+                      //           return Center(
+                      //               child: Text('noSpecialistsFound'.tr()));
+                      //         }
+                      //       },
+                      //     ),
+                      //   ),
+                      // )
+
                       SizedBox(height: 15.h),
                       Center(
                         child: SizedBox(
@@ -542,59 +643,163 @@ class _HomeScreenState extends State<HomeScreen> {
                                 return GridView.builder(
                                   gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3, // 3 items per row
-                                    crossAxisSpacing:
-                                    8, // spacing between columns
-                                    mainAxisSpacing: 8, // spacing between rows
-                                    childAspectRatio:
-                                    1.5, // aspect ratio of the grid items
+                                    crossAxisCount: 3, // 3 عناصر في كل صف
+                                    crossAxisSpacing: 8,
+                                    mainAxisSpacing: 8,
+                                    childAspectRatio: 1.4,
                                   ),
-                                  itemCount: subCategoriesCubit.categories
-                                      .length, // total number of items
+                                  itemCount:
+                                  subCategoriesCubit.categories.length,
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
                                       onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                MultiBlocProvider(
-                                                  providers: [
-                                                    BlocProvider<UserProfileCubit>(
-                                                        create: (_) =>
-                                                            UserProfileCubit()),
-                                                    BlocProvider<
-                                                        AddImageToProfileCubit>(
-                                                        create: (_) =>
-                                                            AddImageToProfileCubit()),
-                                                    BlocProvider<UpdateUserCubit>(
-                                                        create: (_) =>
-                                                            UpdateUserCubit()),
-                                                    BlocProvider<
-                                                        DoctorByCategoryCubit>(
-                                                        create: (_) =>
-                                                            DoctorByCategoryCubit()),
-                                                    BlocProvider<
-                                                        SubCategoriesCubit>(
-                                                        create: (_) =>
-                                                            SubCategoriesCubit()),
-                                                  ],
-                                                  child: SubCategoryScreen(
-                                                    category: 'mentalHealth',
-                                                    subCategory: subCategoriesCubit
-                                                        .categories[index] ??
-                                                        "",
+                                        if (subCategoriesCubit
+                                            .categories[index] ==
+                                            "Group Therapy" ||
+                                            subCategoriesCubit
+                                                .categories[index] ==
+                                                "علاج جماعي") {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  MultiBlocProvider(
+                                                    providers: [
+                                                      BlocProvider<
+                                                          UserProfileCubit>(
+                                                          create: (_) =>
+                                                              UserProfileCubit()),
+                                                      BlocProvider<
+                                                          AddImageToProfileCubit>(
+                                                          create: (_) =>
+                                                              AddImageToProfileCubit()),
+                                                      BlocProvider<UpdateUserCubit>(
+                                                          create: (_) =>
+                                                              UpdateUserCubit()),
+                                                      BlocProvider<
+                                                          DoctorByCategoryCubit>(
+                                                          create: (_) =>
+                                                              DoctorByCategoryCubit()),
+                                                      BlocProvider<
+                                                          SubCategoriesCubit>(
+                                                          create: (_) =>
+                                                              SubCategoriesCubit()),
+                                                      BlocProvider<
+                                                          CreateSessionCubit>(
+                                                          create: (_) =>
+                                                              CreateSessionCubit()),
+                                                      BlocProvider<
+                                                          GetTreatmentProgramCubit>(
+                                                          create: (_) =>
+                                                              GetTreatmentProgramCubit()),
+                                                    ],
+                                                    child: GroupTherapy(),
                                                   ),
-                                                ),
-                                          ),
-                                        );
+                                            ),
+                                          );
+                                        } else if (subCategoriesCubit
+                                            .categories[index] ==
+                                            "Diagnose and motivate" ||
+                                            subCategoriesCubit
+                                                .categories[index] ==
+                                                "تشخيص وتحفيز") {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  MultiBlocProvider(
+                                                    providers: [
+                                                      BlocProvider<
+                                                          UserProfileCubit>(
+                                                          create: (_) =>
+                                                              UserProfileCubit()),
+                                                      BlocProvider<
+                                                          AddImageToProfileCubit>(
+                                                          create: (_) =>
+                                                              AddImageToProfileCubit()),
+                                                      BlocProvider<UpdateUserCubit>(
+                                                          create: (_) =>
+                                                              UpdateUserCubit()),
+                                                      BlocProvider<
+                                                          DoctorByCategoryCubit>(
+                                                          create: (_) =>
+                                                              DoctorByCategoryCubit()),
+                                                      BlocProvider<
+                                                          SubCategoriesCubit>(
+                                                          create: (_) =>
+                                                              SubCategoriesCubit()),
+                                                      BlocProvider<
+                                                          CreateSessionCubit>(
+                                                          create: (_) =>
+                                                              CreateSessionCubit()),
+                                                      BlocProvider<
+                                                          GetTreatmentProgramCubit>(
+                                                          create: (_) =>
+                                                              GetTreatmentProgramCubit()),
+                                                      BlocProvider.value(
+                                                          value: programCubit),
+                                                    ],
+                                                    child: ProblemSolvingScreen(
+                                                      category: 'mentalHealth',
+                                                      subCategory: 'تشخيص وتحفيز',
+                                                    ),
+                                                  ),
+                                            ),
+                                          );
+                                        } else {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  MultiBlocProvider(
+                                                    providers: [
+                                                      BlocProvider<
+                                                          UserProfileCubit>(
+                                                          create: (_) =>
+                                                              UserProfileCubit()),
+                                                      BlocProvider<
+                                                          AddImageToProfileCubit>(
+                                                          create: (_) =>
+                                                              AddImageToProfileCubit()),
+                                                      BlocProvider<UpdateUserCubit>(
+                                                          create: (_) =>
+                                                              UpdateUserCubit()),
+                                                      BlocProvider<
+                                                          DoctorByCategoryCubit>(
+                                                          create: (_) =>
+                                                              DoctorByCategoryCubit()),
+                                                      BlocProvider<
+                                                          SubCategoriesCubit>(
+                                                          create: (_) =>
+                                                              SubCategoriesCubit()),
+                                                    ],
+                                                    child: SubCategoryScreen(
+                                                      category: 'mentalHealth',
+                                                      subCategory:
+                                                      subCategoriesCubit
+                                                          .categories[
+                                                      index] ??
+                                                          "",
+                                                    ),
+                                                  ),
+                                            ),
+                                          );
+                                        }
                                       },
                                       child: Container(
-                                        width: 100.w,
-                                        height: 68.h,
                                         decoration: BoxDecoration(
                                           borderRadius:
                                           BorderRadius.circular(20),
+                                          border: subCategoriesCubit
+                                              .categories[index] ==
+                                              "Diagnose and motivate" ||
+                                              subCategoriesCubit
+                                                  .categories[index] ==
+                                                  "تشخيص وتحفيز"
+                                              ? Border.all(
+                                              color: Color(0xff19649E),
+                                              width: 3.5)
+                                              : null,
                                           color: const Color(0xff69B7F3),
                                           boxShadow: [
                                             BoxShadow(
@@ -613,7 +818,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 "",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                              fontSize: 16.sp,
+                                              fontSize: 16,
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold,
                                             ),
@@ -631,6 +836,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       )
+
+
                       // Column(
                       //   crossAxisAlignment: CrossAxisAlignment.center,
                       //   children: [
@@ -977,25 +1184,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                     context,
                                     PageRouteBuilder(
                                       pageBuilder: (context, animation,
-                                          secondaryAnimation) =>
+                                              secondaryAnimation) =>
                                           MultiBlocProvider(
-                                            providers: [
-                                              BlocProvider(
-                                                  create: (_) =>
-                                                      UserProfileCubit()),
-                                              BlocProvider(
-                                                  create: (_) =>
-                                                      DoctorByCategoryCubit()),
-                                              BlocProvider(
-                                                  create: (_) =>
-                                                      SubCategoriesCubit()),
-                                              BlocProvider(
-                                                  create: (_) => GetAllAdsCubit()),
-                                            ],
-                                            child: page,
-                                          ),
+                                        providers: [
+                                          BlocProvider(
+                                              create: (_) =>
+                                                  UserProfileCubit()),
+                                          BlocProvider(
+                                              create: (_) =>
+                                                  DoctorByCategoryCubit()),
+                                          BlocProvider(
+                                              create: (_) =>
+                                                  SubCategoriesCubit()),
+                                          BlocProvider(
+                                              create: (_) => GetAllAdsCubit()),
+                                        ],
+                                        child: page,
+                                      ),
                                       transitionDuration:
-                                      const Duration(milliseconds: 1),
+                                          const Duration(milliseconds: 1),
                                     ),
                                   );
                                 }
@@ -1006,10 +1213,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 decoration: BoxDecoration(
                                   color: index == categories.length - 1
                                       ? const Color(
-                                      0xffAFDCFF) // Always blue for the last item
+                                          0xffAFDCFF) // Always blue for the last item
                                       : (selectedIndex == index
-                                      ? const Color(0xff19649E)
-                                      : const Color(0xffD5D5D5)),
+                                          ? const Color(0xff19649E)
+                                          : const Color(0xffD5D5D5)),
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: Center(
@@ -1172,55 +1379,108 @@ class _HomeScreenState extends State<HomeScreen> {
                               } else if (state is SubCategoriesSuccess) {
                                 return GridView.builder(
                                   gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 3, // 3 عناصر في كل صف
                                     crossAxisSpacing: 8,
                                     mainAxisSpacing: 8,
                                     childAspectRatio: 1.4,
                                   ),
                                   itemCount:
-                                  subCategoriesCubit.categories.length,
+                                      subCategoriesCubit.categories.length,
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
                                       onTap: () {
                                         if (subCategoriesCubit
-                                            .categories[index] ==
-                                            "Group Therapy" ||
+                                                    .categories[index] ==
+                                                "Group Therapy" ||
                                             subCategoriesCubit
-                                                .categories[index] ==
+                                                    .categories[index] ==
                                                 "علاج جماعي") {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   MultiBlocProvider(
-                                                    providers: [
-                                                      BlocProvider<
+                                                providers: [
+                                                  BlocProvider<
                                                           UserProfileCubit>(
-                                                          create: (_) =>
-                                                              UserProfileCubit()),
-                                                      BlocProvider<
+                                                      create: (_) =>
+                                                          UserProfileCubit()),
+                                                  BlocProvider<
                                                           AddImageToProfileCubit>(
-                                                          create: (_) =>
-                                                              AddImageToProfileCubit()),
-                                                      BlocProvider<UpdateUserCubit>(
-                                                          create: (_) =>
-                                                              UpdateUserCubit()),
-                                                      BlocProvider<
+                                                      create: (_) =>
+                                                          AddImageToProfileCubit()),
+                                                  BlocProvider<UpdateUserCubit>(
+                                                      create: (_) =>
+                                                          UpdateUserCubit()),
+                                                  BlocProvider<
                                                           DoctorByCategoryCubit>(
-                                                          create: (_) =>
-                                                              DoctorByCategoryCubit()),
-                                                      BlocProvider<
+                                                      create: (_) =>
+                                                          DoctorByCategoryCubit()),
+                                                  BlocProvider<
                                                           SubCategoriesCubit>(
-                                                          create: (_) =>
-                                                              SubCategoriesCubit()),
-                                                      BlocProvider<CreateSessionCubit>(
-                                                          create: (_) => CreateSessionCubit()),
-                                                      BlocProvider<GetTreatmentProgramCubit>(
-                                                          create: (_) => GetTreatmentProgramCubit()),
-                                                    ],
-                                                    child: GroupTherapy(),
-                                                  ),
+                                                      create: (_) =>
+                                                          SubCategoriesCubit()),
+                                                  BlocProvider<
+                                                          CreateSessionCubit>(
+                                                      create: (_) =>
+                                                          CreateSessionCubit()),
+                                                  BlocProvider<
+                                                          GetTreatmentProgramCubit>(
+                                                      create: (_) =>
+                                                          GetTreatmentProgramCubit()),
+                                                ],
+                                                child: GroupTherapy(),
+                                              ),
+                                            ),
+                                          );
+                                        } else if (subCategoriesCubit
+                                                    .categories[index] ==
+                                                "Diagnose and motivate" ||
+                                            subCategoriesCubit
+                                                    .categories[index] ==
+                                                "تشخيص وتحفيز") {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  MultiBlocProvider(
+                                                providers: [
+                                                  BlocProvider<
+                                                          UserProfileCubit>(
+                                                      create: (_) =>
+                                                          UserProfileCubit()),
+                                                  BlocProvider<
+                                                          AddImageToProfileCubit>(
+                                                      create: (_) =>
+                                                          AddImageToProfileCubit()),
+                                                  BlocProvider<UpdateUserCubit>(
+                                                      create: (_) =>
+                                                          UpdateUserCubit()),
+                                                  BlocProvider<
+                                                          DoctorByCategoryCubit>(
+                                                      create: (_) =>
+                                                          DoctorByCategoryCubit()),
+                                                  BlocProvider<
+                                                          SubCategoriesCubit>(
+                                                      create: (_) =>
+                                                          SubCategoriesCubit()),
+                                                  BlocProvider<
+                                                          CreateSessionCubit>(
+                                                      create: (_) =>
+                                                          CreateSessionCubit()),
+                                                  BlocProvider<
+                                                          GetTreatmentProgramCubit>(
+                                                      create: (_) =>
+                                                          GetTreatmentProgramCubit()),
+                                                  BlocProvider.value(
+                                                      value: programCubit),
+                                                ],
+                                                child: ProblemSolvingScreen(
+                                                  category: 'mentalHealth',
+                                                  subCategory: 'تشخيص وتحفيز',
+                                                ),
+                                              ),
                                             ),
                                           );
                                         } else {
@@ -1229,41 +1489,36 @@ class _HomeScreenState extends State<HomeScreen> {
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   MultiBlocProvider(
-                                                    providers: [
-                                                      BlocProvider<
+                                                providers: [
+                                                  BlocProvider<
                                                           UserProfileCubit>(
-                                                          create: (_) =>
-                                                              UserProfileCubit()),
-                                                      BlocProvider<
+                                                      create: (_) =>
+                                                          UserProfileCubit()),
+                                                  BlocProvider<
                                                           AddImageToProfileCubit>(
-                                                          create: (_) =>
-                                                              AddImageToProfileCubit()),
-                                                      BlocProvider<UpdateUserCubit>(
-                                                          create: (_) =>
-                                                              UpdateUserCubit()),
-                                                      BlocProvider<
+                                                      create: (_) =>
+                                                          AddImageToProfileCubit()),
+                                                  BlocProvider<UpdateUserCubit>(
+                                                      create: (_) =>
+                                                          UpdateUserCubit()),
+                                                  BlocProvider<
                                                           DoctorByCategoryCubit>(
-                                                          create: (_) =>
-                                                              DoctorByCategoryCubit()),
-                                                      BlocProvider<
+                                                      create: (_) =>
+                                                          DoctorByCategoryCubit()),
+                                                  BlocProvider<
                                                           SubCategoriesCubit>(
-                                                          create: (_) =>
-                                                              SubCategoriesCubit()),
-                                                      BlocProvider<GetTreatmentProgramCubit>(
-                                                          create: (_) => GetTreatmentProgramCubit()),
-                                                      BlocProvider.value(value: programCubit),
-
-                                                    ],
-                                                    child: ProblemSolvingScreen(
-                                                      category: 'mentalHealth',
-                                                      subCategory:
+                                                      create: (_) =>
+                                                          SubCategoriesCubit()),
+                                                ],
+                                                child: SubCategoryScreen(
+                                                  category: 'mentalHealth',
+                                                  subCategory:
                                                       subCategoriesCubit
-                                                          .categories[
-                                                      index] ??
+                                                                  .categories[
+                                                              index] ??
                                                           "",
-                                                    ),
-
-                                                  ),
+                                                ),
+                                              ),
                                             ),
                                           );
                                         }
@@ -1271,22 +1526,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                       child: Container(
                                         decoration: BoxDecoration(
                                           borderRadius:
-                                          BorderRadius.circular(20),
+                                              BorderRadius.circular(20),
                                           border: subCategoriesCubit
-                                              .categories[index] ==
-                                              "Diagnose and motivate" ||
-                                              subCategoriesCubit
-                                                  .categories[index] ==
-                                                  "تشخيص وتحفيز"
+                                                          .categories[index] ==
+                                                      "Diagnose and motivate" ||
+                                                  subCategoriesCubit
+                                                          .categories[index] ==
+                                                      "تشخيص وتحفيز"
                                               ? Border.all(
-                                              color: Color(0xff19649E),
-                                              width: 3.5)
+                                                  color: Color(0xff19649E),
+                                                  width: 3.5)
                                               : null,
                                           color: const Color(0xff69B7F3),
                                           boxShadow: [
                                             BoxShadow(
                                               color:
-                                              Colors.black.withOpacity(0.2),
+                                                  Colors.black.withOpacity(0.2),
                                               spreadRadius: 2,
                                               blurRadius: 4,
                                               offset: const Offset(0, 2),
@@ -1296,7 +1551,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         child: Center(
                                           child: Text(
                                             subCategoriesCubit
-                                                .categories[index] ??
+                                                    .categories[index] ??
                                                 "",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
