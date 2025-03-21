@@ -9,12 +9,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../cubit/doctor_by_category_cubit/doctor_by_category_cubit.dart';
 import '../cubit/doctor_by_category_cubit/doctor_by_category_state.dart';
+import '../cubit/get_all_ads/get_all_ads_cubit.dart';
 import '../cubit/get_specialist/get_sepcialist_cubit.dart';
 import '../cubit/get_specialist/get_specialist_state.dart';
 import '../cubit/get_sub_categories_cubit/get_sub_categories_cubit.dart';
 import '../cubit/get_sub_categories_cubit/get_sub_categories_state.dart';
 import '../cubit/get_treatment_program_cubit/get_treatment_program_cubit.dart';
 import '../cubit/get_treatment_program_cubit/get_treatment_program_state.dart';
+import '../cubit/update_user_cubit/update_user_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_cubit.dart';
 import '../cubit/user_profile_cubit/user_profile_state.dart';
 import '../make_email/login.dart';
@@ -211,14 +213,18 @@ class _ProblemSolvingScreenState extends State<ProblemSolvingScreen> {
                     case 1:
 
                       Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => BlocProvider(
-                            create: (_) => UserProfileCubit(),
-                            child: const HomeScreen(),
-                          ),
-                        ),
-                      );
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MultiBlocProvider(
+                              providers: [
+                                BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
+                                BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
+                              ],
+                              child: const HomeScreen(),
+                            ),
+                          ));
                       break;
                     case 2:
 
