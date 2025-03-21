@@ -189,14 +189,18 @@ class _RehabilitationScreenState extends State<RehabilitationScreen> {
                     case 1:
 
                       Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => BlocProvider(
-                            create: (_) => UserProfileCubit(),
-                            child: const HomeScreen(),
-                          ),
-                        ),
-                      );
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MultiBlocProvider(
+                              providers: [
+                                BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
+                                BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
+                              ],
+                              child: const HomeScreen(),
+                            ),
+                          ));
                       break;
                     case 2:
 
@@ -206,8 +210,19 @@ class _RehabilitationScreenState extends State<RehabilitationScreen> {
 
                     case 0:
 
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstHomePage()));
-
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MultiBlocProvider(
+                              providers: [
+                                BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
+                                BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
+                              ],
+                              child: const FirstHomePage(),
+                            ),
+                          ));
                       break;
                   }
                 },

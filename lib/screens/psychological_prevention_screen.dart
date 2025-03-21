@@ -202,15 +202,20 @@ class _PsychologicalPreventionScreenState
                       );
                       break;
                     case 1:
+
                       Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => BlocProvider(
-                            create: (_) => UserProfileCubit(),
-                            child: const HomeScreen(),
-                          ),
-                        ),
-                      );
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MultiBlocProvider(
+                              providers: [
+                                BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
+                                BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
+                              ],
+                              child: const HomeScreen(),
+                            ),
+                          ));
                       break;
                     case 2:
                       Navigator.push(
@@ -221,10 +226,20 @@ class _PsychologicalPreventionScreenState
                       break;
 
                     case 0:
-                      Navigator.push(
+
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const FirstHomePage()));
+                            builder: (context) => MultiBlocProvider(
+                              providers: [
+                                BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
+                                BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
+                                BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
+                                BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
+                              ],
+                              child: const FirstHomePage(),
+                            ),
+                          ));
 
                       break;
                   }
