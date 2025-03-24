@@ -220,8 +220,7 @@ class _ProblemSolvingScreenState extends State<ProblemSolvingScreen> {
                                 BlocProvider<UserProfileCubit>(create: (_) => UserProfileCubit()),
                                 BlocProvider<UpdateUserCubit>(create: (_) => UpdateUserCubit()),
                                 BlocProvider<SubCategoriesCubit>(create: (_) => SubCategoriesCubit()),
-                                BlocProvider<
-                                    GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
+                                BlocProvider<GetAllAdsCubit>(create: (_) => GetAllAdsCubit()),
                               ],
                               child: const HomeScreen(),
                             ),

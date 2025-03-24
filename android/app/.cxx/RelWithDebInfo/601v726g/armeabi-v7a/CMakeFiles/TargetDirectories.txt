@@ -1,2 +1,0 @@
-D:/wellbeing_day/android/app/.cxx/RelWithDebInfo/601v726g/armeabi-v7a/CMakeFiles/edit_cache.dir
-D:/wellbeing_day/android/app/.cxx/RelWithDebInfo/601v726g/armeabi-v7a/CMakeFiles/rebuild_cache.dir
