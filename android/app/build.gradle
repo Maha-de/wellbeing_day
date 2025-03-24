@@ -1,5 +1,5 @@
 plugins {
-    id "com.android.application" version "8.1.0"  // Ensure compatibility with Gradle 8.x
+    id "com.android.application" version '8.8.0'  // Ensure compatibility with Gradle 8.x
     id "org.jetbrains.kotlin.android" version "1.8.22"  // Kotlin version aligned with Flutter
     id "dev.flutter.flutter-gradle-plugin"
 }
@@ -7,7 +7,7 @@ plugins {
 android {
     namespace = "com.example.doctorapp"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
